@@ -1,0 +1,15 @@
+{
+  "furnish.msg.too_big": "Too big to fit here!",
+
+  "block.furnish.furniture_workbench": "Furniture Workbench",
+  "container.furniture_workbench": "Furniture Making",
+
+  "block.furnish.oak_square_table": "Oak Square Table",
+  "block.furnish.oak_bedside_table": "Oak Bedside Table",
+  "block.furnish.oak_kitchen_cabinet": "Oak Drawers Kitchen Cabinet",
+  "block.furnish.oak_chair": "Oak Chair",
+  "block.furnish.oak_wardrobe": "Oak Wardrobe",
+  "block.furnish.book_pile": "Book Pile",
+
+  "furnish.furniture_inventory": "Furniture Inventory"
+}

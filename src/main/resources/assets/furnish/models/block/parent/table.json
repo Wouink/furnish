@@ -1,0 +1,84 @@
+{
+	"parent": "minecraft:block/block",
+	"credit": "Made with Blockbench",
+	"elements": [
+		{
+			"name": "top",
+			"from": [0, 15, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 1], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 1], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "leg",
+			"from": [1, 0, 1],
+			"to": [3, 15, 3],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"south": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#1"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#1"}
+			}
+		},
+		{
+			"name": "leg",
+			"from": [1, 0, 13],
+			"to": [3, 15, 15],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"south": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#1"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#1"}
+			}
+		},
+		{
+			"name": "leg",
+			"from": [13, 0, 1],
+			"to": [15, 15, 3],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"south": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#1"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#1"}
+			}
+		},
+		{
+			"name": "leg",
+			"from": [13, 0, 13],
+			"to": [15, 15, 15],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"east": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"south": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"west": {"uv": [0, 0, 2, 15], "texture": "#1"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#1"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#1"}
+			}
+		},
+		{
+			"name": "planks",
+			"from": [2, 12, 2],
+			"to": [14, 15, 14],
+			"faces": {
+				"north": {"uv": [0, 0, 12, 3], "texture": "#0"},
+				"east": {"uv": [0, 0, 12, 3], "texture": "#0"},
+				"south": {"uv": [0, 0, 12, 3], "texture": "#0"},
+				"west": {"uv": [0, 0, 12, 3], "texture": "#0"},
+				"up": {"uv": [0, 0, 12, 12], "texture": "#0"},
+				"down": {"uv": [0, 0, 12, 12], "texture": "#0"}
+			}
+		}
+	]
+}

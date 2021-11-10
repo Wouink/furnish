@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/wardrobe_top_right",
+  "textures": {
+    "0": "minecraft:block/stripped_oak_log",
+    "1": "minecraft:block/oak_log",
+    "2": "minecraft:block/cyan_terracotta",
+    "particle": "minecraft:block/stripped_oak_log"
+  }
+}
