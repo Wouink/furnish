@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/bedside_table",
+  "textures": {
+    "0": "minecraft:block/stripped_acacia_log",
+    "1": "minecraft:block/acacia_log",
+    "2": "minecraft:block/quartz_block_bottom",
+    "particle": "minecraft:block/stripped_acacia_log"
+  }
+}

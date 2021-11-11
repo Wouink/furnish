@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:block/parent/table",
+  "textures": {
+    "0": "minecraft:block/stripped_acacia_log",
+    "1": "minecraft:block/acacia_log",
+    "particle": "minecraft:block/stripped_acacia_log"
+  }
+}

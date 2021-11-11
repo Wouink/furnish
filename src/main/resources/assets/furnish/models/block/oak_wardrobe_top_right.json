@@ -3,7 +3,7 @@
   "textures": {
     "0": "minecraft:block/stripped_oak_log",
     "1": "minecraft:block/oak_log",
-    "2": "minecraft:block/cyan_terracotta",
+    "2": "minecraft:block/quartz_block_bottom",
     "particle": "minecraft:block/stripped_oak_log"
   }
 }
