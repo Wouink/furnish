@@ -1,7 +1,7 @@
 {
   "type": "furnish:furniture_making",
   "ingredient": {
-    "item": "minecraft:darkçoak_planks"
+    "item": "minecraft:dark_oak_planks"
   },
   "result": "farmersdelight:dark_oak_pantry",
   "count": 1,

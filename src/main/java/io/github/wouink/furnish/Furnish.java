@@ -25,6 +25,8 @@ public class Furnish {
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entities.");
 		FurnishManager.TileEntities.Furnish_Tile_Entities.register(bus);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Tile Entities.");
+		FurnishManager.Sounds.Furnish_Sounds.register(bus);
+		FurnishManager.Furnish_Logger.info("Registered Furnish Sounds.");
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);

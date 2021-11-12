@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,6 +12,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -49,6 +51,7 @@ public class WideInventoryFurniture extends WideFurniture implements ISidedInven
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
 		TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
 		if(tileEntity instanceof LargeFurnitureTileEntity) {
+			world.playSound(playerEntity, pos, FurnishManager.Sounds.Open_Furniture.get(), SoundCategory.BLOCKS, .8f, 1.0f);
 			if(world.isClientSide()) {
 				return ActionResultType.SUCCESS;
 			} else {

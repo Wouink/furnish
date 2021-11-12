@@ -2,6 +2,7 @@
   "furnish.msg.too_big": "Too big to fit here",
   "furnish.furniture_inventory": "Furniture Inventory",
   "furnish.furniture_making": "Furniture Making",
+  "subtitle.furnish.furniture_open": "Furniture Opens",
 
   "block.furnish.furniture_workbench": "Furniture Workbench",
   "container.furniture_workbench": "Furniture Making",

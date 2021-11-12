@@ -1,0 +1,9 @@
+{
+  "furniture.open": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.furniture_open",
+    "sounds": [
+      "furnish:block/furniture_open"
+    ]
+  }
+}

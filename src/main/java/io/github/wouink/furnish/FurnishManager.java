@@ -1,5 +1,6 @@
 package io.github.wouink.furnish;
 
+import com.google.common.collect.Lists;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
@@ -10,6 +11,7 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -21,6 +23,8 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -31,6 +35,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -103,6 +108,15 @@ public class FurnishManager {
 		}
 	}
 
+	public static class Sounds {
+		public static final DeferredRegister<SoundEvent> Furnish_Sounds = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Furnish.MODID);
+		public static final RegistryObject<SoundEvent> Open_Furniture = Furnish_Sounds.register("furniture.open", () -> register("furniture.open"));
+
+		public static SoundEvent register(String name) {
+			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));
+		}
+	}
+
 	@SubscribeEvent
 	public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 		IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
@@ -117,6 +131,7 @@ public class FurnishManager {
 		blockRegistry.register(Oak_Wardrobe);
 		blockRegistry.register(Oak_Stool);
 		blockRegistry.register(Oak_Chair);
+		Furnish_Logger.info("Registered Furnish Blocks.");
 	}
 
 	private static BlockItem getBlockItem(Block block) {
@@ -141,5 +156,6 @@ public class FurnishManager {
 		itemRegistry.register(getBlockItem(Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Stool, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Chair, ItemGroup.TAB_DECORATIONS));
+		Furnish_Logger.info("Registered Furnish Items.");
 	}
 }
