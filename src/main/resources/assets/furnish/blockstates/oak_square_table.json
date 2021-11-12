@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "furnish:block/oak_square_table" }
+        "": { "model": "furnish:block/oak/oak_square_table" }
     }
 }

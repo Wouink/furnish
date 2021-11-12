@@ -1,18 +1,18 @@
 {
     "variants": {
         "facing=north": {
-            "model": "furnish:block/oak_chair"
+            "model": "furnish:block/oak/oak_chair"
         },
         "facing=east": {
-            "model": "furnish:block/oak_chair",
+            "model": "furnish:block/oak/oak_chair",
             "y": 90
         },
         "facing=south": {
-            "model": "furnish:block/oak_chair",
+            "model": "furnish:block/oak/oak_chair",
             "y": 180
         },
         "facing=west": {
-            "model": "furnish:block/oak_chair",
+            "model": "furnish:block/oak/oak_chair",
             "y": 270
         }
     }

@@ -10,7 +10,6 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -40,68 +39,27 @@ public class FurnishManager {
 	public static final Logger Furnish_Logger = LogManager.getLogger();
 
 	public static final Block Furniture_Workbench = new FurnitureWorkbench();
-	public static final Block Book_Pile = new BookPile(AbstractBlock.Properties.of(Material.WOOL).strength(0.5f), "book_pile");
+	// public static final Block Book_Pile = new BookPile(AbstractBlock.Properties.of(Material.WOOL).strength(0.5f), "book_pile");
 
-	public static final Block Oak_Square_Table = new TableBlock(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_square_table");
+	public static final Block Oak_Table = new Table(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_table");
+	public static final Block Oak_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_square_table");
 	public static final Block Oak_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_bedside_table");
 	public static final Block Oak_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_kitchen_cabinet");
-	public static final Block Oak_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", ChairBlock.CHAIR_SHAPE);
+	public static final Block Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_cabinet");
 	public static final Block Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_wardrobe");
-
-	public static final Block Birch_Square_Table = new TableBlock(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_square_table");
-	public static final Block Birch_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_bedside_table");
-	public static final Block Birch_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_kitchen_cabinet");
-	public static final Block Birch_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_chair", ChairBlock.CHAIR_SHAPE);
-	public static final Block Birch_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_wardrobe");
-
-	public static final Block Spruce_Square_Table = new TableBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_square_table");
-	public static final Block Spruce_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_bedside_table");
-	public static final Block Spruce_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_kitchen_cabinet");
-	public static final Block Spruce_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_chair", ChairBlock.CHAIR_SHAPE);
-	public static final Block Spruce_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_wardrobe");
-
-	public static final Block Jungle_Square_Table = new TableBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_square_table");
-	public static final Block Jungle_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_bedside_table");
-	public static final Block Jungle_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_kitchen_cabinet");
-	public static final Block Jungle_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_chair", ChairBlock.CHAIR_SHAPE);
-	public static final Block Jungle_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_wardrobe");
-
-	public static final Block Acacia_Square_Table = new TableBlock(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_square_table");
-	public static final Block Acacia_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_bedside_table");
-	public static final Block Acacia_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_kitchen_cabinet");
-	public static final Block Acacia_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_chair", ChairBlock.CHAIR_SHAPE);
-	public static final Block Acacia_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_wardrobe");
-
-	public static final Block Dark_Oak_Square_Table = new TableBlock(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_square_table");
-	public static final Block Dark_Oak_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_bedside_table");
-	public static final Block Dark_Oak_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_kitchen_cabinet");
-	public static final Block Dark_Oak_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_chair", ChairBlock.CHAIR_SHAPE);
-	public static final Block Dark_Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_wardrobe");
+	public static final Block Oak_Stool = new ChairBlock(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", ChairBlock.BASE_SHAPE);
+	public static final Block Oak_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", ChairBlock.BASE_SHAPE);
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
 	public static Block[] FurnitureInvProvider = {
 			Oak_Bedside_Table,
 			Oak_Kitchen_Cabinet,
-			Birch_Bedside_Table,
-			Birch_Kitchen_Cabinet,
-			Spruce_Bedside_Table,
-			Spruce_Kitchen_Cabinet,
-			Jungle_Bedside_Table,
-			Jungle_Kitchen_Cabinet,
-			Acacia_Bedside_Table,
-			Acacia_Kitchen_Cabinet,
-			Dark_Oak_Bedside_Table,
-			Dark_Oak_Kitchen_Cabinet
+			Oak_Cabinet
 	};
 
 	public static Block[] FurnitureLargeInvProvider = {
 			Oak_Wardrobe,
-			Birch_Wardrobe,
-			Spruce_Wardrobe,
-			Jungle_Wardrobe,
-			Acacia_Wardrobe,
-			Dark_Oak_Wardrobe
 	};
 
 	public static class Serializer {
@@ -136,7 +94,7 @@ public class FurnishManager {
 	}
 
 	public static class TileEntities {
-		public static DeferredRegister<TileEntityType<?>> Furnish_Tile_Entities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Furnish.MODID);
+		public static final DeferredRegister<TileEntityType<?>> Furnish_Tile_Entities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Furnish.MODID);
 		public static final RegistryObject<TileEntityType<FurnitureTileEntity>> Furniture = register("furniture", FurnitureTileEntity::new, () -> FurnitureInvProvider);
 		public static final RegistryObject<TileEntityType<LargeFurnitureTileEntity>> Large_Furniture = register("large_furniture", LargeFurnitureTileEntity::new, () -> FurnitureLargeInvProvider);
 
@@ -149,43 +107,16 @@ public class FurnishManager {
 	public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 		IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
 		blockRegistry.register(Furniture_Workbench);
-		blockRegistry.register(Book_Pile);
+		// blockRegistry.register(Book_Pile);
 
+		blockRegistry.register(Oak_Table);
 		blockRegistry.register(Oak_Square_Table);
 		blockRegistry.register(Oak_Bedside_Table);
 		blockRegistry.register(Oak_Kitchen_Cabinet);
-		blockRegistry.register(Oak_Chair);
+		blockRegistry.register(Oak_Cabinet);
 		blockRegistry.register(Oak_Wardrobe);
-
-		blockRegistry.register(Birch_Square_Table);
-		blockRegistry.register(Birch_Bedside_Table);
-		blockRegistry.register(Birch_Kitchen_Cabinet);
-		blockRegistry.register(Birch_Chair);
-		blockRegistry.register(Birch_Wardrobe);
-
-		blockRegistry.register(Spruce_Square_Table);
-		blockRegistry.register(Spruce_Bedside_Table);
-		blockRegistry.register(Spruce_Kitchen_Cabinet);
-		blockRegistry.register(Spruce_Chair);
-		blockRegistry.register(Spruce_Wardrobe);
-
-		blockRegistry.register(Jungle_Square_Table);
-		blockRegistry.register(Jungle_Bedside_Table);
-		blockRegistry.register(Jungle_Kitchen_Cabinet);
-		blockRegistry.register(Jungle_Chair);
-		blockRegistry.register(Jungle_Wardrobe);
-
-		blockRegistry.register(Acacia_Square_Table);
-		blockRegistry.register(Acacia_Bedside_Table);
-		blockRegistry.register(Acacia_Kitchen_Cabinet);
-		blockRegistry.register(Acacia_Chair);
-		blockRegistry.register(Acacia_Wardrobe);
-
-		blockRegistry.register(Dark_Oak_Square_Table);
-		blockRegistry.register(Dark_Oak_Bedside_Table);
-		blockRegistry.register(Dark_Oak_Kitchen_Cabinet);
-		blockRegistry.register(Dark_Oak_Chair);
-		blockRegistry.register(Dark_Oak_Wardrobe);
+		blockRegistry.register(Oak_Stool);
+		blockRegistry.register(Oak_Chair);
 	}
 
 	private static BlockItem getBlockItem(Block block) {
@@ -200,42 +131,15 @@ public class FurnishManager {
 	public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
 		IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 		itemRegistry.register(getBlockItem(Furniture_Workbench, ItemGroup.TAB_DECORATIONS));
-		itemRegistry.register(getBlockItem(Book_Pile));
+		// itemRegistry.register(getBlockItem(Book_Pile));
 
-		itemRegistry.register(getBlockItem(Oak_Square_Table));
-		itemRegistry.register(getBlockItem(Oak_Bedside_Table));
-		itemRegistry.register(getBlockItem(Oak_Kitchen_Cabinet));
-		itemRegistry.register(getBlockItem(Oak_Chair));
-		itemRegistry.register(getBlockItem(Oak_Wardrobe));
-
-		itemRegistry.register(getBlockItem(Birch_Square_Table));
-		itemRegistry.register(getBlockItem(Birch_Bedside_Table));
-		itemRegistry.register(getBlockItem(Birch_Kitchen_Cabinet));
-		itemRegistry.register(getBlockItem(Birch_Chair));
-		itemRegistry.register(getBlockItem(Birch_Wardrobe));
-
-		itemRegistry.register(getBlockItem(Spruce_Square_Table));
-		itemRegistry.register(getBlockItem(Spruce_Bedside_Table));
-		itemRegistry.register(getBlockItem(Spruce_Kitchen_Cabinet));
-		itemRegistry.register(getBlockItem(Spruce_Chair));
-		itemRegistry.register(getBlockItem(Spruce_Wardrobe));
-
-		itemRegistry.register(getBlockItem(Jungle_Square_Table));
-		itemRegistry.register(getBlockItem(Jungle_Bedside_Table));
-		itemRegistry.register(getBlockItem(Jungle_Kitchen_Cabinet));
-		itemRegistry.register(getBlockItem(Jungle_Chair));
-		itemRegistry.register(getBlockItem(Jungle_Wardrobe));
-
-		itemRegistry.register(getBlockItem(Acacia_Square_Table));
-		itemRegistry.register(getBlockItem(Acacia_Bedside_Table));
-		itemRegistry.register(getBlockItem(Acacia_Kitchen_Cabinet));
-		itemRegistry.register(getBlockItem(Acacia_Chair));
-		itemRegistry.register(getBlockItem(Acacia_Wardrobe));
-
-		itemRegistry.register(getBlockItem(Dark_Oak_Square_Table));
-		itemRegistry.register(getBlockItem(Dark_Oak_Bedside_Table));
-		itemRegistry.register(getBlockItem(Dark_Oak_Kitchen_Cabinet));
-		itemRegistry.register(getBlockItem(Dark_Oak_Chair));
-		itemRegistry.register(getBlockItem(Dark_Oak_Wardrobe));
+		itemRegistry.register(getBlockItem(Oak_Table, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Square_Table, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Bedside_Table, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Kitchen_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Stool, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Chair, ItemGroup.TAB_DECORATIONS));
 	}
 }

@@ -16,8 +16,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class ChairBlock extends SimpleFurniture {
-	public static final VoxelShape CHAIR_SHAPE = Block.box(3.0d, 0.0d, 3.0d, 13.0d, 9.0d, 13.0d);
-	private static final VoxelShape SEAT_SHAPE = Block.box(3.0d, 10.0d, 10.0d, 13.0d, 16.0d, 13.0d);
+	public static final VoxelShape BASE_SHAPE = Block.box(3.0d, 0.0d, 3.0d, 13.0d, 9.0d, 13.0d);
 
 	private final VoxelShape myShape;
 	public ChairBlock(Properties p, String registryName, VoxelShape shape) {

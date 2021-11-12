@@ -1,18 +1,18 @@
 {
     "variants": {
         "facing=north": {
-            "model": "furnish:block/oak_kitchen_cabinet"
+            "model": "furnish:block/oak/oak_kitchen_cabinet"
         },
         "facing=east": {
-            "model": "furnish:block/oak_kitchen_cabinet",
+            "model": "furnish:block/oak/oak_kitchen_cabinet",
             "y": 90
         },
         "facing=south": {
-            "model": "furnish:block/oak_kitchen_cabinet",
+            "model": "furnish:block/oak/oak_kitchen_cabinet",
             "y": 180
         },
         "facing=west": {
-            "model": "furnish:block/oak_kitchen_cabinet",
+            "model": "furnish:block/oak/oak_kitchen_cabinet",
             "y": 270
         }
     }

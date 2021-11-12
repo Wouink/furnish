@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

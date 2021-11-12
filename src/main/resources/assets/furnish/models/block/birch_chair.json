@@ -1,8 +1,0 @@
-{
-  "parent": "furnish:block/parent/chair",
-  "textures": {
-    "0": "minecraft:block/birch_log",
-    "1": "minecraft:block/stripped_birch_log",
-    "particle": "minecraft:block/stripped_birch_log"
-  }
-}

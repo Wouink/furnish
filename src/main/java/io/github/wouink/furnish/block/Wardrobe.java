@@ -22,6 +22,7 @@ public class Wardrobe extends TallInventoryFurniture {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-		return super.getStateForPlacement(ctx).setValue(RIGHT, ctx.getPlayer().isCrouching());
+		BlockState state = super.getStateForPlacement(ctx);
+		return state != null ? state.setValue(RIGHT, ctx.getPlayer().isCrouching()) : null;
 	}
 }

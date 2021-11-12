@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/block",
 	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
 	"elements": [
 		{
 			"name": "body",

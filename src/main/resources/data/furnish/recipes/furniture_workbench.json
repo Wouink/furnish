@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"a s",
+	"ppp",
+	"lcl"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:iron_axe"
+    },
+	"s": {
+	  "item": "minecraft:shears"
+	},
+    "p": {
+      "tag": "minecraft:planks"
+    },
+    "l": {
+      "tag": "minecraft:logs"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+	"item": "furnish:furniture_workbench",
+	"count": 1
+  }
+}

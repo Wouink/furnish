@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/oak/oak_stool"
+        },
+        "facing=east": {
+            "model": "furnish:block/oak/oak_stool",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/oak/oak_stool",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/oak/oak_stool",
+            "y": 270
+        }
+    }
+}
