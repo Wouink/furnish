@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class TallFurniture extends HorizontalBlock {
 	public static final BooleanProperty TOP = BooleanProperty.create("top");
 	public TallFurniture(Properties p, String registryName) {
-		super(p);
+		super(p.noOcclusion());
 		setRegistryName(registryName);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TOP, false));
 	}

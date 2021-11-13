@@ -15,11 +15,11 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-public class ChairBlock extends SimpleFurniture {
+public class Chair extends SimpleFurniture {
 	public static final VoxelShape BASE_SHAPE = Block.box(3.0d, 0.0d, 3.0d, 13.0d, 9.0d, 13.0d);
 
 	private final VoxelShape myShape;
-	public ChairBlock(Properties p, String registryName, VoxelShape shape) {
+	public Chair(Properties p, String registryName, VoxelShape shape) {
 		super(p.noOcclusion(), registryName);
 		myShape = shape;
 	}

@@ -1,6 +1,5 @@
 package io.github.wouink.furnish;
 
-import com.google.common.collect.Lists;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
@@ -11,7 +10,6 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -35,7 +33,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -52,8 +49,8 @@ public class FurnishManager {
 	public static final Block Oak_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_kitchen_cabinet");
 	public static final Block Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_cabinet");
 	public static final Block Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_wardrobe");
-	public static final Block Oak_Stool = new ChairBlock(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", ChairBlock.BASE_SHAPE);
-	public static final Block Oak_Chair = new ChairBlock(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", ChairBlock.BASE_SHAPE);
+	public static final Block Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", Chair.BASE_SHAPE);
+	public static final Block Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", Chair.BASE_SHAPE);
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
