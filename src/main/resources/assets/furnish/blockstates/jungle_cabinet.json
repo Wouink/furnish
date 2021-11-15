@@ -1,0 +1,34 @@
+{
+    "variants": {
+        "facing=north,right=false": {
+            "model": "furnish:block/jungle/jungle_cabinet_left"
+        },
+        "facing=east,right=false": {
+            "model": "furnish:block/jungle/jungle_cabinet_left",
+            "y": 90
+        },
+        "facing=south,right=false": {
+            "model": "furnish:block/jungle/jungle_cabinet_left",
+            "y": 180
+        },
+        "facing=west,right=false": {
+            "model": "furnish:block/jungle/jungle_cabinet_left",
+            "y": 270
+        },
+        "facing=north,right=true": {
+            "model": "furnish:block/jungle/jungle_cabinet_right"
+        },
+        "facing=east,right=true": {
+            "model": "furnish:block/jungle/jungle_cabinet_right",
+            "y": 90
+        },
+        "facing=south,right=true": {
+            "model": "furnish:block/jungle/jungle_cabinet_right",
+            "y": 180
+        },
+        "facing=west,right=true": {
+            "model": "furnish:block/jungle/jungle_cabinet_right",
+            "y": 270
+        }
+    }
+}

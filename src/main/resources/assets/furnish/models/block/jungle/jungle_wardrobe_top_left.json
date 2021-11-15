@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/wardrobe_top_left",
+  "textures": {
+    "0": "minecraft:block/stripped_jungle_log",
+    "1": "furnish:block/jungle_wardrobe_door_top_left",
+    "2": "minecraft:block/quartz_block_bottom",
+    "particle": "minecraft:block/stripped_jungle_log"
+  }
+}

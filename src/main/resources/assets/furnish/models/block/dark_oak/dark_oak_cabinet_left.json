@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/cabinet_left",
+  "textures": {
+    "0": "minecraft:block/stripped_dark_oak_log",
+    "1": "furnish:block/dark_oak_cabinet_door",
+    "2": "minecraft:block/gold_block",
+    "particle": "minecraft:block/stripped_dark_oak_log"
+  }
+}

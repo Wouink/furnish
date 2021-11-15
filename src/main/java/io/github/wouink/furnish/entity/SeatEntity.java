@@ -55,7 +55,6 @@ public class SeatEntity extends Entity {
 		}
 		if(!level.isClientSide()) {
 			if(getPassengers().isEmpty() || level.isEmptyBlock(seatBlock)) {
-				System.out.println("Removed entity");
 				remove();
 			}
 		}

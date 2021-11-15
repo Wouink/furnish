@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:item/parent/wardrobe",
+  "textures": {
+    "0": "minecraft:block/stripped_dark_oak_log",
+    "1": "furnish:block/dark_oak_wardrobe_door_bottom",
+    "2": "minecraft:block/gold_block"
+  }
+}

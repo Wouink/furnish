@@ -1,0 +1,55 @@
+package io.github.wouink.furnish.block.util;
+
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+
+public class VoxelShapeHelper {
+
+	// with some help from https://github.com/MrCrayfish/MrCrayfishFurnitureMod/blob/1.16.X/src/main/java/com/mrcrayfish/furniture/util/VoxelShapeHelper.java
+
+	public static VoxelShape[] getRotatedShapes(VoxelShape source) {
+		VoxelShape north = rotate(source, Direction.NORTH);
+		VoxelShape east = rotate(source, Direction.EAST);
+		VoxelShape south = rotate(source, Direction.SOUTH);
+		VoxelShape west = rotate(source, Direction.WEST);
+		return new VoxelShape[] {south, west, north, east};
+	}
+
+	public static VoxelShape rotate(VoxelShape source, Direction dir) {
+		double[] adjustedValues = adjustValues(dir, source.min(Direction.Axis.X), source.min(Direction.Axis.Z), source.max(Direction.Axis.X), source.max(Direction.Axis.Z));
+		return VoxelShapes.box(adjustedValues[0], source.min(Direction.Axis.Y), adjustedValues[1], adjustedValues[2], source.max(Direction.Axis.Y), adjustedValues[3]);
+	}
+
+	public static double[] adjustValues(Direction dir, double v1, double v2, double v3, double v4) {
+		switch(dir) {
+			case WEST:
+				double vt1 = v1;
+				v1 = 1.0F - v3;
+				double vt2 = v2;
+				v2 = 1.0F - v4;
+				v3 = 1.0F - vt1;
+				v4 = 1.0F - vt2;
+				break;
+			case NORTH:
+				double vt3 = v1;
+				v1 = v2;
+				v2 = 1.0F - v3;
+				v3 = v4;
+				v4 = 1.0F - vt3;
+				break;
+			case SOUTH:
+				double vt4 = v1;
+				v1 = 1.0F - v4;
+				double vt5 = v2;
+				v2 = vt4;
+				double vt6 = v3;
+				v3 = 1.0F - vt5;
+				v4 = vt6;
+				break;
+			default:
+				break;
+		}
+		return new double[] {v1, v2, v3, v4};
+	}
+}

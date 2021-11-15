@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
@@ -14,11 +15,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 public class Shutter extends HorizontalBlock {
+	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
 	public static final IntegerProperty STATE = IntegerProperty.create("state", 0, 2);
 	public Shutter(Properties p, String registryName) {
 		super(p.noOcclusion());
 		setRegistryName(registryName);
-		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, 0));
+		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, 0).setValue(RIGHT, false));
 	}
 
 	@Override

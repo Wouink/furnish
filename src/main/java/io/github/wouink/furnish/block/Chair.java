@@ -1,27 +1,28 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class Chair extends SimpleFurniture {
-	public static final VoxelShape BASE_SHAPE = Block.box(3.0d, 0.0d, 3.0d, 13.0d, 9.0d, 13.0d);
+	public static final VoxelShape[] BASE_SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(3, 0, 2, 13, 9, 12));
 
-	private final VoxelShape myShape;
-	public Chair(Properties p, String registryName, VoxelShape shape) {
+	private final VoxelShape[] myShapes;
+	public Chair(Properties p, String registryName, VoxelShape[] shapes) {
 		super(p.noOcclusion(), registryName);
-		myShape = shape;
+		myShapes = shapes;
 	}
 
 	@Override
@@ -31,7 +32,8 @@ public class Chair extends SimpleFurniture {
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-		return myShape;
+		Direction dir = state.getValue(FACING);
+		return myShapes[dir.ordinal() - 2];
 	}
 
 	@Override

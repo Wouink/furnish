@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,top=false,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_left"
+    },
+    "facing=east,top=false,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_left",
+      "y": 90
+    },
+    "facing=south,top=false,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_left",
+      "y": 180
+    },
+    "facing=west,top=false,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_left",
+      "y": 270
+    },
+    "facing=north,top=true,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_left"
+    },
+    "facing=east,top=true,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_left",
+      "y": 90
+    },
+    "facing=south,top=true,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_left",
+      "y": 180
+    },
+    "facing=west,top=true,right=false": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_left",
+      "y": 270
+    },
+    "facing=north,top=false,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_right"
+    },
+    "facing=east,top=false,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_right",
+      "y": 90
+    },
+    "facing=south,top=false,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_right",
+      "y": 180
+    },
+    "facing=west,top=false,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_bottom_right",
+      "y": 270
+    },
+    "facing=north,top=true,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_right"
+    },
+    "facing=east,top=true,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_right",
+      "y": 90
+    },
+    "facing=south,top=true,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_right",
+      "y": 180
+    },
+    "facing=west,top=true,right=true": {
+      "model": "furnish:block/dark_oak/dark_oak_wardrobe_top_right",
+      "y": 270
+    }
+  }
+}

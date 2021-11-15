@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/wardrobe_top_right",
+  "textures": {
+    "0": "minecraft:block/stripped_acacia_log",
+    "1": "furnish:block/acacia_wardrobe_door_top",
+    "2": "minecraft:block/quartz_block_bottom",
+    "particle": "minecraft:block/stripped_acacia_log"
+  }
+}

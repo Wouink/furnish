@@ -49,8 +49,20 @@ public class FurnishManager {
 	public static final Block Oak_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_kitchen_cabinet");
 	public static final Block Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_cabinet");
 	public static final Block Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_wardrobe");
-	public static final Block Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", Chair.BASE_SHAPE);
-	public static final Block Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", Chair.BASE_SHAPE);
+	public static final Block Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", Chair.BASE_SHAPES);
+	public static final Block Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", Chair.BASE_SHAPES);
+
+	public static final Block Birch_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_cabinet");
+	public static final Block Birch_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_wardrobe");
+
+	public static final Block Acacia_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_cabinet");
+	public static final Block Acacia_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_wardrobe");
+
+	public static final Block Jungle_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_cabinet");
+	public static final Block Jungle_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_wardrobe");
+
+	public static final Block Dark_Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_cabinet");
+	public static final Block Dark_Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_wardrobe");
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -128,6 +140,18 @@ public class FurnishManager {
 		blockRegistry.register(Oak_Wardrobe);
 		blockRegistry.register(Oak_Stool);
 		blockRegistry.register(Oak_Chair);
+
+		blockRegistry.register(Birch_Cabinet);
+		blockRegistry.register(Birch_Wardrobe);
+
+		blockRegistry.register(Acacia_Cabinet);
+		blockRegistry.register(Acacia_Wardrobe);
+
+		blockRegistry.register(Jungle_Cabinet);
+		blockRegistry.register(Jungle_Wardrobe);
+
+		blockRegistry.register(Dark_Oak_Cabinet);
+		blockRegistry.register(Dark_Oak_Wardrobe);
 		Furnish_Logger.info("Registered Furnish Blocks.");
 	}
 
@@ -153,6 +177,18 @@ public class FurnishManager {
 		itemRegistry.register(getBlockItem(Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Stool, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Chair, ItemGroup.TAB_DECORATIONS));
+
+		itemRegistry.register(getBlockItem(Birch_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Birch_Wardrobe, ItemGroup.TAB_DECORATIONS));
+
+		itemRegistry.register(getBlockItem(Acacia_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Acacia_Wardrobe, ItemGroup.TAB_DECORATIONS));
+
+		itemRegistry.register(getBlockItem(Jungle_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Jungle_Wardrobe, ItemGroup.TAB_DECORATIONS));
+
+		itemRegistry.register(getBlockItem(Dark_Oak_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Dark_Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
 		Furnish_Logger.info("Registered Furnish Items.");
 	}
 }
