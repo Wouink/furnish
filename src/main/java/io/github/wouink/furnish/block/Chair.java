@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class Chair extends SimpleFurniture {
-	public static final VoxelShape[] BASE_SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(3, 0, 2, 13, 9, 12));
+	public static final VoxelShape[] BASE_SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(4, 0, 3, 14, 9, 13));
 
 	private final VoxelShape[] myShapes;
 	public Chair(Properties p, String registryName, VoxelShape[] shapes) {

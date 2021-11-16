@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "placement=0,facing=north": {
+      "model": "furnish:block/book_pile/book_pile",
+      "y": 0
+    },
+    "placement=0,facing=south": {
+      "model": "furnish:block/book_pile/book_pile",
+      "y": 180
+    },
+    "placement=0,facing=east": {
+      "model": "furnish:block/book_pile/book_pile",
+      "y": 90
+    },
+    "placement=0,facing=west": {
+      "model": "furnish:block/book_pile/book_pile",
+      "y": 270
+    },
+    "placement=1,facing=north": {
+      "model": "furnish:block/book_pile/book_pile_leaning",
+      "y": 0
+    },
+    "placement=1,facing=south": {
+      "model": "furnish:block/book_pile/book_pile_leaning",
+      "y": 180
+    },
+    "placement=1,facing=east": {
+      "model": "furnish:block/book_pile/book_pile_leaning",
+      "y": 90
+    },
+    "placement=1,facing=west": {
+      "model": "furnish:block/book_pile/book_pile_leaning",
+      "y": 270
+    },
+    "placement=2,facing=north,": {
+      "model": "furnish:block/book_pile/book_pile_laying",
+      "y": 0
+    },
+    "placement=2,facing=south": {
+      "model": "furnish:block/book_pile/book_pile_laying",
+      "y": 180
+    },
+    "placement=2,facing=east": {
+      "model": "furnish:block/book_pile/book_pile_laying",
+      "y": 90
+    },
+    "placement=2,facing=west": {
+      "model": "furnish:block/book_pile/book_pile_laying",
+      "y": 270
+    }
+  }
+}

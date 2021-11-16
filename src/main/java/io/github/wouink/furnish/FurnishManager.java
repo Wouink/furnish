@@ -10,6 +10,7 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -41,7 +42,7 @@ public class FurnishManager {
 	public static final Logger Furnish_Logger = LogManager.getLogger();
 
 	public static final Block Furniture_Workbench = new FurnitureWorkbench();
-	// public static final Block Book_Pile = new BookPile(AbstractBlock.Properties.of(Material.WOOL).strength(0.5f), "book_pile");
+	public static final Block Book_Pile = new BookPile(AbstractBlock.Properties.of(Material.WOOL).strength(0.2f), "book_pile");
 
 	public static final Block Oak_Table = new Table(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_table");
 	public static final Block Oak_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_square_table");
@@ -63,6 +64,9 @@ public class FurnishManager {
 
 	public static final Block Dark_Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_cabinet");
 	public static final Block Dark_Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_wardrobe");
+
+	public static final Block Spruce_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_cabinet");
+	public static final Block Spruce_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_wardrobe");
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -130,7 +134,7 @@ public class FurnishManager {
 	public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 		IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
 		blockRegistry.register(Furniture_Workbench);
-		// blockRegistry.register(Book_Pile);
+		blockRegistry.register(Book_Pile);
 
 		blockRegistry.register(Oak_Table);
 		blockRegistry.register(Oak_Square_Table);
@@ -152,6 +156,9 @@ public class FurnishManager {
 
 		blockRegistry.register(Dark_Oak_Cabinet);
 		blockRegistry.register(Dark_Oak_Wardrobe);
+
+		blockRegistry.register(Spruce_Cabinet);
+		blockRegistry.register(Spruce_Wardrobe);
 		Furnish_Logger.info("Registered Furnish Blocks.");
 	}
 
@@ -167,7 +174,7 @@ public class FurnishManager {
 	public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
 		IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 		itemRegistry.register(getBlockItem(Furniture_Workbench, ItemGroup.TAB_DECORATIONS));
-		// itemRegistry.register(getBlockItem(Book_Pile));
+		itemRegistry.register(getBlockItem(Book_Pile, ItemGroup.TAB_DECORATIONS));
 
 		itemRegistry.register(getBlockItem(Oak_Table, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Square_Table, ItemGroup.TAB_DECORATIONS));
@@ -189,6 +196,9 @@ public class FurnishManager {
 
 		itemRegistry.register(getBlockItem(Dark_Oak_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Dark_Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
+
+		itemRegistry.register(getBlockItem(Spruce_Cabinet, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Spruce_Wardrobe, ItemGroup.TAB_DECORATIONS));
 		Furnish_Logger.info("Registered Furnish Items.");
 	}
 }

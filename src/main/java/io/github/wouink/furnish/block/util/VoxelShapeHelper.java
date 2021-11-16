@@ -13,7 +13,7 @@ public class VoxelShapeHelper {
 		VoxelShape east = rotate(source, Direction.EAST);
 		VoxelShape south = rotate(source, Direction.SOUTH);
 		VoxelShape west = rotate(source, Direction.WEST);
-		return new VoxelShape[] {south, west, north, east};
+		return new VoxelShape[] {north, south, west, east};
 	}
 
 	public static VoxelShape rotate(VoxelShape source, Direction dir) {
