@@ -4,6 +4,7 @@ import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
+import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
@@ -24,6 +25,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -41,6 +43,8 @@ import java.util.function.Supplier;
 public class FurnishManager {
 	public static final Logger Furnish_Logger = LogManager.getLogger();
 
+	public static final VoxelShape[] CHAIR_SEAT = VoxelShapeHelper.getRotatedShapes(Block.box(3, 9, 3, 6, 17, 13));
+
 	public static final Block Furniture_Workbench = new FurnitureWorkbench();
 	public static final Block Book_Pile = new BookPile(AbstractBlock.Properties.of(Material.WOOL).strength(0.2f), "book_pile");
 
@@ -51,7 +55,8 @@ public class FurnishManager {
 	public static final Block Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_cabinet");
 	public static final Block Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_wardrobe");
 	public static final Block Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", Chair.BASE_SHAPES);
-	public static final Block Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", Chair.BASE_SHAPES);
+	public static final Block Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT));
+	public static final Block Oak_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR), "oak_shutter");
 
 	public static final Block Birch_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_cabinet");
 	public static final Block Birch_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_wardrobe");
@@ -144,6 +149,7 @@ public class FurnishManager {
 		blockRegistry.register(Oak_Wardrobe);
 		blockRegistry.register(Oak_Stool);
 		blockRegistry.register(Oak_Chair);
+		blockRegistry.register(Oak_Shutter);
 
 		blockRegistry.register(Birch_Cabinet);
 		blockRegistry.register(Birch_Wardrobe);
@@ -184,6 +190,7 @@ public class FurnishManager {
 		itemRegistry.register(getBlockItem(Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Stool, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Oak_Chair, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Oak_Shutter, ItemGroup.TAB_DECORATIONS));
 
 		itemRegistry.register(getBlockItem(Birch_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Birch_Wardrobe, ItemGroup.TAB_DECORATIONS));

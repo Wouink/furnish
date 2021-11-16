@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=north,right=false,state=0": {
+      "model": "furnish:block/oak/oak_shutter"
+    },
+    "facing=east,right=false,state=0": {
+      "model": "furnish:block/oak/oak_shutter",
+      "y": 90
+    },
+    "facing=south,right=false,state=0": {
+      "model": "furnish:block/oak/oak_shutter",
+      "y": 180
+    },
+    "facing=west,right=false,state=0": {
+      "model": "furnish:block/oak/oak_shutter",
+      "y": 270
+    },
+    "facing=north,right=false,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open"
+    },
+    "facing=east,right=false,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open",
+      "y": 90
+    },
+    "facing=south,right=false,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open",
+      "y": 180
+    },
+    "facing=west,right=false,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open",
+      "y": 270
+    },
+    "facing=north,right=false,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open"
+    },
+    "facing=east,right=false,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open",
+      "y": 90
+    },
+    "facing=south,right=false,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open",
+      "y": 180
+    },
+    "facing=west,right=false,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open",
+      "y": 270
+    },
+    "facing=north,right=true,state=0": {
+      "model": "furnish:block/oak/oak_shutter"
+    },
+    "facing=east,right=true,state=0": {
+      "model": "furnish:block/oak/oak_shutter",
+      "y": 90
+    },
+    "facing=south,right=true,state=0": {
+      "model": "furnish:block/oak/oak_shutter",
+      "y": 180
+    },
+    "facing=west,right=true,state=0": {
+      "model": "furnish:block/oak/oak_shutter",
+      "y": 270
+    },
+    "facing=north,right=true,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open_right"
+    },
+    "facing=east,right=true,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open_right",
+      "y": 90
+    },
+    "facing=south,right=true,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open_right",
+      "y": 180
+    },
+    "facing=west,right=true,state=1": {
+      "model": "furnish:block/oak/oak_shutter_half_open_right",
+      "y": 270
+    },
+    "facing=north,right=true,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open_right"
+    },
+    "facing=east,right=true,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open_right",
+      "y": 90
+    },
+    "facing=south,right=true,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open_right",
+      "y": 180
+    },
+    "facing=west,right=true,state=2": {
+      "model": "furnish:block/oak/oak_shutter_open_right",
+      "y": 270
+    }
+  }
+}

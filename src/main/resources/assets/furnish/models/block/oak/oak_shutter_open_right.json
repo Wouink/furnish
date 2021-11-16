@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/shutter_open_right",
+  "textures": {
+    "0": "minecraft:block/oak_planks",
+    "particle": "minecraft:block/oak_planks"
+  }
+}

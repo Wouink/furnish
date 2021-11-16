@@ -8,6 +8,21 @@ public class VoxelShapeHelper {
 
 	// with some help from https://github.com/MrCrayfish/MrCrayfishFurnitureMod/blob/1.16.X/src/main/java/com/mrcrayfish/furniture/util/VoxelShapeHelper.java
 
+	public static VoxelShape[] getMergedShapes(VoxelShape[]...  rotatedShapes) {
+		VoxelShape[] ret = new VoxelShape[] { VoxelShapes.empty(), VoxelShapes.empty(), VoxelShapes.empty(), VoxelShapes.empty() };
+		for(int i = 0; i < rotatedShapes.length; i++) {
+			ret[0] = VoxelShapes.or(ret[0], rotatedShapes[i][0]);
+			ret[1] = VoxelShapes.or(ret[1], rotatedShapes[i][1]);
+			ret[2] = VoxelShapes.or(ret[2], rotatedShapes[i][2]);
+			ret[3] = VoxelShapes.or(ret[3], rotatedShapes[i][3]);
+		}
+		ret[0] = ret[0].optimize();
+		ret[1] = ret[1].optimize();
+		ret[2] = ret[2].optimize();
+		ret[3] = ret[3].optimize();
+		return ret;
+	}
+
 	public static VoxelShape[] getRotatedShapes(VoxelShape source) {
 		VoxelShape north = rotate(source, Direction.NORTH);
 		VoxelShape east = rotate(source, Direction.EAST);
