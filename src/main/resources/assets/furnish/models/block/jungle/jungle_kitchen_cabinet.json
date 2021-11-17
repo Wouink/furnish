@@ -1,0 +1,10 @@
+{
+  "parent": "furnish:block/parent/kitchen_cabinet_drawers",
+  "textures": {
+    "0": "minecraft:block/jungle_planks",
+    "1": "minecraft:block/stripped_jungle_log",
+    "2": "minecraft:block/quartz_block_bottom",
+    "3": "minecraft:block/polished_granite",
+    "particle": "minecraft:block/stripped_jungle_log"
+  }
+}

@@ -19,18 +19,26 @@
 
   "block.furnish.birch_cabinet": "Birch Cabinet",
   "block.furnish.birch_wardrobe": "Birch Wardrobe",
+  "block.furnish.birch_kitchen_cabinet": "Birch Kitchen Cabinet",
 
   "block.furnish.acacia_cabinet": "Acacia Cabinet",
   "block.furnish.acacia_wardrobe": "Acacia Wardrobe",
+  "block.furnish.acacia_kitchen_cabinet": "Acacia Kitchen Cabinet",
 
   "block.furnish.jungle_cabinet": "Jungle Cabinet",
   "block.furnish.jungle_wardrobe": "Jungle Wardrobe",
+  "block.furnish.jungle_kitchen_cabinet": "Jungle Kitchen Cabinet",
 
   "block.furnish.dark_oak_cabinet": "Dark Oak Cabinet",
   "block.furnish.dark_oak_wardrobe": "Dark Oak Wardrobe",
+  "block.furnish.dark_oak_bedside_table": "Dark Oak Bedside Table",
+  "block.furnish.dark_oak_kitchen_cabinet": "Dark Oak Kitchen Cabinet",
 
   "block.furnish.spruce_cabinet": "Spruce Cabinet",
   "block.furnish.spruce_wardrobe": "Spruce Wardrobe",
+  "block.furnish.spruce_kitchen_cabinet": "Spruce Kitchen Cabinet",
+
+  "block.furnish.amphora": "Amphora",
 
   "block.furnish.book_pile": "Book Pile"
 }

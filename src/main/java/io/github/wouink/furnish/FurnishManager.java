@@ -60,18 +60,24 @@ public class FurnishManager {
 
 	public static final Block Birch_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_cabinet");
 	public static final Block Birch_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_wardrobe");
+	public static final Block Birch_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_kitchen_cabinet");
 
 	public static final Block Acacia_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_cabinet");
 	public static final Block Acacia_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_wardrobe");
+	public static final Block Acacia_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_kitchen_cabinet");
 
 	public static final Block Jungle_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_cabinet");
 	public static final Block Jungle_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_wardrobe");
+	public static final Block Jungle_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_kitchen_cabinet");
 
 	public static final Block Dark_Oak_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_cabinet");
 	public static final Block Dark_Oak_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_wardrobe");
+	public static final Block Dark_Oak_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_bedside_table");
+	public static final Block Dark_Oak_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_kitchen_cabinet");
 
 	public static final Block Spruce_Cabinet = new Cabinet(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_cabinet");
 	public static final Block Spruce_Wardrobe = new Wardrobe(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_wardrobe");
+	public static final Block Spruce_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_kitchen_cabinet");
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -84,6 +90,15 @@ public class FurnishManager {
 	public static Block[] FurnitureLargeInvProvider = {
 			Oak_Wardrobe,
 	};
+
+	public static Block[] Amphoras = new Block[1];
+	public static final String[] Colors = {
+			"black", "red", "green", "brown", "blue", "purple", "cyan", "light_gray", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white"
+	};
+
+	public static void init() {
+		Amphoras[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
+	}
 
 	public static class Serializer {
 		public static final DeferredRegister<IRecipeSerializer<?>> Recipe_Serializers = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Furnish.MODID);
@@ -120,6 +135,7 @@ public class FurnishManager {
 		public static final DeferredRegister<TileEntityType<?>> Furnish_Tile_Entities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Furnish.MODID);
 		public static final RegistryObject<TileEntityType<FurnitureTileEntity>> Furniture = register("furniture", FurnitureTileEntity::new, () -> FurnitureInvProvider);
 		public static final RegistryObject<TileEntityType<LargeFurnitureTileEntity>> Large_Furniture = register("large_furniture", LargeFurnitureTileEntity::new, () -> FurnitureLargeInvProvider);
+		public static final RegistryObject<TileEntityType<FurnitureTileEntity>> Amphora = register("amphora", FurnitureTileEntity::new, () -> Amphoras);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Furnish_Tile_Entities.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
@@ -153,18 +169,28 @@ public class FurnishManager {
 
 		blockRegistry.register(Birch_Cabinet);
 		blockRegistry.register(Birch_Wardrobe);
+		blockRegistry.register(Birch_Kitchen_Cabinet);
 
 		blockRegistry.register(Acacia_Cabinet);
 		blockRegistry.register(Acacia_Wardrobe);
+		blockRegistry.register(Acacia_Kitchen_Cabinet);
 
 		blockRegistry.register(Jungle_Cabinet);
 		blockRegistry.register(Jungle_Wardrobe);
+		blockRegistry.register(Jungle_Kitchen_Cabinet);
 
 		blockRegistry.register(Dark_Oak_Cabinet);
 		blockRegistry.register(Dark_Oak_Wardrobe);
+		blockRegistry.register(Dark_Oak_Bedside_Table);
+		blockRegistry.register(Dark_Oak_Kitchen_Cabinet);
 
 		blockRegistry.register(Spruce_Cabinet);
 		blockRegistry.register(Spruce_Wardrobe);
+		blockRegistry.register(Spruce_Kitchen_Cabinet);
+
+		for(Block b : Amphoras) {
+			blockRegistry.register(b);
+		}
 		Furnish_Logger.info("Registered Furnish Blocks.");
 	}
 
@@ -194,18 +220,28 @@ public class FurnishManager {
 
 		itemRegistry.register(getBlockItem(Birch_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Birch_Wardrobe, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Birch_Kitchen_Cabinet, ItemGroup.TAB_DECORATIONS));
 
 		itemRegistry.register(getBlockItem(Acacia_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Acacia_Wardrobe, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Acacia_Kitchen_Cabinet, ItemGroup.TAB_DECORATIONS));
 
 		itemRegistry.register(getBlockItem(Jungle_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Jungle_Wardrobe, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Jungle_Kitchen_Cabinet, ItemGroup.TAB_DECORATIONS));
 
 		itemRegistry.register(getBlockItem(Dark_Oak_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Dark_Oak_Wardrobe, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Dark_Oak_Bedside_Table, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Dark_Oak_Kitchen_Cabinet, ItemGroup.TAB_DECORATIONS));
 
 		itemRegistry.register(getBlockItem(Spruce_Cabinet, ItemGroup.TAB_DECORATIONS));
 		itemRegistry.register(getBlockItem(Spruce_Wardrobe, ItemGroup.TAB_DECORATIONS));
+		itemRegistry.register(getBlockItem(Spruce_Kitchen_Cabinet, ItemGroup.TAB_DECORATIONS));
+
+		for(Block b : Amphoras) {
+			itemRegistry.register(getBlockItem(b, ItemGroup.TAB_DECORATIONS));
+		}
 		Furnish_Logger.info("Registered Furnish Items.");
 	}
 }

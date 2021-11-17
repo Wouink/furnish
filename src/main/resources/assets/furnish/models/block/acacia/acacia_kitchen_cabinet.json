@@ -1,0 +1,10 @@
+{
+  "parent": "furnish:block/parent/kitchen_cabinet_drawers",
+  "textures": {
+    "0": "minecraft:block/acacia_planks",
+    "1": "minecraft:block/stripped_acacia_log",
+    "2": "minecraft:block/quartz_block_bottom",
+    "3": "minecraft:block/dark_prismarine",
+    "particle": "minecraft:block/stripped_acacia_log"
+  }
+}

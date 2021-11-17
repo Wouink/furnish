@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/dark_oak/dark_oak_kitchen_cabinet"
+        },
+        "facing=east": {
+            "model": "furnish:block/dark_oak/dark_oak_kitchen_cabinet",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/dark_oak/dark_oak_kitchen_cabinet",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/dark_oak/dark_oak_kitchen_cabinet",
+            "y": 270
+        }
+    }
+}
