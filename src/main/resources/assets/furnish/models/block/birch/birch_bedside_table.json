@@ -1,0 +1,11 @@
+{
+  "parent": "furnish:block/parent/bedside_table_2",
+  "textures": {
+    "0": "minecraft:block/birch_log",
+    "1": "minecraft:block/stripped_birch_log",
+    "2": "minecraft:block/stripped_birch_log",
+    "3": "minecraft:block/birch_planks",
+    "4": "minecraft:block/quartz_block_bottom",
+    "particle": "minecraft:block/stripped_birch_log"
+  }
+}

@@ -1,0 +1,23 @@
+{
+	"multipart": [
+		{
+			"apply": { "model": "furnish:block/spruce/spruce_table_plate" }
+		},
+		{
+			"when": { "ne": "true" },
+			"apply": { "model": "furnish:block/spruce/spruce_table_leg" }
+		},
+		{
+			"when": { "nw": "true" },
+			"apply": { "model": "furnish:block/spruce/spruce_table_leg", "y": 270 }
+		},
+		{
+			"when": { "se": "true" },
+			"apply": { "model": "furnish:block/spruce/spruce_table_leg", "y": 90 }
+		},
+		{
+			"when": { "sw": "true" },
+			"apply": { "model": "furnish:block/spruce/spruce_table_leg", "y": 180 }
+		}
+	]
+}

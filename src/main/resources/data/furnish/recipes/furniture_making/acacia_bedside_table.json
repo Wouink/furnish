@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:acacia_planks"
+  },
+  "result": "furnish:acacia_bedside_table",
+  "count": 1
+}

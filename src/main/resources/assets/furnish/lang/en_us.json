@@ -20,23 +20,38 @@
   "block.furnish.birch_cabinet": "Birch Cabinet",
   "block.furnish.birch_wardrobe": "Birch Wardrobe",
   "block.furnish.birch_kitchen_cabinet": "Birch Kitchen Cabinet",
+  "block.furnish.birch_bedside_table": "Birch Bedside Table",
+  "block.furnish.birch_table": "Birch Table",
+  "block.furnish.birch_square_table": "Birch Square Table",
 
   "block.furnish.acacia_cabinet": "Acacia Cabinet",
   "block.furnish.acacia_wardrobe": "Acacia Wardrobe",
   "block.furnish.acacia_kitchen_cabinet": "Acacia Kitchen Cabinet",
+  "block.furnish.acacia_bedside_table": "Acacia Bedside Table",
+  "block.furnish.acacia_table": "Acacia Table",
+  "block.furnish.acacia_square_table": "Acacia Square Table",
 
   "block.furnish.jungle_cabinet": "Jungle Cabinet",
   "block.furnish.jungle_wardrobe": "Jungle Wardrobe",
   "block.furnish.jungle_kitchen_cabinet": "Jungle Kitchen Cabinet",
+  "block.furnish.jungle_bedside_table": "Jungle Bedside Table",
+  "block.furnish.jungle_table": "Jungle Table",
+  "block.furnish.jungle_square_table": "Jungle Square Table",
 
   "block.furnish.dark_oak_cabinet": "Dark Oak Cabinet",
   "block.furnish.dark_oak_wardrobe": "Dark Oak Wardrobe",
   "block.furnish.dark_oak_bedside_table": "Dark Oak Bedside Table",
   "block.furnish.dark_oak_kitchen_cabinet": "Dark Oak Kitchen Cabinet",
+  "block.furnish.dark_oak_table": "Dark Oak Table",
+  "block.furnish.dark_oak_square_table": "Dark Oak Square Table",
+  "block.furnish.dark_oak_chair": "Dark Oak Chair",
 
   "block.furnish.spruce_cabinet": "Spruce Cabinet",
   "block.furnish.spruce_wardrobe": "Spruce Wardrobe",
   "block.furnish.spruce_kitchen_cabinet": "Spruce Kitchen Cabinet",
+  "block.furnish.spruce_bedside_table": "Spruce Bedside Table",
+  "block.furnish.spruce_table": "Spruce Table",
+  "block.furnish.spruce_square_table": "Spruce Square Table",
 
   "block.furnish.amphora": "Amphora",
 

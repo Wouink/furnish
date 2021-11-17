@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:item/parent/table",
+  "textures": {
+    "0": "minecraft:block/stripped_dark_oak_log",
+    "1": "minecraft:block/dark_oak_log"
+  }
+}
