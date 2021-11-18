@@ -3,7 +3,7 @@
   "textures": {
     "0": "minecraft:block/dark_oak_planks",
     "1": "minecraft:block/stripped_dark_oak_log",
-    "2": "minecraft:block/quartz_block_bottom",
+    "2": "minecraft:block/gold_block",
     "3": "minecraft:block/polished_blackstone_bricks",
     "particle": "minecraft:block/stripped_dark_oak_log"
   }

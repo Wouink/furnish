@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -62,7 +62,7 @@ public class Amphora extends SimpleFurniture implements ISidedInventoryProvider 
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
 		TileEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof AmphoraTileEntity) {
-			world.playSound(playerEntity, pos, FurnishManager.Sounds.Open_Furniture.get(), SoundCategory.BLOCKS, .8f, 1.0f);
+			world.playSound(playerEntity, pos, SoundEvents.GRINDSTONE_USE, SoundCategory.BLOCKS, .8f, 1.0f);
 			if(world.isClientSide()) {
 				return ActionResultType.SUCCESS;
 			} else {

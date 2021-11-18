@@ -58,4 +58,9 @@ public class BookPile extends HorizontalBlock {
 	public SoundType getSoundType(BlockState state, IWorldReader world, BlockPos pos, @Nullable Entity entity) {
 		return SoundType.WOOL;
 	}
+
+	@Override
+	public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) {
+		return 0.5f;
+	}
 }
