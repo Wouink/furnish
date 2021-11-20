@@ -27,8 +27,8 @@ public class FurnitureWorkbench extends HorizontalBlock {
 
 	public FurnitureWorkbench() {
 		super(AbstractBlock.Properties.of(Material.WOOD).strength(1.0f).sound(SoundType.WOOD).noOcclusion());
-		setRegistryName(Furnish.MODID, "furniture_workbench");
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+		FurnishManager.ModBlocks.register("furniture_workbench", this);
 	}
 
 	@Override

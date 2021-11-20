@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -16,8 +17,8 @@ public class TallFurniture extends HorizontalBlock {
 	public static final BooleanProperty TOP = BooleanProperty.create("top");
 	public TallFurniture(Properties p, String registryName) {
 		super(p.noOcclusion());
-		setRegistryName(registryName);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TOP, false));
+		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

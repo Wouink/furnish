@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -11,8 +12,8 @@ import net.minecraft.util.Direction;
 public class SimpleFurniture extends HorizontalBlock {
 	public SimpleFurniture(Properties p, String registryName) {
 		super(p.noOcclusion());
-		setRegistryName(Furnish.MODID, registryName);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

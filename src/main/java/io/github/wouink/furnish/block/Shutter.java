@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -29,8 +30,8 @@ public class Shutter extends HorizontalBlock {
 	public static final IntegerProperty STATE = IntegerProperty.create("state", 0, 2);
 	public Shutter(Properties p, String registryName) {
 		super(p.noOcclusion());
-		setRegistryName(registryName);
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, 0).setValue(RIGHT, false));
+		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

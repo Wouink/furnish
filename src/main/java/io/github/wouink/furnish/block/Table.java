@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -31,7 +32,7 @@ public class Table extends Block {
 
 	public Table(Properties p, String registryName) {
 		super(p.noOcclusion());
-		setRegistryName(Furnish.MODID, registryName);
+		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

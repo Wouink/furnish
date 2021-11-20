@@ -18,6 +18,7 @@ public class Furnish {
 	public Furnish() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		FurnishManager.init();
+		FurnishManager.ModBlocks.Blocks.register(bus);
 		FurnishManager.Containers.Container_Types.register(bus);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Containers.");
 		FurnishManager.Serializer.Recipe_Serializers.register(bus);
