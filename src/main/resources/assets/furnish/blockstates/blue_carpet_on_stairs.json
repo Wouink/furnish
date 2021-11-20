@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/carpet/blue_carpet_on_stairs"
+        },
+        "facing=east": {
+            "model": "furnish:block/carpet/blue_carpet_on_stairs",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/carpet/blue_carpet_on_stairs",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/carpet/blue_carpet_on_stairs",
+            "y": 270
+        }
+    }
+}
