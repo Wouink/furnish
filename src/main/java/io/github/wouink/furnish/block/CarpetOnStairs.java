@@ -17,8 +17,7 @@ public class CarpetOnStairs extends HorizontalBlock {
 	public static final VoxelShape[] CARPET_SHAPE = VoxelShapeHelper.getMergedShapes(
 			VoxelShapeHelper.getRotatedShapes(Block.box(8, 0, 0, 16, 1, 16)),
 			VoxelShapeHelper.getRotatedShapes(Block.box(7, 1, 0, 8, -8, 16)),
-			VoxelShapeHelper.getRotatedShapes(Block.box(0, -8, 0, 7, -7, 16)),
-			VoxelShapeHelper.getRotatedShapes(Block.box(0, -7, 0, -1, -16, 16))
+			VoxelShapeHelper.getRotatedShapes(Block.box(0, -8, 0, 7, -7, 16))
 	);
 	private final Block clone;
 	public CarpetOnStairs(Properties p, String registryName, Block _clone) {

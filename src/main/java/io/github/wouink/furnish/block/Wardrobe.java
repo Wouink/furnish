@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.block.util.PlacementHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
@@ -23,6 +24,6 @@ public class Wardrobe extends TallInventoryFurniture {
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
 		BlockState state = super.getStateForPlacement(ctx);
-		return state != null ? state.setValue(RIGHT, ctx.getPlayer().isCrouching()) : null;
+		return state != null ? state.setValue(RIGHT, PlacementHelper.placeRight(ctx)) : null;
 	}
 }

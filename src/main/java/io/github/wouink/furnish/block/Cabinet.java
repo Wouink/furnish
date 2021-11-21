@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.block.util.PlacementHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
@@ -22,6 +23,6 @@ public class Cabinet extends InventoryFurniture {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-		return super.getStateForPlacement(ctx).setValue(RIGHT, ctx.getPlayer().isCrouching());
+		return super.getStateForPlacement(ctx).setValue(RIGHT, PlacementHelper.placeRight(ctx));
 	}
 }
