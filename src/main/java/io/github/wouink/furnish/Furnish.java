@@ -42,5 +42,6 @@ public class Furnish {
 		FurnishManager.Furnish_Logger.info("Registered Furnish Screens.");
 		RenderingRegistry.registerEntityRenderingHandler(FurnishManager.Entities.Seat_Entity.get(), SeatRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entity Renderers.");
+		FurnishManager.registerTransparency();
 	}
 }

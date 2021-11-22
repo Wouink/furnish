@@ -14,6 +14,8 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -110,7 +112,8 @@ public class FurnishManager {
 	public static final Block Spruce_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_TALL_SEAT));
 	public static final Block Spruce_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_stool", Chair.BASE_SHAPES);
 
-	// public static final Block White_Awning = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.WHITE_CARPET), "white_awning");
+	public static final Block White_Awning = new Awning(AbstractBlock.Properties.copy(Blocks.WHITE_CARPET), "white_awning");
+	public static final Block Red_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "red_bunting");
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -139,6 +142,7 @@ public class FurnishManager {
 			"black", "red", "green", "brown", "blue", "purple", "cyan", "light_gray", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white"
 	};
 
+	// called by Furnish @Mod class constructor
 	public static void init() {
 		Amphoras[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
 		for(String color : Colors) {
@@ -146,6 +150,11 @@ public class FurnishManager {
 			Carpets_On_Stairs.put(color, new CarpetOnStairs(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_stairs", color), coloredCarpet));
 		}
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpetOnStairs());
+	}
+
+	// called by Furnish @Mod class clientSetup
+	public static void registerTransparency() {
+		RenderTypeLookup.setRenderLayer(Red_Bunting, RenderType.translucent());
 	}
 
 	public static class ModBlocks {

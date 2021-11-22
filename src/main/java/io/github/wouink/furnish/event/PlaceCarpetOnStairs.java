@@ -11,6 +11,7 @@ public class PlaceCarpetOnStairs {
 
 	@SubscribeEvent
 	public void onCarpetPlaced(BlockEvent.EntityPlaceEvent event) {
+		if(event.getEntity().isCrouching()) return;
 		if(event.getPlacedBlock().getBlock() instanceof CarpetBlock) {
 			BlockState stateBelow = event.getWorld().getBlockState(event.getPos().below());
 			if(stateBelow.getBlock() instanceof StairsBlock) {
