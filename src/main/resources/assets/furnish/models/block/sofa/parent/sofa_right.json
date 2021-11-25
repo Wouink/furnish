@@ -1,0 +1,64 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#wool"
+	},
+	"elements": [
+		{
+			"name": "wood_base",
+			"from": [3, 0, 3],
+			"to": [16, 6, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 13, 6], "texture": "#wood"},
+				"east": {"uv": [0, 0, 9, 6], "texture": "#wood"},
+				"south": {"uv": [0, 0, 13, 6], "texture": "#wood"},
+				"west": {"uv": [0, 0, 9, 6], "texture": "#wood"},
+				"up": {"uv": [0, 0, 13, 9], "texture": "#wood"},
+				"down": {"uv": [0, 0, 13, 9], "texture": "#wood"}
+			}
+		},
+		{
+			"name": "side",
+			"from": [0, 0, 1],
+			"to": [3, 10, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-5, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 10], "texture": "#wool"},
+				"east": {"uv": [0, 0, 11, 10], "texture": "#wool"},
+				"south": {"uv": [0, 0, 3, 10], "texture": "#wool"},
+				"west": {"uv": [0, 0, 11, 10], "texture": "#wool"},
+				"up": {"uv": [0, 0, 3, 11], "texture": "#wool"},
+				"down": {"uv": [0, 0, 3, 11], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "seat",
+			"from": [0, 0, 12],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#wool"},
+				"east": {"uv": [0, 0, 4, 16], "texture": "#wool"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#wool"},
+				"west": {"uv": [0, 0, 4, 16], "texture": "#wool"},
+				"up": {"uv": [0, 0, 16, 4], "texture": "#wool"},
+				"down": {"uv": [0, 0, 16, 4], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "sitting",
+			"from": [3, 6, 2],
+			"to": [16, 7, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 13, 1], "texture": "#wool"},
+				"east": {"uv": [0, 0, 10, 1], "texture": "#wool"},
+				"south": {"uv": [0, 0, 13, 1], "texture": "#wool"},
+				"west": {"uv": [0, 0, 10, 1], "texture": "#wool"},
+				"up": {"uv": [0, 0, 13, 10], "texture": "#wool"},
+				"down": {"uv": [0, 0, 13, 10], "texture": "#wool"}
+			}
+		}
+	]
+}

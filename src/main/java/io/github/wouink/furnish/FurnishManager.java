@@ -7,6 +7,7 @@ import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
+import io.github.wouink.furnish.event.AddArmsToArmorStand;
 import io.github.wouink.furnish.event.PlaceCarpetOnStairs;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
@@ -114,6 +115,7 @@ public class FurnishManager {
 
 	public static final Block White_Awning = new Awning(AbstractBlock.Properties.copy(Blocks.WHITE_CARPET), "white_awning");
 	public static final Block Red_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "red_bunting");
+	public static final Block White_Sofa = new Sofa(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL), "white_sofa");
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -150,6 +152,7 @@ public class FurnishManager {
 			Carpets_On_Stairs.put(color, new CarpetOnStairs(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_stairs", color), coloredCarpet));
 		}
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpetOnStairs());
+		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
 	}
 
 	// called by Furnish @Mod class clientSetup

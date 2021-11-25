@@ -1,0 +1,87 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#wool"
+	},
+	"elements": [
+		{
+			"name": "wood_base",
+			"from": [0, 0, 3],
+			"to": [13, 6, 12],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 6], "texture": "#wood"},
+				"east": {"uv": [0, 0, 9, 6], "texture": "#wood"},
+				"south": {"uv": [0, 0, 16, 6], "texture": "#wood"},
+				"west": {"uv": [0, 0, 9, 6], "texture": "#wood"},
+				"up": {"uv": [0, 0, 16, 9], "texture": "#wood"},
+				"down": {"uv": [0, 0, 16, 9], "texture": "#wood"}
+			}
+		},
+		{
+			"name": "wood_base",
+			"from": [3, 0, 0],
+			"to": [12, 6, 3],
+			"faces": {
+				"north": {"uv": [0, 0, 9, 6], "texture": "#wood"},
+				"east": {"uv": [0, 0, 3, 6], "texture": "#wood"},
+				"south": {"uv": [0, 0, 9, 6], "texture": "#wood"},
+				"west": {"uv": [0, 0, 3, 6], "texture": "#wood"},
+				"up": {"uv": [0, 0, 9, 3], "texture": "#wood"},
+				"down": {"uv": [0, 0, 9, 3], "texture": "#wood"}
+			}
+		},
+		{
+			"name": "seat",
+			"from": [0, 0, 12],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#wool"},
+				"east": {"uv": [0, 0, 4, 16], "texture": "#wool"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#wool"},
+				"west": {"uv": [0, 0, 4, 16], "texture": "#wool"},
+				"up": {"uv": [0, 0, 16, 4], "texture": "#wool"},
+				"down": {"uv": [0, 0, 16, 4], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "seat",
+			"from": [12, 0, 0],
+			"to": [16, 16, 12],
+			"faces": {
+				"north": {"uv": [0, 0, 4, 16], "texture": "#wool"},
+				"east": {"uv": [0, 0, 12, 16], "texture": "#wool"},
+				"south": {"uv": [0, 0, 4, 16], "texture": "#wool"},
+				"west": {"uv": [0, 0, 12, 16], "texture": "#wool"},
+				"up": {"uv": [0, 0, 4, 12], "texture": "#wool"},
+				"down": {"uv": [0, 0, 4, 12], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "sitting",
+			"from": [0, 6, 2],
+			"to": [12, 7, 12],
+			"faces": {
+				"north": {"uv": [0, 0, 12, 1], "texture": "#wool"},
+				"east": {"uv": [0, 0, 10, 1], "texture": "#wool"},
+				"south": {"uv": [0, 0, 12, 1], "texture": "#wool"},
+				"west": {"uv": [0, 0, 10, 1], "texture": "#wool"},
+				"up": {"uv": [0, 0, 12, 10], "texture": "#wool"},
+				"down": {"uv": [0, 0, 12, 10], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "sitting",
+			"from": [2, 6, 0],
+			"to": [12, 7, 2],
+			"faces": {
+				"north": {"uv": [0, 0, 10, 1], "texture": "#wool"},
+				"east": {"uv": [0, 0, 2, 1], "texture": "#wool"},
+				"south": {"uv": [0, 0, 10, 1], "texture": "#wool"},
+				"west": {"uv": [0, 0, 2, 1], "texture": "#wool"},
+				"up": {"uv": [0, 0, 10, 2], "texture": "#wool"},
+				"down": {"uv": [0, 0, 10, 2], "texture": "#wool"}
+			}
+		}
+	]
+}
