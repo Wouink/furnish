@@ -66,10 +66,27 @@
   "block.furnish.white_awning": "White Awning",
 
   "block.furnish.white_sofa": "White Sofa",
+  "block.furnish.black_sofa": "Black Sofa",
+  "block.furnish.blue_sofa": "Blue Sofa",
+  "block.furnish.brown_sofa": "Brown Sofa",
+  "block.furnish.cyan_sofa": "Cyan Sofa",
+  "block.furnish.gray_sofa": "Gray Sofa",
+  "block.furnish.green_sofa": "Green Sofa",
+  "block.furnish.light_blue_sofa": "Light Blue Sofa",
+  "block.furnish.light_gray_sofa": "Light Gray Sofa",
+  "block.furnish.lime_sofa": "Lime Sofa",
+  "block.furnish.magenta_sofa": "Magenta Sofa",
+  "block.furnish.orange_sofa": "Orange Sofa",
+  "block.furnish.pink_sofa": "Pink Sofa",
+  "block.furnish.purple_sofa": "Purple Sofa",
+  "block.furnish.red_sofa": "Red Sofa",
+  "block.furnish.yellow_sofa": "Yellow Sofa",
 
   "block.furnish.amphora": "Amphora (WIP)",
 
   "block.furnish.book_pile": "Book Pile",
 
-  "block.furnish.red_bunting": "Red-Orange Bunting"
+  "block.furnish.red_bunting": "Red-Orange Bunting",
+  "block.furnish.yellow_bunting": "Blue-Yellow Bunting",
+  "block.furnish.green_bunting": "Purple-Lime Bunting"
 }

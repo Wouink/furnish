@@ -1,12 +1,9 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.FurnishManager;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -20,8 +17,8 @@ import javax.annotation.Nullable;
 
 public class Bunting extends Block {
 	public static final BooleanProperty Z_AXIS = BooleanProperty.create("z_axis");
-	public static final VoxelShape BUNTING_X = Block.box(0, 14, 7, 16, 16, 9);
-	public static final VoxelShape BUNTING_Z = Block.box(7, 14, 0, 9, 16, 16);
+	public static final VoxelShape BUNTING_X = Block.box(0, 10, 7, 16, 16, 9);
+	public static final VoxelShape BUNTING_Z = Block.box(7, 10, 0, 9, 16, 16);
 
 	public Bunting(Properties p, String registryName) {
 		super(p.noCollission().noOcclusion());

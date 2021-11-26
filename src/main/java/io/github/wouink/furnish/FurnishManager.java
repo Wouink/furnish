@@ -115,7 +115,8 @@ public class FurnishManager {
 
 	public static final Block White_Awning = new Awning(AbstractBlock.Properties.copy(Blocks.WHITE_CARPET), "white_awning");
 	public static final Block Red_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "red_bunting");
-	public static final Block White_Sofa = new Sofa(AbstractBlock.Properties.copy(Blocks.WHITE_WOOL), "white_sofa");
+	public static final Block Yellow_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "yellow_bunting");
+	public static final Block Green_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "green_bunting");
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -140,6 +141,7 @@ public class FurnishManager {
 	public static HashMap<String, Block> Carpets_On_Stairs = new HashMap<String, Block>(16);
 
 	public static Block[] Amphoras = new Block[1];
+	public static Block[] Sofas = new Block[16];
 	public static final String[] Colors = {
 			"black", "red", "green", "brown", "blue", "purple", "cyan", "light_gray", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white"
 	};
@@ -147,9 +149,13 @@ public class FurnishManager {
 	// called by Furnish @Mod class constructor
 	public static void init() {
 		Amphoras[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
+		int index = 0;
 		for(String color : Colors) {
 			Block coloredCarpet = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_carpet", color)));
+			Block coloredWool = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_wool", color)));
 			Carpets_On_Stairs.put(color, new CarpetOnStairs(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_stairs", color), coloredCarpet));
+			Sofas[index] = new Sofa(AbstractBlock.Properties.copy(coloredWool), String.format("%s_sofa", color));
+			index++;
 		}
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpetOnStairs());
 		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
@@ -158,6 +164,8 @@ public class FurnishManager {
 	// called by Furnish @Mod class clientSetup
 	public static void registerTransparency() {
 		RenderTypeLookup.setRenderLayer(Red_Bunting, RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(Yellow_Bunting, RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(Green_Bunting, RenderType.translucent());
 	}
 
 	public static class ModBlocks {

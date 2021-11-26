@@ -77,21 +77,21 @@ public class Sofa extends HorizontalBlock {
 	private BlockState setBlockState(BlockState state, Direction dir, BlockPos pos, IWorld world) {
 		BlockState leftState = world.getBlockState(pos.relative(dir.getCounterClockWise()));
 		BlockState rightState = world.getBlockState(pos.relative(dir.getClockWise()));
-		boolean left = leftState.is(this) &&
+		boolean left = (leftState.getBlock() instanceof Sofa) &&
 				(leftState.getValue(FACING) == state.getValue(FACING) || leftState.getValue(SOFA_TYPE) == SofaType.CORNER_RIGHT);
-		boolean right = rightState.is(this) &&
+		boolean right = (rightState.getBlock() instanceof Sofa) &&
 				(rightState.getValue(FACING) == state.getValue(FACING) || rightState.getValue(SOFA_TYPE) == SofaType.CORNER_LEFT);
 
 		if(left && right) state = state.setValue(SOFA_TYPE, SofaType.MIDDLE);
 		else if(left) {
 			BlockState front = world.getBlockState(pos.relative(state.getValue(FACING)));
-			if(front.is(this) && front.getValue(FACING) == state.getValue(FACING).getClockWise()) {
+			if((front.getBlock() instanceof Sofa) && front.getValue(FACING) == state.getValue(FACING).getClockWise()) {
 				state = state.setValue(SOFA_TYPE, SofaType.CORNER_RIGHT);
 			} else state = state.setValue(SOFA_TYPE, SofaType.RIGHT);
 		}
 		else if(right) {
 			BlockState front = world.getBlockState(pos.relative(state.getValue(FACING)));
-			if(front.is(this) && front.getValue(FACING) == state.getValue(FACING).getCounterClockWise()) {
+			if((front.getBlock() instanceof Sofa)  && front.getValue(FACING) == state.getValue(FACING).getCounterClockWise()) {
 				state = state.setValue(SOFA_TYPE, SofaType.CORNER_LEFT);
 			} else state = state.setValue(SOFA_TYPE, SofaType.LEFT);
 		}

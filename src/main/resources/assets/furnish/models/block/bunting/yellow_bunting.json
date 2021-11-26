@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/bunting/parent/bunting",
+  "textures": {
+    "0": "furnish:block/bunting_blue_yellow"
+  }
+}

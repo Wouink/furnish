@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/sofa/parent/sofa_corner_left",
+  "textures": {
+    "wood": "minecraft:block/oak_planks",
+    "wool": "minecraft:block/black_wool"
+  }
+}

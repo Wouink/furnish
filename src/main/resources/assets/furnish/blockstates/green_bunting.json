@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "z_axis=false": {
+            "model": "furnish:block/bunting/green_bunting"
+        },
+    "z_axis=true": {
+        "model": "furnish:block/bunting/green_bunting",
+        "y": 90
+    }
+  }
+}

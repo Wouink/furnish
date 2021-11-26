@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:magenta_wool"
+  },
+  "result": "furnish:magenta_sofa",
+  "count": 1
+}
