@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:block/awning/parent/awning",
+  "textures": {
+    "0": "minecraft:block/oak_planks",
+    "1": "minecraft:block/light_blue_wool",
+    "particle": "minecraft:block/oak_planks"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=north,open=false": {
+      "model": "minecraft:block/lime_carpet"
+    },
+    "facing=east,open=false": {
+      "model": "minecraft:block/lime_carpet"
+    },
+    "facing=south,open=false": {
+      "model": "minecraft:block/lime_carpet"
+    },
+    "facing=west,open=false": {
+      "model": "minecraft:block/lime_carpet"
+    },
+    "facing=north,open=true": {
+      "model": "furnish:block/carpet/lime_carpet_on_trapdoor"
+    },
+    "facing=east,open=true": {
+      "model": "furnish:block/carpet/lime_carpet_on_trapdoor",
+      "y": 90
+    },
+    "facing=south,open=true": {
+      "model": "furnish:block/carpet/lime_carpet_on_trapdoor",
+      "y": 180
+    },
+    "facing=west,open=true": {
+      "model": "furnish:block/carpet/lime_carpet_on_trapdoor",
+      "y": 270
+    }
+  }
+}

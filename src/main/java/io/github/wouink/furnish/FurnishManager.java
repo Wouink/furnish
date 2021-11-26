@@ -8,7 +8,7 @@ import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.AddArmsToArmorStand;
-import io.github.wouink.furnish.event.PlaceCarpetOnStairs;
+import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
@@ -113,7 +113,6 @@ public class FurnishManager {
 	public static final Block Spruce_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_TALL_SEAT));
 	public static final Block Spruce_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_stool", Chair.BASE_SHAPES);
 
-	public static final Block White_Awning = new Awning(AbstractBlock.Properties.copy(Blocks.WHITE_CARPET), "white_awning");
 	public static final Block Red_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "red_bunting");
 	public static final Block Yellow_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "yellow_bunting");
 	public static final Block Green_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "green_bunting");
@@ -138,10 +137,12 @@ public class FurnishManager {
 			Dark_Oak_Wardrobe
 	};
 
-	public static HashMap<String, Block> Carpets_On_Stairs = new HashMap<String, Block>(16);
+	public static HashMap<String, Block> Carpets_On_Stairs = new HashMap<>(16);
+	public static HashMap<String, Block> Carpets_On_Trapdoors = new HashMap<>(16);
 
 	public static Block[] Amphoras = new Block[1];
 	public static Block[] Sofas = new Block[16];
+	public static Block[] Awnings = new Block[16];
 	public static final String[] Colors = {
 			"black", "red", "green", "brown", "blue", "purple", "cyan", "light_gray", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white"
 	};
@@ -154,10 +155,12 @@ public class FurnishManager {
 			Block coloredCarpet = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_carpet", color)));
 			Block coloredWool = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_wool", color)));
 			Carpets_On_Stairs.put(color, new CarpetOnStairs(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_stairs", color), coloredCarpet));
+			Carpets_On_Trapdoors.put(color, new CarpetOnTrapdoor(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_trapdoor", color), coloredCarpet));
 			Sofas[index] = new Sofa(AbstractBlock.Properties.copy(coloredWool), String.format("%s_sofa", color));
+			Awnings[index] = new Awning(AbstractBlock.Properties.copy(coloredCarpet), String.format("%s_awning", color));
 			index++;
 		}
-		MinecraftForge.EVENT_BUS.register(new PlaceCarpetOnStairs());
+		MinecraftForge.EVENT_BUS.register(new PlaceCarpet());
 		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
 	}
 
@@ -241,7 +244,7 @@ public class FurnishManager {
 	public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
 		IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 		for(RegistryObject<Block> b : ModBlocks.Blocks.getEntries()) {
-			if(!(b.get() instanceof CarpetOnStairs)) {
+			if(!(b.get() instanceof CarpetOnStairs) && !(b.get() instanceof CarpetOnTrapdoor)) {
 				itemRegistry.register(getBlockItem(b.get()));
 			}
 		}

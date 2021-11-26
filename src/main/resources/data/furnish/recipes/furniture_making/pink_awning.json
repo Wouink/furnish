@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:pink_carpet"
+  },
+  "result": "furnish:pink_awning",
+  "count": 1
+}

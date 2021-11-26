@@ -1,0 +1,64 @@
+{
+    "variants": {
+        "facing=north,left=true,right=true": {
+            "model": "furnish:block/awning/magenta_awning"
+        },
+        "facing=east,left=true,right=true": {
+            "model": "furnish:block/awning/magenta_awning",
+            "y": 90
+        },
+        "facing=south,left=true,right=true": {
+            "model": "furnish:block/awning/magenta_awning",
+            "y": 180
+        },
+        "facing=west,left=true,right=true": {
+            "model": "furnish:block/awning/magenta_awning",
+            "y": 270
+        },
+        "facing=north,left=true,right=false": {
+            "model": "furnish:block/awning/magenta_awning_right"
+        },
+        "facing=east,left=true,right=false": {
+            "model": "furnish:block/awning/magenta_awning_right",
+            "y": 90
+        },
+        "facing=south,left=true,right=false": {
+            "model": "furnish:block/awning/magenta_awning_right",
+            "y": 180
+        },
+        "facing=west,left=true,right=false": {
+            "model": "furnish:block/awning/magenta_awning_right",
+            "y": 270
+        },
+        "facing=north,left=false,right=true": {
+            "model": "furnish:block/awning/magenta_awning_left"
+        },
+        "facing=east,left=false,right=true": {
+            "model": "furnish:block/awning/magenta_awning_left",
+            "y": 90
+        },
+        "facing=south,left=false,right=true": {
+            "model": "furnish:block/awning/magenta_awning_left",
+            "y": 180
+        },
+        "facing=west,left=false,right=true": {
+            "model": "furnish:block/awning/magenta_awning_left",
+            "y": 270
+        },
+        "facing=north,left=false,right=false": {
+            "model": "furnish:block/awning/magenta_awning_both"
+        },
+        "facing=east,left=false,right=false": {
+            "model": "furnish:block/awning/magenta_awning_both",
+            "y": 90
+        },
+        "facing=south,left=false,right=false": {
+            "model": "furnish:block/awning/magenta_awning_both",
+            "y": 180
+        },
+        "facing=west,left=false,right=false": {
+            "model": "furnish:block/awning/magenta_awning_both",
+            "y": 270
+        }
+    }
+}

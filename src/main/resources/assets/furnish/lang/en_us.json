@@ -63,8 +63,6 @@
   "block.furnish.spruce_chair": "Spruce Chair",
   "block.furnish.spruce_stool": "Spruce Stool",
 
-  "block.furnish.white_awning": "White Awning",
-
   "block.furnish.white_sofa": "White Sofa",
   "block.furnish.black_sofa": "Black Sofa",
   "block.furnish.blue_sofa": "Blue Sofa",
@@ -81,6 +79,23 @@
   "block.furnish.purple_sofa": "Purple Sofa",
   "block.furnish.red_sofa": "Red Sofa",
   "block.furnish.yellow_sofa": "Yellow Sofa",
+
+  "block.furnish.white_awning": "White Awning",
+  "block.furnish.black_awning": "Black Awning",
+  "block.furnish.blue_awning": "Blue Awning",
+  "block.furnish.brown_awning": "Brown Awning",
+  "block.furnish.cyan_awning": "Cyan Awning",
+  "block.furnish.gray_awning": "Gray Awning",
+  "block.furnish.green_awning": "Green Awning",
+  "block.furnish.light_blue_awning": "Light Blue Awning",
+  "block.furnish.light_gray_awning": "Light Gray Awning",
+  "block.furnish.lime_awning": "Lime Awning",
+  "block.furnish.magenta_awning": "Magenta Awning",
+  "block.furnish.orange_awning": "Orange Awning",
+  "block.furnish.pink_awning": "Pink Awning",
+  "block.furnish.purple_awning": "Purple Awning",
+  "block.furnish.red_awning": "Red Awning",
+  "block.furnish.yellow_awning": "Yellow Awning",
 
   "block.furnish.amphora": "Amphora (WIP)",
 

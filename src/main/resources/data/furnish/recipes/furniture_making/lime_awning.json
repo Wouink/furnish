@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:lime_carpet"
+  },
+  "result": "furnish:lime_awning",
+  "count": 1
+}

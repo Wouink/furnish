@@ -2,7 +2,6 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.item.BlockItemUseContext;
@@ -12,7 +11,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -20,7 +18,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class Awning extends HorizontalBlock {
-	public static final VoxelShape AWNING_SHAPE = Block.box(0, 5, 0, 16, 7, 16);
+	public static final VoxelShape AWNING_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 	public static final BooleanProperty LEFT = BooleanProperty.create("left");
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
 
@@ -74,22 +72,12 @@ public class Awning extends HorizontalBlock {
 	}
 
 	@Override
-	public VoxelShape getOcclusionShape(BlockState state, IBlockReader reader, BlockPos pos) {
-		return VoxelShapes.empty();
-	}
-
-	@Override
 	public float getShadeBrightness(BlockState state, IBlockReader reader, BlockPos pos) {
 		return 1.0f;
 	}
 
 	@Override
-	public BlockRenderType getRenderShape(BlockState state) {
-		return BlockRenderType.MODEL;
-	}
-
-	@Override
-	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+	public boolean useShapeForLightOcclusion(BlockState state) {
 		return true;
 	}
 }

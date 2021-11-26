@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/carpet/parent/carpet_on_trapdoor",
+  "textures": {
+    "0": "minecraft:block/white_wool"
+  }
+}
