@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:dark_oak_trapdoor"
+  },
+  "result": "furnish:dark_oak_shutter",
+  "count": 1
+}

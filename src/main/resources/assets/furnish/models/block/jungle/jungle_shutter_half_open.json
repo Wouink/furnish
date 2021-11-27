@@ -1,6 +1,6 @@
 {
   "parent": "furnish:block/parent/shutter_half_open_left",
   "textures": {
-    "0": "furnish:block/oak_shutter"
+    "0": "furnish:block/jungle_shutter"
   }
 }

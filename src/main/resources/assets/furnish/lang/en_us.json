@@ -1,6 +1,7 @@
 {
   "itemGroup.furnish": "Furnish",
   "furnish.msg.too_big": "Too big to fit here",
+  "furnish.msg.cycle_no_painting": "No other painting",
   "furnish.furniture_inventory": "Furniture Inventory",
   "furnish.furniture_making": "Furniture Making",
   "subtitle.furnish.furniture_open": "Furniture Opens",
@@ -16,7 +17,7 @@
   "block.furnish.oak_chair": "Oak Chair",
   "block.furnish.oak_stool": "Oak Stool",
   "block.furnish.oak_wardrobe": "Oak Wardrobe",
-  "block.furnish.oak_shutter": "Oak Shutter (WIP)",
+  "block.furnish.oak_shutter": "Oak Shutter",
 
   "block.furnish.birch_cabinet": "Birch Cabinet",
   "block.furnish.birch_wardrobe": "Birch Wardrobe",
@@ -26,6 +27,7 @@
   "block.furnish.birch_square_table": "Birch Square Table",
   "block.furnish.birch_chair": "Birch Chair",
   "block.furnish.birch_stool": "Birch Stool",
+  "block.furnish.birch_shutter": "Birch Shutter",
 
   "block.furnish.acacia_cabinet": "Acacia Cabinet",
   "block.furnish.acacia_wardrobe": "Acacia Wardrobe",
@@ -35,6 +37,7 @@
   "block.furnish.acacia_square_table": "Acacia Square Table",
   "block.furnish.acacia_chair": "Acacia Chair",
   "block.furnish.acacia_stool": "Acacia Stool",
+  "block.furnish.acacia_shutter": "Acacia Shutter",
 
   "block.furnish.jungle_cabinet": "Jungle Cabinet",
   "block.furnish.jungle_wardrobe": "Jungle Wardrobe",
@@ -44,6 +47,7 @@
   "block.furnish.jungle_square_table": "Jungle Square Table",
   "block.furnish.jungle_chair": "Jungle Chair",
   "block.furnish.jungle_stool": "Jungle Stool",
+  "block.furnish.jungle_shutter": "Jungle Shutter",
 
   "block.furnish.dark_oak_cabinet": "Dark Oak Cabinet",
   "block.furnish.dark_oak_wardrobe": "Dark Oak Wardrobe",
@@ -53,6 +57,7 @@
   "block.furnish.dark_oak_square_table": "Dark Oak Square Table",
   "block.furnish.dark_oak_chair": "Dark Oak Throne",
   "block.furnish.dark_oak_stool": "Dark Oak Stool",
+  "block.furnish.dark_oak_shutter": "Dark Oak Shutter",
 
   "block.furnish.spruce_cabinet": "Spruce Cabinet",
   "block.furnish.spruce_wardrobe": "Spruce Wardrobe",
@@ -62,6 +67,7 @@
   "block.furnish.spruce_square_table": "Spruce Square Table",
   "block.furnish.spruce_chair": "Spruce Chair",
   "block.furnish.spruce_stool": "Spruce Stool",
+  "block.furnish.spruce_shutter": "Spruce Shutter",
 
   "block.furnish.white_sofa": "White Sofa",
   "block.furnish.black_sofa": "Black Sofa",

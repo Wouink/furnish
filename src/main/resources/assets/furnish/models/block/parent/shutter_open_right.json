@@ -1,6 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#0"
+	},
 	"elements": [
 		{
 			"from": [-14, 0, 14],

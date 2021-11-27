@@ -35,6 +35,11 @@ public class Bunting extends Block {
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+		if(!ctx.getPlayer().isCrouching()) {
+			BlockState buntingCheck = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(ctx.getClickedFace().getOpposite()));
+			if (buntingCheck.getBlock() instanceof Bunting)
+				return this.defaultBlockState().setValue(Z_AXIS, buntingCheck.getValue(Z_AXIS));
+		}
 		return this.defaultBlockState().setValue(Z_AXIS, ctx.getHorizontalDirection().getAxis() == Direction.Axis.Z);
 	}
 

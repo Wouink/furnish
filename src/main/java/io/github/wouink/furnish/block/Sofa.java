@@ -142,6 +142,6 @@ public class Sofa extends HorizontalBlock {
 
 	@Override
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		return SeatEntity.create(world, pos, 0.25, playerEntity);
+		return SeatEntity.create(world, pos, 0.2, playerEntity);
 	}
 }

@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.block.util.PlacementHelper;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -8,6 +9,7 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.*;
@@ -26,11 +28,27 @@ public class Shutter extends HorizontalBlock {
 	private static final VoxelShape[] SHUTTER_OPENED = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 14, 2, 16, 30));
 	private static final VoxelShape[] SHUTTER_OPENED_R = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, -14, 2, 16, 2));
 
+	public enum State implements IStringSerializable {
+		CLOSED("closed"),
+		HALF_OPEN("half_open"),
+		OPEN("open");
+
+		private final String name;
+		private State(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String getSerializedName() {
+			return name;
+		}
+	}
+
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
-	public static final IntegerProperty STATE = IntegerProperty.create("state", 0, 2);
+	public static final EnumProperty<State> STATE = EnumProperty.create("state", State.class);
 	public Shutter(Properties p, String registryName) {
 		super(p.noOcclusion());
-		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, 0).setValue(RIGHT, false));
+		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, State.CLOSED).setValue(RIGHT, false));
 		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
@@ -42,7 +60,7 @@ public class Shutter extends HorizontalBlock {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(RIGHT, ctx.getPlayer().isCrouching());
+		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(RIGHT, PlacementHelper.placeRight(ctx));
 	}
 
 	@Override
@@ -50,7 +68,6 @@ public class Shutter extends HorizontalBlock {
 		if(world.setBlock(pos, state.cycle(STATE), 3)) {
 			world.playSound(playerEntity, pos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1.0f, 1.0f);
 			// update shutters in the same column
-			int stateProp = world.getBlockState(pos).getValue(STATE).intValue();
 			boolean rightProp = world.getBlockState(pos).getValue(RIGHT).booleanValue();
 			BlockPos scan = pos.below();
 			while(world.getBlockState(scan).getBlock() == this && world.getBlockState(scan).getValue(RIGHT) == rightProp) {
@@ -68,30 +85,18 @@ public class Shutter extends HorizontalBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
-		VoxelShape ret = SHUTTER_CLOSED[state.getValue(FACING).ordinal() - 2];
-		if(state.getValue(RIGHT).booleanValue()) {
-			switch (state.getValue(STATE).intValue()) {
-				case 1:
-					ret = SHUTTER_HALF_OPENED_R[state.getValue(FACING).ordinal() - 2];
-					break;
-				case 2:
-					ret = SHUTTER_OPENED_R[state.getValue(FACING).ordinal() - 2];
-					break;
-				default:
-					break;
-			}
+		int index = state.getValue(FACING).ordinal() - 2;
+		if(state.getValue(STATE) == State.HALF_OPEN) {
+			return state.getValue(RIGHT) ? SHUTTER_HALF_OPENED_R[index] : SHUTTER_HALF_OPENED[index];
+		} else if(state.getValue(STATE) == State.OPEN) {
+			return state.getValue(RIGHT) ? SHUTTER_OPENED_R[index] : SHUTTER_OPENED[index];
 		} else {
-			switch (state.getValue(STATE).intValue()) {
-				case 1:
-					ret = SHUTTER_HALF_OPENED[state.getValue(FACING).ordinal() - 2];
-					break;
-				case 2:
-					ret = SHUTTER_OPENED[state.getValue(FACING).ordinal() - 2];
-					break;
-				default:
-					break;
-			}
+			return SHUTTER_CLOSED[index];
 		}
-		return ret;
+	}
+
+	@Override
+	public VoxelShape getInteractionShape(BlockState state, IBlockReader reader, BlockPos pos) {
+		return SHUTTER_CLOSED[state.getValue(FACING).ordinal() - 2];
 	}
 }

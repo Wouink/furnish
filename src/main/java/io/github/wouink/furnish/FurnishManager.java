@@ -8,6 +8,7 @@ import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.AddArmsToArmorStand;
+import io.github.wouink.furnish.event.CyclePainting;
 import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.PaintingType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -76,6 +78,7 @@ public class FurnishManager {
 	public static final Block Birch_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_bedside_table");
 	public static final Block Birch_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT));
 	public static final Block Birch_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_stool", Chair.BASE_SHAPES);
+	public static final Block Birch_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_shutter");
 
 	public static final Block Acacia_Table = new Table(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_table");
 	public static final Block Acacia_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_square_table");
@@ -85,6 +88,7 @@ public class FurnishManager {
 	public static final Block Acacia_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_bedside_table");
 	public static final Block Acacia_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_TALL_SEAT));
 	public static final Block Acacia_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_stool", Chair.BASE_SHAPES);
+	public static final Block Acacia_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_shutter");
 
 	public static final Block Jungle_Table = new Table(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_table");
 	public static final Block Jungle_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_square_table");
@@ -94,6 +98,7 @@ public class FurnishManager {
 	public static final Block Jungle_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_bedside_table");
 	public static final Block Jungle_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT));
 	public static final Block Jungle_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_stool", Chair.BASE_SHAPES);
+	public static final Block Jungle_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_shutter");
 
 	public static final Block Dark_Oak_Table = new Table(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_table");
 	public static final Block Dark_Oak_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_square_table");
@@ -103,6 +108,7 @@ public class FurnishManager {
 	public static final Block Dark_Oak_Kitchen_Cabinet = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_kitchen_cabinet");
 	public static final Block Dark_Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT_THRONE));
 	public static final Block Dark_Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_stool", Chair.BASE_SHAPES);
+	public static final Block Dark_Oak_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_shutter");
 
 	public static final Block Spruce_Table = new Table(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_table");
 	public static final Block Spruce_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_square_table");
@@ -112,6 +118,7 @@ public class FurnishManager {
 	public static final Block Spruce_Bedside_Table = new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_bedside_table");
 	public static final Block Spruce_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_TALL_SEAT));
 	public static final Block Spruce_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_stool", Chair.BASE_SHAPES);
+	public static final Block Spruce_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_shutter");
 
 	public static final Block Red_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "red_bunting");
 	public static final Block Yellow_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "yellow_bunting");
@@ -162,6 +169,7 @@ public class FurnishManager {
 		}
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpet());
 		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
+		MinecraftForge.EVENT_BUS.register(new CyclePainting());
 	}
 
 	// called by Furnish @Mod class clientSetup
@@ -169,6 +177,8 @@ public class FurnishManager {
 		RenderTypeLookup.setRenderLayer(Red_Bunting, RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(Yellow_Bunting, RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(Green_Bunting, RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(Jungle_Shutter, RenderType.translucent());
+		RenderTypeLookup.setRenderLayer(Acacia_Shutter, RenderType.translucent());
 	}
 
 	public static class ModBlocks {
@@ -236,7 +246,7 @@ public class FurnishManager {
 		}
 	};
 
-	private static BlockItem getBlockItem(Block block) {
+	public static BlockItem getBlockItem(Block block) {
 		return (BlockItem) new BlockItem(block, new Item.Properties().tab(Furnish_ItemGroup)).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
 	}
 
@@ -249,5 +259,18 @@ public class FurnishManager {
 			}
 		}
 		Furnish_Logger.info("Registered Furnish Items.");
+	}
+
+	public static PaintingType createPainting(String name, int w, int h) {
+		PaintingType painting = new PaintingType(16 * w, 16 * h);
+		painting.setRegistryName(Furnish.MODID, name);
+		return painting;
+	}
+
+	@SubscribeEvent
+	public static void registerPaintings(RegistryEvent.Register<PaintingType> paintingRegistryEvent) {
+		IForgeRegistry<PaintingType> paintingRegistry = paintingRegistryEvent.getRegistry();
+		paintingRegistry.register(createPainting("steve", 1, 1));
+		paintingRegistry.register(createPainting("alex", 1, 1));
 	}
 }
