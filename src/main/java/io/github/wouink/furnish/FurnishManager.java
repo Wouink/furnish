@@ -10,12 +10,14 @@ import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.AddArmsToArmorStand;
 import io.github.wouink.furnish.event.CyclePainting;
 import io.github.wouink.furnish.event.PlaceCarpet;
+import io.github.wouink.furnish.event.CustomPaintings;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -270,7 +272,12 @@ public class FurnishManager {
 	@SubscribeEvent
 	public static void registerPaintings(RegistryEvent.Register<PaintingType> paintingRegistryEvent) {
 		IForgeRegistry<PaintingType> paintingRegistry = paintingRegistryEvent.getRegistry();
+
+		// register Furnish paintings
 		paintingRegistry.register(createPainting("steve", 1, 1));
 		paintingRegistry.register(createPainting("alex", 1, 1));
+
+		String paintingsJsonFile = String.format("%s/config/furnish_custom_paintings.json", Minecraft.getInstance().gameDirectory.getName());
+		CustomPaintings.registerCustomPaintings(paintingRegistry, paintingsJsonFile);
 	}
 }
