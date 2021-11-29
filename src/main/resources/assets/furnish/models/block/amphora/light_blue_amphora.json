@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:block/amphora/parent/amphora",
+  "textures": {
+    "top": "furnish:block/amphora/light_blue_amphora_top",
+    "sides": "furnish:block/amphora/light_blue_amphora_sides",
+    "front": "#sides"
+  }
+}

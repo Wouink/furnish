@@ -1,8 +1,8 @@
 {
-  "parent": "furnish:block/parent/amphora",
+  "parent": "furnish:block/amphora/parent/amphora",
   "textures": {
-    "0": "minecraft:block/terracotta",
-    "1": "minecraft:block/terracotta",
-    "particle": "minecraft:block/terracotta"
+    "top": "furnish:block/amphora/amphora_top",
+    "sides": "furnish:block/amphora/amphora_sides",
+    "front": "#sides"
   }
 }

@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/amphora/red_amphora"
+        },
+        "facing=east": {
+            "model": "furnish:block/amphora/red_amphora",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/amphora/red_amphora",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/amphora/red_amphora",
+            "y": 270
+        }
+    }
+}

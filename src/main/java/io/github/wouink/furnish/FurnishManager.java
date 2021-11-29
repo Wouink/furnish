@@ -25,10 +25,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntity;
@@ -149,24 +146,26 @@ public class FurnishManager {
 	public static HashMap<String, Block> Carpets_On_Stairs = new HashMap<>(16);
 	public static HashMap<String, Block> Carpets_On_Trapdoors = new HashMap<>(16);
 
-	public static Block[] Amphoras = new Block[1];
+	public static Block[] Amphoras = new Block[17];
 	public static Block[] Sofas = new Block[16];
 	public static Block[] Awnings = new Block[16];
-	public static final String[] Colors = {
-			"black", "red", "green", "brown", "blue", "purple", "cyan", "light_gray", "gray", "pink", "lime", "yellow", "light_blue", "magenta", "orange", "white"
-	};
 
 	// called by Furnish @Mod class constructor
 	public static void init() {
 		Amphoras[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
 		int index = 0;
-		for(String color : Colors) {
+		for(DyeColor dyeColor : DyeColor.values()) {
+			String color = dyeColor.getName();
 			Block coloredCarpet = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_carpet", color)));
-			Block coloredWool = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_wool", color)));
 			Carpets_On_Stairs.put(color, new CarpetOnStairs(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_stairs", color), coloredCarpet));
 			Carpets_On_Trapdoors.put(color, new CarpetOnTrapdoor(AbstractBlock.Properties.copy(coloredCarpet).dropsLike(coloredCarpet), String.format("%s_carpet_on_trapdoor", color), coloredCarpet));
-			Sofas[index] = new Sofa(AbstractBlock.Properties.copy(coloredWool), String.format("%s_sofa", color));
 			Awnings[index] = new Awning(AbstractBlock.Properties.copy(coloredCarpet), String.format("%s_awning", color));
+
+			Block coloredWool = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_wool", color)));
+			Sofas[index] = new Sofa(AbstractBlock.Properties.copy(coloredWool), String.format("%s_sofa", color));
+
+			Block coloredTerracotta = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_terracotta", color)));
+			Amphoras[index + 1] = new Amphora(AbstractBlock.Properties.copy(coloredTerracotta), String.format("%s_amphora", color));
 			index++;
 		}
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpet());

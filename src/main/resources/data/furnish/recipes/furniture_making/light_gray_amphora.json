@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:light_gray_terracotta"
+  },
+  "result": "furnish:light_gray_amphora",
+  "count": 1
+}
