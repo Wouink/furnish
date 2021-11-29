@@ -6,6 +6,8 @@ import io.github.wouink.furnish.entity.SeatEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.EnumProperty;
@@ -18,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -143,5 +146,28 @@ public class Sofa extends HorizontalBlock {
 	@Override
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
 		return SeatEntity.create(world, pos, 0.2, playerEntity);
+	}
+
+	@Override
+	public void fallOn(World world, BlockPos pos, Entity entity, float dist) {
+		super.fallOn(world, pos, entity, dist * 0.5f);
+	}
+
+	@Override
+	public void updateEntityAfterFallOn(IBlockReader reader, Entity entity) {
+		if(entity.isSuppressingBounce()) {
+			super.updateEntityAfterFallOn(reader, entity);
+		} else {
+			bounceUp(entity);
+		}
+	}
+
+	// copied from BedBlock
+	private static void bounceUp(Entity entity) {
+		Vector3d vector3d = entity.getDeltaMovement();
+		if (vector3d.y < 0.0D) {
+			double d0 = entity instanceof LivingEntity ? 1.0D : 0.8D;
+			entity.setDeltaMovement(vector3d.x, -vector3d.y * (double) 0.66F * d0, vector3d.z);
+		}
 	}
 }

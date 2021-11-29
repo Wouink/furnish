@@ -17,8 +17,8 @@ import javax.annotation.Nullable;
 
 public class Bunting extends Block {
 	public static final BooleanProperty Z_AXIS = BooleanProperty.create("z_axis");
-	public static final VoxelShape BUNTING_X = Block.box(0, 10, 7, 16, 16, 9);
-	public static final VoxelShape BUNTING_Z = Block.box(7, 10, 0, 9, 16, 16);
+	public static final VoxelShape BUNTING_X = Block.box(0, 7, 7, 16, 12, 9);
+	public static final VoxelShape BUNTING_Z = Block.box(7, 7, 0, 9, 12, 16);
 
 	public Bunting(Properties p, String registryName) {
 		super(p.noCollission().noOcclusion());
