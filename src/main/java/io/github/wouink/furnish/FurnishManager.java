@@ -276,7 +276,7 @@ public class FurnishManager {
 		paintingRegistry.register(createPainting("steve", 1, 1));
 		paintingRegistry.register(createPainting("alex", 1, 1));
 
-		String paintingsJsonFile = String.format("%s/config/furnish_custom_paintings.json", Minecraft.getInstance().gameDirectory.getName());
+		String paintingsJsonFile = String.format("%s/config/furnish_custom_paintings.json", Minecraft.getInstance().gameDirectory.getPath());
 		CustomPaintings.registerCustomPaintings(paintingRegistry, paintingsJsonFile);
 	}
 }
