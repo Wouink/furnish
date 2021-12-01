@@ -7,11 +7,13 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.fml.RegistryObject;
 
 public class Wardrobe extends TallInventoryFurniture {
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
-	public Wardrobe(Properties p, String registryName) {
-		super(p, registryName);
+	public Wardrobe(Properties p, String registryName, final RegistryObject<SoundEvent> sound) {
+		super(p, registryName, sound);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TOP, false).setValue(RIGHT, false));
 	}
 

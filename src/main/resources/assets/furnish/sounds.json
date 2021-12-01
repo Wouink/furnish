@@ -5,5 +5,45 @@
     "sounds": [
       "furnish:block/furniture_open"
     ]
+  },
+  "furniture.open.spruce": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.furniture_open",
+    "sounds": [
+      "minecraft:block/chest/open"
+    ]
+  },
+  "furniture.open.drawers": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.furniture_open_drawers",
+    "sounds": [
+      "minecraft:block/barrel/open1",
+      "minecraft:block/barrel/open2"
+    ]
+  },
+  "amphora.open": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.amphora_open",
+    "sounds": [
+      "minecraft:block/grindstone/grindstone1",
+      "minecraft:block/grindstone/grindstone2",
+      "minecraft:block/grindstone/grindstone3"
+    ]
+  },
+  "door.knock.wood": {
+    "category": "players",
+    "subtitle": "subtitle.furnish.door_knock",
+    "sounds": [
+      "furnish:block/wooden_door_knock1",
+      "furnish:block/wooden_door_knock2"
+    ]
+  },
+  "door.knock.iron": {
+    "category": "players",
+    "subtitle": "subtitle.furnish.door_knock_iron",
+    "sounds": [
+      "furnish:block/iron_door_knock1",
+      "furnish:block/iron_door_knock2"
+    ]
   }
 }

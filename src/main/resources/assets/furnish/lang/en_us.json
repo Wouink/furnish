@@ -4,7 +4,12 @@
   "furnish.msg.cycle_no_painting": "No other painting",
   "furnish.furniture_inventory": "Furniture Inventory",
   "furnish.furniture_making": "Furniture Making",
+
   "subtitle.furnish.furniture_open": "Furniture Opens",
+  "subtitle.furnish.furniture_open_drawers": "Drawers Opens",
+  "subtitle.furnish.amphora_open": "Amphora Opens",
+  "subtitle.furnish.door_knock": "Someone Knocks on a Door",
+  "subtitle.furnish.door_knock_iron": "Someone Knocks on an Iron Door",
 
   "block.furnish.furniture_workbench": "Furniture Workbench",
   "container.furniture_workbench": "Furniture Making",

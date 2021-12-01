@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,18 +12,21 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
 
 public class InventoryFurniture extends SimpleFurniture implements ISidedInventoryProvider {
-
-	public InventoryFurniture(Properties p, String registryName) {
+	private final RegistryObject<SoundEvent> sound;
+	public InventoryFurniture(Properties p, String registryName, final RegistryObject<SoundEvent> sound) {
 		super(p, registryName);
+		this.sound = sound;
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class InventoryFurniture extends SimpleFurniture implements ISidedInvento
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
 		TileEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof FurnitureTileEntity) {
-			world.playSound(playerEntity, pos, FurnishManager.Sounds.Open_Furniture.get(), SoundCategory.BLOCKS, .8f, 1.0f);
+			if(sound != null) world.playSound(playerEntity, pos, sound.get(), SoundCategory.BLOCKS, .8f, 1.0f);
 			if(world.isClientSide()) {
 				return ActionResultType.SUCCESS;
 			} else {
