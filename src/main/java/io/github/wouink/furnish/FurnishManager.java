@@ -14,7 +14,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -279,7 +278,7 @@ public class FurnishManager {
 		paintingRegistry.register(createPainting("steve", 1, 1));
 		paintingRegistry.register(createPainting("alex", 1, 1));
 
-		String paintingsJsonFile = String.format("%s/config/furnish_custom_paintings.json", Minecraft.getInstance().gameDirectory.getPath());
-		CustomPaintings.registerCustomPaintings(paintingRegistry, paintingsJsonFile);
+		// String paintingsJsonFile = "config/furnish_custom_paintings.json";
+		// CustomPaintings.registerCustomPaintings(paintingRegistry, paintingsJsonFile);
 	}
 }
