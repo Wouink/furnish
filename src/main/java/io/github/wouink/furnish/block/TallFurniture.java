@@ -34,7 +34,7 @@ public class TallFurniture extends HorizontalBlock {
 			return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		} else {
 			if(ctx.getLevel().isClientSide()) {
-				ctx.getPlayer().displayClientMessage(new TranslationTextComponent("furnish.msg.too_big"), true);
+				ctx.getPlayer().displayClientMessage(new TranslationTextComponent("msg.furnish.furniture_too_big"), true);
 			}
 			return null;
 		}

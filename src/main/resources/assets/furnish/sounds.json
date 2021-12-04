@@ -45,5 +45,12 @@
       "furnish:block/iron_door_knock1",
       "furnish:block/iron_door_knock2"
     ]
+  },
+  "mailbox.update": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.mailbox_update",
+    "sounds": [
+      "minecraft:random/wood_click"
+    ]
   }
 }

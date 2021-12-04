@@ -40,7 +40,7 @@ public class CyclePainting {
 
 		List<PaintingType> similarSizeArts = getSimilarSizeArt(target.motive);
 		if(similarSizeArts.isEmpty() || similarSizeArts.size() < 2) {
-			event.getPlayer().displayClientMessage(new TranslationTextComponent("furnish.msg.cycle_no_painting"), true);
+			event.getPlayer().displayClientMessage(new TranslationTextComponent("msg.furnish.cycle_no_painting"), true);
 			return;
 		}
 

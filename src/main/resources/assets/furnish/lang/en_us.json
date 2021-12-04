@@ -1,7 +1,7 @@
 {
   "itemGroup.furnish": "Furnish",
-  "furnish.msg.too_big": "Too big to fit here",
-  "furnish.msg.cycle_no_painting": "No other painting",
+  "msg.furnish.furniture_too_big": "Too big to fit here",
+  "msg.furnish.cycle_no_painting": "No other painting",
   "furnish.furniture_inventory": "Furniture Inventory",
   "furnish.furniture_making": "Furniture Making",
 
@@ -10,6 +10,13 @@
   "subtitle.furnish.amphora_open": "Amphora Opens",
   "subtitle.furnish.door_knock": "Someone Knocks on a Door",
   "subtitle.furnish.door_knock_iron": "Someone Knocks on an Iron Door",
+
+  "advancement.furnish.root.name": "Welcome to Furnish!",
+  "advancement.furnish.root.description": "Use the Furniture Workbench to create Furniture",
+  "advancement.furnish.carpet_everything.name": "Carpet Everything",
+  "advancement.furnish.carpet_everything.description": "Carpets can also be placed on Stairs and Trapdoors",
+  "advancement.furnish.in_the_mail.name": "It's in the mail!",
+  "advancement.furnish.in_the_mail.description": "Make a Mailbox to receive mail.",
 
   "block.furnish.furniture_workbench": "Furniture Workbench",
   "container.furniture_workbench": "Furniture Making",
@@ -130,5 +137,17 @@
 
   "block.furnish.red_bunting": "Red-Orange Bunting",
   "block.furnish.yellow_bunting": "Blue-Yellow Bunting",
-  "block.furnish.green_bunting": "Purple-Lime Bunting"
+  "block.furnish.green_bunting": "Purple-Lime Bunting",
+
+  "block.furnish.metal_mailbox": "Metal Mailbox",
+  "msg.furnish.mailbox.ownership_info": "Right-Click again to claim ownership",
+  "msg.furnish.mailbox.set_owner": "You are the Owner of this Mailbox",
+  "msg.furnish.mailbox.no_permission": "This Mailbox is not yours",
+  "msg.furnish.mailbox.mail_delivered": "Mail delivered",
+  "msg.furnish.mailbox.mail_delivered_to": "Mail delivered to %s",
+  "msg.furnish.mailbox.full": "This Mailbox is full",
+  "msg.furnish.mailbox.new_mail": "Received mail",
+  "msg.furnish.mailbox.new_mail_loc": "Received mail at %s",
+  "msg.furnish.mailbox.invalid_mail": "You cannot mail that",
+  "subtitle.furnish.mailbox_update": "Mailbox toggles"
 }

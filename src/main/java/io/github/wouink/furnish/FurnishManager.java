@@ -5,6 +5,7 @@ import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
+import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.*;
@@ -13,6 +14,7 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -30,6 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -44,6 +47,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishManager {
 	public static final Logger Furnish_Logger = LogManager.getLogger();
@@ -119,7 +123,13 @@ public class FurnishManager {
 	public static final Block Yellow_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "yellow_bunting");
 	public static final Block Green_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "green_bunting");
 
+	public static final Block Metal_Mailbox = new Mailbox(AbstractBlock.Properties.of(Material.METAL).noOcclusion().strength(2.0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE), "metal_mailbox");
+
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
+
+	public static Block[] Mailboxes = {
+		Metal_Mailbox
+	};
 
 	public static Block[] FurnitureInvProvider = {
 			Oak_Bedside_Table, Oak_Kitchen_Cabinet, Oak_Cabinet,
@@ -142,13 +152,13 @@ public class FurnishManager {
 	public static HashMap<String, Block> Carpets_On_Stairs = new HashMap<>(16);
 	public static HashMap<String, Block> Carpets_On_Trapdoors = new HashMap<>(16);
 
-	public static Block[] Amphoras = new Block[17];
+	public static Block[] Amphorae = new Block[17];
 	public static Block[] Sofas = new Block[16];
 	public static Block[] Awnings = new Block[16];
 
 	// called by Furnish @Mod class constructor
 	public static void init() {
-		Amphoras[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
+		Amphorae[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
 		int index = 0;
 		for(DyeColor dyeColor : DyeColor.values()) {
 			String color = dyeColor.getName();
@@ -161,7 +171,7 @@ public class FurnishManager {
 			Sofas[index] = new Sofa(AbstractBlock.Properties.copy(coloredWool), String.format("%s_sofa", color));
 
 			Block coloredTerracotta = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_terracotta", color)));
-			Amphoras[index + 1] = new Amphora(AbstractBlock.Properties.copy(coloredTerracotta), String.format("%s_amphora", color));
+			Amphorae[index + 1] = new Amphora(AbstractBlock.Properties.copy(coloredTerracotta), String.format("%s_amphora", color));
 			index++;
 		}
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpet());
@@ -221,7 +231,8 @@ public class FurnishManager {
 		public static final DeferredRegister<TileEntityType<?>> Furnish_Tile_Entities = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Furnish.MODID);
 		public static final RegistryObject<TileEntityType<FurnitureTileEntity>> Furniture = register("furniture", FurnitureTileEntity::new, () -> FurnitureInvProvider);
 		public static final RegistryObject<TileEntityType<LargeFurnitureTileEntity>> Large_Furniture = register("large_furniture", LargeFurnitureTileEntity::new, () -> FurnitureLargeInvProvider);
-		public static final RegistryObject<TileEntityType<AmphoraTileEntity>> Amphora = register("amphora", AmphoraTileEntity::new, () -> Amphoras);
+		public static final RegistryObject<TileEntityType<AmphoraTileEntity>> Amphora = register("amphora", AmphoraTileEntity::new, () -> Amphorae);
+		public static final RegistryObject<TileEntityType<MailboxTileEntity>> Mailbox = register("mailbox", MailboxTileEntity::new, () -> Mailboxes);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Furnish_Tile_Entities.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
@@ -236,6 +247,7 @@ public class FurnishManager {
 		public static final RegistryObject<SoundEvent> Amphora_Open = Furnish_Sounds.register("amphora.open", () -> register("amphora.open"));
 		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = Furnish_Sounds.register("door.knock.wood", () -> register("door.knock.wood"));
 		public static final RegistryObject<SoundEvent> Iron_Door_Knock = Furnish_Sounds.register("door.knock.iron", () -> register("door.knock.iron"));
+		public static final RegistryObject<SoundEvent> Mailbox_Update = Furnish_Sounds.register("mailbox.update", () -> register("mailbox.update"));
 
 		public static SoundEvent register(String name) {
 			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));
