@@ -149,5 +149,8 @@
   "msg.furnish.mailbox.new_mail": "Received mail",
   "msg.furnish.mailbox.new_mail_loc": "Received mail at %s",
   "msg.furnish.mailbox.invalid_mail": "You cannot mail that",
-  "subtitle.furnish.mailbox_update": "Mailbox toggles"
+  "subtitle.furnish.mailbox_update": "Mailbox toggles",
+
+  "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
+  "block.furnish.chimney_cap": "Chimney Cap"
 }

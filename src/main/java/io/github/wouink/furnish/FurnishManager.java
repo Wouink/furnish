@@ -125,6 +125,9 @@ public class FurnishManager {
 
 	public static final Block Metal_Mailbox = new Mailbox(AbstractBlock.Properties.of(Material.METAL).noOcclusion().strength(2.0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE), "metal_mailbox");
 
+	public static final Block Brick_Chimney_Conduit = new ChimneyConduit(AbstractBlock.Properties.copy(Blocks.BRICKS), "brick_chimney_conduit");
+	public static final Block Brick_Chimney_Cap = new ChimneyCap(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f), "chimney_cap");
+
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
 	public static Block[] Mailboxes = {
@@ -177,7 +180,7 @@ public class FurnishManager {
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpet());
 		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
 		MinecraftForge.EVENT_BUS.register(new CyclePainting());
-		// MinecraftForge.EVENT_BUS.register(new KnockOnDoor());
+		MinecraftForge.EVENT_BUS.register(new KnockOnDoor());
 	}
 
 	// called by Furnish @Mod class clientSetup

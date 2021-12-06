@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "result": "furnish:chimney_cap",
+  "count": 1
+}

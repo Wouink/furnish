@@ -2,7 +2,6 @@ package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishManager;
-import io.github.wouink.furnish.block.Mailbox;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

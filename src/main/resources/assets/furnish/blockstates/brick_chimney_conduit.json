@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "furnish:block/chimney/brick_chimney_conduit"
+    }
+  }
+}
