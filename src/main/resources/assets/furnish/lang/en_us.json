@@ -150,6 +150,11 @@
   "msg.furnish.mailbox.new_mail_loc": "Received mail at %s",
   "msg.furnish.mailbox.invalid_mail": "You cannot mail that",
   "subtitle.furnish.mailbox_update": "Mailbox toggles",
+  "item.furnish.letter": "Letter",
+  "msg.furnish.letter.attachment_added": "Attached to Letter",
+  "msg.furnish.letter.attachment_removed": "Removed attachment",
+  "tooltip.furnish.letter.author": "Sent by %s",
+  "tooltip.furnish.letter.attachment": "Attachment: %s",
 
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
   "block.furnish.chimney_cap": "Chimney Cap"

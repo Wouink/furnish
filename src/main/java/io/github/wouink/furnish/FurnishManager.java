@@ -9,6 +9,7 @@ import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.*;
+import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.block.AbstractBlock;
@@ -276,6 +277,7 @@ public class FurnishManager {
 				itemRegistry.register(getBlockItem(b.get()));
 			}
 		}
+		itemRegistry.register(new Letter(new Item.Properties().tab(Furnish_ItemGroup).stacksTo(1), "letter"));
 		Furnish_Logger.info("Registered Furnish Items.");
 	}
 

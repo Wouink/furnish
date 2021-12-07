@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.item.Letter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -109,6 +110,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 
 	public ItemStack addMail(ItemStack stack) {
 		if(!stack.getItem().getTags().contains(MAIL_TAG)) return stack;
+		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {
 			ItemStack result = inventory.set(slot, stack);
