@@ -151,10 +151,12 @@
   "msg.furnish.mailbox.invalid_mail": "You cannot mail that",
   "subtitle.furnish.mailbox_update": "Mailbox toggles",
   "item.furnish.letter": "Letter",
-  "msg.furnish.letter.attachment_added": "Attached to Letter",
+  "msg.furnish.letter.attachment_added": "Attached %s to Letter",
   "msg.furnish.letter.attachment_removed": "Removed attachment",
   "tooltip.furnish.letter.author": "Sent by %s",
   "tooltip.furnish.letter.attachment": "Attachment: %s",
+  "subtitle.furnish.attach_to_letter": "Item added to a Letter",
+  "subtitle.furnish.detach_from_letter": "Attachment removed from Letter",
 
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
   "block.furnish.chimney_cap": "Chimney Cap"

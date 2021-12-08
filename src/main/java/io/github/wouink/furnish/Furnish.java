@@ -2,18 +2,31 @@ package io.github.wouink.furnish;
 
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
+import io.github.wouink.furnish.network.ClientMessageHandler;
+import io.github.wouink.furnish.network.ItemStackUpdateMessage;
+import io.github.wouink.furnish.network.ServerMessageHandler;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
+
+import java.util.Optional;
 
 @Mod(Furnish.MODID)
 @Mod.EventBusSubscriber(modid = Furnish.MODID)
 public class Furnish {
 	public static final String MODID = "furnish";
+
+	public static SimpleChannel networkChannel;
+	public static final String MESSAGE_PROTOCOL_VERSION = "1.0";
+	public static final ResourceLocation CHANNEL_LOC = new ResourceLocation(MODID, "net");
 
 	public Furnish() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -35,6 +48,13 @@ public class Furnish {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		networkChannel = NetworkRegistry.newSimpleChannel(CHANNEL_LOC, () -> MESSAGE_PROTOCOL_VERSION,
+				ClientMessageHandler::acceptsProtocol, ServerMessageHandler::acceptsProtocol
+		);
+		networkChannel.registerMessage(ItemStackUpdateMessage.MESSAGE_ID, ItemStackUpdateMessage.class,
+				ItemStackUpdateMessage::encode, ItemStackUpdateMessage::decode,
+				ServerMessageHandler::onMessageReceived, Optional.of(NetworkDirection.PLAY_TO_SERVER)
+		);
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {

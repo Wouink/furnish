@@ -52,5 +52,27 @@
     "sounds": [
       "minecraft:random/wood_click"
     ]
+  },
+  "letter.add_attachment": {
+    "category": "players",
+    "subtitle": "subtitle.furnish.attach_to_letter",
+    "sounds": [
+      "minecraft:item/armor/equip_leather1",
+      "minecraft:item/armor/equip_leather2",
+      "minecraft:item/armor/equip_leather3",
+      "minecraft:item/armor/equip_leather4",
+      "minecraft:item/armor/equip_leather5",
+      "minecraft:item/armor/equip_leather6"
+    ]
+  },
+  "letter.remove_attachment": {
+    "category": "players",
+    "subtitle": "subtitle.furnish.detach_from_letter",
+    "sounds": [
+      "minecraft:entity/itemframe/remove_item1",
+      "minecraft:entity/itemframe/remove_item2",
+      "minecraft:entity/itemframe/remove_item3",
+      "minecraft:entity/itemframe/remove_item4"
+    ]
   }
 }

@@ -252,6 +252,8 @@ public class FurnishManager {
 		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = Furnish_Sounds.register("door.knock.wood", () -> register("door.knock.wood"));
 		public static final RegistryObject<SoundEvent> Iron_Door_Knock = Furnish_Sounds.register("door.knock.iron", () -> register("door.knock.iron"));
 		public static final RegistryObject<SoundEvent> Mailbox_Update = Furnish_Sounds.register("mailbox.update", () -> register("mailbox.update"));
+		public static final RegistryObject<SoundEvent> Attach_To_Letter = Furnish_Sounds.register("letter.add_attachment", () -> register("letter.add_attachment"));
+		public static final RegistryObject<SoundEvent> Detach_From_Letter = Furnish_Sounds.register("letter.remove_attachment", () -> register("letter.remove_attachment"));
 
 		public static SoundEvent register(String name) {
 			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));

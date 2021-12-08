@@ -1,8 +1,10 @@
 package io.github.wouink.furnish.item;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.client.gui.LetterScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -26,9 +28,9 @@ public class Letter extends Item {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private void openGui(ItemStack stack, PlayerEntity playerEntity) {
-		playerEntity.playSound(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
-		Minecraft.getInstance().setScreen(new LetterScreen(stack, playerEntity, new TranslationTextComponent("item.furnish.letter")));
+	private void openGui(ItemStack stack, PlayerEntity playerEntity, Hand hand) {
+		Minecraft.getInstance().getSoundManager().play(SimpleSound.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f));
+		Minecraft.getInstance().setScreen(new LetterScreen(stack, playerEntity, hand));
 	}
 
 	@Override
@@ -82,30 +84,35 @@ public class Letter extends Item {
 	@Override
 	public ActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
 		ItemStack letter = playerEntity.getItemInHand(hand);
-		if(!playerEntity.isCrouching()) {
-			if(world.isClientSide()) openGui(letter, playerEntity);
-			return ActionResult.sidedSuccess(letter, world.isClientSide());
-		} else if(!world.isClientSide()) {
+		if(playerEntity.isCrouching()) {
 			if(hand != Hand.OFF_HAND) {
+				ItemStack result = removeAttachment(letter);
+				if(!result.isEmpty()) {
+					playerEntity.addItem(result);
+					if(world.isClientSide()) {
+						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_removed"), true);
+						playerEntity.playSound(FurnishManager.Sounds.Detach_From_Letter.get(), 1.0f, 1.0f);
+					}
+					return ActionResult.sidedSuccess(letter, world.isClientSide());
+				}
 				ItemStack offHandStack = playerEntity.getItemInHand(Hand.OFF_HAND);
 				if(!offHandStack.isEmpty()) {
-					ItemStack result = addAttachment(letter, offHandStack);
+					result = addAttachment(letter, offHandStack);
 					playerEntity.setItemInHand(Hand.OFF_HAND, result);
 					if(result.isEmpty()) {
-						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_added"), true);
-						world.playSound(playerEntity, playerEntity, SoundEvents.ARMOR_EQUIP_GENERIC, SoundCategory.PLAYERS, 1.0f, 1.0f);
-					}
-				} else {
-					ItemStack result = removeAttachment(letter);
-					playerEntity.addItem(result);
-					if(result.isEmpty()) {
-						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_removed"), true);
-						world.playSound(playerEntity, playerEntity, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundCategory.PLAYERS, 1.0f, 1.0f);
+						if(world.isClientSide()) {
+							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_added", offHandStack.getItem().getDescription()), true);
+							playerEntity.playSound(FurnishManager.Sounds.Attach_To_Letter.get(), 1.0f, 1.0f);
+						}
+						return ActionResult.sidedSuccess(letter, world.isClientSide());
 					}
 				}
-				return ActionResult.success(letter);
-			} else return ActionResult.fail(letter);
+				return ActionResult.fail(letter);
+			}
+			return ActionResult.fail(letter);
+		} else {
+			if(world.isClientSide()) openGui(letter, playerEntity, hand);
+			return ActionResult.sidedSuccess(letter, world.isClientSide());
 		}
-		return ActionResult.sidedSuccess(letter, world.isClientSide());
 	}
 }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
+import io.github.wouink.furnish.network.ItemStackUpdateMessage;
 import net.minecraft.client.gui.DialogTexts;
 import net.minecraft.client.gui.fonts.TextInputUtil;
 import net.minecraft.client.gui.screen.Screen;
@@ -11,36 +12,37 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedConstants;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class LetterScreen extends Screen {
+	private static final ITextComponent SCREEN_NAME = new TranslationTextComponent("item.furnish.letter");
 	private static final TranslationTextComponent SIGN_LETTER = new TranslationTextComponent("book.signButton");
 	private static final ResourceLocation LETTER_BACKGROUND = new ResourceLocation(Furnish.MODID, "textures/gui/letter.png");
-	private static final ITextComponent CURSOR = new StringTextComponent("_").withStyle(TextFormatting.GRAY);
 
 	// Max length is 16 lines of 18 characters
 	private static final int LETTER_MAX_LENGTH = 288;
 
+	private Hand hand;
 	private ItemStack letter;
 	private PlayerEntity playerEntity;
 	private boolean editable = false;
 	private String letterText;
 	private TextInputUtil letterEdit = null;
-	private int cursorLine = 0;
 	private int frameTick = 0;
 
-	public LetterScreen(ItemStack letter, PlayerEntity playerEntity, ITextComponent text) {
-		super(text);
+	public LetterScreen(ItemStack letter, PlayerEntity playerEntity, Hand hand) {
+		super(SCREEN_NAME);
+		this.hand = hand;
 		this.letter = letter;
 		this.playerEntity = playerEntity;
 		CompoundNBT tag = letter.getOrCreateTag();
 		letterText = tag.getAllKeys().contains("Text") ? tag.getString("Text") : "";
-		editable = !tag.getAllKeys().contains("Author");
+		editable = Letter.canEditLetter(letter);
 		if(editable) {
 			letterEdit = new TextInputUtil(this::getText, this::setText, this::getClipboard, this::setClipboard, (s) -> s.length() < LETTER_MAX_LENGTH);
 		}
@@ -68,7 +70,8 @@ public class LetterScreen extends Screen {
 		CompoundNBT tag = letter.getOrCreateTag();
 		tag.putString("Text", getText());
 		letter.setTag(tag);
-		// TODO send a packet to synchronize item with server
+		int slot = this.hand == Hand.MAIN_HAND ? this.playerEntity.inventory.selected : 40;
+		Furnish.networkChannel.sendToServer(new ItemStackUpdateMessage(slot, letter));
 	}
 
 	@Override
@@ -146,8 +149,14 @@ public class LetterScreen extends Screen {
 		this.minecraft.getTextureManager().bind(LETTER_BACKGROUND);
 		int startX = (this.width - 192) / 2;
 		this.blit(ms, startX, 2, 0, 0, 192, 192);
-		if (editable && frameTick / 6 % 2 == 0) {
-			font.drawWordWrap(new StringTextComponent(letterText).append(CURSOR), startX + 36, 20, 108, 0);
+
+		// text and cursor rendering
+		if (editable) {
+			if(frameTick / 6 % 2 == 0) {
+				font.drawWordWrap(new StringTextComponent(letterText).append("_"), startX + 36, 20, 108, 0);
+			} else {
+				font.drawWordWrap(new StringTextComponent(letterText).append(" "), startX + 36, 20, 108, 0);
+			}
 		} else {
 			font.drawWordWrap(new StringTextComponent(letterText), startX + 36, 20, 108, 0);
 		}
