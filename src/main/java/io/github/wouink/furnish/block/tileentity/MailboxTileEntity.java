@@ -54,7 +54,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	public CompoundNBT save(CompoundNBT nbt) {
 		super.save(nbt);
 		ItemStackHelper.saveAllItems(nbt, inventory);
-		nbt.putString("Owner", owner);
+		nbt.putString("Owner", owner == null ? "" : owner);
 		return nbt;
 	}
 

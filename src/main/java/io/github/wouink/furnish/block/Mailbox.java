@@ -10,6 +10,7 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
@@ -37,7 +38,7 @@ public class Mailbox extends HorizontalBlock {
 	public static final BooleanProperty ON_FENCE = BooleanProperty.create("on_fence");
 	public static final BooleanProperty HAS_MAIL = BooleanProperty.create("has_mail");
 	public Mailbox(Properties p, String registryName) {
-		super(p.strength(-1.0F, 3600000.0F));
+		super(p);
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(ON_FENCE, false).setValue(HAS_MAIL, false));
 		FurnishManager.ModBlocks.register(registryName, this);
 	}
@@ -163,13 +164,17 @@ public class Mailbox extends HorizontalBlock {
 	}
 
 	@Override
-	public void attack(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity) {
-		if(world.isClientSide()) return;
-		if(playerEntity.isCrouching() && playerEntity.getItemInHand(Hand.MAIN_HAND).isCorrectToolForDrops(state)) {
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
+		if(!world.isClientSide()) {
 			TileEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof MailboxTileEntity) {
-				if(((MailboxTileEntity) tileEntity).isOwner(playerEntity)) world.destroyBlock(pos, true, playerEntity);
+				if(((MailboxTileEntity) tileEntity).isOwner(player)) {
+					return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+				} else {
+					player.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.no_permission"), true);
+				}
 			}
 		}
+		return false;
 	}
 }
