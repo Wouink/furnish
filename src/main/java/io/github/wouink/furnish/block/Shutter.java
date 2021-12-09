@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -46,6 +47,7 @@ public class Shutter extends HorizontalBlock {
 
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
 	public static final EnumProperty<State> STATE = EnumProperty.create("state", State.class);
+
 	public Shutter(Properties p, String registryName) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, State.CLOSED).setValue(RIGHT, false));
@@ -85,6 +87,11 @@ public class Shutter extends HorizontalBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
+		return SHUTTER_CLOSED[state.getValue(FACING).ordinal() - 2];
+	}
+
+	@Override
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
 		int index = state.getValue(FACING).ordinal() - 2;
 		if(state.getValue(STATE) == State.HALF_OPEN) {
 			return state.getValue(RIGHT) ? SHUTTER_HALF_OPENED_R[index] : SHUTTER_HALF_OPENED[index];
@@ -95,8 +102,9 @@ public class Shutter extends HorizontalBlock {
 		}
 	}
 
+	// don't connect to fences
 	@Override
-	public VoxelShape getInteractionShape(BlockState state, IBlockReader reader, BlockPos pos) {
-		return SHUTTER_CLOSED[state.getValue(FACING).ordinal() - 2];
+	public VoxelShape getBlockSupportShape(BlockState p_230335_1_, IBlockReader p_230335_2_, BlockPos p_230335_3_) {
+		return VoxelShapes.empty();
 	}
 }

@@ -1,11 +1,13 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.block.util.INoBlockItem;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.Half;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -19,9 +21,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class CarpetOnTrapdoor extends HorizontalBlock {
+public class CarpetOnTrapdoor extends HorizontalBlock implements INoBlockItem {
 	private static final VoxelShape CLOSED_SHAPE = Block.box(0, 0, 0, 16, 1, 16);
-	public static final BooleanProperty OPEN = BooleanProperty.create("open");
+	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 	private final Block clone;
 	public CarpetOnTrapdoor(Properties p, String registryName, Block _clone) {
 		super(p.noOcclusion());

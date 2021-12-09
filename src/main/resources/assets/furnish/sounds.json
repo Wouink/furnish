@@ -74,5 +74,12 @@
       "minecraft:entity/itemframe/remove_item3",
       "minecraft:entity/itemframe/remove_item4"
     ]
+  },
+  "drum.tom": {
+    "category": "records",
+    "subtitle": "subtitle.furnish.drum_plays",
+    "sounds": [
+      "furnish:block/tom"
+    ]
   }
 }

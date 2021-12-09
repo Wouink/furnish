@@ -159,5 +159,8 @@
   "subtitle.furnish.detach_from_letter": "Attachment removed from Letter",
 
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
-  "block.furnish.chimney_cap": "Chimney Cap"
+  "block.furnish.chimney_cap": "Chimney Cap",
+
+  "block.furnish.drum_tom": "Drum Tom",
+  "subtitle.furnish.drum_plays": "Drum"
 }

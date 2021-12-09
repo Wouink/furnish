@@ -6,6 +6,7 @@ import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
+import io.github.wouink.furnish.block.util.INoBlockItem;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.*;
@@ -128,6 +129,8 @@ public class FurnishManager {
 
 	public static final Block Brick_Chimney_Conduit = new ChimneyConduit(AbstractBlock.Properties.copy(Blocks.BRICKS), "brick_chimney_conduit");
 	public static final Block Brick_Chimney_Cap = new ChimneyCap(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f), "chimney_cap");
+
+	public static final Block Drum_Tom = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_tom", Sounds.Drum_Tom);
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
 
@@ -254,6 +257,7 @@ public class FurnishManager {
 		public static final RegistryObject<SoundEvent> Mailbox_Update = Furnish_Sounds.register("mailbox.update", () -> register("mailbox.update"));
 		public static final RegistryObject<SoundEvent> Attach_To_Letter = Furnish_Sounds.register("letter.add_attachment", () -> register("letter.add_attachment"));
 		public static final RegistryObject<SoundEvent> Detach_From_Letter = Furnish_Sounds.register("letter.remove_attachment", () -> register("letter.remove_attachment"));
+		public static final RegistryObject<SoundEvent> Drum_Tom = Furnish_Sounds.register("drum.tom", () -> register("drum.tom"));
 
 		public static SoundEvent register(String name) {
 			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));
@@ -275,7 +279,7 @@ public class FurnishManager {
 	public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
 		IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 		for(RegistryObject<Block> b : ModBlocks.Blocks.getEntries()) {
-			if(!(b.get() instanceof CarpetOnStairs) && !(b.get() instanceof CarpetOnTrapdoor)) {
+			if(!(b.get() instanceof INoBlockItem)) {
 				itemRegistry.register(getBlockItem(b.get()));
 			}
 		}
