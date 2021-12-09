@@ -94,7 +94,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	public boolean isOwner(PlayerEntity playerEntity) {
-		return playerEntity.getStringUUID().equals(owner);
+		return hasOwner() && playerEntity.getStringUUID().equals(owner);
 	}
 
 	public boolean hasMail() {

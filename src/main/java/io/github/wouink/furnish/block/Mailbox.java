@@ -37,7 +37,7 @@ public class Mailbox extends HorizontalBlock {
 	public static final BooleanProperty ON_FENCE = BooleanProperty.create("on_fence");
 	public static final BooleanProperty HAS_MAIL = BooleanProperty.create("has_mail");
 	public Mailbox(Properties p, String registryName) {
-		super(p);
+		super(p.strength(-1.0F, 3600000.0F));
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(ON_FENCE, false).setValue(HAS_MAIL, false));
 		FurnishManager.ModBlocks.register(registryName, this);
 	}
@@ -74,21 +74,6 @@ public class Mailbox extends HorizontalBlock {
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
 		return MAILBOX_SHAPE[state.getValue(FACING).ordinal() - 2];
-	}
-
-	// seems to not work
-	@Override
-	public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
-		System.out.println("canEntityDestroy");
-		if(entity instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) entity;
-			TileEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof MailboxTileEntity) {
-				MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
-				return (player.hasPermissions(1) && player.isCreative()) || (mailbox.hasOwner() && mailbox.isOwner(player));
-			}
-		}
-		return false;
 	}
 
 	private boolean updateMailbox(BlockState state, World world, BlockPos pos) {
@@ -175,5 +160,16 @@ public class Mailbox extends HorizontalBlock {
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);
+	}
+
+	@Override
+	public void attack(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity) {
+		if(world.isClientSide()) return;
+		if(playerEntity.isCrouching() && playerEntity.getItemInHand(Hand.MAIN_HAND).isCorrectToolForDrops(state)) {
+			TileEntity tileEntity = world.getBlockEntity(pos);
+			if(tileEntity instanceof MailboxTileEntity) {
+				if(((MailboxTileEntity) tileEntity).isOwner(playerEntity)) world.destroyBlock(pos, true, playerEntity);
+			}
+		}
 	}
 }
