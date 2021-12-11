@@ -3,6 +3,6 @@
   "textures": {
     "skin": "furnish:block/drum_skin",
     "ring": "furnish:block/drum_ring",
-    "side": "furnish:block/drum_side"
+    "side": "furnish:block/drum_snare_side"
   }
 }

@@ -1,5 +1,6 @@
 package io.github.wouink.furnish;
 
+import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
 import io.github.wouink.furnish.network.ClientMessageHandler;
@@ -59,6 +60,7 @@ public class Furnish {
 
 	private void clientSetup(FMLClientSetupEvent event) {
 		ScreenManager.register(FurnishManager.Containers.Furniture_Workbench.get(), FurnitureWorkbenchScreen::new);
+		ScreenManager.register(FurnishManager.Containers.Crate.get(), ConditionalSlotContainerScreen::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Screens.");
 		RenderingRegistry.registerEntityRenderingHandler(FurnishManager.Entities.Seat_Entity.get(), SeatRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entity Renderers.");

@@ -157,10 +157,17 @@
   "tooltip.furnish.letter.attachment": "Attachment: %s",
   "subtitle.furnish.attach_to_letter": "Item added to a Letter",
   "subtitle.furnish.detach_from_letter": "Attachment removed from Letter",
+  "block.furnish.oak_crate": "Oak Crate",
+  "block.furnish.birch_crate": "Birch Crate",
+  "block.furnish.spruce_crate": "Spruce Crate",
+  "block.furnish.jungle_crate": "Jungle Crate",
+  "block.furnish.acacia_crate": "Acacia Crate",
+  "block.furnish.dark_oak_crate": "Dark Oak Crate",
 
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
   "block.furnish.chimney_cap": "Chimney Cap",
 
   "block.furnish.drum_tom": "Drum Tom",
+  "block.furnish.drum_snare": "Drum Snare",
   "subtitle.furnish.drum_plays": "Drum"
 }

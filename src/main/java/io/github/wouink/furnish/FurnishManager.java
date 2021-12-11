@@ -1,12 +1,11 @@
 package io.github.wouink.furnish;
 
 import io.github.wouink.furnish.block.*;
+import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
-import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
-import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
-import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
-import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
+import io.github.wouink.furnish.block.tileentity.*;
 import io.github.wouink.furnish.block.util.INoBlockItem;
+import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.*;
@@ -70,6 +69,7 @@ public class FurnishManager {
 	public static final Block Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_stool", Chair.BASE_SHAPES);
 	public static final Block Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT));
 	public static final Block Oak_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR), "oak_shutter");
+	public static final Block Oak_Crate = new Crate(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_crate");
 
 	public static final Block Birch_Table = new Table(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_table");
 	public static final Block Birch_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_square_table");
@@ -80,6 +80,7 @@ public class FurnishManager {
 	public static final Block Birch_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT));
 	public static final Block Birch_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_stool", Chair.BASE_SHAPES);
 	public static final Block Birch_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_shutter");
+	public static final Block Birch_Crate = new Crate(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS), "birch_crate");
 
 	public static final Block Acacia_Table = new Table(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_table");
 	public static final Block Acacia_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_square_table");
@@ -90,6 +91,7 @@ public class FurnishManager {
 	public static final Block Acacia_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_TALL_SEAT));
 	public static final Block Acacia_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_stool", Chair.BASE_SHAPES);
 	public static final Block Acacia_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_shutter");
+	public static final Block Acacia_Crate = new Crate(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), "acacia_crate");
 
 	public static final Block Jungle_Table = new Table(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_table");
 	public static final Block Jungle_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_square_table");
@@ -100,6 +102,7 @@ public class FurnishManager {
 	public static final Block Jungle_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT));
 	public static final Block Jungle_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_stool", Chair.BASE_SHAPES);
 	public static final Block Jungle_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_shutter");
+	public static final Block Jungle_Crate = new Crate(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), "jungle_crate");
 
 	public static final Block Dark_Oak_Table = new Table(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_table");
 	public static final Block Dark_Oak_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_square_table");
@@ -110,6 +113,7 @@ public class FurnishManager {
 	public static final Block Dark_Oak_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_SEAT_THRONE));
 	public static final Block Dark_Oak_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_stool", Chair.BASE_SHAPES);
 	public static final Block Dark_Oak_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS), "dark_oak_shutter");
+	public static final Block Dark_Oak_Crate = new Crate(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "dark_oak_crate");
 
 	public static final Block Spruce_Table = new Table(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_table");
 	public static final Block Spruce_Square_Table = new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_square_table");
@@ -120,6 +124,7 @@ public class FurnishManager {
 	public static final Block Spruce_Chair = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_chair", VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, CHAIR_TALL_SEAT));
 	public static final Block Spruce_Stool = new Chair(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_stool", Chair.BASE_SHAPES);
 	public static final Block Spruce_Shutter = new Shutter(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_shutter");
+	public static final Block Spruce_Crate = new Crate(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS), "spruce_crate");
 
 	public static final Block Red_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "red_bunting");
 	public static final Block Yellow_Bunting = new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE), "yellow_bunting");
@@ -131,8 +136,13 @@ public class FurnishManager {
 	public static final Block Brick_Chimney_Cap = new ChimneyCap(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f), "chimney_cap");
 
 	public static final Block Drum_Tom = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_tom", Sounds.Drum_Tom);
+	public static final Block Drum_Snare = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_snare", Sounds.Drum_Snare);
 
 	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
+
+	public static Block[] Crates = {
+		Oak_Crate, Birch_Crate, Spruce_Crate, Jungle_Crate, Acacia_Crate, Dark_Oak_Crate
+	};
 
 	public static Block[] Mailboxes = {
 		Metal_Mailbox
@@ -220,6 +230,9 @@ public class FurnishManager {
 		public static final RegistryObject<ContainerType<FurnitureWorkbenchContainer>> Furniture_Workbench = Container_Types.register("furniture_workbench",
 				() -> new ContainerType<>(FurnitureWorkbenchContainer::new)
 		);
+		public static final RegistryObject<ContainerType<CrateContainer>> Crate = Container_Types.register("crate",
+				() -> new ContainerType<>(CrateContainer::new)
+		);
 	}
 
 	public static class Entities {
@@ -240,6 +253,7 @@ public class FurnishManager {
 		public static final RegistryObject<TileEntityType<LargeFurnitureTileEntity>> Large_Furniture = register("large_furniture", LargeFurnitureTileEntity::new, () -> FurnitureLargeInvProvider);
 		public static final RegistryObject<TileEntityType<AmphoraTileEntity>> Amphora = register("amphora", AmphoraTileEntity::new, () -> Amphorae);
 		public static final RegistryObject<TileEntityType<MailboxTileEntity>> Mailbox = register("mailbox", MailboxTileEntity::new, () -> Mailboxes);
+		public static final RegistryObject<TileEntityType<CrateTileEntity>> Crate = register("crate", CrateTileEntity::new, () -> Crates);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Furnish_Tile_Entities.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
@@ -258,6 +272,7 @@ public class FurnishManager {
 		public static final RegistryObject<SoundEvent> Attach_To_Letter = Furnish_Sounds.register("letter.add_attachment", () -> register("letter.add_attachment"));
 		public static final RegistryObject<SoundEvent> Detach_From_Letter = Furnish_Sounds.register("letter.remove_attachment", () -> register("letter.remove_attachment"));
 		public static final RegistryObject<SoundEvent> Drum_Tom = Furnish_Sounds.register("drum.tom", () -> register("drum.tom"));
+		public static final RegistryObject<SoundEvent> Drum_Snare = Furnish_Sounds.register("drum.snare", () -> register("drum.snare"));
 
 		public static SoundEvent register(String name) {
 			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));
@@ -275,12 +290,18 @@ public class FurnishManager {
 		return (BlockItem) new BlockItem(block, new Item.Properties().tab(Furnish_ItemGroup)).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
 	}
 
+	public static BlockItem getBlockItemWithProperties(Block block, Item.Properties properties) {
+		return (BlockItem) new BlockItem(block, properties).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
+	}
+
 	@SubscribeEvent
 	public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
 		IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 		for(RegistryObject<Block> b : ModBlocks.Blocks.getEntries()) {
 			if(!(b.get() instanceof INoBlockItem)) {
-				itemRegistry.register(getBlockItem(b.get()));
+				if(b.get() instanceof ISpecialItemProperties) {
+					itemRegistry.register(getBlockItemWithProperties(b.get(), ((ISpecialItemProperties) b.get()).getProperties()));
+				} else itemRegistry.register(getBlockItem(b.get()));
 			}
 		}
 		itemRegistry.register(new Letter(new Item.Properties().tab(Furnish_ItemGroup).stacksTo(1), "letter"));

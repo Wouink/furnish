@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:spruce_planks"
+  },
+  "result": "furnish:spruce_crate",
+  "count": 1
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "furnish:block/birch_crate_top",
+    "side": "furnish:block/birch_crate_side"
+  }
+}

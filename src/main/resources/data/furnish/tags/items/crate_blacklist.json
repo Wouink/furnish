@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "furnish:letter",
     "furnish:oak_crate",
     "furnish:birch_crate",
     "furnish:spruce_crate",

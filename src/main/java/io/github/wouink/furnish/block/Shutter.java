@@ -29,6 +29,11 @@ public class Shutter extends HorizontalBlock {
 	private static final VoxelShape[] SHUTTER_OPENED = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 14, 2, 16, 30));
 	private static final VoxelShape[] SHUTTER_OPENED_R = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, -14, 2, 16, 2));
 
+	private static final VoxelShape[] INTERACT_HALF = VoxelShapeHelper.getMergedShapes(SHUTTER_CLOSED, SHUTTER_HALF_OPENED);
+	private static final VoxelShape[] INTERACT_HALF_R = VoxelShapeHelper.getMergedShapes(SHUTTER_CLOSED, SHUTTER_HALF_OPENED_R);
+	private static final VoxelShape[] INTERACT_OPEN = VoxelShapeHelper.getMergedShapes(SHUTTER_CLOSED, SHUTTER_OPENED);
+	private static final VoxelShape[] INTERACT_OPEN_R = VoxelShapeHelper.getMergedShapes(SHUTTER_CLOSED, SHUTTER_OPENED_R);
+
 	public enum State implements IStringSerializable {
 		CLOSED("closed"),
 		HALF_OPEN("half_open"),
@@ -87,7 +92,14 @@ public class Shutter extends HorizontalBlock {
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
-		return SHUTTER_CLOSED[state.getValue(FACING).ordinal() - 2];
+		int index = state.getValue(FACING).ordinal() - 2;
+		if(state.getValue(STATE) == State.HALF_OPEN) {
+			return state.getValue(RIGHT) ? INTERACT_HALF_R[index] : INTERACT_HALF[index];
+		} else if(state.getValue(STATE) == State.OPEN) {
+			return state.getValue(RIGHT) ? INTERACT_OPEN_R[index] : INTERACT_OPEN[index];
+		} else {
+			return SHUTTER_CLOSED[index];
+		}
 	}
 
 	@Override

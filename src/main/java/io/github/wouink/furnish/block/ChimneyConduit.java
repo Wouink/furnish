@@ -19,12 +19,17 @@ public class ChimneyConduit extends Block {
 	).optimize();
 
 	public ChimneyConduit(Properties p, String registryName) {
-		super(p);
+		super(p.noOcclusion());
 		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
 		return CONDUIT_SHAPE;
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+		return VoxelShapes.block();
 	}
 }

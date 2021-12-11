@@ -81,5 +81,12 @@
     "sounds": [
       "furnish:block/tom"
     ]
+  },
+  "drum.snare": {
+    "category": "records",
+    "subtitle": "subtitle.furnish.drum_plays",
+    "sounds": [
+      "furnish:block/snare"
+    ]
   }
 }
