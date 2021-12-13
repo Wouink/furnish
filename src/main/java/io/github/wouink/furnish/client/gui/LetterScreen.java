@@ -70,6 +70,9 @@ public class LetterScreen extends Screen {
 		CompoundNBT tag = letter.getOrCreateTag();
 		tag.putString("Text", getText());
 		letter.setTag(tag);
+	}
+
+	private void sendUpdate() {
 		int slot = this.hand == Hand.MAIN_HAND ? this.playerEntity.inventory.selected : 40;
 		Furnish.networkChannel.sendToServer(new ItemStackUpdateMessage(slot, letter));
 	}
@@ -81,10 +84,12 @@ public class LetterScreen extends Screen {
 			this.addButton(new Button(this.width / 2 - 102, 196, 100, 20, SIGN_LETTER, (var) -> {
 				save();
 				Letter.signLetter(letter, playerEntity.getGameProfile().getName());
+				sendUpdate();
 				this.minecraft.setScreen(null);
 			}));
 			this.addButton(new Button(this.width / 2 + 2, 196, 100, 20, DialogTexts.GUI_DONE, (var) -> {
 				save();
+				sendUpdate();
 				this.minecraft.setScreen(null);
 			}));
 		} else {
