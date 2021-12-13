@@ -15,6 +15,7 @@ import java.nio.file.Files;
 public class CustomPaintings {
 
 	public static void registerCustomPaintings(IForgeRegistry<PaintingType> paintingRegistry, String jsonFilePath) {
+		FurnishManager.Furnish_Logger.info(String.format("Custom paintings: attempt to load file %s.", jsonFilePath));
 		File f = new File(jsonFilePath);
 		if(f.exists()) {
 			try {

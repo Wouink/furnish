@@ -91,7 +91,7 @@ public class CrateTileEntity extends LockableLootTileEntity implements ISidedInv
 
 	@Override
 	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
-		return true;
+		return CrateContainer.canPlaceInCrate(stack);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class CrateContainer extends ConditionalSlotContainer{
 
 	private static final ResourceLocation CRATE_BLACKLIST = new ResourceLocation(Furnish.MODID, "crate_blacklist");
 
-	private static final boolean canPlaceInCrate(ItemStack stack) {
+	public static boolean canPlaceInCrate(ItemStack stack) {
 		return !stack.getItem().getTags().contains(CRATE_BLACKLIST);
 	}
 

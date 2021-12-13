@@ -3,6 +3,7 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
+import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.block.tileentity.*;
 import io.github.wouink.furnish.block.util.INoBlockItem;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
@@ -138,8 +139,6 @@ public class FurnishManager {
 	public static final Block Drum_Tom = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_tom", Sounds.Drum_Tom);
 	public static final Block Drum_Snare = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_snare", Sounds.Drum_Snare);
 
-	// public static final Block Oak_Sideboard = new WideInventoryFurniture(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS), "oak_sideboard");
-
 	public static Block[] Crates = {
 		Oak_Crate, Birch_Crate, Spruce_Crate, Jungle_Crate, Acacia_Crate, Dark_Oak_Crate
 	};
@@ -233,6 +232,9 @@ public class FurnishManager {
 		public static final RegistryObject<ContainerType<CrateContainer>> Crate = Container_Types.register("crate",
 				() -> new ContainerType<>(CrateContainer::new)
 		);
+		public static final RegistryObject<ContainerType<MailboxContainer>> Mailbox = Container_Types.register("mailbox",
+				() -> new ContainerType<>(MailboxContainer::new)
+		);
 	}
 
 	public static class Entities {
@@ -322,7 +324,7 @@ public class FurnishManager {
 		paintingRegistry.register(createPainting("steve", 1, 1));
 		paintingRegistry.register(createPainting("alex", 1, 1));
 
-		// String paintingsJsonFile = "config/furnish_custom_paintings.json";
-		// CustomPaintings.registerCustomPaintings(paintingRegistry, paintingsJsonFile);
+		// Furnish_Logger.info("Registering Furnish custom paintings...");
+		// CustomPaintings.registerCustomPaintings(paintingRegistry, "config/furnish_custom_paintings.json");
 	}
 }

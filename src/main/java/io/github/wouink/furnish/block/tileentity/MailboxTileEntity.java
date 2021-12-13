@@ -1,7 +1,9 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishConfig;
 import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.item.Letter;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,6 +24,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.UUID;
 
 public class MailboxTileEntity extends LockableLootTileEntity {
+	public static final int SIZE = 18;
 	private static final ResourceLocation MAIL_TAG = new ResourceLocation(Furnish.MODID, "mail");
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
@@ -67,13 +70,13 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	@Override
-	protected Container createMenu(int windowId, PlayerInventory playerInventory) {
-		return new ChestContainer(ContainerType.GENERIC_9x2, windowId, playerInventory, this, 2);
+	protected Container createMenu(int syncId, PlayerInventory playerInventory) {
+		return new MailboxContainer(syncId, playerInventory, this);
 	}
 
 	@Override
 	public int getContainerSize() {
-		return 18;
+		return SIZE;
 	}
 
 	@Override
@@ -109,7 +112,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	public ItemStack addMail(ItemStack stack) {
-		if(!stack.getItem().getTags().contains(MAIL_TAG)) return stack;
+		if(FurnishConfig.FURNISH_CONFIG.restrictMailboxItems.get().booleanValue() && !stack.getItem().getTags().contains(MAIL_TAG)) return stack;
 		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {

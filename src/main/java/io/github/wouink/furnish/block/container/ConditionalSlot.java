@@ -18,4 +18,12 @@ public class ConditionalSlot extends Slot {
 	public boolean mayPlace(ItemStack stack) {
 		return condition.test(stack);
 	}
+
+	public static boolean never(ItemStack stack) {
+		return false;
+	}
+
+	public static boolean always(ItemStack stack) {
+		return true;
+	}
 }

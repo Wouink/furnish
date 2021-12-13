@@ -155,8 +155,8 @@
   "msg.furnish.letter.attachment_removed": "Removed attachment",
   "tooltip.furnish.letter.author": "Sent by %s",
   "tooltip.furnish.letter.attachment": "Attachment: %s",
-  "subtitle.furnish.attach_to_letter": "Item added to a Letter",
-  "subtitle.furnish.detach_from_letter": "Attachment removed from Letter",
+  "subtitle.furnish.attach_to_letter": "Added Item to a Letter",
+  "subtitle.furnish.detach_from_letter": "Removed Attachment from Letter",
   "block.furnish.oak_crate": "Oak Crate",
   "block.furnish.birch_crate": "Birch Crate",
   "block.furnish.spruce_crate": "Spruce Crate",
@@ -167,7 +167,7 @@
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
   "block.furnish.chimney_cap": "Chimney Cap",
 
-  "block.furnish.drum_tom": "Drum Tom",
-  "block.furnish.drum_snare": "Drum Snare",
+  "block.furnish.drum_tom": "Drum Tom (WIP)",
+  "block.furnish.drum_snare": "Drum Snare (WIP)",
   "subtitle.furnish.drum_plays": "Drum"
 }

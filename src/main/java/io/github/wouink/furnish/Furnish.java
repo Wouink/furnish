@@ -9,8 +9,10 @@ import io.github.wouink.furnish.network.ServerMessageHandler;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -30,6 +32,7 @@ public class Furnish {
 	public static final ResourceLocation CHANNEL_LOC = new ResourceLocation(MODID, "net");
 
 	public Furnish() {
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FurnishConfig.FORGE_CONFIG_SPEC);
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		FurnishManager.init();
 		FurnishManager.ModBlocks.Blocks.register(bus);
@@ -61,6 +64,7 @@ public class Furnish {
 	private void clientSetup(FMLClientSetupEvent event) {
 		ScreenManager.register(FurnishManager.Containers.Furniture_Workbench.get(), FurnitureWorkbenchScreen::new);
 		ScreenManager.register(FurnishManager.Containers.Crate.get(), ConditionalSlotContainerScreen::new);
+		ScreenManager.register(FurnishManager.Containers.Mailbox.get(), ConditionalSlotContainerScreen::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Screens.");
 		RenderingRegistry.registerEntityRenderingHandler(FurnishManager.Entities.Seat_Entity.get(), SeatRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entity Renderers.");
