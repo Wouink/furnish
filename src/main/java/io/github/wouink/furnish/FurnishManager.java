@@ -1,6 +1,7 @@
 package io.github.wouink.furnish;
 
 import io.github.wouink.furnish.block.*;
+import io.github.wouink.furnish.block.container.CookingPotContainer;
 import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import io.github.wouink.furnish.block.container.MailboxContainer;
@@ -45,7 +46,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -139,6 +142,8 @@ public class FurnishManager {
 	public static final Block Drum_Tom = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_tom", Sounds.Drum_Tom);
 	public static final Block Drum_Snare = new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), "drum_snare", Sounds.Drum_Snare);
 
+	public static final Block Cooking_Pot = new CookingPot(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "cooking_pot");
+
 	public static Block[] Crates = {
 		Oak_Crate, Birch_Crate, Spruce_Crate, Jungle_Crate, Acacia_Crate, Dark_Oak_Crate
 	};
@@ -190,6 +195,18 @@ public class FurnishManager {
 			Amphorae[index + 1] = new Amphora(AbstractBlock.Properties.copy(coloredTerracotta), String.format("%s_amphora", color));
 			index++;
 		}
+
+//		System.out.println("init(): additionalWoodTypes=" + Furnish.Furnish_Config.additionalWoodTypes.get());
+//		if(!Furnish.Furnish_Config.additionalWoodTypes.get().isEmpty()) {
+//			AbstractBlock.Properties properties = AbstractBlock.Properties.copy(Blocks.OAK_PLANKS);
+//			for(String woodType : Furnish.Furnish_Config.additionalWoodTypes.get().replaceAll(" ", "").split(",")) {
+//				Furnish_Logger.info(String.format("Adding %s furniture.", woodType));
+//				new Table(properties, String.format("%s_table", woodType));
+//				new SimpleFurniture(properties, String.format("%s_square_table", woodType));
+//				FurnitureInvProvider[FurnitureInvProvider.length] = new InventoryFurniture(properties, String.format("%s_bedside_table", woodType), Sounds.Drawers_Open);
+//			}
+//		}
+
 		MinecraftForge.EVENT_BUS.register(new PlaceCarpet());
 		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
 		MinecraftForge.EVENT_BUS.register(new CyclePainting());
@@ -235,6 +252,9 @@ public class FurnishManager {
 		public static final RegistryObject<ContainerType<MailboxContainer>> Mailbox = Container_Types.register("mailbox",
 				() -> new ContainerType<>(MailboxContainer::new)
 		);
+		public static final RegistryObject<ContainerType<CookingPotContainer>> Cooking_Pot = Container_Types.register("cooking_pot",
+				() -> new ContainerType<>(CookingPotContainer::new)
+		);
 	}
 
 	public static class Entities {
@@ -256,6 +276,7 @@ public class FurnishManager {
 		public static final RegistryObject<TileEntityType<AmphoraTileEntity>> Amphora = register("amphora", AmphoraTileEntity::new, () -> Amphorae);
 		public static final RegistryObject<TileEntityType<MailboxTileEntity>> Mailbox = register("mailbox", MailboxTileEntity::new, () -> Mailboxes);
 		public static final RegistryObject<TileEntityType<CrateTileEntity>> Crate = register("crate", CrateTileEntity::new, () -> Crates);
+		public static final RegistryObject<TileEntityType<CookingPotTileEntity>> Cooking_Pot = register("cooking_pot", CookingPotTileEntity::new, () -> Crates);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Furnish_Tile_Entities.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));

@@ -3,6 +3,7 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
+import io.github.wouink.furnish.item.util.TooltipHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
@@ -11,7 +12,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
@@ -20,7 +20,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.*;
@@ -47,39 +46,10 @@ public class Crate extends Block implements ISpecialItemProperties {
 		return new CrateTileEntity();
 	}
 
-	// copied from ShulkerBox
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		super.appendHoverText(stack, world, tooltip, flag);
-		CompoundNBT compoundnbt = stack.getTagElement("BlockEntityTag");
-		if (compoundnbt != null) {
-			if (compoundnbt.contains("LootTable", 8)) {
-				tooltip.add(new StringTextComponent("???????"));
-			}
-
-			if (compoundnbt.contains("Items", 9)) {
-				NonNullList<ItemStack> inventory = NonNullList.withSize(27, ItemStack.EMPTY);
-				ItemStackHelper.loadAllItems(compoundnbt, inventory);
-				int i = 0;
-				int j = 0;
-
-				for(ItemStack itemstack : inventory) {
-					if (!itemstack.isEmpty()) {
-						++j;
-						if (i <= 4) {
-							++i;
-							IFormattableTextComponent iformattabletextcomponent = itemstack.getHoverName().copy();
-							iformattabletextcomponent.append(" x").append(String.valueOf(itemstack.getCount()));
-							tooltip.add(iformattabletextcomponent);
-						}
-					}
-				}
-
-				if (j - i > 0) {
-					tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).withStyle(TextFormatting.ITALIC));
-				}
-			}
-		}
+		TooltipHelper.appendInventoryContent(stack, tooltip);
 	}
 
 	@Override

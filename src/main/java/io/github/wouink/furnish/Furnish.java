@@ -31,8 +31,10 @@ public class Furnish {
 	public static final String MESSAGE_PROTOCOL_VERSION = "1.0";
 	public static final ResourceLocation CHANNEL_LOC = new ResourceLocation(MODID, "net");
 
+	public static final FurnishConfig Furnish_Config = new FurnishConfig();
+
 	public Furnish() {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FurnishConfig.FORGE_CONFIG_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Furnish_Config.getSpec());
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		FurnishManager.init();
 		FurnishManager.ModBlocks.Blocks.register(bus);
@@ -65,6 +67,7 @@ public class Furnish {
 		ScreenManager.register(FurnishManager.Containers.Furniture_Workbench.get(), FurnitureWorkbenchScreen::new);
 		ScreenManager.register(FurnishManager.Containers.Crate.get(), ConditionalSlotContainerScreen::new);
 		ScreenManager.register(FurnishManager.Containers.Mailbox.get(), ConditionalSlotContainerScreen::new);
+		ScreenManager.register(FurnishManager.Containers.Cooking_Pot.get(), ConditionalSlotContainerScreen::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Screens.");
 		RenderingRegistry.registerEntityRenderingHandler(FurnishManager.Entities.Seat_Entity.get(), SeatRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entity Renderers.");

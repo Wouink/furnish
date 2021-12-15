@@ -169,5 +169,7 @@
 
   "block.furnish.drum_tom": "Drum Tom (WIP)",
   "block.furnish.drum_snare": "Drum Snare (WIP)",
-  "subtitle.furnish.drum_plays": "Drum"
+  "subtitle.furnish.drum_plays": "Drum",
+
+  "block.furnish.cooking_pot": "Cooking Pot"
 }
