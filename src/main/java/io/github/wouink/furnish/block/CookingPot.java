@@ -30,8 +30,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class CookingPot extends Block {
-	private static final VoxelShape POT = Block.box(2, 0, 3, 14, 10, 13);
-	private static final VoxelShape POT_Z = Block.box(3, 0, 2, 13, 10, 14);
+	private static final VoxelShape POT = Block.box(3, 0, 2, 13, 10, 14);
+	private static final VoxelShape POT_Z = Block.box(2, 0, 3, 14, 10, 13);
 
 	public static final BooleanProperty Z_AXIS = BooleanProperty.create("z_axis");
 	public CookingPot(Properties p, String registryName) {
@@ -83,6 +83,7 @@ public class CookingPot extends Block {
 
 	@Override
 	public void attack(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity) {
+		// TODO sometimes the function is called twice...
 		if(world.isClientSide()) return;
 		TileEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof CookingPotTileEntity) {

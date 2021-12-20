@@ -30,7 +30,9 @@ public class TooltipHelper {
 						if (i <= 4) {
 							++i;
 							IFormattableTextComponent iformattabletextcomponent = itemstack.getHoverName().copy();
-							iformattabletextcomponent.append(" x").append(String.valueOf(itemstack.getCount()));
+							iformattabletextcomponent.withStyle(TextFormatting.GRAY)
+									.append(" x").withStyle(TextFormatting.GRAY)
+									.append(String.valueOf(itemstack.getCount())).withStyle(TextFormatting.GRAY);
 							tooltip.add(iformattabletextcomponent);
 						}
 					}

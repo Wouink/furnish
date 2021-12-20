@@ -11,13 +11,17 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class MailboxTileEntity extends LockableLootTileEntity {
@@ -25,6 +29,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	private static final ResourceLocation MAIL_TAG = new ResourceLocation(Furnish.MODID, "mail");
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
+	private String ownerDisplayName;
 
 	protected MailboxTileEntity(TileEntityType<?> type) {
 		super(type);
@@ -55,6 +60,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 		super.save(nbt);
 		ItemStackHelper.saveAllItems(nbt, inventory);
 		nbt.putString("Owner", owner == null ? "" : owner);
+		nbt.putString("OwnerDisplayName", ownerDisplayName);
 		return nbt;
 	}
 
@@ -64,6 +70,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(nbt, inventory);
 		owner = nbt.getString("Owner");
+		ownerDisplayName = nbt.getString("OwnerDisplayName");
 	}
 
 	@Override
@@ -81,8 +88,19 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 		return false;
 	}
 
+	public void updateDisplayName(PlayerEntity playerEntity) {
+		if(isOwner(playerEntity)) {
+			String playerName = playerEntity.getGameProfile().getName();
+			if(!ownerDisplayName.equals(playerName)) {
+				ownerDisplayName = playerName;
+				level.blockEntityChanged(worldPosition, this);
+			}
+		}
+	}
+
 	public void setOwner(PlayerEntity playerEntity) {
 		owner = playerEntity.getStringUUID();
+		ownerDisplayName = playerEntity.getGameProfile().getName();
 	}
 
 	public UUID getOwner() {
@@ -132,18 +150,37 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	public ITextComponent getOwnerDisplayName() {
-		if(hasOwner()) {
-			PlayerEntity mailboxOwner = level.getPlayerByUUID(getOwner());
-			if (mailboxOwner != null) {
-				return mailboxOwner.getDisplayName();
-			}
-		}
-		return null;
+		return (!hasOwner() || ownerDisplayName.isEmpty()) ? null : new StringTextComponent(ownerDisplayName);
 	}
 
 	private int getFreeSlot() {
 		int slot = 0;
 		while(slot < inventory.size() && !inventory.get(slot).isEmpty()) slot++;
 		return slot;
+	}
+
+
+	// communication between client/server for rendering purposes
+
+	@Nullable
+	@Override
+	public SUpdateTileEntityPacket getUpdatePacket() {
+		return new SUpdateTileEntityPacket(this.worldPosition, 1234, save(new CompoundNBT()));
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+		BlockState state = this.getBlockState();
+		load(state, pkt.getTag());
+	}
+
+	@Override
+	public CompoundNBT getUpdateTag() {
+		return save(new CompoundNBT());
+	}
+
+	@Override
+	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+		load(state, tag);
 	}
 }

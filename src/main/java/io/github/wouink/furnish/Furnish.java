@@ -2,6 +2,7 @@ package io.github.wouink.furnish;
 
 import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
+import io.github.wouink.furnish.client.renderer.MailboxRenderer;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
 import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
@@ -10,6 +11,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -71,6 +73,8 @@ public class Furnish {
 		FurnishManager.Furnish_Logger.info("Registered Furnish Screens.");
 		RenderingRegistry.registerEntityRenderingHandler(FurnishManager.Entities.Seat_Entity.get(), SeatRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entity Renderers.");
+		ClientRegistry.bindTileEntityRenderer(FurnishManager.TileEntities.Mailbox.get(), MailboxRenderer::new);
+		FurnishManager.Furnish_Logger.info("Registered Furnish TileEntity Renderers.");
 		FurnishManager.registerTransparency();
 	}
 }

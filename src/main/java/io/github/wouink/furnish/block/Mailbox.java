@@ -106,6 +106,7 @@ public class Mailbox extends HorizontalBlock {
 			}
 
 			if(mailbox.isOwner(playerEntity)) {
+				mailbox.updateDisplayName(playerEntity);
 				if(!updateMailbox(state, world, pos)) playerEntity.openMenu(mailbox);
 				return ActionResultType.CONSUME;
 			}
