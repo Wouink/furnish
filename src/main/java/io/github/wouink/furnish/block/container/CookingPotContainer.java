@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class CookingPotContainer extends ConditionalSlotContainer {
 
-	private static final ResourceLocation COOKING_POT_TAG = new ResourceLocation(Furnish.MODID, "cooking_pot_whitelist");
+	public static final ResourceLocation COOKING_POT_TAG = new ResourceLocation(Furnish.MODID, "cooking_pot_whitelist");
 
 	public static boolean canPlaceInCookingPot(ItemStack stack) {
 		return stack.isEdible() || stack.getItem().getTags().contains(COOKING_POT_TAG);

@@ -3,6 +3,7 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.client.renderer.MailboxRenderer;
+import io.github.wouink.furnish.client.renderer.PlateRenderer;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
 import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
@@ -74,6 +75,7 @@ public class Furnish {
 		RenderingRegistry.registerEntityRenderingHandler(FurnishManager.Entities.Seat_Entity.get(), SeatRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish Entity Renderers.");
 		ClientRegistry.bindTileEntityRenderer(FurnishManager.TileEntities.Mailbox.get(), MailboxRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(FurnishManager.TileEntities.Plate.get(), PlateRenderer::new);
 		FurnishManager.Furnish_Logger.info("Registered Furnish TileEntity Renderers.");
 		FurnishManager.registerTransparency();
 	}

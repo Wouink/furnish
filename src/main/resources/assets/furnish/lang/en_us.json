@@ -171,5 +171,23 @@
   "block.furnish.drum_snare": "Drum Snare (WIP)",
   "subtitle.furnish.drum_plays": "Drum",
 
-  "block.furnish.cooking_pot": "Cooking Pot"
+  "block.furnish.cooking_pot": "Cooking Pot",
+  "block.furnish.plate": "Plate",
+  "block.furnish.white_plate": "White Plate",
+  "block.furnish.black_plate": "Black Plate",
+  "block.furnish.blue_plate": "Blue Plate",
+  "block.furnish.brown_plate": "Brown Plate",
+  "block.furnish.cyan_plate": "Cyan Plate",
+  "block.furnish.gray_plate": "Gray Plate",
+  "block.furnish.green_plate": "Green Plate",
+  "block.furnish.light_blue_plate": "Light Blue Plate",
+  "block.furnish.light_gray_plate": "Light Gray Plate",
+  "block.furnish.lime_plate": "Lime Plate",
+  "block.furnish.magenta_plate": "Magenta Plate",
+  "block.furnish.orange_plate": "Orange Plate",
+  "block.furnish.pink_plate": "Pink Plate",
+  "block.furnish.purple_plate": "Purple Plate",
+  "block.furnish.red_plate": "Red Plate",
+  "block.furnish.yellow_plate": "Yellow Plate",
+  "block.furnish.rare_chinese_plate": "Chinese Plate"
 }

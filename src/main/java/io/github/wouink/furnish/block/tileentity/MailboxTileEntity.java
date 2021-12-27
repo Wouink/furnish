@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -93,14 +94,14 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 			String playerName = playerEntity.getGameProfile().getName();
 			if(!ownerDisplayName.equals(playerName)) {
 				ownerDisplayName = playerName;
-				level.blockEntityChanged(worldPosition, this);
+				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
 			}
 		}
 	}
 
 	public void setOwner(PlayerEntity playerEntity) {
 		owner = playerEntity.getStringUUID();
-		ownerDisplayName = playerEntity.getGameProfile().getName();
+		updateDisplayName(playerEntity);
 	}
 
 	public UUID getOwner() {

@@ -55,7 +55,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishManager {
-	public static final Logger Furnish_Logger = LogManager.getLogger();
+	public static final Logger Furnish_Logger = LogManager.getLogger("Furnish");
 
 	public static final VoxelShape[] CHAIR_SEAT = VoxelShapeHelper.getRotatedShapes(Block.box(3, 9, 3, 6, 17, 13));
 	public static final VoxelShape[] CHAIR_TALL_SEAT = VoxelShapeHelper.getRotatedShapes(Block.box(3, 9, 3, 6, 22, 13));
@@ -170,16 +170,23 @@ public class FurnishManager {
 			Dark_Oak_Wardrobe
 	};
 
+	public static final String[] Rare_Plates_Names = {
+			"chinese"
+	};
+
 	public static HashMap<String, Block> Carpets_On_Stairs = new HashMap<>(16);
 	public static HashMap<String, Block> Carpets_On_Trapdoors = new HashMap<>(16);
 
 	public static Block[] Amphorae = new Block[17];
 	public static Block[] Sofas = new Block[16];
 	public static Block[] Awnings = new Block[16];
+	public static Block[] Plates = new Block[17 + Rare_Plates_Names.length];
 
 	// called by Furnish @Mod class constructor
 	public static void init() {
 		Amphorae[0] = new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "amphora");
+		Plates[0] = new Plate(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), "plate");
+
 		int index = 0;
 		for(DyeColor dyeColor : DyeColor.values()) {
 			String color = dyeColor.getName();
@@ -193,7 +200,14 @@ public class FurnishManager {
 
 			Block coloredTerracotta = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_terracotta", color)));
 			Amphorae[index + 1] = new Amphora(AbstractBlock.Properties.copy(coloredTerracotta), String.format("%s_amphora", color));
+			Plates[index + 1] = new Plate(AbstractBlock.Properties.copy(coloredTerracotta), String.format("%s_plate", color));
 			index++;
+		}
+
+		int plateIndex = index;
+		for(String s : Rare_Plates_Names) {
+			Plates[plateIndex + 1] = new Plate(AbstractBlock.Properties.copy(Blocks.TERRACOTTA), String.format("rare_%s_plate", s));
+			plateIndex++;
 		}
 
 //		System.out.println("init(): additionalWoodTypes=" + Furnish.Furnish_Config.additionalWoodTypes.get());
@@ -211,6 +225,7 @@ public class FurnishManager {
 		MinecraftForge.EVENT_BUS.register(new AddArmsToArmorStand());
 		MinecraftForge.EVENT_BUS.register(new CyclePainting());
 		MinecraftForge.EVENT_BUS.register(new KnockOnDoor());
+		MinecraftForge.EVENT_BUS.register(new DropRarePlates());
 	}
 
 	// called by Furnish @Mod class clientSetup
@@ -277,6 +292,7 @@ public class FurnishManager {
 		public static final RegistryObject<TileEntityType<MailboxTileEntity>> Mailbox = register("mailbox", MailboxTileEntity::new, () -> Mailboxes);
 		public static final RegistryObject<TileEntityType<CrateTileEntity>> Crate = register("crate", CrateTileEntity::new, () -> Crates);
 		public static final RegistryObject<TileEntityType<CookingPotTileEntity>> Cooking_Pot = register("cooking_pot", CookingPotTileEntity::new, () -> Crates);
+		public static final RegistryObject<TileEntityType<PlateTileEntity>> Plate = register("plate", PlateTileEntity::new, () -> Plates);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Furnish_Tile_Entities.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));

@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:pink_terracotta"
+  },
+  "result": "furnish:pink_plate",
+  "count": 1
+}
