@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,8 +29,8 @@ public class Amphora extends SimpleFurniture implements ISidedInventoryProvider 
 	public static final VoxelShape AMPHORA_BODY = Block.box(2, 0, 2, 14, 13, 14);
 	public static final VoxelShape AMPHORA_TOP = Block.box(4, 13, 4, 12, 16, 12);
 	public static final VoxelShape AMPHORA = VoxelShapes.or(AMPHORA_BODY, AMPHORA_TOP).optimize();
-	public Amphora(Properties p, String registryName) {
-		super(p, registryName);
+	public Amphora(Properties p) {
+		super(p);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class Amphora extends SimpleFurniture implements ISidedInventoryProvider 
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
 		TileEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof AmphoraTileEntity) {
-			world.playSound(playerEntity, pos, FurnishManager.Sounds.Amphora_Open.get(), SoundCategory.BLOCKS, .8f, 1.0f);
+			world.playSound(playerEntity, pos, FurnishData.Sounds.Amphora_Open.get(), SoundCategory.BLOCKS, .8f, 1.0f);
 			if(world.isClientSide()) {
 				return ActionResultType.SUCCESS;
 			} else {

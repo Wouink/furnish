@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.util.PlacementHelper;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.block.Block;
@@ -10,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +17,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 public class Shutter extends HorizontalBlock {
@@ -53,10 +50,9 @@ public class Shutter extends HorizontalBlock {
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
 	public static final EnumProperty<State> STATE = EnumProperty.create("state", State.class);
 
-	public Shutter(Properties p, String registryName) {
+	public Shutter(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(STATE, State.CLOSED).setValue(RIGHT, false));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

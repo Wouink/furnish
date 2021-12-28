@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.util.INoBlockItem;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,11 +24,10 @@ public class CarpetOnTrapdoor extends HorizontalBlock implements INoBlockItem {
 	private static final VoxelShape CLOSED_SHAPE = Block.box(0, 0, 0, 16, 1, 16);
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 	private final Block clone;
-	public CarpetOnTrapdoor(Properties p, String registryName, Block _clone) {
+	public CarpetOnTrapdoor(Properties p, Block _clone) {
 		super(p.noOcclusion());
 		clone = _clone;
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

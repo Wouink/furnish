@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -22,10 +21,9 @@ public class Awning extends HorizontalBlock {
 	public static final BooleanProperty LEFT = BooleanProperty.create("left");
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
 
-	public Awning(Properties p, String registryName) {
+	public Awning(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LEFT, false).setValue(RIGHT, false));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

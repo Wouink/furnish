@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -18,9 +17,8 @@ public class ChimneyConduit extends Block {
 			Block.box(2, 0, 14, 14, 16, 16)
 	).optimize();
 
-	public ChimneyConduit(Properties p, String registryName) {
+	public ChimneyConduit(Properties p) {
 		super(p.noOcclusion());
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

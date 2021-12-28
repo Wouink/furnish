@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
@@ -19,9 +18,8 @@ public class ChimneyCap extends Block {
 
 	public static final VoxelShape CAP_SHAPE = Block.box(1, 6, 1, 15, 8, 15);
 
-	public ChimneyCap(Properties p, String registryName) {
+	public ChimneyCap(Properties p) {
 		super(p.noOcclusion());
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

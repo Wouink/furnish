@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class AddArmsToArmorStand {
 
 	@SubscribeEvent
-	public void onStickRightClicked(PlayerInteractEvent.EntityInteractSpecific event) {
+	public static void onStickRightClicked(PlayerInteractEvent.EntityInteractSpecific event) {
 		if(event.getWorld().isClientSide()) return;
 		if(event.getTarget() instanceof ArmorStandEntity) {
 			ArmorStandEntity armorStand = (ArmorStandEntity) event.getTarget();
@@ -30,7 +30,7 @@ public class AddArmsToArmorStand {
 		}
 	}
 
-	private byte setBit(byte b, int n, boolean v) {
+	private static byte setBit(byte b, int n, boolean v) {
 		return v ? (byte)(b | n) : (byte)(b & ~n);
 	}
 }

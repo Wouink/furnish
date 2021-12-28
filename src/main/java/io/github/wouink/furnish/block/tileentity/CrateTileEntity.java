@@ -1,8 +1,8 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.container.CrateContainer;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -29,7 +29,7 @@ public class CrateTileEntity extends LockableLootTileEntity implements ISidedInv
 	}
 
 	public CrateTileEntity() {
-		super(FurnishManager.TileEntities.Crate.get());
+		super(FurnishData.TileEntities.TE_Crate.get());
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

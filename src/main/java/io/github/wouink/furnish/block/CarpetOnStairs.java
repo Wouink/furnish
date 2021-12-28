@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.util.INoBlockItem;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.block.*;
@@ -21,11 +20,10 @@ public class CarpetOnStairs extends HorizontalBlock implements INoBlockItem {
 			VoxelShapeHelper.getRotatedShapes(Block.box(0, -8, 0, 7, -7, 16))
 	);
 	private final Block clone;
-	public CarpetOnStairs(Properties p, String registryName, Block _clone) {
+	public CarpetOnStairs(Properties p, Block _clone) {
 		super(p.noOcclusion());
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 		clone = _clone;
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

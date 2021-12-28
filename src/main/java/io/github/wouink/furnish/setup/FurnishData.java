@@ -1,0 +1,167 @@
+package io.github.wouink.furnish.setup;
+
+import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.block.Crate;
+import io.github.wouink.furnish.block.Mailbox;
+import io.github.wouink.furnish.block.container.CookingPotContainer;
+import io.github.wouink.furnish.block.container.CrateContainer;
+import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
+import io.github.wouink.furnish.block.container.MailboxContainer;
+import io.github.wouink.furnish.block.tileentity.*;
+import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
+import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
+import io.github.wouink.furnish.client.renderer.MailboxRenderer;
+import io.github.wouink.furnish.client.renderer.PlateRenderer;
+import io.github.wouink.furnish.client.renderer.SeatRenderer;
+import io.github.wouink.furnish.entity.SeatEntity;
+import io.github.wouink.furnish.recipe.FSingleItemRecipe;
+import io.github.wouink.furnish.recipe.FurnitureRecipe;
+import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.PaintingType;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.function.Supplier;
+
+@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+public class FurnishData {
+
+
+
+	public static final IRecipeType<FurnitureRecipe> Furniture_Recipe = IRecipeType.register(Furnish.MODID + ":furniture_making");
+
+	public static class RecipeSerializers {
+		public static final DeferredRegister<IRecipeSerializer<?>> Registry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Furnish.MODID);
+		public static final RegistryObject<IRecipeSerializer<FurnitureRecipe>> Furniture_Recipe_Serializer = Registry.register(
+				"furniture_making",
+				() -> new FSingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new) {}
+		);
+	}
+
+	public static class Sounds {
+		public static final DeferredRegister<SoundEvent> Registry = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Furnish.MODID);
+		public static final RegistryObject<SoundEvent> Cabinet_Open = Registry.register("furniture.open", () -> newSound("furniture.open"));
+		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Open = Registry.register("furniture.open.spruce", () -> newSound("furniture.open.spruce"));
+		public static final RegistryObject<SoundEvent> Drawers_Open = Registry.register("furniture.open.drawers", () -> newSound("furniture.open.drawers"));
+		public static final RegistryObject<SoundEvent> Amphora_Open = Registry.register("amphora.open", () -> newSound("amphora.open"));
+		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = Registry.register("door.knock.wood", () -> newSound("door.knock.wood"));
+		public static final RegistryObject<SoundEvent> Iron_Door_Knock = Registry.register("door.knock.iron", () -> newSound("door.knock.iron"));
+		public static final RegistryObject<SoundEvent> Mailbox_Update = Registry.register("mailbox.update", () -> newSound("mailbox.update"));
+		public static final RegistryObject<SoundEvent> Attach_To_Letter = Registry.register("letter.add_attachment", () -> newSound("letter.add_attachment"));
+		public static final RegistryObject<SoundEvent> Detach_From_Letter = Registry.register("letter.remove_attachment", () -> newSound("letter.remove_attachment"));
+		public static final RegistryObject<SoundEvent> Drum_Tom = Registry.register("drum.tom", () -> newSound("drum.tom"));
+		public static final RegistryObject<SoundEvent> Drum_Snare = Registry.register("drum.snare", () -> newSound("drum.snare"));
+
+		private static SoundEvent newSound(String name) {
+			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));
+		}
+	}
+
+	public static class Containers {
+		public static final DeferredRegister<ContainerType<?>> Registry = DeferredRegister.create(ForgeRegistries.CONTAINERS, Furnish.MODID);
+		public static final RegistryObject<ContainerType<FurnitureWorkbenchContainer>> Furniture_Workbench = Registry.register("furniture_workbench",
+				() -> new ContainerType<>(FurnitureWorkbenchContainer::new)
+		);
+		public static final RegistryObject<ContainerType<CrateContainer>> Crate = Registry.register("crate",
+				() -> new ContainerType<>(CrateContainer::new)
+		);
+		public static final RegistryObject<ContainerType<MailboxContainer>> Mailbox = Registry.register("mailbox",
+				() -> new ContainerType<>(MailboxContainer::new)
+		);
+		public static final RegistryObject<ContainerType<CookingPotContainer>> Cooking_Pot = Registry.register("cooking_pot",
+				() -> new ContainerType<>(CookingPotContainer::new)
+		);
+	}
+
+	public static class Entities {
+		public static final DeferredRegister<EntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.ENTITIES, Furnish.MODID);
+		public static final RegistryObject<EntityType<SeatEntity>> Seat_Entity = register("seat",
+				EntityType.Builder.<SeatEntity>of((type, world) -> new SeatEntity(world), EntityClassification.MISC)
+						.sized(0.0f, 0.0f).setCustomClientFactory(((spawnEntity, world) -> new SeatEntity(world)))
+		);
+
+		private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
+			return Registry.register(name, () -> builder.build(name));
+		}
+	}
+
+	public static class TileEntities {
+		public static final DeferredRegister<TileEntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Furnish.MODID);
+		public static final RegistryObject<TileEntityType<FurnitureTileEntity>> TE_Furniture = register("furniture", FurnitureTileEntity::new, () -> FurnishBlocks.FurnitureInvProvider);
+		public static final RegistryObject<TileEntityType<LargeFurnitureTileEntity>> TE_Large_Furniture = register("large_furniture", LargeFurnitureTileEntity::new, () -> FurnishBlocks.FurnitureLargeInvProvider);
+		public static final RegistryObject<TileEntityType<AmphoraTileEntity>> TE_Amphora = register("amphora", AmphoraTileEntity::new, () -> FurnishBlocks.Amphorae);
+		public static final RegistryObject<TileEntityType<MailboxTileEntity>> TE_Mailbox = register("mailbox", MailboxTileEntity::new, () -> Mailbox.All_Mailboxes.toArray(new Mailbox[0]));
+		public static final RegistryObject<TileEntityType<CrateTileEntity>> TE_Crate = register("crate", CrateTileEntity::new, () -> Crate.All_Crates.toArray(new Crate[0]));
+		public static final RegistryObject<TileEntityType<CookingPotTileEntity>> TE_Cooking_Pot = register("cooking_pot", CookingPotTileEntity::new, () -> FurnishBlocks.Cooking_Pots);
+		public static final RegistryObject<TileEntityType<PlateTileEntity>> TE_Plate = register("plate", PlateTileEntity::new, () -> FurnishBlocks.Plates);
+
+		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
+			return Registry.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
+		}
+	}
+
+	public static void setup(IEventBus bus) {
+		Containers.Registry.register(bus);
+		Furnish.LOG.info("Registered Furnish Containers.");
+		RecipeSerializers.Registry.register(bus);
+		Furnish.LOG.info("Registered Furnish Recipes Serializers.");
+		Entities.Registry.register(bus);
+		Furnish.LOG.info("Registered Furnish Entities.");
+		TileEntities.Registry.register(bus);
+		Furnish.LOG.info("Registered Furnish Tile Entities.");
+		Sounds.Registry.register(bus);
+		Furnish.LOG.info("Registered Furnish Sounds.");
+	}
+
+	public static void clientSetup() {
+		ScreenManager.register(Containers.Furniture_Workbench.get(), FurnitureWorkbenchScreen::new);
+		ScreenManager.register(Containers.Crate.get(), ConditionalSlotContainerScreen::new);
+		ScreenManager.register(Containers.Mailbox.get(), ConditionalSlotContainerScreen::new);
+		ScreenManager.register(Containers.Cooking_Pot.get(), ConditionalSlotContainerScreen::new);
+		Furnish.LOG.info("Registered Furnish Screens.");
+
+		RenderingRegistry.registerEntityRenderingHandler(Entities.Seat_Entity.get(), SeatRenderer::new);
+		Furnish.LOG.info("Registered Furnish Entity Renderers.");
+
+		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Mailbox.get(), MailboxRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Plate.get(), PlateRenderer::new);
+		Furnish.LOG.info("Registered Furnish TileEntity Renderers.");
+	}
+
+	public static PaintingType createPainting(String name, int w, int h) {
+		PaintingType painting = new PaintingType(16 * w, 16 * h);
+		painting.setRegistryName(Furnish.MODID, name);
+		return painting;
+	}
+
+	@SubscribeEvent
+	public static void registerPaintings(RegistryEvent.Register<PaintingType> paintingRegistryEvent) {
+		IForgeRegistry<PaintingType> paintingRegistry = paintingRegistryEvent.getRegistry();
+
+		// register Furnish paintings
+		paintingRegistry.register(createPainting("steve", 1, 1));
+		paintingRegistry.register(createPainting("alex", 1, 1));
+
+		// Furnish.LOG.info("Registering Furnish custom paintings...");
+		// CustomPaintings.registerCustomPaintings(paintingRegistry, "config/furnish_custom_paintings.json");
+	}
+}

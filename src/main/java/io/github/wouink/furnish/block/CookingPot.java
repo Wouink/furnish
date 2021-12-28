@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.CookingPotTileEntity;
 import io.github.wouink.furnish.item.util.TooltipHelper;
 import net.minecraft.block.Block;
@@ -34,10 +33,9 @@ public class CookingPot extends Block {
 	private static final VoxelShape POT_Z = Block.box(2, 0, 3, 14, 10, 13);
 
 	public static final BooleanProperty Z_AXIS = BooleanProperty.create("z_axis");
-	public CookingPot(Properties p, String registryName) {
+	public CookingPot(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(Z_AXIS, false));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

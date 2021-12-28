@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -25,10 +24,9 @@ public class BookPile extends HorizontalBlock {
 	private static final IntegerProperty PLACEMENT = IntegerProperty.create("placement", 0, 2);
 	private static final VoxelShape PILE_SHAPE = Block.box(4, 0, 4, 12, 8, 12);
 	private static final VoxelShape LAYING_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
-	public BookPile(Properties p, String registryName) {
+	public BookPile(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PLACEMENT, 0));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

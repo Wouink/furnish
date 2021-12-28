@@ -1,7 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -28,7 +26,6 @@ public class FurnitureWorkbench extends HorizontalBlock {
 	public FurnitureWorkbench() {
 		super(AbstractBlock.Properties.of(Material.WOOD).strength(1.0f).sound(SoundType.WOOD).noOcclusion());
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-		FurnishManager.ModBlocks.register("furniture_workbench", this);
 	}
 
 	@Override

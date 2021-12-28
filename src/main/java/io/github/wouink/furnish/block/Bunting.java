@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -20,10 +19,9 @@ public class Bunting extends Block {
 	public static final VoxelShape BUNTING_X = Block.box(0, 7, 7, 16, 12, 9);
 	public static final VoxelShape BUNTING_Z = Block.box(7, 7, 0, 9, 12, 16);
 
-	public Bunting(Properties p, String registryName) {
+	public Bunting(Properties p) {
 		super(p.noCollission().noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(Z_AXIS, false));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override
@@ -35,7 +33,7 @@ public class Bunting extends Block {
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
-		if(!ctx.getPlayer().isCrouching()) {
+		if(!ctx.getPlayer().isShiftKeyDown()) {
 			BlockState buntingCheck = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(ctx.getClickedFace().getOpposite()));
 			if (buntingCheck.getBlock() instanceof Bunting)
 				return this.defaultBlockState().setValue(Z_AXIS, buntingCheck.getValue(Z_AXIS));

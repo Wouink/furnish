@@ -1,8 +1,9 @@
 package io.github.wouink.furnish.block.container;
 
 import com.google.common.collect.Lists;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
+import io.github.wouink.furnish.setup.FurnishBlocks;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -45,7 +46,7 @@ public class FurnitureWorkbenchContainer extends Container {
 	}
 
 	public FurnitureWorkbenchContainer(int windowId, PlayerInventory playerInventory, final IWorldPosCallable worldPos) {
-		super(FurnishManager.Containers.Furniture_Workbench.get(), windowId);
+		super(FurnishData.Containers.Furniture_Workbench.get(), windowId);
 		this.worldPosCallable = worldPos;
 		this.world = playerInventory.player.level;
 		this.inputInventorySlot = this.addSlot(new Slot(this.inputInventory, 0, 20, 33));
@@ -108,7 +109,7 @@ public class FurnitureWorkbenchContainer extends Container {
 
 	@Override
 	public boolean stillValid(PlayerEntity playerIn) {
-		return stillValid(this.worldPosCallable, playerIn, FurnishManager.Furniture_Workbench);
+		return stillValid(this.worldPosCallable, playerIn, FurnishBlocks.Furniture_Workbench);
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class FurnitureWorkbenchContainer extends Container {
 		this.selectedRecipe.set(-1);
 		this.outputInventorySlot.set(ItemStack.EMPTY);
 		if(!stack.isEmpty()) {
-			this.recipes = this.world.getRecipeManager().getRecipesFor(FurnishManager.RecipeType.Furniture_Recipe, inv, this.world);
+			this.recipes = this.world.getRecipeManager().getRecipesFor(FurnishData.Furniture_Recipe, inv, this.world);
 		}
 	}
 
@@ -155,7 +156,7 @@ public class FurnitureWorkbenchContainer extends Container {
 
 	@Override
 	public ContainerType<?> getType() {
-		return FurnishManager.Containers.Furniture_Workbench.get();
+		return FurnishData.Containers.Furniture_Workbench.get();
 	}
 
 	public void setInventoryUpdateListener(Runnable listenerIn) {
@@ -186,7 +187,7 @@ public class FurnitureWorkbenchContainer extends Container {
 				if(!this.moveItemStackTo(itemStack1, 2, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(this.world.getRecipeManager().getRecipeFor(FurnishManager.RecipeType.Furniture_Recipe, new Inventory(itemStack1), this.world).isPresent()) {
+			} else if(this.world.getRecipeManager().getRecipeFor(FurnishData.Furniture_Recipe, new Inventory(itemStack1), this.world).isPresent()) {
 				if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}

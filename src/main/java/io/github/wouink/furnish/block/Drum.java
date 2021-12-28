@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -28,10 +27,9 @@ public class Drum extends Block {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public static final IntegerProperty NOTE = IntegerProperty.create("note", 0, 12);
 
-	public Drum(Properties p, String registryName, final RegistryObject<SoundEvent> instrumentSound) {
+	public Drum(Properties p, final RegistryObject<SoundEvent> instrumentSound) {
 		super(p);
 		this.instrumentSound = instrumentSound;
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

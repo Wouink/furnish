@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -24,7 +24,7 @@ public class FurnitureTileEntity extends LockableLootTileEntity {
 	}
 
 	public FurnitureTileEntity() {
-		super(FurnishManager.TileEntities.Furniture.get());
+		super(FurnishData.TileEntities.TE_Furniture.get());
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

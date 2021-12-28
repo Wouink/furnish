@@ -1,8 +1,8 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.container.CookingPotContainer;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -27,7 +27,7 @@ public class CookingPotTileEntity extends LockableLootTileEntity {
 	}
 
 	public CookingPotTileEntity() {
-		this(FurnishManager.TileEntities.Cooking_Pot.get());
+		this(FurnishData.TileEntities.TE_Cooking_Pot.get());
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

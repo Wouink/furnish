@@ -1,9 +1,9 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.item.util.TooltipHelper;
+import io.github.wouink.furnish.setup.FurnishItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
@@ -27,12 +27,15 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Crate extends Block implements ISpecialItemProperties {
-	public Crate(Properties p, String registryName) {
+	public static ArrayList<Crate> All_Crates = new ArrayList<>();
+
+	public Crate(Properties p) {
 		super(p);
-		FurnishManager.ModBlocks.register(registryName, this);
+		All_Crates.add(this);
 	}
 
 	@Override
@@ -125,6 +128,6 @@ public class Crate extends Block implements ISpecialItemProperties {
 
 	@Override
 	public Item.Properties getProperties() {
-		return new Item.Properties().stacksTo(1).tab(FurnishManager.Furnish_ItemGroup);
+		return new Item.Properties().stacksTo(1).tab(FurnishItems.Furnish_ItemGroup);
 	}
 }

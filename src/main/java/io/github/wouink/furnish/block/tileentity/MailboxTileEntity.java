@@ -1,9 +1,9 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.item.Letter;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -37,7 +37,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	public MailboxTileEntity() {
-		super(FurnishManager.TileEntities.Mailbox.get());
+		super(FurnishData.TileEntities.TE_Mailbox.get());
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -128,7 +128,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	public ItemStack addMail(ItemStack stack) {
-		if(Furnish.Furnish_Config.restrictMailboxItems.get().booleanValue() && !stack.getItem().getTags().contains(MAIL_TAG)) return stack;
+		if(Furnish.CONFIG.restrictMailboxItems.get().booleanValue() && !stack.getItem().getTags().contains(MAIL_TAG)) return stack;
 		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {

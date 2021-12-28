@@ -1,8 +1,8 @@
 package io.github.wouink.furnish.block.container;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.CookingPotTileEntity;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
@@ -18,7 +18,7 @@ public class CookingPotContainer extends ConditionalSlotContainer {
 	}
 
 	public CookingPotContainer(int syncId, PlayerInventory playerInventory, IInventory inventory) {
-		super(1, CookingPotContainer::canPlaceInCookingPot, FurnishManager.Containers.Cooking_Pot.get(), syncId, playerInventory, inventory);
+		super(1, CookingPotContainer::canPlaceInCookingPot, FurnishData.Containers.Cooking_Pot.get(), syncId, playerInventory, inventory);
 	}
 
 	public CookingPotContainer(int syncId, PlayerInventory playerInventory) {

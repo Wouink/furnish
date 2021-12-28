@@ -1,13 +1,12 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
@@ -32,15 +31,18 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class Mailbox extends HorizontalBlock {
+	public static ArrayList<Mailbox> All_Mailboxes = new ArrayList<>();
+	
 	public static final VoxelShape[] MAILBOX_SHAPE = VoxelShapeHelper.getRotatedShapes(Block.box(2, 0, 3, 14, 12, 13));
 	public static final BooleanProperty ON_FENCE = BooleanProperty.create("on_fence");
 	public static final BooleanProperty HAS_MAIL = BooleanProperty.create("has_mail");
-	public Mailbox(Properties p, String registryName) {
+	public Mailbox(Properties p) {
 		super(p);
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(ON_FENCE, false).setValue(HAS_MAIL, false));
-		FurnishManager.ModBlocks.register(registryName, this);
+		All_Mailboxes.add(this);
 	}
 
 	@Override
@@ -84,7 +86,7 @@ public class Mailbox extends HorizontalBlock {
 			if(state.getValue(HAS_MAIL).booleanValue() != mail) {
 				world.setBlock(pos, state.setValue(HAS_MAIL, mail), 3);
 				tileEntity.setChanged();
-				world.playSound(null, pos, FurnishManager.Sounds.Mailbox_Update.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+				world.playSound(null, pos, FurnishData.Sounds.Mailbox_Update.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
 				return true;
 			}
 		}

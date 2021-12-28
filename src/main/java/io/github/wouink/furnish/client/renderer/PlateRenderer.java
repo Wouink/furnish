@@ -28,7 +28,7 @@ public class PlateRenderer extends TileEntityRenderer<PlateTileEntity> {
 
 			ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 			boolean blockItem = itemRenderer.getModel(stack, plate.getLevel(), null).isGui3d();
-			Direction dir = plate.getBlockState().getValue(Plate.FACING);
+			Direction dir = plate.getBlockState().getValue(Plate.FACING).getOpposite();
 
 			if(blockItem) prepareRenderBlock(ms, dir);
 			else prepareRenderItem(ms, dir);

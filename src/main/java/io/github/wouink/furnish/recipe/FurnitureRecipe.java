@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.recipe;
 
-import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.setup.FurnishBlocks;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -9,7 +10,7 @@ import net.minecraft.world.World;
 
 public class FurnitureRecipe extends FSingleItemRecipe {
 	public FurnitureRecipe(ResourceLocation rl, String s, Ingredient ing, ItemStack stack) {
-		super(FurnishManager.RecipeType.Furniture_Recipe, FurnishManager.Serializer.Furniture.get(), rl, s, ing, stack);
+		super(FurnishData.Furniture_Recipe, FurnishData.RecipeSerializers.Furniture_Recipe_Serializer.get(), rl, s, ing, stack);
 	}
 
 	@Override
@@ -19,6 +20,6 @@ public class FurnitureRecipe extends FSingleItemRecipe {
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(FurnishManager.Furniture_Workbench);
+		return new ItemStack(FurnishBlocks.Furniture_Workbench);
 	}
 }

@@ -12,8 +12,8 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class Cabinet extends InventoryFurniture {
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
-	public Cabinet(Properties p, String registryName, final RegistryObject<SoundEvent> sound) {
-		super(p, registryName, sound);
+	public Cabinet(Properties p, final RegistryObject<SoundEvent> sound) {
+		super(p, sound);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(RIGHT, false));
 	}
 

@@ -1,8 +1,8 @@
 package io.github.wouink.furnish.item;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.client.gui.LetterScreen;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.util.ITooltipFlag;
@@ -91,7 +91,7 @@ public class Letter extends Item {
 					playerEntity.addItem(result);
 					if(world.isClientSide()) {
 						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_removed"), true);
-						playerEntity.playSound(FurnishManager.Sounds.Detach_From_Letter.get(), 1.0f, 1.0f);
+						playerEntity.playSound(FurnishData.Sounds.Detach_From_Letter.get(), 1.0f, 1.0f);
 					}
 					return ActionResult.sidedSuccess(letter, world.isClientSide());
 				}
@@ -102,7 +102,7 @@ public class Letter extends Item {
 					if(result.isEmpty()) {
 						if(world.isClientSide()) {
 							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_added", offHandStack.getItem().getDescription()), true);
-							playerEntity.playSound(FurnishManager.Sounds.Attach_To_Letter.get(), 1.0f, 1.0f);
+							playerEntity.playSound(FurnishData.Sounds.Attach_To_Letter.get(), 1.0f, 1.0f);
 						}
 						return ActionResult.sidedSuccess(letter, world.isClientSide());
 					}

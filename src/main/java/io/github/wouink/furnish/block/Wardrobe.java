@@ -12,8 +12,8 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class Wardrobe extends TallInventoryFurniture {
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
-	public Wardrobe(Properties p, String registryName, final RegistryObject<SoundEvent> sound) {
-		super(p, registryName, sound);
+	public Wardrobe(Properties p, final RegistryObject<SoundEvent> sound) {
+		super(p, sound);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TOP, false).setValue(RIGHT, false));
 	}
 

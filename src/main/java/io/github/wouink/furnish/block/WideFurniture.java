@@ -16,9 +16,8 @@ import javax.annotation.Nullable;
 
 public class WideFurniture extends HorizontalBlock {
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
-	public WideFurniture(Properties p, String registryName) {
+	public WideFurniture(Properties p) {
 		super(p.noOcclusion());
-		setRegistryName(registryName);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(RIGHT, false));
 	}
 

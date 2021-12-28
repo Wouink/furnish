@@ -1,7 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -30,9 +28,8 @@ public class Table extends Block {
 	protected static final VoxelShape SW_SHAPE = Block.box(1d, 0d, 12d, 4d, 14d, 15d);
 	protected static final VoxelShape SE_SHAPE = Block.box(12d, 0d, 12d, 15d, 14d, 15d);
 
-	public Table(Properties p, String registryName) {
+	public Table(Properties p) {
 		super(p.noOcclusion());
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

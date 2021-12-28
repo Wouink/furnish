@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +24,8 @@ import javax.annotation.Nullable;
 
 public class TallInventoryFurniture extends TallFurniture implements ISidedInventoryProvider {
 	private RegistryObject<SoundEvent> sound;
-	public TallInventoryFurniture(Properties p, String registryName, final RegistryObject<SoundEvent> sound) {
-		super(p, registryName);
+	public TallInventoryFurniture(Properties p, final RegistryObject<SoundEvent> sound) {
+		super(p);
 		this.sound = sound;
 	}
 

@@ -3,9 +3,6 @@ package io.github.wouink.furnish.event;
 import net.minecraft.entity.item.PaintingEntity;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.item.Items;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -29,7 +26,7 @@ public class CyclePainting {
 	}
 
 	@SubscribeEvent
-	public void onPaintingInteract(PlayerInteractEvent.EntityInteract event) {
+	public static void onPaintingInteract(PlayerInteractEvent.EntityInteract event) {
 		World world = event.getWorld();
 		if(world.isClientSide()) return;
 		if(!event.getItemStack().getItem().equals(Items.PAINTING)) return;

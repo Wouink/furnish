@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.event;
 
-import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.material.Material;
@@ -14,15 +14,15 @@ public class KnockOnDoor {
 	// LeftClickBlock is called twice: when clicking and when releasing click, with no way to know when is when...
 
 	@SubscribeEvent
-	public void onDoorHit(PlayerInteractEvent.LeftClickBlock event) {
+	public static void onDoorHit(PlayerInteractEvent.LeftClickBlock event) {
 		if(event.getWorld().isClientSide()) return;
 		if(event.getPlayer().isCreative()) return;
 		if(event.getPlayer().getItemInHand(event.getHand()).isEmpty()) {
 			BlockState hitBlock = event.getWorld().getBlockState(event.getPos());
 			if(hitBlock.getBlock() instanceof DoorBlock) {
 				if(hitBlock.getMaterial() == Material.METAL) {
-					event.getWorld().playSound(null, event.getPos(), FurnishManager.Sounds.Iron_Door_Knock.get(), SoundCategory.PLAYERS, 1.0f, 1.0f);
-				} else event.getWorld().playSound(null, event.getPos(), FurnishManager.Sounds.Wooden_Door_Knock.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+					event.getWorld().playSound(null, event.getPos(), FurnishData.Sounds.Iron_Door_Knock.get(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+				} else event.getWorld().playSound(null, event.getPos(), FurnishData.Sounds.Wooden_Door_Knock.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
 			}
 		}
 	}

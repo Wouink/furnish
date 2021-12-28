@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 
 public class InventoryFurniture extends SimpleFurniture implements ISidedInventoryProvider {
 	private final RegistryObject<SoundEvent> sound;
-	public InventoryFurniture(Properties p, String registryName, final RegistryObject<SoundEvent> sound) {
-		super(p, registryName);
+	public InventoryFurniture(Properties p, final RegistryObject<SoundEvent> sound) {
+		super(p);
 		this.sound = sound;
 	}
 

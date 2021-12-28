@@ -18,10 +18,13 @@ import net.minecraft.world.World;
 
 public class Chair extends SimpleFurniture {
 	public static final VoxelShape[] BASE_SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(4, 0, 3, 14, 9, 13));
+	public static final VoxelShape[] CHAIR_SEAT = VoxelShapeHelper.getRotatedShapes(Block.box(3, 9, 3, 6, 17, 13));
+	public static final VoxelShape[] CHAIR_TALL_SEAT = VoxelShapeHelper.getRotatedShapes(Block.box(3, 9, 3, 6, 22, 13));
+	public static final VoxelShape[] CHAIR_SEAT_THRONE = VoxelShapeHelper.getRotatedShapes(Block.box(3, 9, 3, 6, 30, 13));
 
 	private final VoxelShape[] myShapes;
-	public Chair(Properties p, String registryName, VoxelShape[] shapes) {
-		super(p.noOcclusion(), registryName);
+	public Chair(Properties p, VoxelShape[] shapes) {
+		super(p.noOcclusion());
 		myShapes = shapes;
 	}
 

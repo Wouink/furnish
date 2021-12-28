@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.entity;
 
-import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,7 +17,7 @@ public class SeatEntity extends Entity {
 	private BlockPos seatBlock;
 
 	public SeatEntity(World world) {
-		super(FurnishManager.Entities.Seat_Entity.get(), world);
+		super(FurnishData.Entities.Seat_Entity.get(), world);
 		this.noPhysics = true;
 	}
 

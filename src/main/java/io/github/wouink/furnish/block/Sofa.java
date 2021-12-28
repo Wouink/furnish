@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import net.minecraft.block.Block;
@@ -65,10 +64,9 @@ public class Sofa extends HorizontalBlock {
 
 	public static final EnumProperty<SofaType> SOFA_TYPE = EnumProperty.create("type", SofaType.class);
 
-	public Sofa(Properties p, String registryName) {
+	public Sofa(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(SOFA_TYPE, SofaType.ARMCHAIR));
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override

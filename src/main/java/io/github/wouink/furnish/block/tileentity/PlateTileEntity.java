@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.FurnishManager;
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,7 +15,7 @@ public class PlateTileEntity extends TileEntity {
 	private ItemStack holding;
 
 	public PlateTileEntity() {
-		super(FurnishManager.TileEntities.Plate.get());
+		super(FurnishData.TileEntities.TE_Plate.get());
 		holding = ItemStack.EMPTY;
 	}
 

@@ -1,14 +1,17 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.block.container.CookingPotContainer;
 import io.github.wouink.furnish.block.tileentity.PlateTileEntity;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
+import io.github.wouink.furnish.setup.FurnishItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -28,15 +31,19 @@ public class Plate extends HorizontalBlock implements ISpecialItemProperties {
 	public static final VoxelShape PLATE_SHAPE = Block.box(1, 0, 1, 15, 1, 15);
 	private static final ResourceLocation WHITELIST = CookingPotContainer.COOKING_POT_TAG;
 
-	public Plate(Properties p, String registryName) {
+	public Plate(Properties p) {
 		super(p.noOcclusion());
-		FurnishManager.ModBlocks.register(registryName, this);
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING);
+	}
+
+	@Override
+	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
@@ -73,6 +80,31 @@ public class Plate extends HorizontalBlock implements ISpecialItemProperties {
 	@Override
 	public Item.Properties getProperties() {
 		Rarity rarity = getRegistryName().getPath().startsWith("rare_") ? Rarity.RARE : Rarity.COMMON;
-		return new Item.Properties().tab(FurnishManager.Furnish_ItemGroup).stacksTo(16).rarity(rarity);
+		return new Item.Properties().tab(FurnishItems.Furnish_ItemGroup).stacksTo(16).rarity(rarity);
+	}
+
+	@Override
+	public ItemStack getCloneItemStack(IBlockReader world, BlockPos pos, BlockState state) {
+		TileEntity tileEntity = world.getBlockEntity(pos);
+		if(tileEntity instanceof PlateTileEntity) {
+			ItemStack stack = ((PlateTileEntity) tileEntity).getHeldItem().copy();
+			if(!stack.isEmpty()) {
+				stack.setCount(1);
+				return stack;
+			}
+		}
+		return super.getCloneItemStack(world, pos, state);
+	}
+
+	@Override
+	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean moving) {
+		super.onRemove(state, world, pos, newState, moving);
+		TileEntity tileEntity = world.getBlockEntity(pos);
+		if(tileEntity instanceof PlateTileEntity) {
+			ItemStack stack = ((PlateTileEntity) tileEntity).getHeldItem();
+			if(!stack.isEmpty()) {
+				world.addFreshEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, stack));
+			}
+		}
 	}
 }

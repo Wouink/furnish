@@ -1,8 +1,8 @@
 package io.github.wouink.furnish.integration.jei;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -29,7 +29,7 @@ public class FurnitureMakingCategory implements IRecipeCategory<FurnitureRecipe>
 	public FurnitureMakingCategory(IGuiHelper guiHelper) {
 		ResourceLocation loc = FurnishPlugin.RECIPE_GUI_FURNISH;
 		background = guiHelper.createDrawable(loc, 0, 220, width, height);
-		icon = guiHelper.createDrawableIngredient(new ItemStack(FurnishManager.Furniture_Workbench));
+		icon = guiHelper.createDrawableIngredient(new ItemStack(FurnishBlocks.Furniture_Workbench));
 	}
 
 	@Override

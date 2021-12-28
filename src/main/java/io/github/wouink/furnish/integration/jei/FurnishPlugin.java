@@ -1,8 +1,9 @@
 package io.github.wouink.furnish.integration.jei;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishManager;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
+import io.github.wouink.furnish.setup.FurnishBlocks;
+import io.github.wouink.furnish.setup.FurnishData;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -31,12 +32,12 @@ public class FurnishPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		Collection<FurnitureRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(FurnishManager.RecipeType.Furniture_Recipe);
+		Collection<FurnitureRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(FurnishData.Furniture_Recipe);
 		registration.addRecipes(Arrays.asList(recipes.toArray()), FurnitureMakingCategory.FURNITURE_MAKING);
 	}
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(new ItemStack(FurnishManager.Furniture_Workbench), FurnitureMakingCategory.FURNITURE_MAKING);
+		registration.addRecipeCatalyst(new ItemStack(FurnishBlocks.Furniture_Workbench), FurnitureMakingCategory.FURNITURE_MAKING);
 	}
 }

@@ -1,4 +1,4 @@
-package io.github.wouink.furnish;
+package io.github.wouink.furnish.setup;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
