@@ -6,8 +6,11 @@
   "furnish.furniture_making": "Furniture Making",
 
   "subtitle.furnish.furniture_open": "Furniture Opens",
-  "subtitle.furnish.furniture_open_drawers": "Drawers Opens",
+  "subtitle.furnish.furniture_close": "Furniture Closes",
+  "subtitle.furnish.furniture_open_drawers": "Drawer Opens",
+  "subtitle.furnish.furniture_close_drawers": "Drawer Closes",
   "subtitle.furnish.amphora_open": "Amphora Opens",
+  "subtitle.furnish.amphora_close": "Amphora Closes",
   "subtitle.furnish.door_knock": "Someone Knocks on a Door",
   "subtitle.furnish.door_knock_iron": "Someone Knocks on an Iron Door",
 

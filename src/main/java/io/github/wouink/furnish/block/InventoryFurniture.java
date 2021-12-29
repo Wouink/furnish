@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
+import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -22,11 +23,13 @@ import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
 
-public class InventoryFurniture extends SimpleFurniture implements ISidedInventoryProvider {
-	private final RegistryObject<SoundEvent> sound;
-	public InventoryFurniture(Properties p, final RegistryObject<SoundEvent> sound) {
+public class InventoryFurniture extends SimpleFurniture implements ISidedInventoryProvider, IFurnitureWithSound {
+	private final RegistryObject<SoundEvent> openSound;
+	private final RegistryObject<SoundEvent> closeSound;
+	public InventoryFurniture(Properties p, final RegistryObject<SoundEvent> openSound, final RegistryObject<SoundEvent> closeSound) {
 		super(p);
-		this.sound = sound;
+		this.openSound = openSound;
+		this.closeSound = closeSound;
 	}
 
 	@Override
@@ -51,17 +54,14 @@ public class InventoryFurniture extends SimpleFurniture implements ISidedInvento
 
 	@Override
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		TileEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof FurnitureTileEntity) {
-			if(sound != null) world.playSound(playerEntity, pos, sound.get(), SoundCategory.BLOCKS, .8f, 1.0f);
-			if(world.isClientSide()) {
-				return ActionResultType.SUCCESS;
-			} else {
+		if(world.isClientSide()) return ActionResultType.SUCCESS;
+		else {
+			TileEntity tileEntity = world.getBlockEntity(pos);
+			if(tileEntity instanceof FurnitureTileEntity) {
 				playerEntity.openMenu((INamedContainerProvider) tileEntity);
-				return ActionResultType.CONSUME;
 			}
+			return ActionResultType.CONSUME;
 		}
-		return ActionResultType.FAIL;
 	}
 
 	@Override
@@ -73,5 +73,15 @@ public class InventoryFurniture extends SimpleFurniture implements ISidedInvento
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);
+	}
+
+	@Override
+	public SoundEvent getOpenSound() {
+		return openSound.get();
+	}
+
+	@Override
+	public SoundEvent getCloseSound() {
+		return closeSound.get();
 	}
 }

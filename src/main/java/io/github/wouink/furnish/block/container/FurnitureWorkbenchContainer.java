@@ -66,9 +66,9 @@ public class FurnitureWorkbenchContainer extends Container {
 				stack.getItem().onCraftedBy(stack, thePlayer.level, thePlayer);
 				worldPos.execute((world, pos) -> {
 					long l = world.getGameTime();
-					if(FurnitureWorkbenchContainer.this.lastOnTake != 1) {
+					if(FurnitureWorkbenchContainer.this.lastOnTake != l) {
 						world.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-						FurnitureWorkbenchContainer.this.lastOnTake = 1;
+						FurnitureWorkbenchContainer.this.lastOnTake = l;
 					}
 				});
 

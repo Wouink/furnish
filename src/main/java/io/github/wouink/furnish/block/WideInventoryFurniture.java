@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
+import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -22,11 +23,13 @@ import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
 
-public class WideInventoryFurniture extends WideFurniture implements ISidedInventoryProvider {
-	private final RegistryObject<SoundEvent> sound;
-	public WideInventoryFurniture(Properties p, final RegistryObject<SoundEvent> sound) {
+public class WideInventoryFurniture extends WideFurniture implements ISidedInventoryProvider, IFurnitureWithSound {
+	private final RegistryObject<SoundEvent> openSound;
+	private final RegistryObject<SoundEvent> closeSound;
+	public WideInventoryFurniture(Properties p, final RegistryObject<SoundEvent> openSound, final RegistryObject<SoundEvent> closeSound) {
 		super(p);
-		this.sound = sound;
+		this.openSound = openSound;
+		this.closeSound = closeSound;
 	}
 
 	@Override
@@ -52,17 +55,14 @@ public class WideInventoryFurniture extends WideFurniture implements ISidedInven
 
 	@Override
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
-		if(tileEntity instanceof LargeFurnitureTileEntity) {
-			if(sound != null) world.playSound(playerEntity, pos, sound.get(), SoundCategory.BLOCKS, .8f, 1.0f);
-			if(world.isClientSide()) {
-				return ActionResultType.SUCCESS;
-			} else {
+		if(world.isClientSide()) return ActionResultType.SUCCESS;
+		else {
+			TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
+			if(tileEntity instanceof LargeFurnitureTileEntity) {
 				playerEntity.openMenu((INamedContainerProvider) tileEntity);
-				return ActionResultType.CONSUME;
 			}
+			return ActionResultType.CONSUME;
 		}
-		return ActionResultType.FAIL;
 	}
 
 	@Override
@@ -72,5 +72,15 @@ public class WideInventoryFurniture extends WideFurniture implements ISidedInven
 			return (ISidedInventory) tileEntity;
 		}
 		return null;
+	}
+
+	@Override
+	public SoundEvent getOpenSound() {
+		return openSound.get();
+	}
+
+	@Override
+	public SoundEvent getCloseSound() {
+		return closeSound.get();
 	}
 }

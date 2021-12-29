@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
+import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -22,11 +23,13 @@ import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
 
-public class TallInventoryFurniture extends TallFurniture implements ISidedInventoryProvider {
-	private RegistryObject<SoundEvent> sound;
-	public TallInventoryFurniture(Properties p, final RegistryObject<SoundEvent> sound) {
+public class TallInventoryFurniture extends TallFurniture implements ISidedInventoryProvider, IFurnitureWithSound {
+	private RegistryObject<SoundEvent> openSound;
+	private RegistryObject<SoundEvent> closeSound;
+	public TallInventoryFurniture(Properties p, final RegistryObject<SoundEvent> openSound, final RegistryObject<SoundEvent> closeSound) {
 		super(p);
-		this.sound = sound;
+		this.openSound = openSound;
+		this.closeSound = closeSound;
 	}
 
 	@Override
@@ -52,17 +55,14 @@ public class TallInventoryFurniture extends TallFurniture implements ISidedInven
 
 	@Override
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		TileEntity tileEntity = state.getValue(TOP).booleanValue() ? world.getBlockEntity(pos.below()) : world.getBlockEntity(pos);
-		if(tileEntity instanceof LargeFurnitureTileEntity) {
-			if(sound != null) world.playSound(playerEntity, pos, sound.get(), SoundCategory.BLOCKS, .8f, 1.0f);
-			if(world.isClientSide()) {
-				return ActionResultType.SUCCESS;
-			} else {
+		if(world.isClientSide()) return ActionResultType.SUCCESS;
+		else {
+			TileEntity tileEntity = state.getValue(TOP).booleanValue() ? world.getBlockEntity(pos.below()) : world.getBlockEntity(pos);
+			if(tileEntity instanceof LargeFurnitureTileEntity) {
 				playerEntity.openMenu((INamedContainerProvider) tileEntity);
-				return ActionResultType.CONSUME;
 			}
+			return ActionResultType.CONSUME;
 		}
-		return ActionResultType.FAIL;
 	}
 
 	@Override
@@ -72,5 +72,15 @@ public class TallInventoryFurniture extends TallFurniture implements ISidedInven
 			return (ISidedInventory) tileEntity;
 		}
 		return null;
+	}
+
+	@Override
+	public SoundEvent getOpenSound() {
+		return openSound.get();
+	}
+
+	@Override
+	public SoundEvent getCloseSound() {
+		return closeSound.get();
 	}
 }

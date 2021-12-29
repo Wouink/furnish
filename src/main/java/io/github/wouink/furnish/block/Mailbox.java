@@ -95,53 +95,57 @@ public class Mailbox extends HorizontalBlock {
 
 	@Override
 	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult rayTraceResult) {
-		if(world.isClientSide()) return ActionResultType.SUCCESS;
+		ActionResultType res = ActionResultType.FAIL;
 
-		TileEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof MailboxTileEntity) {
-			MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
+		if (!world.isClientSide()) {
+			TileEntity tileEntity = world.getBlockEntity(pos);
+			if(tileEntity instanceof MailboxTileEntity) {
+				MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
 
-			if(!mailbox.hasOwner()) {
-				mailbox.setOwner(playerEntity);
-				playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.set_owner"), true);
-				return ActionResultType.CONSUME;
-			}
-
-			if(mailbox.isOwner(playerEntity)) {
-				mailbox.updateDisplayName(playerEntity);
-				if(!updateMailbox(state, world, pos)) playerEntity.openMenu(mailbox);
-				return ActionResultType.CONSUME;
-			}
-
-			if(playerEntity.getItemInHand(hand).isEmpty()) {
-				playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.no_permission"), true);
-				return ActionResultType.FAIL;
-			}
-
-			if(mailbox.isFull()) {
-				playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.full"), true);
-				return ActionResultType.FAIL;
-			}
-
-			ItemStack result = mailbox.addMail(playerEntity.getItemInHand(hand));
-			playerEntity.setItemInHand(hand, result);
-			updateMailbox(state, world, pos);
-			if(result.isEmpty()) {
-				ITextComponent ownerName = mailbox.getOwnerDisplayName();
-				if(ownerName != null) {
-					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
-				} else {
-					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.mail_delivered"), true);
+				if(!mailbox.hasOwner()) {
+					mailbox.setOwner(playerEntity);
+					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.set_owner"), true);
+					res = ActionResultType.SUCCESS;
 				}
 
-				return ActionResultType.CONSUME;
-			} else {
-				playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.invalid_mail"), true);
-				return ActionResultType.FAIL;
+				else if(mailbox.isOwner(playerEntity)) {
+					mailbox.updateDisplayName(playerEntity);
+					if(!updateMailbox(state, world, pos)) playerEntity.openMenu(mailbox);
+					res = ActionResultType.SUCCESS;
+				}
+
+				else if(playerEntity.getItemInHand(hand).isEmpty()) {
+					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.no_permission"), true);
+					res = ActionResultType.FAIL;
+				}
+
+				else if(mailbox.isFull()) {
+					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.full"), true);
+					res = ActionResultType.FAIL;
+				}
+
+				else {
+					ItemStack result = mailbox.addMail(playerEntity.getItemInHand(hand));
+					playerEntity.setItemInHand(hand, result);
+					updateMailbox(state, world, pos);
+					if(result.isEmpty()) {
+						ITextComponent ownerName = mailbox.getOwnerDisplayName();
+						if(ownerName != null) {
+							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
+						} else {
+							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.mail_delivered"), true);
+						}
+
+						res = ActionResultType.SUCCESS;
+					} else {
+						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.invalid_mail"), true);
+						res = ActionResultType.FAIL;
+					}
+				}
 			}
 		}
 
-		return ActionResultType.FAIL;
+		return res == ActionResultType.SUCCESS ? ActionResultType.sidedSuccess(world.isClientSide()) : res;
 	}
 
 	@Nullable

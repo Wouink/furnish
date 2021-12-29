@@ -6,11 +6,25 @@
       "furnish:block/furniture_open"
     ]
   },
+  "furniture.close": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.furniture_close",
+    "sounds": [
+      "furnish:block/furniture_close"
+    ]
+  },
   "furniture.open.spruce": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_open",
     "sounds": [
       "minecraft:block/chest/open"
+    ]
+  },
+  "furniture.close.spruce": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.furniture_close",
+    "sounds": [
+      "minecraft:block/chest/close"
     ]
   },
   "furniture.open.drawers": {
@@ -21,9 +35,26 @@
       "minecraft:block/barrel/open2"
     ]
   },
+  "furniture.close.drawers": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.furniture_close_drawers",
+    "sounds": [
+      "minecraft:block/barrel/close1",
+      "minecraft:block/barrel/close2"
+    ]
+  },
   "amphora.open": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.amphora_open",
+    "sounds": [
+      "minecraft:block/grindstone/grindstone1",
+      "minecraft:block/grindstone/grindstone2",
+      "minecraft:block/grindstone/grindstone3"
+    ]
+  },
+  "amphora.close": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.amphora_close",
     "sounds": [
       "minecraft:block/grindstone/grindstone1",
       "minecraft:block/grindstone/grindstone2",

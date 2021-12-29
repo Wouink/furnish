@@ -59,20 +59,23 @@ public class FurnishData {
 
 	public static class Sounds {
 		public static final DeferredRegister<SoundEvent> Registry = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Furnish.MODID);
-		public static final RegistryObject<SoundEvent> Cabinet_Open = Registry.register("furniture.open", () -> newSound("furniture.open"));
-		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Open = Registry.register("furniture.open.spruce", () -> newSound("furniture.open.spruce"));
-		public static final RegistryObject<SoundEvent> Drawers_Open = Registry.register("furniture.open.drawers", () -> newSound("furniture.open.drawers"));
-		public static final RegistryObject<SoundEvent> Amphora_Open = Registry.register("amphora.open", () -> newSound("amphora.open"));
-		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = Registry.register("door.knock.wood", () -> newSound("door.knock.wood"));
-		public static final RegistryObject<SoundEvent> Iron_Door_Knock = Registry.register("door.knock.iron", () -> newSound("door.knock.iron"));
-		public static final RegistryObject<SoundEvent> Mailbox_Update = Registry.register("mailbox.update", () -> newSound("mailbox.update"));
-		public static final RegistryObject<SoundEvent> Attach_To_Letter = Registry.register("letter.add_attachment", () -> newSound("letter.add_attachment"));
-		public static final RegistryObject<SoundEvent> Detach_From_Letter = Registry.register("letter.remove_attachment", () -> newSound("letter.remove_attachment"));
-		public static final RegistryObject<SoundEvent> Drum_Tom = Registry.register("drum.tom", () -> newSound("drum.tom"));
-		public static final RegistryObject<SoundEvent> Drum_Snare = Registry.register("drum.snare", () -> newSound("drum.snare"));
+		public static final RegistryObject<SoundEvent> Cabinet_Open = registerSound("furniture.open");
+		public static final RegistryObject<SoundEvent> Cabinet_Close = registerSound("furniture.close");
+		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Open = registerSound("furniture.open.spruce");
+		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Close = registerSound("furniture.close.spruce");
+		public static final RegistryObject<SoundEvent> Drawers_Open = registerSound("furniture.open.drawers");
+		public static final RegistryObject<SoundEvent> Amphora_Open = registerSound("amphora.open");
+		public static final RegistryObject<SoundEvent> Amphora_Close = registerSound("amphora.close");
+		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = registerSound("door.knock.wood");
+		public static final RegistryObject<SoundEvent> Iron_Door_Knock = registerSound("door.knock.iron");
+		public static final RegistryObject<SoundEvent> Mailbox_Update = registerSound("mailbox.update");
+		public static final RegistryObject<SoundEvent> Attach_To_Letter = registerSound("letter.add_attachment");
+		public static final RegistryObject<SoundEvent> Detach_From_Letter = registerSound("letter.remove_attachment");
+		public static final RegistryObject<SoundEvent> Drum_Tom = registerSound("drum.tom");
+		public static final RegistryObject<SoundEvent> Drum_Snare = registerSound("drum.snare");
 
-		private static SoundEvent newSound(String name) {
-			return new SoundEvent(new ResourceLocation(Furnish.MODID, name));
+		private static RegistryObject<SoundEvent> registerSound(String key) {
+			return Registry.register(key, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, key)));
 		}
 	}
 

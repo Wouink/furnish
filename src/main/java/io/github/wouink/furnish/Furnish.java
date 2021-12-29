@@ -50,9 +50,6 @@ public class Furnish {
 		MinecraftForge.EVENT_BUS.register(CyclePainting.class);
 		MinecraftForge.EVENT_BUS.register(KnockOnDoor.class);
 		MinecraftForge.EVENT_BUS.register(AppendPlatesToLoot.class);
-
-		// TODO - move furniture open sound to associated TileEntity, add a closing sound
-		// TODO bugfix - furniture workbench plays sound only once when making a furniture
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
