@@ -1,0 +1,10 @@
+{
+  "variants":{
+    "hihat=false": {
+      "model": "furnish:block/instrument/cymbal"
+    },
+    "hihat=true": {
+      "model": "furnish:block/instrument/cymbal_hihat"
+    }
+  }
+}
