@@ -73,6 +73,8 @@ public class FurnishData {
 		public static final RegistryObject<SoundEvent> Detach_From_Letter = registerSound("letter.remove_attachment");
 		public static final RegistryObject<SoundEvent> Drum_Tom = registerSound("drum.tom");
 		public static final RegistryObject<SoundEvent> Drum_Snare = registerSound("drum.snare");
+		public static final RegistryObject<SoundEvent> Cymbal = registerSound("cymbal");
+		public static final RegistryObject<SoundEvent> Cymbal_Hihat = registerSound("cymbal.hihat");
 
 		private static RegistryObject<SoundEvent> registerSound(String key) {
 			return Registry.register(key, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, key)));

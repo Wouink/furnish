@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -25,7 +26,7 @@ import net.minecraftforge.fml.RegistryObject;
 public class Drum extends Block {
 	private final RegistryObject<SoundEvent> instrumentSound;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-	public static final IntegerProperty NOTE = IntegerProperty.create("note", 0, 12);
+	public static final IntegerProperty NOTE = FurnishBlocks.CustomProperties.NOTE;
 
 	public Drum(Properties p, final RegistryObject<SoundEvent> instrumentSound) {
 		super(p);

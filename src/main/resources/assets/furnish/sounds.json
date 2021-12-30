@@ -119,5 +119,19 @@
     "sounds": [
       "furnish:block/snare"
     ]
+  },
+  "cymbal": {
+    "category": "records",
+    "subtitle": "subtitle.furnish.cymbal_plays",
+    "sounds": [
+      "furnish:block/cymbal"
+    ]
+  },
+  "cymbal.hihat": {
+    "category": "records",
+    "subtitle": "subtitle.furnish.cymbal_plays",
+    "sounds": [
+      "furnish:block/cymbal_hihat"
+    ]
   }
 }

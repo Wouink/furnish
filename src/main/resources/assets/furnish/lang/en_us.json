@@ -170,9 +170,11 @@
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
   "block.furnish.chimney_cap": "Chimney Cap",
 
-  "block.furnish.drum_tom": "Drum Tom (WIP)",
-  "block.furnish.drum_snare": "Drum Snare (WIP)",
+  "block.furnish.drum_tom": "Drum Tom",
+  "block.furnish.drum_snare": "Drum Snare",
+  "block.furnish.cymbal": "Cymbal",
   "subtitle.furnish.drum_plays": "Drum",
+  "subtitle.furnish.cymbal_plays": "Cymbal",
 
   "block.furnish.cooking_pot": "Cooking Pot",
   "block.furnish.plate": "Plate",

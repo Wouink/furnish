@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.util.PlacementHelper;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -47,7 +48,7 @@ public class Shutter extends HorizontalBlock {
 		}
 	}
 
-	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
+	public static final BooleanProperty RIGHT = FurnishBlocks.CustomProperties.RIGHT;
 	public static final EnumProperty<State> STATE = EnumProperty.create("state", State.class);
 
 	public Shutter(Properties p) {

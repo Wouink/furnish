@@ -11,6 +11,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.DyeColor;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,6 +23,11 @@ import java.util.HashMap;
 
 public class FurnishBlocks {
 	public static final DeferredRegister<Block> Registry = DeferredRegister.create(ForgeRegistries.BLOCKS, Furnish.MODID);
+
+	public static class CustomProperties {
+		public static final IntegerProperty NOTE = IntegerProperty.create("note", 0, 12);
+		public static final BooleanProperty RIGHT = BooleanProperty.create("right");
+	}
 
 	public static final Block Furniture_Workbench = register("furniture_workbench", new FurnitureWorkbench());
 	public static final Block Book_Pile = register("book_pile", new BookPile(AbstractBlock.Properties.of(Material.WOOL).strength(0.2f)));
@@ -102,6 +109,7 @@ public class FurnishBlocks {
 
 	public static final Block Drum_Tom = register("drum_tom", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Tom));
 	public static final Block Drum_Snare = register("drum_snare", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Snare));
+	public static final Block Cymbal = register("cymbal", new Cymbal(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)));
 
 	public static Block[] FurnitureInvProvider = {
 			Oak_Bedside_Table, Oak_Kitchen_Cabinet, Oak_Cabinet,

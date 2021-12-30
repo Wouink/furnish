@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.util.PlacementHelper;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
@@ -11,7 +12,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 
 public class Wardrobe extends TallInventoryFurniture {
-	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
+	public static final BooleanProperty RIGHT = FurnishBlocks.CustomProperties.RIGHT;
 	public Wardrobe(Properties p, final RegistryObject<SoundEvent> openSound, final RegistryObject<SoundEvent> closeSound) {
 		super(p, openSound, closeSound);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TOP, false).setValue(RIGHT, false));
