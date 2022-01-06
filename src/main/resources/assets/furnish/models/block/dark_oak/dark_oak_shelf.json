@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/shelf",
+  "textures": {
+    "planks": "minecraft:block/dark_oak_planks",
+    "stripped_log": "minecraft:block/stripped_dark_oak_log"
+  }
+}

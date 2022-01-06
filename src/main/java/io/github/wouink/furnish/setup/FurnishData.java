@@ -13,6 +13,7 @@ import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.client.renderer.MailboxRenderer;
 import io.github.wouink.furnish.client.renderer.PlateRenderer;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
+import io.github.wouink.furnish.client.renderer.ShelfRenderer;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
@@ -59,22 +60,24 @@ public class FurnishData {
 
 	public static class Sounds {
 		public static final DeferredRegister<SoundEvent> Registry = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Furnish.MODID);
-		public static final RegistryObject<SoundEvent> Cabinet_Open = registerSound("furniture.open");
-		public static final RegistryObject<SoundEvent> Cabinet_Close = registerSound("furniture.close");
-		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Open = registerSound("furniture.open.spruce");
-		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Close = registerSound("furniture.close.spruce");
-		public static final RegistryObject<SoundEvent> Drawers_Open = registerSound("furniture.open.drawers");
-		public static final RegistryObject<SoundEvent> Amphora_Open = registerSound("amphora.open");
-		public static final RegistryObject<SoundEvent> Amphora_Close = registerSound("amphora.close");
-		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = registerSound("door.knock.wood");
-		public static final RegistryObject<SoundEvent> Iron_Door_Knock = registerSound("door.knock.iron");
-		public static final RegistryObject<SoundEvent> Mailbox_Update = registerSound("mailbox.update");
-		public static final RegistryObject<SoundEvent> Attach_To_Letter = registerSound("letter.add_attachment");
-		public static final RegistryObject<SoundEvent> Detach_From_Letter = registerSound("letter.remove_attachment");
-		public static final RegistryObject<SoundEvent> Drum_Tom = registerSound("drum.tom");
-		public static final RegistryObject<SoundEvent> Drum_Snare = registerSound("drum.snare");
-		public static final RegistryObject<SoundEvent> Cymbal = registerSound("cymbal");
-		public static final RegistryObject<SoundEvent> Cymbal_Hihat = registerSound("cymbal.hihat");
+		public static final RegistryObject<SoundEvent> Cabinet_Open = registerSound("block.furniture.open");
+		public static final RegistryObject<SoundEvent> Cabinet_Close = registerSound("block.furniture.close");
+		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Open = registerSound("block.furniture_spruce.open");
+		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Close = registerSound("block.furniture_spruce.close");
+		public static final RegistryObject<SoundEvent> Drawers_Open = registerSound("block.furniture_drawers.open");
+		public static final RegistryObject<SoundEvent> Drawers_Close = registerSound("block.furniture_drawers.close");
+		public static final RegistryObject<SoundEvent> Amphora_Open = registerSound("block.amphora.open");
+		public static final RegistryObject<SoundEvent> Amphora_Close = registerSound("block.amphora.close");
+		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = registerSound("event.knock_on_door.wood");
+		public static final RegistryObject<SoundEvent> Iron_Door_Knock = registerSound("event.knock_on_door.iron");
+		public static final RegistryObject<SoundEvent> Mailbox_Update = registerSound("block.mailbox.update");
+		public static final RegistryObject<SoundEvent> Attach_To_Letter = registerSound("item.letter.add_attachment");
+		public static final RegistryObject<SoundEvent> Detach_From_Letter = registerSound("item.letter.remove_attachment");
+		public static final RegistryObject<SoundEvent> Drum_Tom = registerSound("instrument.drum.tom");
+		public static final RegistryObject<SoundEvent> Drum_Snare = registerSound("instrument.drum.snare");
+		public static final RegistryObject<SoundEvent> Cymbal = registerSound("instrument.cymbal");
+		public static final RegistryObject<SoundEvent> Cymbal_Hihat = registerSound("instrument.cymbal.hihat");
+		public static final RegistryObject<SoundEvent> Curtain = registerSound("block.curtain.interact");
 
 		private static RegistryObject<SoundEvent> registerSound(String key) {
 			return Registry.register(key, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, key)));
@@ -118,6 +121,7 @@ public class FurnishData {
 		public static final RegistryObject<TileEntityType<CrateTileEntity>> TE_Crate = register("crate", CrateTileEntity::new, () -> Crate.All_Crates.toArray(new Crate[0]));
 		public static final RegistryObject<TileEntityType<CookingPotTileEntity>> TE_Cooking_Pot = register("cooking_pot", CookingPotTileEntity::new, () -> FurnishBlocks.Cooking_Pots);
 		public static final RegistryObject<TileEntityType<PlateTileEntity>> TE_Plate = register("plate", PlateTileEntity::new, () -> FurnishBlocks.Plates);
+		public static final RegistryObject<TileEntityType<ShelfTileEntity>> TE_Shelf = register("shelf", ShelfTileEntity::new, () -> FurnishBlocks.Shelves);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Registry.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
@@ -149,6 +153,7 @@ public class FurnishData {
 
 		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Mailbox.get(), MailboxRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Plate.get(), PlateRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Shelf.get(), ShelfRenderer::new);
 		Furnish.LOG.info("Registered Furnish TileEntity Renderers.");
 	}
 

@@ -13,6 +13,7 @@
   "subtitle.furnish.amphora_close": "Amphora Closes",
   "subtitle.furnish.door_knock": "Someone Knocks on a Door",
   "subtitle.furnish.door_knock_iron": "Someone Knocks on an Iron Door",
+  "subtitle.furnish.use_curtain": "Curtain",
 
   "advancement.furnish.root.name": "Welcome to Furnish!",
   "advancement.furnish.root.description": "Use the Furniture Workbench to create Furniture",
@@ -20,6 +21,8 @@
   "advancement.furnish.carpet_everything.description": "Carpets can also be placed on Stairs and Trapdoors",
   "advancement.furnish.in_the_mail.name": "It's in the mail!",
   "advancement.furnish.in_the_mail.description": "Make a Mailbox to receive mail.",
+  "advancement.furnish.a_fine_gourmet.name": "A Fine Gourmet",
+  "advancement.furnish.a_fine_gourmet.description": "Collect all Rare Plates from around the World.",
 
   "block.furnish.furniture_workbench": "Furniture Workbench",
   "container.furniture_workbench": "Furniture Making",
@@ -33,6 +36,7 @@
   "block.furnish.oak_stool": "Oak Stool",
   "block.furnish.oak_wardrobe": "Oak Wardrobe",
   "block.furnish.oak_shutter": "Oak Shutter",
+  "block.furnish.oak_shelf": "Oak Shelf",
 
   "block.furnish.birch_cabinet": "Birch Cabinet",
   "block.furnish.birch_wardrobe": "Birch Wardrobe",
@@ -43,6 +47,7 @@
   "block.furnish.birch_chair": "Birch Chair",
   "block.furnish.birch_stool": "Birch Stool",
   "block.furnish.birch_shutter": "Birch Shutter",
+  "block.furnish.birch_shelf": "Birch Shelf",
 
   "block.furnish.acacia_cabinet": "Acacia Cabinet",
   "block.furnish.acacia_wardrobe": "Acacia Wardrobe",
@@ -53,6 +58,7 @@
   "block.furnish.acacia_chair": "Acacia Chair",
   "block.furnish.acacia_stool": "Acacia Stool",
   "block.furnish.acacia_shutter": "Acacia Shutter",
+  "block.furnish.acacia_shelf": "Acacia Shelf",
 
   "block.furnish.jungle_cabinet": "Jungle Cabinet",
   "block.furnish.jungle_wardrobe": "Jungle Wardrobe",
@@ -63,6 +69,7 @@
   "block.furnish.jungle_chair": "Jungle Chair",
   "block.furnish.jungle_stool": "Jungle Stool",
   "block.furnish.jungle_shutter": "Jungle Shutter",
+  "block.furnish.jungle_shelf": "Jungle Shelf",
 
   "block.furnish.dark_oak_cabinet": "Dark Oak Cabinet",
   "block.furnish.dark_oak_wardrobe": "Dark Oak Wardrobe",
@@ -73,6 +80,7 @@
   "block.furnish.dark_oak_chair": "Dark Oak Throne",
   "block.furnish.dark_oak_stool": "Dark Oak Stool",
   "block.furnish.dark_oak_shutter": "Dark Oak Shutter",
+  "block.furnish.dark_oak_shelf": "Dark Oak Shelf",
 
   "block.furnish.spruce_cabinet": "Spruce Cabinet",
   "block.furnish.spruce_wardrobe": "Spruce Wardrobe",
@@ -83,6 +91,7 @@
   "block.furnish.spruce_chair": "Spruce Chair",
   "block.furnish.spruce_stool": "Spruce Stool",
   "block.furnish.spruce_shutter": "Spruce Shutter",
+  "block.furnish.spruce_shelf": "Spruce Shelf",
 
   "block.furnish.white_sofa": "White Sofa",
   "block.furnish.black_sofa": "Black Sofa",
@@ -195,5 +204,22 @@
   "block.furnish.red_plate": "Red Plate",
   "block.furnish.yellow_plate": "Yellow Plate",
   "block.furnish.rare_chinese_plate": "Chinese Plate",
-  "block.furnish.rare_english_plate": "English Plate"
+  "block.furnish.rare_english_plate": "English Plate",
+
+  "block.furnish.white_curtain": "White Curtain",
+  "block.furnish.black_curtain": "Black Curtain",
+  "block.furnish.blue_curtain": "Blue Curtain",
+  "block.furnish.brown_curtain": "Brown Curtain",
+  "block.furnish.cyan_curtain": "Cyan Curtain",
+  "block.furnish.gray_curtain": "Gray Curtain",
+  "block.furnish.green_curtain": "Green Curtain",
+  "block.furnish.light_blue_curtain": "Light Blue Curtain",
+  "block.furnish.light_gray_curtain": "Light Gray Curtain",
+  "block.furnish.lime_curtain": "Lime Curtain",
+  "block.furnish.magenta_curtain": "Magenta Curtain",
+  "block.furnish.orange_curtain": "Orange Curtain",
+  "block.furnish.pink_curtain": "Pink Curtain",
+  "block.furnish.purple_curtain": "Purple Curtain",
+  "block.furnish.red_curtain": "Red Curtain",
+  "block.furnish.yellow_curtain": "Yellow Curtain"
 }

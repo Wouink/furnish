@@ -29,12 +29,11 @@ import java.util.Optional;
 public class Furnish {
 	public static final String MODID = "furnish";
 	public static final Logger LOG = LogManager.getLogger("Furnish");
+	public static final FurnishConfig CONFIG = new FurnishConfig();
 
 	public static SimpleChannel networkChannel;
 	public static final String MESSAGE_PROTOCOL_VERSION = "1.0";
 	public static final ResourceLocation CHANNEL_LOC = new ResourceLocation(MODID, "net");
-
-	public static final FurnishConfig CONFIG = new FurnishConfig();
 
 	public Furnish() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getSpec());

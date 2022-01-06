@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/curtain/parent/curtain",
+  "textures": {
+    "wool": "minecraft:block/light_gray_wool"
+  }
+}

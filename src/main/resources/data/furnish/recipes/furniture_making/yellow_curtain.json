@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:yellow_carpet"
+  },
+  "result": "furnish:yellow_curtain",
+  "count": 1
+}

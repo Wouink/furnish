@@ -1,0 +1,48 @@
+{
+  "parent": "furnish:root",
+  "display": {
+    "icon": {
+      "item": "furnish:rare_chinese_plate"
+    },
+    "title": {
+      "translate": "advancement.furnish.a_fine_gourmet.name"
+    },
+    "description": {
+      "translate": "advancement.furnish.a_fine_gourmet.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "english_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "furnish:rare_english_plate"
+          }
+        ]
+      }
+    },
+    "chinese_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "furnish:rare_chinese_plate"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "english_plate"
+    ],
+    [
+      "chinese_plate"
+    ]
+  ]
+}

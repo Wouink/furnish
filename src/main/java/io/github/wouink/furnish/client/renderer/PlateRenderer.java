@@ -44,7 +44,7 @@ public class PlateRenderer extends TileEntityRenderer<PlateTileEntity> {
 		ms.translate(0.5d, 0.08, 0.5);
 
 		// rotate to the adequate direction
-		float angle = - dir.toYRot();
+		float angle = -dir.toYRot();
 		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
 
 		// place the item flat
@@ -59,7 +59,7 @@ public class PlateRenderer extends TileEntityRenderer<PlateTileEntity> {
 		ms.translate(.5, .23, .5);
 
 		// rotate to the adequate direction
-		float angle = - dir.toYRot();
+		float angle = -dir.toYRot();
 		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
 
 		// scale the block

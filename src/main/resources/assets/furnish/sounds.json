@@ -1,33 +1,33 @@
 {
-  "furniture.open": {
+  "block.furniture.open": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_open",
     "sounds": [
       "furnish:block/furniture_open"
     ]
   },
-  "furniture.close": {
+  "block.furniture.close": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_close",
     "sounds": [
       "furnish:block/furniture_close"
     ]
   },
-  "furniture.open.spruce": {
+  "block.furniture_spruce.open": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_open",
     "sounds": [
       "minecraft:block/chest/open"
     ]
   },
-  "furniture.close.spruce": {
+  "block.furniture_spruce.close": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_close",
     "sounds": [
       "minecraft:block/chest/close"
     ]
   },
-  "furniture.open.drawers": {
+  "block.furniture_drawers.open": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_open_drawers",
     "sounds": [
@@ -35,7 +35,7 @@
       "minecraft:block/barrel/open2"
     ]
   },
-  "furniture.close.drawers": {
+  "block.furniture_drawers.close": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_close_drawers",
     "sounds": [
@@ -43,7 +43,7 @@
       "minecraft:block/barrel/close2"
     ]
   },
-  "amphora.open": {
+  "block.amphora.open": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.amphora_open",
     "sounds": [
@@ -52,7 +52,7 @@
       "minecraft:block/grindstone/grindstone3"
     ]
   },
-  "amphora.close": {
+  "block.amphora.close": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.amphora_close",
     "sounds": [
@@ -61,7 +61,7 @@
       "minecraft:block/grindstone/grindstone3"
     ]
   },
-  "door.knock.wood": {
+  "event.knock_on_door.wood": {
     "category": "players",
     "subtitle": "subtitle.furnish.door_knock",
     "sounds": [
@@ -69,7 +69,7 @@
       "furnish:block/wooden_door_knock2"
     ]
   },
-  "door.knock.iron": {
+  "event.knock_on_door.iron": {
     "category": "players",
     "subtitle": "subtitle.furnish.door_knock_iron",
     "sounds": [
@@ -77,14 +77,14 @@
       "furnish:block/iron_door_knock2"
     ]
   },
-  "mailbox.update": {
+  "block.mailbox.update": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.mailbox_update",
     "sounds": [
       "minecraft:random/wood_click"
     ]
   },
-  "letter.add_attachment": {
+  "item.letter.add_attachment": {
     "category": "players",
     "subtitle": "subtitle.furnish.attach_to_letter",
     "sounds": [
@@ -96,7 +96,7 @@
       "minecraft:item/armor/equip_leather6"
     ]
   },
-  "letter.remove_attachment": {
+  "item.letter.remove_attachment": {
     "category": "players",
     "subtitle": "subtitle.furnish.detach_from_letter",
     "sounds": [
@@ -106,32 +106,42 @@
       "minecraft:entity/itemframe/remove_item4"
     ]
   },
-  "drum.tom": {
+  "instrument.drum.tom": {
     "category": "records",
     "subtitle": "subtitle.furnish.drum_plays",
     "sounds": [
       "furnish:block/tom"
     ]
   },
-  "drum.snare": {
+  "instrument.drum.snare": {
     "category": "records",
     "subtitle": "subtitle.furnish.drum_plays",
     "sounds": [
       "furnish:block/snare"
     ]
   },
-  "cymbal": {
+  "instrument.cymbal": {
     "category": "records",
     "subtitle": "subtitle.furnish.cymbal_plays",
     "sounds": [
       "furnish:block/cymbal"
     ]
   },
-  "cymbal.hihat": {
+  "instrument.cymbal.hihat": {
     "category": "records",
     "subtitle": "subtitle.furnish.cymbal_plays",
     "sounds": [
       "furnish:block/cymbal_hihat"
+    ]
+  },
+  "block.curtain.interact": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.use_curtain",
+    "sounds": [
+      "minecraft:dig/cloth1",
+      "minecraft:dig/cloth2",
+      "minecraft:dig/cloth3",
+      "minecraft:dig/cloth4"
     ]
   }
 }
