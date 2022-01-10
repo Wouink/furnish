@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/showcase/showcase",
+  "textures": {
+    "wool": "minecraft:block/blue_wool"
+  }
+}

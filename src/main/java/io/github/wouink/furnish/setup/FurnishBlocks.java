@@ -155,6 +155,7 @@ public class FurnishBlocks {
 	public static Block[] Curtains = new Block[16];
 	public static Block[] Plates = new Block[17 + Rare_Plates_Names.length];
 	public static Block[] Cooking_Pots = new Block[1];
+	public static Block[] Showcases = new Block[16];
 
 	public static void setup(IEventBus bus) {
 		Amphorae[0] = register("amphora", new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
@@ -172,6 +173,7 @@ public class FurnishBlocks {
 
 			Block coloredWool = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_wool", color)));
 			Sofas[index] = register(String.format("%s_sofa", color), new Sofa(AbstractBlock.Properties.copy(coloredWool)));
+			Showcases[index] = register(String.format("%s_showcase", color), new Showcase(AbstractBlock.Properties.copy(Blocks.GLASS)));
 
 			Block coloredTerracotta = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_terracotta", color)));
 			Amphorae[index + 1] = register(String.format("%s_amphora", color), new Amphora(AbstractBlock.Properties.copy(coloredTerracotta)));
@@ -194,6 +196,7 @@ public class FurnishBlocks {
 		RenderTypeLookup.setRenderLayer(Green_Bunting, RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(Jungle_Shutter, RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(Acacia_Shutter, RenderType.translucent());
+		for(Block b : Showcases) RenderTypeLookup.setRenderLayer(b, RenderType.translucent());
 	}
 
 	private static Block register(String registryName, Block block) {

@@ -10,10 +10,7 @@ import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.block.tileentity.*;
 import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
-import io.github.wouink.furnish.client.renderer.MailboxRenderer;
-import io.github.wouink.furnish.client.renderer.PlateRenderer;
-import io.github.wouink.furnish.client.renderer.SeatRenderer;
-import io.github.wouink.furnish.client.renderer.ShelfRenderer;
+import io.github.wouink.furnish.client.renderer.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
@@ -122,6 +119,7 @@ public class FurnishData {
 		public static final RegistryObject<TileEntityType<CookingPotTileEntity>> TE_Cooking_Pot = register("cooking_pot", CookingPotTileEntity::new, () -> FurnishBlocks.Cooking_Pots);
 		public static final RegistryObject<TileEntityType<PlateTileEntity>> TE_Plate = register("plate", PlateTileEntity::new, () -> FurnishBlocks.Plates);
 		public static final RegistryObject<TileEntityType<ShelfTileEntity>> TE_Shelf = register("shelf", ShelfTileEntity::new, () -> FurnishBlocks.Shelves);
+		public static final RegistryObject<TileEntityType<ShowcaseTileEntity>> TE_Showcase = register("showcase", ShowcaseTileEntity::new, () -> FurnishBlocks.Showcases);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Registry.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
@@ -154,6 +152,7 @@ public class FurnishData {
 		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Mailbox.get(), MailboxRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Plate.get(), PlateRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Shelf.get(), ShelfRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TileEntities.TE_Showcase.get(), ShowcaseRenderer::new);
 		Furnish.LOG.info("Registered Furnish TileEntity Renderers.");
 	}
 

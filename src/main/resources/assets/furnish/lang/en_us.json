@@ -221,5 +221,22 @@
   "block.furnish.pink_curtain": "Pink Curtain",
   "block.furnish.purple_curtain": "Purple Curtain",
   "block.furnish.red_curtain": "Red Curtain",
-  "block.furnish.yellow_curtain": "Yellow Curtain"
+  "block.furnish.yellow_curtain": "Yellow Curtain",
+
+  "block.furnish.white_showcase": "White Showcase",
+  "block.furnish.black_showcase": "Black Showcase",
+  "block.furnish.blue_showcase": "Blue Showcase",
+  "block.furnish.brown_showcase": "Brown Showcase",
+  "block.furnish.cyan_showcase": "Cyan Showcase",
+  "block.furnish.gray_showcase": "Gray Showcase",
+  "block.furnish.green_showcase": "Green Showcase",
+  "block.furnish.light_blue_showcase": "Light Blue Showcase",
+  "block.furnish.light_gray_showcase": "Light Gray Showcase",
+  "block.furnish.lime_showcase": "Lime Showcase",
+  "block.furnish.magenta_showcase": "Magenta Showcase",
+  "block.furnish.orange_showcase": "Orange Showcase",
+  "block.furnish.pink_showcase": "Pink Showcase",
+  "block.furnish.purple_showcase": "Purple Showcase",
+  "block.furnish.red_showcase": "Red Showcase",
+  "block.furnish.yellow_showcase": "Yellow Showcase"
 }

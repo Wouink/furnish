@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:glass"
+  },
+  "result": "furnish:magenta_showcase",
+  "count": 1
+}
