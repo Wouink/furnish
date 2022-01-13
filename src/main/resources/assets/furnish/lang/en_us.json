@@ -240,5 +240,12 @@
   "block.furnish.red_showcase": "Red Showcase",
   "block.furnish.yellow_showcase": "Yellow Showcase",
 
-  "block.furnish.disk_rack": "Disk Rack"
+  "block.furnish.disk_rack": "Disk Rack",
+
+  "block.furnish.oak_potion_shelf": "Oak Potion Shelf",
+  "block.furnish.birch_potion_shelf": "Birch Potion Shelf",
+  "block.furnish.spruce_potion_shelf": "Spruce Potion Shelf",
+  "block.furnish.jungle_potion_shelf": "Jungle Potion Shelf",
+  "block.furnish.acacia_potion_shelf": "Acacia Potion Shelf",
+  "block.furnish.dark_oak_potion_shelf": "Dark Oak Potion Shelf"
 }

@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {"facing": "north"},
+      "apply": {"model": "furnish:block/potion_shelf/spruce_potion_shelf"}
+    },
+    {
+      "when": {"facing": "north", "top_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tl"}
+    },
+    {
+      "when": {"facing": "north", "top_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tr"}
+    },
+    {
+      "when": {"facing": "north", "bottom_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_bl"}
+    },
+    {
+      "when": {"facing": "north", "bottom_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_br"}
+    },
+    {
+      "when": {"facing": "east"},
+      "apply": {"model": "furnish:block/potion_shelf/spruce_potion_shelf", "y": 90}
+    },
+    {
+      "when": {"facing": "east", "top_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tl", "y": 90}
+    },
+    {
+      "when": {"facing": "east", "top_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tr", "y": 90}
+    },
+    {
+      "when": {"facing": "east", "bottom_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_bl", "y": 90}
+    },
+    {
+      "when": {"facing": "east", "bottom_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_br", "y": 90}
+    },
+    {
+      "when": {"facing": "south"},
+      "apply": {"model": "furnish:block/potion_shelf/spruce_potion_shelf", "y": 180}
+    },
+    {
+      "when": {"facing": "south", "top_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tl", "y": 180}
+    },
+    {
+      "when": {"facing": "south", "top_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tr", "y": 180}
+    },
+    {
+      "when": {"facing": "south", "bottom_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_bl", "y": 180}
+    },
+    {
+      "when": {"facing": "south", "bottom_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_br", "y": 180}
+    },
+    {
+      "when": {"facing": "west"},
+      "apply": {"model": "furnish:block/potion_shelf/spruce_potion_shelf", "y": 270}
+    },
+    {
+      "when": {"facing": "west", "top_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tl", "y": 270}
+    },
+    {
+      "when": {"facing": "west", "top_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_tr", "y": 270}
+    },
+    {
+      "when": {"facing": "west", "bottom_left": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_bl", "y": 270}
+    },
+    {
+      "when": {"facing": "west", "bottom_right": true},
+      "apply": {"model": "furnish:block/potion_shelf/potion_bottle_br", "y": 270}
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "minecraft:block/spruce_planks",
+		"planks": "minecraft:block/spruce_planks"
+	},
+	"elements": [
+		{
+			"name": "side",
+			"from": [0, 0, 8],
+			"to": [16, 1, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#planks"},
+				"east": {"uv": [0, 0, 8, 1], "texture": "#planks"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#planks"},
+				"west": {"uv": [0, 0, 8, 1], "texture": "#planks"},
+				"up": {"uv": [0, 0, 16, 8], "texture": "#planks"},
+				"down": {"uv": [0, 0, 16, 8], "texture": "#planks"}
+			}
+		},
+		{
+			"name": "side",
+			"from": [1, 7.5, 8],
+			"to": [15, 8.5, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9, 14, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 14, 1], "texture": "#planks"},
+				"east": {"uv": [0, 0, 8, 1], "texture": "#planks"},
+				"south": {"uv": [0, 0, 14, 1], "texture": "#planks"},
+				"west": {"uv": [0, 0, 8, 1], "texture": "#planks"},
+				"up": {"uv": [0, 0, 14, 8], "texture": "#planks"},
+				"down": {"uv": [0, 0, 14, 8], "texture": "#planks"}
+			}
+		},
+		{
+			"name": "side",
+			"from": [0, 15, 8],
+			"to": [16, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 21, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#planks"},
+				"east": {"uv": [0, 0, 8, 1], "texture": "#planks"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#planks"},
+				"west": {"uv": [0, 0, 8, 1], "texture": "#planks"},
+				"up": {"uv": [0, 0, 16, 8], "texture": "#planks"},
+				"down": {"uv": [0, 0, 16, 8], "texture": "#planks"}
+			}
+		},
+		{
+			"name": "side",
+			"from": [15, 1, 8],
+			"to": [16, 15, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 20, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 14], "texture": "#planks"},
+				"east": {"uv": [0, 0, 8, 14], "texture": "#planks"},
+				"south": {"uv": [0, 0, 1, 14], "texture": "#planks"},
+				"west": {"uv": [0, 0, 8, 14], "texture": "#planks"},
+				"up": {"uv": [0, 0, 1, 8], "texture": "#planks"},
+				"down": {"uv": [0, 0, 1, 8], "texture": "#planks"}
+			}
+		},
+		{
+			"name": "side",
+			"from": [7.5, 1, 8],
+			"to": [8.5, 15, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 20, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 14], "texture": "#planks"},
+				"east": {"uv": [0, 0, 8, 14], "texture": "#planks"},
+				"south": {"uv": [0, 0, 1, 14], "texture": "#planks"},
+				"west": {"uv": [0, 0, 8, 14], "texture": "#planks"},
+				"up": {"uv": [0, 0, 1, 8], "texture": "#planks"},
+				"down": {"uv": [0, 0, 1, 8], "texture": "#planks"}
+			}
+		},
+		{
+			"name": "side",
+			"from": [0, 1, 8],
+			"to": [1, 15, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-7, 20, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 14], "texture": "#planks"},
+				"east": {"uv": [0, 0, 8, 14], "texture": "#planks"},
+				"south": {"uv": [0, 0, 1, 14], "texture": "#planks"},
+				"west": {"uv": [0, 0, 8, 14], "texture": "#planks"},
+				"up": {"uv": [0, 0, 1, 8], "texture": "#planks"},
+				"down": {"uv": [0, 0, 1, 8], "texture": "#planks"}
+			}
+		}
+	]
+}

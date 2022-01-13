@@ -8,6 +8,7 @@ import io.github.wouink.furnish.block.tileentity.*;
 import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.DiskRackScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
+import io.github.wouink.furnish.client.gui.PotionShelfScreen;
 import io.github.wouink.furnish.client.renderer.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
@@ -96,6 +97,9 @@ public class FurnishData {
 		public static final RegistryObject<ContainerType<DiskRackContainer>> Disk_Rack = Registry.register("disk_rack",
 				() -> new ContainerType<>(DiskRackContainer::new)
 		);
+		public static final RegistryObject<ContainerType<PotionShelfContainer>> Potion_Shelf = Registry.register("potion_shelf",
+				() -> new ContainerType<>(PotionShelfContainer::new)
+		);
 	}
 
 	public static class Entities {
@@ -122,6 +126,7 @@ public class FurnishData {
 		public static final RegistryObject<TileEntityType<ShelfTileEntity>> TE_Shelf = register("shelf", ShelfTileEntity::new, () -> FurnishBlocks.Shelves);
 		public static final RegistryObject<TileEntityType<ShowcaseTileEntity>> TE_Showcase = register("showcase", ShowcaseTileEntity::new, () -> FurnishBlocks.Showcases);
 		public static final RegistryObject<TileEntityType<DiskRackTileEntity>> TE_Disk_Rack = register("disk_rack", DiskRackTileEntity::new, () -> FurnishBlocks.Disk_Racks);
+		public static final RegistryObject<TileEntityType<PotionShelfTileEntity>> TE_Potion_Shelf = register("potion_shelf", PotionShelfTileEntity::new, () -> FurnishBlocks.Potion_Shelves);
 
 		private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<T> factory, Supplier<Block[]> validBlockSupplier) {
 			return Registry.register(name, () -> TileEntityType.Builder.of(factory, validBlockSupplier.get()).build(null));
@@ -147,6 +152,7 @@ public class FurnishData {
 		ScreenManager.register(Containers.Mailbox.get(), ConditionalSlotContainerScreen::new);
 		ScreenManager.register(Containers.Cooking_Pot.get(), ConditionalSlotContainerScreen::new);
 		ScreenManager.register(Containers.Disk_Rack.get(), DiskRackScreen::new);
+		ScreenManager.register(Containers.Potion_Shelf.get(), PotionShelfScreen::new);
 		Furnish.LOG.info("Registered Furnish Screens.");
 
 		RenderingRegistry.registerEntityRenderingHandler(Entities.Seat_Entity.get(), SeatRenderer::new);

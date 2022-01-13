@@ -43,6 +43,7 @@ public class FurnishBlocks {
 	public static final Block Oak_Shutter = register("oak_shutter", new Shutter(AbstractBlock.Properties.copy(Blocks.OAK_TRAPDOOR)));
 	public static final Block Oak_Crate = register("oak_crate", new Crate(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final Block Oak_Shelf = register("oak_shelf", new Shelf(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final Block Oak_Potion_Shelf = register("oak_potion_shelf", new PotionShelf(AbstractBlock.Properties.copy(Blocks.OAK_PLANKS)));
 	
 	public static final Block Birch_Table = register("birch_table", new Table(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final Block Birch_Square_Table = register("birch_square_table", new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS)));
@@ -55,7 +56,8 @@ public class FurnishBlocks {
 	public static final Block Birch_Shutter = register("birch_shutter", new Shutter(AbstractBlock.Properties.copy(Blocks.BIRCH_TRAPDOOR)));
 	public static final Block Birch_Crate = register("birch_crate", new Crate(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final Block Birch_Shelf = register("birch_shelf", new Shelf(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS)));
-	
+	public static final Block Birch_Potion_Shelf = register("birch_potion_shelf", new PotionShelf(AbstractBlock.Properties.copy(Blocks.BIRCH_PLANKS)));
+
 	public static final Block Acacia_Table = register("acacia_table", new Table(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Square_Table = register("acacia_square_table", new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Bedside_Table = register("acacia_bedside_table", new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
@@ -67,7 +69,8 @@ public class FurnishBlocks {
 	public static final Block Acacia_Shutter = register("acacia_shutter", new Shutter(AbstractBlock.Properties.copy(Blocks.ACACIA_TRAPDOOR)));
 	public static final Block Acacia_Crate = register("acacia_crate", new Crate(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Shelf = register("acacia_shelf", new Shelf(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)));
-	
+	public static final Block Acacia_Potion_Shelf = register("acacia_potion_shelf", new PotionShelf(AbstractBlock.Properties.copy(Blocks.ACACIA_PLANKS)));
+
 	public static final Block Jungle_Table = register("jungle_table", new Table(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Square_Table = register("jungle_square_table", new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Bedside_Table = register("jungle_bedside_table", new InventoryFurniture(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
@@ -79,6 +82,7 @@ public class FurnishBlocks {
 	public static final Block Jungle_Shutter = register("jungle_shutter", new Shutter(AbstractBlock.Properties.copy(Blocks.JUNGLE_TRAPDOOR)));
 	public static final Block Jungle_Crate = register("jungle_crate", new Crate(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Shelf = register("jungle_shelf", new Shelf(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final Block Jungle_Potion_Shelf = register("jungle_potion_shelf", new PotionShelf(AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS)));
 
 	public static final Block Spruce_Table = register("spruce_table", new Table(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final Block Spruce_Square_Table = register("spruce_square_table", new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
@@ -91,6 +95,7 @@ public class FurnishBlocks {
 	public static final Block Spruce_Shutter = register("spruce_shutter", new Shutter(AbstractBlock.Properties.copy(Blocks.SPRUCE_TRAPDOOR)));
 	public static final Block Spruce_Crate = register("spruce_crate", new Crate(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final Block Spruce_Shelf = register("spruce_shelf", new Shelf(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final Block Spruce_Potion_Shelf = register("spruce_potion_shelf", new PotionShelf(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
 	public static final Block Dark_Oak_Table = register("dark_oak_table", new Table(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final Block Dark_Oak_Square_Table = register("dark_oak_square_table", new SimpleFurniture(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS)));
@@ -103,6 +108,7 @@ public class FurnishBlocks {
 	public static final Block Dark_Oak_Shutter = register("dark_oak_shutter", new Shutter(AbstractBlock.Properties.copy(Blocks.DARK_OAK_TRAPDOOR)));
 	public static final Block Dark_Oak_Crate = register("dark_oak_crate", new Crate(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final Block Dark_Oak_Shelf = register("dark_oak_shelf", new Shelf(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final Block Dark_Oak_Potion_Shelf = register("dark_oak_potion_shelf", new PotionShelf(AbstractBlock.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 
 	public static final Block Red_Bunting = register("red_bunting", new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE)));
 	public static final Block Yellow_Bunting = register("yellow_bunting", new Bunting(AbstractBlock.Properties.copy(Blocks.TRIPWIRE)));
@@ -144,6 +150,15 @@ public class FurnishBlocks {
 			Jungle_Shelf,
 			Acacia_Shelf,
 			Dark_Oak_Shelf
+	};
+
+	public static Block[] Potion_Shelves = {
+			Oak_Potion_Shelf,
+			Birch_Potion_Shelf,
+			Spruce_Potion_Shelf,
+			Jungle_Potion_Shelf,
+			Acacia_Potion_Shelf,
+			Dark_Oak_Potion_Shelf
 	};
 
 	public static Block[] Disk_Racks = {Disk_Rack};
@@ -201,6 +216,7 @@ public class FurnishBlocks {
 		RenderTypeLookup.setRenderLayer(Jungle_Shutter, RenderType.translucent());
 		RenderTypeLookup.setRenderLayer(Acacia_Shutter, RenderType.translucent());
 		for(Block b : Showcases) RenderTypeLookup.setRenderLayer(b, RenderType.translucent());
+		for(Block b : Potion_Shelves) RenderTypeLookup.setRenderLayer(b, RenderType.translucent());
 	}
 
 	private static Block register(String registryName, Block block) {

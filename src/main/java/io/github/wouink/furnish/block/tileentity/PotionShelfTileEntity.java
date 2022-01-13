@@ -1,10 +1,10 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.block.container.DiskRackContainer;
+import io.github.wouink.furnish.block.PotionShelf;
+import io.github.wouink.furnish.block.container.PotionShelfContainer;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
@@ -16,17 +16,31 @@ import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 
-public class DiskRackTileEntity extends LockableLootTileEntity {
-	public static final int SIZE = 8;
+public class PotionShelfTileEntity extends LockableLootTileEntity {
+	public static final int SIZE = 4;
 	private NonNullList<ItemStack> inventory;
 
-	public DiskRackTileEntity() {
-		super(FurnishData.TileEntities.TE_Disk_Rack.get());
+	public PotionShelfTileEntity() {
+		super(FurnishData.TileEntities.TE_Potion_Shelf.get());
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+	}
+
+	@Override
+	protected ITextComponent getDefaultName() {
+		return new TranslationTextComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+	}
+
+	@Override
+	protected Container createMenu(int syncId, PlayerInventory playerInventory) {
+		return new PotionShelfContainer(syncId, playerInventory, this);
+	}
+
+	@Override
+	public int getContainerSize() {
+		return SIZE;
 	}
 
 	@Override
@@ -44,16 +58,6 @@ public class DiskRackTileEntity extends LockableLootTileEntity {
 	}
 
 	@Override
-	protected ITextComponent getDefaultName() {
-		return new TranslationTextComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
-	}
-
-	@Override
-	protected Container createMenu(int syncId, PlayerInventory playerInventory) {
-		return new DiskRackContainer(syncId, playerInventory, this);
-	}
-
-	@Override
 	protected NonNullList<ItemStack> getItems() {
 		return inventory;
 	}
@@ -66,17 +70,20 @@ public class DiskRackTileEntity extends LockableLootTileEntity {
 	@Override
 	public void setItem(int slot, ItemStack stack) {
 		super.setItem(slot, stack);
-		// update for render
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
-	}
-
-	@Override
-	public int getContainerSize() {
-		return SIZE;
-	}
-
-	public final NonNullList<ItemStack> getItemsForRender() {
-		return inventory;
+		switch(slot) {
+			case 0:
+				level.setBlock(worldPosition, getBlockState().setValue(PotionShelf.TOP_LEFT, !stack.isEmpty()), 2);
+				break;
+			case 1:
+				level.setBlock(worldPosition, getBlockState().setValue(PotionShelf.TOP_RIGHT, !stack.isEmpty()), 2);
+				break;
+			case 2:
+				level.setBlock(worldPosition, getBlockState().setValue(PotionShelf.BOTTOM_LEFT, !stack.isEmpty()), 2);
+				break;
+			case 3:
+				level.setBlock(worldPosition, getBlockState().setValue(PotionShelf.BOTTOM_RIGHT, !stack.isEmpty()), 2);
+				break;
+		}
 	}
 
 	// communication between client/server for rendering purposes
@@ -84,7 +91,7 @@ public class DiskRackTileEntity extends LockableLootTileEntity {
 	@Nullable
 	@Override
 	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.worldPosition, 1238, save(new CompoundNBT()));
+		return new SUpdateTileEntityPacket(this.worldPosition, 1239, save(new CompoundNBT()));
 	}
 
 	@Override
