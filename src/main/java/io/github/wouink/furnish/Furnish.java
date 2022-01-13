@@ -61,7 +61,7 @@ public class Furnish {
 		);
 	}
 
-	private void clientSetup(FMLClientSetupEvent event) {
+	private void clientSetup(final FMLClientSetupEvent event) {
 		FurnishBlocks.clientSetup();
 		FurnishData.clientSetup();
 	}

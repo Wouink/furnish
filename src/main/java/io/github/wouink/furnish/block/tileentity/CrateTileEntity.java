@@ -24,9 +24,6 @@ public class CrateTileEntity extends LockableLootTileEntity implements ISidedInv
 	public static final int SIZE = 9;
 	private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
 	private NonNullList<ItemStack> inventory;
-	protected CrateTileEntity(TileEntityType<?> type) {
-		super(type);
-	}
 
 	public CrateTileEntity() {
 		super(FurnishData.TileEntities.TE_Crate.get());

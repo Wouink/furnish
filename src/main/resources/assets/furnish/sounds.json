@@ -39,8 +39,7 @@
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_close_drawers",
     "sounds": [
-      "minecraft:block/barrel/close1",
-      "minecraft:block/barrel/close2"
+      "minecraft:block/barrel/close"
     ]
   },
   "block.amphora.open": {

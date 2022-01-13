@@ -9,7 +9,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class CrateContainer extends ConditionalSlotContainer{
+public class CrateContainer extends ConditionalSlotContainer {
 
 	private static final ResourceLocation CRATE_BLACKLIST = new ResourceLocation(Furnish.MODID, "crate_blacklist");
 

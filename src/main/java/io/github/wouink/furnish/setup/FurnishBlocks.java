@@ -117,6 +117,8 @@ public class FurnishBlocks {
 	public static final Block Drum_Snare = register("drum_snare", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Snare));
 	public static final Block Cymbal = register("cymbal", new Cymbal(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)));
 
+	public static final Block Disk_Rack = register("disk_rack", new DiskRack(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
+
 	public static Block[] FurnitureInvProvider = {
 			Oak_Bedside_Table, Oak_Kitchen_Cabinet, Oak_Cabinet,
 			Birch_Bedside_Table, Birch_Kitchen_Cabinet, Birch_Cabinet,
@@ -143,6 +145,8 @@ public class FurnishBlocks {
 			Acacia_Shelf,
 			Dark_Oak_Shelf
 	};
+
+	public static Block[] Disk_Racks = {Disk_Rack};
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 

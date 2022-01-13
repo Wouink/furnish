@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/disk_rack"
+        },
+        "facing=east": {
+            "model": "furnish:block/disk_rack",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/disk_rack",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/disk_rack",
+            "y": 270
+        }
+    }
+}
