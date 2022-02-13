@@ -85,28 +85,4 @@ public class PotionShelfTileEntity extends LockableLootTileEntity {
 				break;
 		}
 	}
-
-	// communication between client/server for rendering purposes
-
-	@Nullable
-	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.worldPosition, 1239, save(new CompoundNBT()));
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		BlockState state = this.getBlockState();
-		load(state, pkt.getTag());
-	}
-
-	@Override
-	public CompoundNBT getUpdateTag() {
-		return save(new CompoundNBT());
-	}
-
-	@Override
-	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-		load(state, tag);
-	}
 }

@@ -119,9 +119,11 @@ public class FurnishBlocks {
 	public static final Block Brick_Chimney_Conduit = register("brick_chimney_conduit", new ChimneyConduit(AbstractBlock.Properties.copy(Blocks.BRICKS)));
 	public static final Block Brick_Chimney_Cap = register("chimney_cap", new ChimneyCap(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f)));
 
-	public static final Block Drum_Tom = register("drum_tom", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Tom));
-	public static final Block Drum_Snare = register("drum_snare", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Snare));
-	public static final Block Cymbal = register("cymbal", new Cymbal(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)));
+	public static final Block Cooking_Pot = register("cooking_pot", new CookingPot(AbstractBlock.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(1.0f)));
+
+	// public static final Block Drum_Tom = register("drum_tom", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Tom));
+	// public static final Block Drum_Snare = register("drum_snare", new Drum(AbstractBlock.Properties.copy(Blocks.NOTE_BLOCK), FurnishData.Sounds.Drum_Snare));
+	// public static final Block Cymbal = register("cymbal", new Cymbal(AbstractBlock.Properties.of(Material.METAL).strength(0.8f)));
 
 	public static final Block Disk_Rack = register("disk_rack", new DiskRack(AbstractBlock.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
@@ -162,6 +164,7 @@ public class FurnishBlocks {
 	};
 
 	public static Block[] Disk_Racks = {Disk_Rack};
+	public static Block[] Cooking_Pots = {Cooking_Pot};
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -173,13 +176,11 @@ public class FurnishBlocks {
 	public static Block[] Awnings = new Block[16];
 	public static Block[] Curtains = new Block[16];
 	public static Block[] Plates = new Block[17 + Rare_Plates_Names.length];
-	public static Block[] Cooking_Pots = new Block[1];
 	public static Block[] Showcases = new Block[16];
 
 	public static void setup(IEventBus bus) {
 		Amphorae[0] = register("amphora", new Amphora(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
 		Plates[0] = register("plate", new Plate(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
-		Cooking_Pots[0] = register("cooking_pot", new CookingPot(AbstractBlock.Properties.copy(Blocks.TERRACOTTA)));
 
 		int index = 0;
 		for(DyeColor dyeColor : DyeColor.values()) {

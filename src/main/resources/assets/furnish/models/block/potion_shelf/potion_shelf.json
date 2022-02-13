@@ -2,8 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"particle": "minecraft:block/oak_planks",
-		"planks": "minecraft:block/oak_planks"
+		"particle": "#planks"
 	},
 	"elements": [
 		{

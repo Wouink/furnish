@@ -123,7 +123,8 @@
     "category": "records",
     "subtitle": "subtitle.furnish.cymbal_plays",
     "sounds": [
-      "furnish:block/cymbal"
+      "furnish:block/cymbal1",
+      "furnish:block/cymbal2"
     ]
   },
   "instrument.cymbal.hihat": {

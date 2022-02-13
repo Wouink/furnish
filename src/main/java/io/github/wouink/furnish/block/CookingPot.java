@@ -86,15 +86,15 @@ public class CookingPot extends Block {
 		TileEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof CookingPotTileEntity) {
 			boolean popped = false;
-			if(playerEntity.getItemInHand(Hand.MAIN_HAND).isEdible()) {
-				ItemStack result = ((CookingPotTileEntity) tileEntity).popSimilar(playerEntity.getItemInHand(Hand.MAIN_HAND));
-				if(result.getCount() != playerEntity.getItemInHand(Hand.MAIN_HAND).getCount()) {
+			if(playerEntity.getItemInHand(Hand.MAIN_HAND).isEmpty()) {
+				ItemStack result = ((CookingPotTileEntity) tileEntity).pop();
+				if(!result.isEmpty()) {
 					playerEntity.setItemInHand(Hand.MAIN_HAND, result);
 					popped = true;
 				}
-			} else if(playerEntity.getItemInHand(Hand.MAIN_HAND).isEmpty()) {
-				ItemStack result = ((CookingPotTileEntity) tileEntity).pop();
-				if(!result.isEmpty()) {
+			} else if(playerEntity.getItemInHand(Hand.MAIN_HAND).isEdible()) {
+				ItemStack result = ((CookingPotTileEntity) tileEntity).popSimilar(playerEntity.getItemInHand(Hand.MAIN_HAND));
+				if(result.getCount() != playerEntity.getItemInHand(Hand.MAIN_HAND).getCount()) {
 					playerEntity.setItemInHand(Hand.MAIN_HAND, result);
 					popped = true;
 				}
