@@ -38,10 +38,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishData {
-
-
-
-	public static final RecipeType<FurnitureRecipe> Furniture_Recipe = RecipeType.register(Furnish.MODID + ":furniture_making");
+	public static final ResourceLocation Furniture_Recipe_Loc = new ResourceLocation(Furnish.MODID, "furniture_making");
+	public static final RecipeType<FurnitureRecipe> Furniture_Recipe = RecipeType.register(Furniture_Recipe_Loc.toString());
 
 	public static class RecipeSerializers {
 		public static final DeferredRegister<RecipeSerializer<?>> Registry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Furnish.MODID);
