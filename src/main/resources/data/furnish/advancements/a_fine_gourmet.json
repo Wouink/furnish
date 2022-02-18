@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "furnish:rare_english_plate"
+            "items": [
+              "furnish:rare_english_plate"
+            ]
           }
         ]
       }
@@ -31,7 +33,9 @@
       "conditions": {
         "items": [
           {
-            "item": "furnish:rare_chinese_plate"
+            "items": [
+              "furnish:rare_chinese_plate"
+            ]
           }
         ]
       }

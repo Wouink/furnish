@@ -16,20 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "place_carpet": {
-      "trigger": "minecraft:inventory_changed",
+    "place_mailbox": {
+      "trigger": "minecraft:placed_block",
       "conditions": {
-        "items": [
-          {
-            "tag": "furnish:mailboxes"
-          }
-        ]
+        "block": "furnish:metal_mailbox"
       }
     }
   },
   "requirements": [
     [
-      "place_carpet"
+      "place_mailbox"
     ]
   ]
 }
