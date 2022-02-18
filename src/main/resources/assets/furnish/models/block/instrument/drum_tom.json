@@ -1,8 +1,0 @@
-{
-  "parent": "furnish:block/instrument/drum",
-  "textures": {
-    "skin": "furnish:block/drum_skin",
-    "ring": "furnish:block/drum_ring",
-    "side": "furnish:block/drum_side"
-  }
-}

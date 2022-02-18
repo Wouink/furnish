@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:birch_planks"
-  },
-  "result": "furnish:birch_potion_shelf",
-  "count": 1
-}

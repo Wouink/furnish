@@ -58,7 +58,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 		super.saveAdditional(nbt);
 		ContainerHelper.saveAllItems(nbt, inventory);
 		nbt.putString("Owner", owner == null ? "" : owner);
-		nbt.putString("OwnerDisplayName", ownerDisplayName);
+		nbt.putString("OwnerDisplayName", ownerDisplayName == null ? "" : ownerDisplayName);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	public void updateDisplayName(Player playerEntity) {
 		if(isOwner(playerEntity)) {
 			String playerName = playerEntity.getGameProfile().getName();
-			if(!ownerDisplayName.equals(playerName)) {
+			if(ownerDisplayName == null || !ownerDisplayName.equals(playerName)) {
 				ownerDisplayName = playerName;
 				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 			}

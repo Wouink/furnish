@@ -167,6 +167,8 @@ public class LetterScreen extends Screen {
 		} else {
 			font.drawWordWrap(new TextComponent(letterText), startX + 36, 20, 108, 0);
 		}
+
+		super.render(ms, mouseX, mouseY, partialTicks);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -10,7 +11,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.StonecutterMenu;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +55,6 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
 	@Override
 	@Nullable
 	public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-		return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new StonecutterMenu(p_57074_, p_57075_, ContainerLevelAccess.create(level, pos)), Container_Name);
+		return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new FurnitureWorkbenchContainer(p_57074_, p_57075_, ContainerLevelAccess.create(level, pos)), Container_Name);
 	}
 }

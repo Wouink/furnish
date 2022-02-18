@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:acacia_planks"
-  },
-  "result": "furnish:acacia_potion_shelf",
-  "count": 1
-}
