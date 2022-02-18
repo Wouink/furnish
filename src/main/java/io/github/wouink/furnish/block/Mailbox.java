@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishData;
@@ -95,57 +96,66 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		InteractionResult res = InteractionResult.FAIL;
-
-		if (!world.isClientSide()) {
+		if(world.isClientSide()) return InteractionResult.sidedSuccess(true);
+		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof MailboxTileEntity) {
-				MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
+			if(!(tileEntity instanceof MailboxTileEntity)) return InteractionResult.FAIL;
+			MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
 
-				if(!mailbox.hasOwner()) {
-					mailbox.setOwner(playerEntity);
-					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.set_owner"), true);
-					res = InteractionResult.SUCCESS;
-				}
-
-				else if(mailbox.isOwner(playerEntity)) {
-					mailbox.updateDisplayName(playerEntity);
-					if(!updateMailbox(state, world, pos)) playerEntity.openMenu(mailbox);
-					res = InteractionResult.SUCCESS;
-				}
-
-				else if(playerEntity.getItemInHand(hand).isEmpty()) {
-					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.no_permission"), true);
-					res = InteractionResult.FAIL;
-				}
-
-				else if(mailbox.isFull()) {
-					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.full"), true);
-					res = InteractionResult.FAIL;
-				}
-
-				else {
-					ItemStack result = mailbox.addMail(playerEntity.getItemInHand(hand));
-					playerEntity.setItemInHand(hand, result);
-					updateMailbox(state, world, pos);
-					if(result.isEmpty()) {
-						Component ownerName = mailbox.getOwnerDisplayName();
-						if(ownerName != null) {
-							playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
-						} else {
-							playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered"), true);
-						}
-
-						res = InteractionResult.SUCCESS;
-					} else {
-						playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.invalid_mail"), true);
-						res = InteractionResult.FAIL;
-					}
-				}
+			if(!mailbox.hasOwner()) {
+				Furnish.LOG.debug("Mailbox does not have an owner -- setting owner and quitting");
+				mailbox.setOwner(playerEntity);
+				playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.set_owner"), true);
+				return InteractionResult.sidedSuccess(false);
 			}
-		}
 
-		return res == InteractionResult.SUCCESS ? InteractionResult.sidedSuccess(world.isClientSide()) : res;
+			Furnish.LOG.debug("Mailbox has an owner -- continuing");
+
+			if(mailbox.isOwner(playerEntity)) {
+				Furnish.LOG.debug("Player is the owner -- updating state or opening UI, and quitting");
+				mailbox.updateDisplayName(playerEntity);
+				if(!updateMailbox(state, world, pos)) playerEntity.openMenu(mailbox);
+				return InteractionResult.sidedSuccess(false);
+			}
+
+			Furnish.LOG.debug("Player is not the owner -- continuing");
+
+			if(playerEntity.getItemInHand(hand).isEmpty()) {
+				Furnish.LOG.debug("Player has no item in hand -- quitting");
+				playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.no_permission"), true);
+				return InteractionResult.FAIL;
+			}
+
+			Furnish.LOG.debug("Player has an item in hand -- continuing");
+
+			if(mailbox.isFull()) {
+				Furnish.LOG.debug("Mailbox is full -- quitting");
+				playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.full"), true);
+				return InteractionResult.FAIL;
+			}
+
+			Furnish.LOG.debug("Mailbox is not full -- continuing");
+
+			ItemStack result = mailbox.addMail(playerEntity.getItemInHand(hand));
+			playerEntity.setItemInHand(hand, result);
+			updateMailbox(state, world, pos);
+
+			if(result.isEmpty()) {
+				Furnish.LOG.debug("Mail is added to mailbox -- quitting");
+				Component ownerName = mailbox.getOwnerDisplayName();
+				if (ownerName != null) {
+					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
+				} else {
+					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered"), true);
+				}
+				return InteractionResult.sidedSuccess(false);
+			}
+
+			Furnish.LOG.debug("Mail is not added to mailbox -- end of method");
+
+			playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.invalid_mail"), true);
+			return InteractionResult.FAIL;
+		}
 	}
 
 	@Nullable

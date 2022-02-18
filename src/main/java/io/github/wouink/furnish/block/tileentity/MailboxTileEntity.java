@@ -156,7 +156,6 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 		return slot;
 	}
 
-
 	// communication between client/server for rendering purposes
 
 	@Nullable

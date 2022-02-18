@@ -9,8 +9,11 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 public class MailboxRenderer implements BlockEntityRenderer<MailboxTileEntity> {
 	private final Camera camera;
@@ -30,7 +33,15 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxTileEntity> {
 	}
 
 	private boolean shouldShowName(MailboxTileEntity mailbox) {
-		return mailbox.hasOwner() && camera.getBlockPosition().equals(mailbox.getBlockPos());
+		if(!mailbox.hasOwner()) return false;
+
+		HitResult hitResult = camera.getEntity().pick(20.0d, 0.0f, false);
+		if(hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
+			return pos.equals(mailbox.getBlockPos());
+		}
+
+		return false;
 	}
 
 	// based on net.minecraft.client.renderer.entity.EntityRenderer#renderNameTag
