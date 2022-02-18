@@ -1,27 +1,28 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.ShowcaseTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 
-public class Showcase extends HorizontalBlock {
+public class Showcase extends HorizontalDirectionalBlock implements EntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 	public Showcase(Properties p) {
 		super(p.noOcclusion());
@@ -29,44 +30,39 @@ public class Showcase extends HorizontalBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, POWERED);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
-	}
-
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
 	}
 
 	@Nullable
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new ShowcaseTileEntity();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new ShowcaseTileEntity(pos, state);
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult result) {
-		ActionResultType resultType = ActionResultType.FAIL;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
+		InteractionResult resultType = InteractionResult.FAIL;
 		if(!world.isClientSide()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if (tileEntity instanceof ShowcaseTileEntity) {
 				playerEntity.setItemInHand(hand, ((ShowcaseTileEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
-				resultType = ActionResultType.SUCCESS;
+				resultType = InteractionResult.SUCCESS;
 			}
 		}
-		return resultType == ActionResultType.SUCCESS ? ActionResultType.sidedSuccess(world.isClientSide()) : resultType;
+		return resultType == InteractionResult.SUCCESS ? InteractionResult.sidedSuccess(world.isClientSide()) : resultType;
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(IBlockReader world, BlockPos pos, BlockState state) {
-		TileEntity tileEntity = world.getBlockEntity(pos);
+	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
+		BlockEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof ShowcaseTileEntity) {
 			ItemStack stack = ((ShowcaseTileEntity) tileEntity).getHeldItem().copy();
 			if(!stack.isEmpty()) {
@@ -78,9 +74,9 @@ public class Showcase extends HorizontalBlock {
 	}
 
 	@Override
-	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean moving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(!state.is(newState.getBlock())) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof ShowcaseTileEntity) {
 				ItemStack stack = ((ShowcaseTileEntity) tileEntity).getHeldItem();
 				if(!stack.isEmpty()) {
@@ -92,7 +88,7 @@ public class Showcase extends HorizontalBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World world, BlockPos pos, Block neighbor, BlockPos neighborPos, boolean moving) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighbor, BlockPos neighborPos, boolean moving) {
 		boolean flag = world.hasNeighborSignal(pos);
 		if (flag != state.getValue(POWERED)) {
 			world.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(flag)), 2);

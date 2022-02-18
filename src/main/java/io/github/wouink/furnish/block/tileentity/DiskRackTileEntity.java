@@ -3,53 +3,52 @@ package io.github.wouink.furnish.block.tileentity;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.DiskRackContainer;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-
-public class DiskRackTileEntity extends LockableLootTileEntity {
+public class DiskRackTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 8;
 	private NonNullList<ItemStack> inventory;
 
-	public DiskRackTileEntity() {
-		super(FurnishData.TileEntities.TE_Disk_Rack.get());
+	public DiskRackTileEntity(BlockPos pos, BlockState state) {
+		super(FurnishData.TileEntities.TE_Disk_Rack.get(), pos, state);
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 	}
 
 	@Override
-	public void load(BlockState state, CompoundNBT nbt) {
-		super.load(state, nbt);
+	public void load(CompoundTag nbt) {
+		super.load(nbt);
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(nbt, inventory);
+		ContainerHelper.loadAllItems(nbt, inventory);
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT nbt) {
-		super.save(nbt);
-		ItemStackHelper.saveAllItems(nbt, inventory);
-		return nbt;
+	public void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
+		ContainerHelper.saveAllItems(nbt, inventory);
 	}
 
 	@Override
-	protected ITextComponent getDefaultName() {
-		return new TranslationTextComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+	protected Component getDefaultName() {
+		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
 	}
 
 	@Override
-	protected Container createMenu(int syncId, PlayerInventory playerInventory) {
+	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
 		return new DiskRackContainer(syncId, playerInventory, this);
 	}
 
@@ -67,7 +66,7 @@ public class DiskRackTileEntity extends LockableLootTileEntity {
 	public void setItem(int slot, ItemStack stack) {
 		super.setItem(slot, stack);
 		// update for render
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
+		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 	}
 
 	@Override
@@ -83,23 +82,22 @@ public class DiskRackTileEntity extends LockableLootTileEntity {
 
 	@Nullable
 	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.worldPosition, 1238, save(new CompoundNBT()));
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		BlockState state = this.getBlockState();
-		load(state, pkt.getTag());
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		this.load(pkt.getTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag() {
-		return save(new CompoundNBT());
+	public CompoundTag getUpdateTag() {
+		return this.saveWithoutMetadata();
 	}
 
 	@Override
-	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-		load(state, tag);
+	public void handleUpdateTag(CompoundTag tag) {
+		load(tag);
 	}
 }

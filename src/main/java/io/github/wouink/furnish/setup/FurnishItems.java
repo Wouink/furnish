@@ -4,23 +4,23 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.util.INoBlockItem;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.item.Letter;
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishItems {
 
-	public static final ItemGroup Furnish_ItemGroup = new ItemGroup(Furnish.MODID) {
+	public static final CreativeModeTab Furnish_ItemGroup = new CreativeModeTab(Furnish.MODID) {
 		@Override
 		public ItemStack makeIcon() {
 			return new ItemStack(FurnishBlocks.Furniture_Workbench);

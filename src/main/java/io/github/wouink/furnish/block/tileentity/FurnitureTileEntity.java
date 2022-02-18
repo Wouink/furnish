@@ -3,34 +3,30 @@ package io.github.wouink.furnish.block.tileentity;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.ChestContainer;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Vec3i;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class FurnitureTileEntity extends LockableLootTileEntity {
+public class FurnitureTileEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
 
-	protected FurnitureTileEntity(TileEntityType<?> type) {
-		super(type);
-	}
-
-	public FurnitureTileEntity() {
-		super(FurnishData.TileEntities.TE_Furniture.get());
+	public FurnitureTileEntity(BlockPos pos, BlockState state) {
+		super(FurnishData.TileEntities.TE_Furniture.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -45,27 +41,26 @@ public class FurnitureTileEntity extends LockableLootTileEntity {
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT nbt) {
-		super.save(nbt);
-		ItemStackHelper.saveAllItems(nbt, inventory);
-		return nbt;
+	public void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
+		ContainerHelper.saveAllItems(nbt, inventory);
 	}
 
 	@Override
-	public void load(BlockState state, CompoundNBT nbt) {
-		super.load(state, nbt);
+	public void load(CompoundTag nbt) {
+		super.load(nbt);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(nbt, inventory);
+		ContainerHelper.loadAllItems(nbt, inventory);
 	}
 
 	@Override
-	protected ITextComponent getDefaultName() {
-		return new TranslationTextComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+	public Component getDefaultName() {
+		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
 	}
 
 	@Override
-	protected Container createMenu(int windowId, PlayerInventory playerInventory) {
-		return new ChestContainer(ContainerType.GENERIC_9x3, windowId, playerInventory, this, 3);
+	protected AbstractContainerMenu createMenu(int syncId, Inventory inv) {
+		return new ChestMenu(MenuType.GENERIC_9x3, syncId, inv, this, 3);
 	}
 
 	@Override
@@ -74,21 +69,21 @@ public class FurnitureTileEntity extends LockableLootTileEntity {
 	}
 
 	@Override
-	public void startOpen(PlayerEntity playerEntity) {
+	public void startOpen(Player playerEntity) {
 		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getOpenSound());
 	}
 
 	@Override
-	public void stopOpen(PlayerEntity playerEntity) {
+	public void stopOpen(Player playerEntity) {
 		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getCloseSound());
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity
 	private void playSound(SoundEvent sound) {
-		Vector3i vector3i = this.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getNormal();
+		Vec3i vector3i = this.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getNormal();
 		double x = (double) this.worldPosition.getX() + 0.5D + (double) vector3i.getX() / 2.0D;
 		double y = (double) this.worldPosition.getY() + 0.5D + (double) vector3i.getY() / 2.0D;
 		double z = (double) this.worldPosition.getZ() + 0.5D + (double) vector3i.getZ() / 2.0D;
-		this.level.playSound(null, x, y, z, sound, SoundCategory.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+		this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 	}
 }

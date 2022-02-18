@@ -3,30 +3,27 @@ package io.github.wouink.furnish.block.tileentity;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
-public class CrateTileEntity extends LockableLootTileEntity implements ISidedInventory {
+public class CrateTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 9;
 	private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
 	private NonNullList<ItemStack> inventory;
 
-	public CrateTileEntity() {
-		super(FurnishData.TileEntities.TE_Crate.get());
+	public CrateTileEntity(BlockPos pos, BlockState state) {
+		super(FurnishData.TileEntities.TE_Crate.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -41,58 +38,42 @@ public class CrateTileEntity extends LockableLootTileEntity implements ISidedInv
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT nbt) {
-		super.save(nbt);
-		return saveToTag(nbt);
+	public void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
 	}
 
 	@Override
-	public void load(BlockState state, CompoundNBT nbt) {
-		super.load(state, nbt);
+	public void load(CompoundTag nbt) {
+		super.load(nbt);
 		loadFromTag(nbt);
 	}
 
-	public CompoundNBT saveToTag(CompoundNBT nbt) {
+	public CompoundTag saveToTag(CompoundTag nbt) {
 		if(!this.tryLoadLootTable(nbt)) {
-			ItemStackHelper.saveAllItems(nbt, this.inventory, false);
+			ContainerHelper.saveAllItems(nbt, this.inventory, false);
 		}
 		return nbt;
 	}
 
-	public void loadFromTag(CompoundNBT nbt) {
+	public void loadFromTag(CompoundTag nbt) {
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 		if(!this.tryLoadLootTable(nbt) && nbt.contains("Items", 9)) {
-			ItemStackHelper.loadAllItems(nbt, inventory);
+			ContainerHelper.loadAllItems(nbt, inventory);
 		}
 	}
 
 	@Override
-	protected ITextComponent getDefaultName() {
-		return new TranslationTextComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+	protected Component getDefaultName() {
+		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
 	}
 
 	@Override
-	protected Container createMenu(int syncId, PlayerInventory playerInventory) {
+	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
 		return new CrateContainer(syncId, playerInventory, this);
 	}
 
 	@Override
 	public int getContainerSize() {
 		return SIZE;
-	}
-
-	@Override
-	public int[] getSlotsForFace(Direction dir) {
-		return SLOTS;
-	}
-
-	@Override
-	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
-		return CrateContainer.canPlaceInCrate(stack);
-	}
-
-	@Override
-	public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
-		return true;
 	}
 }

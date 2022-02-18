@@ -3,18 +3,20 @@ package io.github.wouink.furnish.item;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.client.gui.LetterScreen;
 import io.github.wouink.furnish.setup.FurnishData;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.*;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,29 +30,29 @@ public class Letter extends Item {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private void openGui(ItemStack stack, PlayerEntity playerEntity, Hand hand) {
-		Minecraft.getInstance().getSoundManager().play(SimpleSound.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f));
+	private void openGui(ItemStack stack, Player playerEntity, InteractionHand hand) {
+		Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f));
 		Minecraft.getInstance().setScreen(new LetterScreen(stack, playerEntity, hand));
 	}
 
 	@Override
-	public void appendHoverText(ItemStack letter, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag tooltipFlag) {
+	public void appendHoverText(ItemStack letter, @Nullable Level world, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		if(letter.hasTag()) {
-			CompoundNBT letterTag = letter.getTag();
+			CompoundTag letterTag = letter.getTag();
 			if(letterTag.contains("Author")) {
-				tooltip.add(new TranslationTextComponent("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(TextFormatting.GRAY));
+				tooltip.add(new TranslatableComponent("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));
 			}
 			if(letterTag.contains("Attachment")) {
 				ItemStack attachment = ItemStack.of(letterTag.getCompound("Attachment"));
-				tooltip.add(new TranslationTextComponent("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(TextFormatting.GRAY));
+				tooltip.add(new TranslatableComponent("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
 
 	public static ItemStack addAttachment(ItemStack letter, ItemStack attachment) {
-		CompoundNBT letterTag = letter.getOrCreateTag();
+		CompoundTag letterTag = letter.getOrCreateTag();
 		if(!letterTag.contains("Attachment")) {
-			CompoundNBT attachmentTag = new CompoundNBT();
+			CompoundTag attachmentTag = new CompoundTag();
 			letterTag.put("Attachment", attachment.save(attachmentTag));
 			letter.setTag(letterTag);
 			return ItemStack.EMPTY;
@@ -59,7 +61,7 @@ public class Letter extends Item {
 	}
 
 	public static ItemStack removeAttachment(ItemStack letter) {
-		CompoundNBT letterTag = letter.getOrCreateTag();
+		CompoundTag letterTag = letter.getOrCreateTag();
 		if(letterTag.contains("Attachment")) {
 			ItemStack attachment = ItemStack.of(letterTag.getCompound("Attachment"));
 			letterTag.remove("Attachment");
@@ -70,49 +72,49 @@ public class Letter extends Item {
 	}
 
 	public static void signLetter(ItemStack letter, String author) {
-		CompoundNBT letterTag = letter.getOrCreateTag();
+		CompoundTag letterTag = letter.getOrCreateTag();
 		if(!letterTag.contains("Author")) letterTag.putString("Author", author);
 		letter.setTag(letterTag);
 	}
 
 	public static boolean canEditLetter(ItemStack letter) {
-		CompoundNBT letterTag = letter.getOrCreateTag();
+		CompoundTag letterTag = letter.getOrCreateTag();
 		if(letterTag.contains("Author")) return false;
 		return true;
 	}
 
 	@Override
-	public ActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player playerEntity, InteractionHand hand) {
 		ItemStack letter = playerEntity.getItemInHand(hand);
 		if(playerEntity.isCrouching()) {
-			if(hand != Hand.OFF_HAND) {
+			if(hand != InteractionHand.OFF_HAND) {
 				ItemStack result = removeAttachment(letter);
 				if(!result.isEmpty()) {
 					playerEntity.addItem(result);
 					if(world.isClientSide()) {
-						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_removed"), true);
+						playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.letter.attachment_removed"), true);
 						playerEntity.playSound(FurnishData.Sounds.Detach_From_Letter.get(), 1.0f, 1.0f);
 					}
-					return ActionResult.sidedSuccess(letter, world.isClientSide());
+					return InteractionResultHolder.sidedSuccess(letter, world.isClientSide());
 				}
-				ItemStack offHandStack = playerEntity.getItemInHand(Hand.OFF_HAND);
+				ItemStack offHandStack = playerEntity.getItemInHand(InteractionHand.OFF_HAND);
 				if(!offHandStack.isEmpty()) {
 					result = addAttachment(letter, offHandStack);
-					playerEntity.setItemInHand(Hand.OFF_HAND, result);
+					playerEntity.setItemInHand(InteractionHand.OFF_HAND, result);
 					if(result.isEmpty()) {
 						if(world.isClientSide()) {
-							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.letter.attachment_added", offHandStack.getItem().getDescription()), true);
+							playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.letter.attachment_added", offHandStack.getItem().getDescription()), true);
 							playerEntity.playSound(FurnishData.Sounds.Attach_To_Letter.get(), 1.0f, 1.0f);
 						}
-						return ActionResult.sidedSuccess(letter, world.isClientSide());
+						return InteractionResultHolder.sidedSuccess(letter, world.isClientSide());
 					}
 				}
-				return ActionResult.fail(letter);
+				return InteractionResultHolder.fail(letter);
 			}
-			return ActionResult.fail(letter);
+			return InteractionResultHolder.fail(letter);
 		} else {
 			if(world.isClientSide()) openGui(letter, playerEntity, hand);
-			return ActionResult.sidedSuccess(letter, world.isClientSide());
+			return InteractionResultHolder.sidedSuccess(letter, world.isClientSide());
 		}
 	}
 }

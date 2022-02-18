@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.util;
 
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
 
 public interface IFurnitureWithSound {
 	SoundEvent getOpenSound();

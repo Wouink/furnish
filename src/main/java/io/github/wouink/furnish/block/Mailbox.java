@@ -3,37 +3,37 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
-public class Mailbox extends HorizontalBlock {
+public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 	public static ArrayList<Mailbox> All_Mailboxes = new ArrayList<>();
 	
 	public static final VoxelShape[] MAILBOX_SHAPE = VoxelShapeHelper.getRotatedShapes(Block.box(2, 0, 3, 14, 12, 13));
@@ -46,14 +46,14 @@ public class Mailbox extends HorizontalBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, ON_FENCE, HAS_MAIL);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		if(ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getBlock() instanceof FenceBlock) {
 			state = state.setValue(ON_FENCE, true);
@@ -62,12 +62,12 @@ public class Mailbox extends HorizontalBlock {
 	}
 
 	@Override
-	public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		if(entity instanceof PlayerEntity) {
-			((PlayerEntity) entity).displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.ownership_info"), true);
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+		if(entity instanceof Player) {
+			((Player) entity).displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.ownership_info"), true);
 		}
 		if(stack.hasCustomHoverName()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof MailboxTileEntity) {
 				((MailboxTileEntity) tileEntity).setCustomName(stack.getHoverName());
 			}
@@ -75,18 +75,18 @@ public class Mailbox extends HorizontalBlock {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
 		return MAILBOX_SHAPE[state.getValue(FACING).ordinal() - 2];
 	}
 
-	private boolean updateMailbox(BlockState state, World world, BlockPos pos) {
-		TileEntity tileEntity = world.getBlockEntity(pos);
+	private boolean updateMailbox(BlockState state, Level world, BlockPos pos) {
+		BlockEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof MailboxTileEntity) {
 			boolean mail = ((MailboxTileEntity) tileEntity).hasMail();
 			if(state.getValue(HAS_MAIL).booleanValue() != mail) {
 				world.setBlock(pos, state.setValue(HAS_MAIL, mail), 3);
 				tileEntity.setChanged();
-				world.playSound(null, pos, FurnishData.Sounds.Mailbox_Update.get(), SoundCategory.BLOCKS, 1.0f, 1.0f);
+				world.playSound(null, pos, FurnishData.Sounds.Mailbox_Update.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				return true;
 			}
 		}
@@ -94,34 +94,34 @@ public class Mailbox extends HorizontalBlock {
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult rayTraceResult) {
-		ActionResultType res = ActionResultType.FAIL;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
+		InteractionResult res = InteractionResult.FAIL;
 
 		if (!world.isClientSide()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof MailboxTileEntity) {
 				MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
 
 				if(!mailbox.hasOwner()) {
 					mailbox.setOwner(playerEntity);
-					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.set_owner"), true);
-					res = ActionResultType.SUCCESS;
+					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.set_owner"), true);
+					res = InteractionResult.SUCCESS;
 				}
 
 				else if(mailbox.isOwner(playerEntity)) {
 					mailbox.updateDisplayName(playerEntity);
 					if(!updateMailbox(state, world, pos)) playerEntity.openMenu(mailbox);
-					res = ActionResultType.SUCCESS;
+					res = InteractionResult.SUCCESS;
 				}
 
 				else if(playerEntity.getItemInHand(hand).isEmpty()) {
-					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.no_permission"), true);
-					res = ActionResultType.FAIL;
+					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.no_permission"), true);
+					res = InteractionResult.FAIL;
 				}
 
 				else if(mailbox.isFull()) {
-					playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.full"), true);
-					res = ActionResultType.FAIL;
+					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.full"), true);
+					res = InteractionResult.FAIL;
 				}
 
 				else {
@@ -129,56 +129,51 @@ public class Mailbox extends HorizontalBlock {
 					playerEntity.setItemInHand(hand, result);
 					updateMailbox(state, world, pos);
 					if(result.isEmpty()) {
-						ITextComponent ownerName = mailbox.getOwnerDisplayName();
+						Component ownerName = mailbox.getOwnerDisplayName();
 						if(ownerName != null) {
-							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
+							playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
 						} else {
-							playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.mail_delivered"), true);
+							playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered"), true);
 						}
 
-						res = ActionResultType.SUCCESS;
+						res = InteractionResult.SUCCESS;
 					} else {
-						playerEntity.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.invalid_mail"), true);
-						res = ActionResultType.FAIL;
+						playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.invalid_mail"), true);
+						res = InteractionResult.FAIL;
 					}
 				}
 			}
 		}
 
-		return res == ActionResultType.SUCCESS ? ActionResultType.sidedSuccess(world.isClientSide()) : res;
+		return res == InteractionResult.SUCCESS ? InteractionResult.sidedSuccess(world.isClientSide()) : res;
 	}
 
 	@Nullable
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new MailboxTileEntity();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new MailboxTileEntity(pos, state);
 	}
 
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean moving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(state.getBlock() != newState.getBlock()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof IInventory) {
-				InventoryHelper.dropContents(world, pos, (IInventory) tileEntity);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
+			if(tileEntity instanceof MailboxTileEntity) {
+				Containers.dropContents(world, pos, (MailboxTileEntity) tileEntity);
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);
 	}
 
 	@Override
-	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
+	public boolean onDestroyedByPlayer(BlockState state, Level world, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
 		if(!world.isClientSide()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof MailboxTileEntity) {
 				if(((MailboxTileEntity) tileEntity).isOwner(player)) {
-					return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+					return super.onDestroyedByPlayer(state, world, pos, player, willHarvest, fluid);
 				} else {
-					player.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.no_permission"), true);
+					player.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.no_permission"), true);
 				}
 			}
 		}

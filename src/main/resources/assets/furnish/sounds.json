@@ -105,35 +105,6 @@
       "minecraft:entity/itemframe/remove_item4"
     ]
   },
-  "instrument.drum.tom": {
-    "category": "records",
-    "subtitle": "subtitle.furnish.drum_plays",
-    "sounds": [
-      "furnish:block/tom"
-    ]
-  },
-  "instrument.drum.snare": {
-    "category": "records",
-    "subtitle": "subtitle.furnish.drum_plays",
-    "sounds": [
-      "furnish:block/snare"
-    ]
-  },
-  "instrument.cymbal": {
-    "category": "records",
-    "subtitle": "subtitle.furnish.cymbal_plays",
-    "sounds": [
-      "furnish:block/cymbal1",
-      "furnish:block/cymbal2"
-    ]
-  },
-  "instrument.cymbal.hihat": {
-    "category": "records",
-    "subtitle": "subtitle.furnish.cymbal_plays",
-    "sounds": [
-      "furnish:block/cymbal_hihat"
-    ]
-  },
   "block.curtain.interact": {
     "category": "blocks",
     "subtitle": "subtitle.furnish.use_curtain",

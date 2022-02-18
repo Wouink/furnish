@@ -1,61 +1,62 @@
 package io.github.wouink.furnish.client.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
-import net.minecraft.client.gui.DialogTexts;
-import net.minecraft.client.gui.fonts.TextInputUtil;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SharedConstants;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.font.TextFieldHelper;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class LetterScreen extends Screen {
-	private static final ITextComponent SCREEN_NAME = new TranslationTextComponent("item.furnish.letter");
-	private static final TranslationTextComponent SIGN_LETTER = new TranslationTextComponent("book.signButton");
+	private static final Component SCREEN_NAME = new TranslatableComponent("item.furnish.letter");
+	private static final Component SIGN_LETTER = new TranslatableComponent("book.signButton");
 	private static final ResourceLocation LETTER_BACKGROUND = new ResourceLocation(Furnish.MODID, "textures/gui/letter.png");
 
 	// Max length is 16 lines of 18 characters
 	private static final int LETTER_MAX_LENGTH = 288;
 
-	private Hand hand;
+	private InteractionHand hand;
 	private ItemStack letter;
-	private PlayerEntity playerEntity;
+	private Player playerEntity;
 	private boolean editable = false;
 	private String letterText;
-	private TextInputUtil letterEdit = null;
+	private TextFieldHelper letterEdit = null;
 	private int frameTick = 0;
 
-	public LetterScreen(ItemStack letter, PlayerEntity playerEntity, Hand hand) {
+	public LetterScreen(ItemStack letter, Player playerEntity, InteractionHand hand) {
 		super(SCREEN_NAME);
 		this.hand = hand;
 		this.letter = letter;
 		this.playerEntity = playerEntity;
-		CompoundNBT tag = letter.getOrCreateTag();
+		CompoundTag tag = letter.getOrCreateTag();
 		letterText = tag.getAllKeys().contains("Text") ? tag.getString("Text") : "";
 		editable = Letter.canEditLetter(letter);
 		if(editable) {
-			letterEdit = new TextInputUtil(this::getText, this::setText, this::getClipboard, this::setClipboard, (s) -> s.length() < LETTER_MAX_LENGTH);
+			letterEdit = new TextFieldHelper(this::getText, this::setText, this::getClipboard, this::setClipboard, (s) -> s.length() < LETTER_MAX_LENGTH);
 		}
 	}
 
 	private void setClipboard(String s) {
 		if (this.minecraft != null) {
-			TextInputUtil.setClipboardContents(this.minecraft, s);
+			TextFieldHelper.setClipboardContents(this.minecraft, s);
 		}
 	}
 
 	private String getClipboard() {
-		return this.minecraft != null ? TextInputUtil.getClipboardContents(this.minecraft) : "";
+		return this.minecraft != null ? TextFieldHelper.getClipboardContents(this.minecraft) : "";
 	}
 
 	private String getText() {
@@ -67,13 +68,13 @@ public class LetterScreen extends Screen {
 	}
 
 	private void save() {
-		CompoundNBT tag = letter.getOrCreateTag();
+		CompoundTag tag = letter.getOrCreateTag();
 		tag.putString("Text", getText());
 		letter.setTag(tag);
 	}
 
 	private void sendUpdate() {
-		int slot = this.hand == Hand.MAIN_HAND ? this.playerEntity.inventory.selected : 40;
+		int slot = this.hand == InteractionHand.MAIN_HAND ? this.playerEntity.getInventory().selected : 40;
 		Furnish.networkChannel.sendToServer(new ItemStackUpdateMessage(slot, letter));
 	}
 
@@ -81,19 +82,19 @@ public class LetterScreen extends Screen {
 	protected void init() {
 		super.init();
 		if(editable) {
-			this.addButton(new Button(this.width / 2 - 102, 196, 100, 20, SIGN_LETTER, (var) -> {
+			this.addRenderableWidget(new Button(this.width / 2 - 102, 196, 100, 20, SIGN_LETTER, (var) -> {
 				save();
 				Letter.signLetter(letter, playerEntity.getGameProfile().getName());
 				sendUpdate();
 				this.minecraft.setScreen(null);
 			}));
-			this.addButton(new Button(this.width / 2 + 2, 196, 100, 20, DialogTexts.GUI_DONE, (var) -> {
+			this.addRenderableWidget(new Button(this.width / 2 + 2, 196, 100, 20, CommonComponents.GUI_DONE, (var) -> {
 				save();
 				sendUpdate();
 				this.minecraft.setScreen(null);
 			}));
 		} else {
-			this.addButton(new Button(this.width / 2 - 50, 196, 100, 20, DialogTexts.GUI_DONE, (var) -> {
+			this.addRenderableWidget(new Button(this.width / 2 - 50, 196, 100, 20, CommonComponents.GUI_DONE, (var) -> {
 				this.minecraft.setScreen(null);
 			}));
 		}
@@ -148,29 +149,24 @@ public class LetterScreen extends Screen {
 	}
 
 	@Override
-	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
-		super.render(ms, mouseX, mouseY, partialTicks);
-		this.minecraft.getTextureManager().bind(LETTER_BACKGROUND);
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderTexture(0, LETTER_BACKGROUND);
 		int startX = (this.width - 192) / 2;
 		this.blit(ms, startX, 2, 0, 0, 192, 192);
 
 		// text and cursor rendering
 		if (editable) {
 			if(frameTick / 6 % 2 == 0) {
-				font.drawWordWrap(new StringTextComponent(letterText).append("_"), startX + 36, 20, 108, 0);
+				font.drawWordWrap(new TextComponent(letterText).append("_"), startX + 36, 20, 108, 0);
 			} else {
-				font.drawWordWrap(new StringTextComponent(letterText).append(" "), startX + 36, 20, 108, 0);
+				font.drawWordWrap(new TextComponent(letterText).append(" "), startX + 36, 20, 108, 0);
 			}
 		} else {
-			font.drawWordWrap(new StringTextComponent(letterText), startX + 36, 20, 108, 0);
+			font.drawWordWrap(new TextComponent(letterText), startX + 36, 20, 108, 0);
 		}
-	}
-
-	@Override
-	public void renderBackground(MatrixStack ms) {
-		super.renderBackground(ms);
-		RenderSystem.color4f(1.0f, 1.0f, 1.0F, 1.0f);
 	}
 
 	@Override

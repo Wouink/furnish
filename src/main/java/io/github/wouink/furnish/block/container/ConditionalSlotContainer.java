@@ -1,20 +1,20 @@
 package io.github.wouink.furnish.block.container;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
 
-public class ConditionalSlotContainer extends Container {
-	protected final IInventory inventory;
+public class ConditionalSlotContainer extends AbstractContainerMenu {
+	protected final Container inventory;
 	private final int rows;
 
-	public ConditionalSlotContainer(int rows, Predicate<ItemStack> condition, ContainerType<?> type, int syncId, PlayerInventory playerInventory, IInventory inventory) {
+	public ConditionalSlotContainer(int rows, Predicate<ItemStack> condition, MenuType<?> type, int syncId, Inventory playerInventory, Container inventory) {
 		super(type, syncId);
 		this.inventory = inventory;
 		this.rows = rows;
@@ -43,7 +43,7 @@ public class ConditionalSlotContainer extends Container {
 	}
 
 	@Override
-	public void removed(PlayerEntity playerEntity) {
+	public void removed(Player playerEntity) {
 		super.removed(playerEntity);
 		inventory.stopOpen(playerEntity);
 	}
@@ -53,12 +53,12 @@ public class ConditionalSlotContainer extends Container {
 	}
 
 	@Override
-	public boolean stillValid(PlayerEntity playerEntity) {
+	public boolean stillValid(Player playerEntity) {
 		return inventory.stillValid(playerEntity);
 	}
 
 	@Override
-	public ItemStack quickMoveStack(PlayerEntity playerEntity, int slotIndex) {
+	public ItemStack quickMoveStack(Player playerEntity, int slotIndex) {
 		ItemStack stack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(slotIndex);
 

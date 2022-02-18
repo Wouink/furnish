@@ -1,45 +1,47 @@
 package io.github.wouink.furnish.client.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 
 import java.util.List;
 
-public class FurnitureWorkbenchScreen extends ContainerScreen<FurnitureWorkbenchContainer> {
+public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureWorkbenchContainer> {
 	private static final ResourceLocation Background_Texture = new ResourceLocation(Furnish.MODID, "textures/gui/furniture_workbench.png");
 	private float sliderProgress;
 	private boolean clickedOnScroll;
 	private int recipeIndexOffset;
 	private boolean hasItemsInInputSlot;
 
-	public FurnitureWorkbenchScreen(FurnitureWorkbenchContainer container, PlayerInventory inv, ITextComponent title) {
+	public FurnitureWorkbenchScreen(FurnitureWorkbenchContainer container, Inventory inv, Component title) {
 		super(container, inv, title);
 		container.setInventoryUpdateListener(this::onInventoryUpdate);
 		--this.titleLabelY;
 	}
 
 	@Override
-	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderTooltip(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void renderBg(MatrixStack ms, float p_230450_2_, int p_230450_3_, int p_230450_4_) {
+	protected void renderBg(PoseStack ms, float p_230450_2_, int p_230450_3_, int p_230450_4_) {
 		this.renderBackground(ms);
-		RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-		this.minecraft.getTextureManager().bind(Background_Texture);
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderTexture(0, Background_Texture);
 		int i = this.leftPos;
 		int j = this.topPos;
 		this.blit(ms, i, j, 0, 0, this.imageWidth, this.imageHeight);
@@ -52,7 +54,7 @@ public class FurnitureWorkbenchScreen extends ContainerScreen<FurnitureWorkbench
 	}
 
 	@Override
-	protected void renderTooltip(MatrixStack ms, int mouseX, int mouseY) {
+	protected void renderTooltip(PoseStack ms, int mouseX, int mouseY) {
 		super.renderTooltip(ms, mouseX, mouseY);
 		if(this.hasItemsInInputSlot) {
 			int i = this.leftPos + 52;
@@ -71,7 +73,7 @@ public class FurnitureWorkbenchScreen extends ContainerScreen<FurnitureWorkbench
 		}
 	}
 
-	private void renderButtons(MatrixStack p_238853_1_, int p_238853_2_, int p_238853_3_, int p_238853_4_, int p_238853_5_, int p_238853_6_) {
+	private void renderButtons(PoseStack p_238853_1_, int p_238853_2_, int p_238853_3_, int p_238853_4_, int p_238853_5_, int p_238853_6_) {
 		for (int i = this.recipeIndexOffset; i < p_238853_6_ && i < this.menu.getRecipeListSize(); ++i) {
 			int j = i - this.recipeIndexOffset;
 			int k = p_238853_4_ + j % 4 * 16;
@@ -115,7 +117,7 @@ public class FurnitureWorkbenchScreen extends ContainerScreen<FurnitureWorkbench
 				double d0 = p_231044_1_ - (double) (i + i1 % 4 * 16);
 				double d1 = p_231044_3_ - (double) (j + i1 / 4 * 18);
 				if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
-					Minecraft.getInstance().getSoundManager().play(SimpleSound.forUI(SoundEvents.WOODEN_BUTTON_CLICK_ON, 1.0F));
+					Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.WOODEN_BUTTON_CLICK_ON, 1.0F));
 					this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
 					return true;
 				}
@@ -137,7 +139,7 @@ public class FurnitureWorkbenchScreen extends ContainerScreen<FurnitureWorkbench
 			int i = this.topPos + 14;
 			int j = i + 54;
 			this.sliderProgress = ((float) p_231045_3_ - (float) i - 7.5F) / ((float) (j - i) - 15.0F);
-			this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
+			this.sliderProgress = Mth.clamp(this.sliderProgress, 0.0F, 1.0F);
 			this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) this.getHiddenRows()) + 0.5D) * 4;
 			return true;
 		} else {
@@ -150,7 +152,7 @@ public class FurnitureWorkbenchScreen extends ContainerScreen<FurnitureWorkbench
 		if (this.canScroll()) {
 			int i = this.getHiddenRows();
 			this.sliderProgress = (float) ((double) this.sliderProgress - p_231043_5_ / (double) i);
-			this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
+			this.sliderProgress = Mth.clamp(this.sliderProgress, 0.0F, 1.0F);
 			this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) i) + 0.5D) * 4;
 		}
 

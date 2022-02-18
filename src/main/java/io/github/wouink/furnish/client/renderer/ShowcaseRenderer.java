@@ -1,46 +1,50 @@
 package io.github.wouink.furnish.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import io.github.wouink.furnish.block.Plate;
 import io.github.wouink.furnish.block.tileentity.ShowcaseTileEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class ShowcaseRenderer extends TileEntityRenderer<ShowcaseTileEntity> {
-	public ShowcaseRenderer(TileEntityRendererDispatcher dispatcher) {
-		super(dispatcher);
+public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity> {
+
+	private final ItemRenderer itemRenderer;
+
+	public ShowcaseRenderer(BlockEntityRendererProvider.Context ctx) {
+		Minecraft minecraft = Minecraft.getInstance();
+		itemRenderer = minecraft.getItemRenderer();
 	}
 
 	@Override
-	public void render(ShowcaseTileEntity showcase, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffer, int light, int overlay) {
+	public void render(ShowcaseTileEntity showcase, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 		ItemStack stack = showcase.getHeldItem();
 		if(!stack.isEmpty()) {
 			ms.pushPose();
 
-			ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 			Direction dir = showcase.getBlockState().getValue(Plate.FACING).getOpposite();
 			boolean powered = showcase.getBlockState().getValue(BlockStateProperties.POWERED).booleanValue();
-			boolean blockItem = itemRenderer.getModel(stack, showcase.getLevel(), null).isGui3d();
+			BakedModel model = itemRenderer.getModel(stack, showcase.getLevel(), null, 0);
 			float angle = powered ? showcase.getLevel().getGameTime() % 360 : 0;
 
-			if(blockItem) prepareRenderBlock(ms, dir, angle);
+			if(model.isGui3d()) prepareRenderBlock(ms, dir, angle);
 			else prepareRenderItem(ms, dir, angle);
 
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffer);
+			itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, ms, buffer, light, overlay, model);
 
 			ms.popPose();
 		}
 	}
 
-	public void prepareRenderBlock(MatrixStack ms, Direction dir, float angleOffset) {
+	public void prepareRenderBlock(PoseStack ms, Direction dir, float angleOffset) {
 		// center the anchor point
 		ms.translate(.5, .4, .5);
 
@@ -63,7 +67,7 @@ public class ShowcaseRenderer extends TileEntityRenderer<ShowcaseTileEntity> {
 		ms.scale(.8f, .8f, .8f);
 	}
 
-	public void prepareRenderItem(MatrixStack ms, Direction dir, float angleOffset) {
+	public void prepareRenderItem(PoseStack ms, Direction dir, float angleOffset) {
 		dir = dir.getOpposite();
 
 		// center the anchor point

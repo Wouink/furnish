@@ -1,29 +1,26 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class DiskRack extends HorizontalBlock {
+public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock {
 	private static final VoxelShape RACK_X = Block.box(0, 0, 4, 16, 2, 12);
 	private static final VoxelShape RACK_Z = Block.box(4, 0, 0, 12, 2, 16);
 
@@ -32,51 +29,45 @@ public class DiskRack extends HorizontalBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return state.getValue(FACING).getAxis() == Direction.Axis.X ? RACK_X : RACK_Z;
 	}
 
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
-	@Nullable
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new DiskRackTileEntity();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new DiskRackTileEntity(pos, state);
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		if(world.isClientSide()) return ActionResultType.SUCCESS;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
+		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof DiskRackTileEntity) {
-				playerEntity.openMenu((INamedContainerProvider) tileEntity);
+				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
-			return ActionResultType.CONSUME;
+			return InteractionResult.CONSUME;
 		}
 	}
 
 	@Override
-	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean moving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(state.getBlock() != newState.getBlock()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof IInventory) {
-				InventoryHelper.dropContents(world, pos, (IInventory) tileEntity);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
+			if(tileEntity instanceof Container) {
+				Containers.dropContents(world, pos, (Container) tileEntity);
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);

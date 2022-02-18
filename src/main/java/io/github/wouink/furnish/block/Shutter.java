@@ -1,26 +1,34 @@
 package io.github.wouink.furnish.block;
 
+import com.google.common.collect.ImmutableMap;
 import io.github.wouink.furnish.block.util.PlacementHelper;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class Shutter extends HorizontalBlock {
+import java.util.function.Function;
+
+public class Shutter extends HorizontalDirectionalBlock {
 	private static final VoxelShape[] SHUTTER_CLOSED = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 2, 16, 16));
 	private static final VoxelShape[] SHUTTER_HALF_OPENED = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 14, 16, 16, 16));
 	private static final VoxelShape[] SHUTTER_HALF_OPENED_R = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 16, 16, 2));
@@ -32,7 +40,7 @@ public class Shutter extends HorizontalBlock {
 	private static final VoxelShape[] INTERACT_OPEN = VoxelShapeHelper.getMergedShapes(SHUTTER_CLOSED, SHUTTER_OPENED);
 	private static final VoxelShape[] INTERACT_OPEN_R = VoxelShapeHelper.getMergedShapes(SHUTTER_CLOSED, SHUTTER_OPENED_R);
 
-	public enum State implements IStringSerializable {
+	public enum State implements StringRepresentable {
 		CLOSED("closed"),
 		HALF_OPEN("half_open"),
 		OPEN("open");
@@ -57,20 +65,20 @@ public class Shutter extends HorizontalBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, STATE, RIGHT);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite()).setValue(RIGHT, PlacementHelper.placeRight(ctx));
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
 		if(world.setBlock(pos, state.cycle(STATE), 3)) {
-			world.playSound(playerEntity, pos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1.0f, 1.0f);
+			world.playSound(playerEntity, pos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0f, 1.0f);
 			// update shutters in the same column
 			boolean rightProp = world.getBlockState(pos).getValue(RIGHT).booleanValue();
 			BlockPos scan = pos.below();
@@ -84,11 +92,16 @@ public class Shutter extends HorizontalBlock {
 				scan = scan.above();
 			}
 		}
-		return ActionResultType.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
+	protected ImmutableMap<BlockState, VoxelShape> getShapeForEachState(Function<BlockState, VoxelShape> p_152459_) {
+		return super.getShapeForEachState(p_152459_);
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		int index = state.getValue(FACING).ordinal() - 2;
 		if(state.getValue(STATE) == State.HALF_OPEN) {
 			return state.getValue(RIGHT) ? INTERACT_HALF_R[index] : INTERACT_HALF[index];
@@ -100,7 +113,7 @@ public class Shutter extends HorizontalBlock {
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		int index = state.getValue(FACING).ordinal() - 2;
 		if(state.getValue(STATE) == State.HALF_OPEN) {
 			return state.getValue(RIGHT) ? SHUTTER_HALF_OPENED_R[index] : SHUTTER_HALF_OPENED[index];
@@ -111,9 +124,8 @@ public class Shutter extends HorizontalBlock {
 		}
 	}
 
-	// don't connect to fences
 	@Override
-	public VoxelShape getBlockSupportShape(BlockState p_230335_1_, IBlockReader p_230335_2_, BlockPos p_230335_3_) {
-		return VoxelShapes.empty();
+	public VoxelShape getBlockSupportShape(BlockState state, BlockGetter world, BlockPos pos) {
+		return Shapes.empty();
 	}
 }

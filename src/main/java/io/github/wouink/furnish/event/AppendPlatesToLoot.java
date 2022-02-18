@@ -1,9 +1,7 @@
 package io.github.wouink.furnish.event;
 
 import io.github.wouink.furnish.Furnish;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.TableLootEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -15,7 +13,7 @@ public class AppendPlatesToLoot {
 	@SubscribeEvent
 	public static void onLootTablesLoad(LootTableLoadEvent event) {
 		if(event.getName().equals(ENDERMAN_LT)) {
-			event.getTable().addPool(LootPool.lootPool().add(TableLootEntry.lootTableReference(APPEND)).name("furnish_rare_plates").build());
+			// event.getTable().addPool(LootPool.lootPool().add(TableLootEntry.lootTableReference(APPEND)).name("furnish_rare_plates").build());
 		}
 	}
 }

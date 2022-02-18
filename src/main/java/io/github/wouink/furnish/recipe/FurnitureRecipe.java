@@ -2,11 +2,11 @@ package io.github.wouink.furnish.recipe;
 
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 
 public class FurnitureRecipe extends FSingleItemRecipe {
 	public FurnitureRecipe(ResourceLocation rl, String s, Ingredient ing, ItemStack stack) {
@@ -14,7 +14,7 @@ public class FurnitureRecipe extends FSingleItemRecipe {
 	}
 
 	@Override
-	public boolean matches(IInventory inv, World w) {
+	public boolean matches(Container inv, Level l) {
 		return this.ingredient.test(inv.getItem(0));
 	}
 

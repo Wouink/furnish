@@ -1,37 +1,35 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-
-public abstract class StackHoldingTileEntity extends TileEntity {
+public abstract class StackHoldingTileEntity extends BlockEntity {
 	private ItemStack holding;
-	private final int packetId;
 
-	public StackHoldingTileEntity(TileEntityType<?> type, int packetId) {
-		super(type);
-		this.packetId = packetId;
+	public StackHoldingTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 		holding = ItemStack.EMPTY;
 	}
 
 	@Override
-	public void load(BlockState state, CompoundNBT nbt) {
-		super.load(state, nbt);
+	public void load(CompoundTag nbt) {
+		super.load(nbt);
 		holding = ItemStack.of(nbt.getCompound("Held"));
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT nbt) {
-		super.save(nbt);
-		nbt.put("Held", holding.save(new CompoundNBT()));
-		return nbt;
+	public void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
+		nbt.put("Held", holding.save(new CompoundTag()));
 	}
 
 	public ItemStack getHeldItem() {
@@ -41,7 +39,7 @@ public abstract class StackHoldingTileEntity extends TileEntity {
 	public ItemStack swap(ItemStack newStack) {
 		ItemStack ret = holding;
 		holding = newStack;
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
+		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 		return ret;
 	}
 
@@ -49,23 +47,22 @@ public abstract class StackHoldingTileEntity extends TileEntity {
 
 	@Nullable
 	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.worldPosition, packetId, save(new CompoundNBT()));
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		BlockState state = this.getBlockState();
-		load(state, pkt.getTag());
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		this.load(pkt.getTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag() {
-		return save(new CompoundNBT());
+	public CompoundTag getUpdateTag() {
+		return this.saveWithoutMetadata();
 	}
 
 	@Override
-	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-		load(state, tag);
+	public void handleUpdateTag(CompoundTag tag) {
+		load(tag);
 	}
 }

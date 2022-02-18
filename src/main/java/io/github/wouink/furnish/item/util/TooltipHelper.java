@@ -1,26 +1,30 @@
 package io.github.wouink.furnish.item.util;
 
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
 public class TooltipHelper {
 
 	// copied from Shulker Box
-	public static void appendInventoryContent(ItemStack stack, List<ITextComponent> tooltip) {
-		CompoundNBT compoundnbt = stack.getTagElement("BlockEntityTag");
+	public static void appendInventoryContent(ItemStack stack, List<Component> tooltip) {
+		CompoundTag compoundnbt = stack.getTagElement("BlockEntityTag");
 		if (compoundnbt != null) {
 			if (compoundnbt.contains("LootTable", 8)) {
-				tooltip.add(new StringTextComponent("???????"));
+				tooltip.add(new TextComponent("???????"));
 			}
 
 			if (compoundnbt.contains("Items", 9)) {
 				NonNullList<ItemStack> inventory = NonNullList.withSize(27, ItemStack.EMPTY);
-				ItemStackHelper.loadAllItems(compoundnbt, inventory);
+				ContainerHelper.loadAllItems(compoundnbt, inventory);
 				int i = 0;
 				int j = 0;
 
@@ -29,17 +33,15 @@ public class TooltipHelper {
 						++j;
 						if (i <= 4) {
 							++i;
-							IFormattableTextComponent iformattabletextcomponent = itemstack.getHoverName().copy();
-							iformattabletextcomponent.withStyle(TextFormatting.GRAY)
-									.append(" x").withStyle(TextFormatting.GRAY)
-									.append(String.valueOf(itemstack.getCount())).withStyle(TextFormatting.GRAY);
-							tooltip.add(iformattabletextcomponent);
+							MutableComponent mutablecomponent = itemstack.getHoverName().copy();
+							mutablecomponent.append(" x").append(String.valueOf(itemstack.getCount()));
+							tooltip.add(mutablecomponent);
 						}
 					}
 				}
 
 				if (j - i > 0) {
-					tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).withStyle(TextFormatting.ITALIC));
+					tooltip.add((new TranslatableComponent("container.shulkerBox.more", j - i)).withStyle(ChatFormatting.ITALIC));
 				}
 			}
 		}

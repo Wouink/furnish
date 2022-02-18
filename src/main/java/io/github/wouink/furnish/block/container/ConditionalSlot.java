@@ -1,15 +1,15 @@
 package io.github.wouink.furnish.block.container;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
 
 public class ConditionalSlot extends Slot {
 	private final Predicate<ItemStack> condition;
 
-	public ConditionalSlot(Predicate<ItemStack> condition, IInventory inventory, int index, int xPos, int yPos) {
+	public ConditionalSlot(Predicate<ItemStack> condition, Container inventory, int index, int xPos, int yPos) {
 		super(inventory, index, xPos, yPos);
 		this.condition = condition;
 	}

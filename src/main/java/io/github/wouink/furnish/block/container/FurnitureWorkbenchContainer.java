@@ -4,75 +4,70 @@ import com.google.common.collect.Lists;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.IntReferenceHolder;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class FurnitureWorkbenchContainer extends Container {
-	private final IWorldPosCallable worldPosCallable;
-	private final IntReferenceHolder selectedRecipe = IntReferenceHolder.standalone();
-	private final World world;
+public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
+	private final ContainerLevelAccess access;
+	private final Level level;
+	private final DataSlot selectedRecipe = DataSlot.standalone();
 	private List<FurnitureRecipe> recipes = Lists.newArrayList();
 	private ItemStack itemStackInput = ItemStack.EMPTY;
 	private long lastOnTake;
-	final Slot inputInventorySlot;
-	final Slot outputInventorySlot;
+	final Slot inputSlot;
+	final Slot outputSlot;
 	private Runnable inventoryUpdateListener = () -> {};
-	public final IInventory inputInventory = new Inventory(1) {
+	public final Container inputContainer = new SimpleContainer(1) {
 		public void setChanged() {
 			super.setChanged();
 			FurnitureWorkbenchContainer.this.slotsChanged(this);
 			FurnitureWorkbenchContainer.this.inventoryUpdateListener.run();
 		}
 	};
-	private final CraftResultInventory inventory = new CraftResultInventory();
+	private final ResultContainer resultContainer = new ResultContainer();
 
-	public FurnitureWorkbenchContainer(int windowId, PlayerInventory playerInventory) {
-		this(windowId, playerInventory, IWorldPosCallable.NULL);
+	public FurnitureWorkbenchContainer(int syncId, Inventory playerInventory) {
+		this(syncId, playerInventory, ContainerLevelAccess.NULL);
 	}
 
-	public FurnitureWorkbenchContainer(int windowId, PlayerInventory playerInventory, final IWorldPosCallable worldPos) {
-		super(FurnishData.Containers.Furniture_Workbench.get(), windowId);
-		this.worldPosCallable = worldPos;
-		this.world = playerInventory.player.level;
-		this.inputInventorySlot = this.addSlot(new Slot(this.inputInventory, 0, 20, 33));
-		this.outputInventorySlot = this.addSlot(new Slot(this.inventory, 1, 143, 33) {
+	public FurnitureWorkbenchContainer(int syncId, Inventory playerInventory, final ContainerLevelAccess posCallable) {
+		super(FurnishData.Containers.Furniture_Workbench.get(), syncId);
+		this.access = posCallable;
+		this.level = playerInventory.player.level;
+		this.inputSlot = this.addSlot(new Slot(this.inputContainer, 0, 20, 33));
+		this.outputSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
 				return false;
 			}
 
 			@Override
-			public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-				ItemStack itemStack = FurnitureWorkbenchContainer.this.inputInventorySlot.remove(1);
+			public void onTake(Player thePlayer, ItemStack stack) {
+				ItemStack itemStack = FurnitureWorkbenchContainer.this.inputSlot.remove(1);
 				if(!itemStack.isEmpty()) {
 					FurnitureWorkbenchContainer.this.updateRecipeResultSlot();
 				}
 
 				stack.getItem().onCraftedBy(stack, thePlayer.level, thePlayer);
-				worldPos.execute((world, pos) -> {
+				access.execute((world, pos) -> {
 					long l = world.getGameTime();
 					if(FurnitureWorkbenchContainer.this.lastOnTake != l) {
-						world.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+						world.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
 						FurnitureWorkbenchContainer.this.lastOnTake = l;
 					}
 				});
 
-				return super.onTake(thePlayer, stack);
+				super.onTake(thePlayer, stack);
 			}
 		});
 
@@ -104,16 +99,16 @@ public class FurnitureWorkbenchContainer extends Container {
 	}
 
 	public boolean hasItemsInInputSlot() {
-		return this.inputInventorySlot.hasItem() && !this.recipes.isEmpty();
+		return this.inputSlot.hasItem() && !this.recipes.isEmpty();
 	}
 
 	@Override
-	public boolean stillValid(PlayerEntity playerIn) {
-		return stillValid(this.worldPosCallable, playerIn, FurnishBlocks.Furniture_Workbench);
+	public boolean stillValid(Player playerIn) {
+		return stillValid(this.access, playerIn, FurnishBlocks.Furniture_Workbench);
 	}
 
 	@Override
-	public boolean clickMenuButton(PlayerEntity playerIn, int id) {
+	public boolean clickMenuButton(Player playerIn, int id) {
 		if(this.isValidRecipeIndex(id)) {
 			this.selectedRecipe.set(id);
 			this.updateRecipeResultSlot();
@@ -126,36 +121,35 @@ public class FurnitureWorkbenchContainer extends Container {
 	}
 
 	@Override
-	public void slotsChanged(IInventory inv) {
-		ItemStack itemStack = this.inputInventorySlot.getItem();
+	public void slotsChanged(Container inv) {
+		ItemStack itemStack = this.inputSlot.getItem();
 		if(itemStack.getItem() != this.itemStackInput.getItem()) {
 			this.itemStackInput = itemStack.copy();
 			this.updateAvailableRecipes(inv, itemStack);
 		}
 	}
 
-	private void updateAvailableRecipes(IInventory inv, ItemStack stack) {
+	private void updateAvailableRecipes(Container inv, ItemStack stack) {
 		this.recipes.clear();
 		this.selectedRecipe.set(-1);
-		this.outputInventorySlot.set(ItemStack.EMPTY);
+		this.outputSlot.set(ItemStack.EMPTY);
 		if(!stack.isEmpty()) {
-			this.recipes = this.world.getRecipeManager().getRecipesFor(FurnishData.Furniture_Recipe, inv, this.world);
+			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishData.Furniture_Recipe, inv, this.level);
 		}
 	}
 
 	public void updateRecipeResultSlot() {
 		if(!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipe.get())) {
 			FurnitureRecipe recipe = this.recipes.get(this.selectedRecipe.get());
-			this.outputInventorySlot.set(recipe.assemble(this.inputInventory));
+			this.outputSlot.set(recipe.assemble(this.inputContainer));
 		} else {
-			this.outputInventorySlot.set(ItemStack.EMPTY);
+			this.outputSlot.set(ItemStack.EMPTY);
 		}
-
 		this.broadcastChanges();
 	}
 
 	@Override
-	public ContainerType<?> getType() {
+	public MenuType<?> getType() {
 		return FurnishData.Containers.Furniture_Workbench.get();
 	}
 
@@ -165,11 +159,11 @@ public class FurnitureWorkbenchContainer extends Container {
 
 	@Override
 	public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
-		return slot.container != this.inventory && super.canTakeItemForPickAll(stack, slot);
+		return slot.container != this.resultContainer && super.canTakeItemForPickAll(stack, slot);
 	}
 
 	@Override
-	public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+	public ItemStack quickMoveStack(Player playerIn, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 		if(slot != null && slot.hasItem()) {
@@ -187,7 +181,7 @@ public class FurnitureWorkbenchContainer extends Container {
 				if(!this.moveItemStackTo(itemStack1, 2, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(this.world.getRecipeManager().getRecipeFor(FurnishData.Furniture_Recipe, new Inventory(itemStack1), this.world).isPresent()) {
+			} else if(this.level.getRecipeManager().getRecipeFor(FurnishData.Furniture_Recipe, new SimpleContainer(itemStack1), this.level).isPresent()) {
 				if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}
@@ -215,11 +209,11 @@ public class FurnitureWorkbenchContainer extends Container {
 		return itemStack;
 	}
 
-	public void removed(PlayerEntity playerIn) {
+	public void removed(Player playerIn) {
 		super.removed(playerIn);
-		this.inventory.removeItemNoUpdate(1);
-		this.worldPosCallable.execute((world, pos) -> {
-			this.clearContainer(playerIn, playerIn.level, this.inputInventory);
+		this.resultContainer.removeItemNoUpdate(1);
+		this.access.execute((world, pos) -> {
+			this.clearContainer(playerIn, this.inputContainer);
 		});
 	}
 }

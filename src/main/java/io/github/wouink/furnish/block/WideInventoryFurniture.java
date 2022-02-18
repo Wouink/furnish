@@ -2,28 +2,20 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ISidedInventoryProvider;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
 
-public class WideInventoryFurniture extends WideFurniture implements ISidedInventoryProvider, IFurnitureWithSound {
+public class WideInventoryFurniture extends WideFurniture implements EntityBlock, IFurnitureWithSound {
 	private final RegistryObject<SoundEvent> openSound;
 	private final RegistryObject<SoundEvent> closeSound;
 	public WideInventoryFurniture(Properties p, final RegistryObject<SoundEvent> openSound, final RegistryObject<SoundEvent> closeSound) {
@@ -33,46 +25,34 @@ public class WideInventoryFurniture extends WideFurniture implements ISidedInven
 	}
 
 	@Override
-	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean moving) {
-		TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
-		if (tileEntity instanceof IInventory) {
-			InventoryHelper.dropContents(world, pos, (IInventory) tileEntity);
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
+		BlockEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
+		if (tileEntity instanceof Container) {
+			Containers.dropContents(world, pos, (Container) tileEntity);
 		}
 		super.onRemove(state, world, pos, newState, moving);
 	}
 
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return !state.getValue(RIGHT).booleanValue();
-	}
-
-	@Nullable
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		if(!state.getValue(RIGHT).booleanValue()) return new LargeFurnitureTileEntity();
-		return null;
-	}
-
-	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		if(world.isClientSide()) return ActionResultType.SUCCESS;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
+		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
-			TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
+			BlockEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
 			if(tileEntity instanceof LargeFurnitureTileEntity) {
-				playerEntity.openMenu((INamedContainerProvider) tileEntity);
+				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
-			return ActionResultType.CONSUME;
+			return InteractionResult.CONSUME;
 		}
 	}
 
-	@Override
-	public ISidedInventory getContainer(BlockState state, IWorld world, BlockPos pos) {
-		TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
-		if(tileEntity instanceof ISidedInventoryProvider) {
-			return (ISidedInventory) tileEntity;
-		}
-		return null;
-	}
+//	@Override
+//	public ISidedInventory getContainer(BlockState state, IWorld world, BlockPos pos) {
+//		TileEntity tileEntity = state.getValue(RIGHT).booleanValue() ? world.getBlockEntity(pos.relative(state.getValue(FACING).getClockWise())) : world.getBlockEntity(pos);
+//		if(tileEntity instanceof ISidedInventoryProvider) {
+//			return (ISidedInventory) tileEntity;
+//		}
+//		return null;
+//	}
 
 	@Override
 	public SoundEvent getOpenSound() {
@@ -82,5 +62,11 @@ public class WideInventoryFurniture extends WideFurniture implements ISidedInven
 	@Override
 	public SoundEvent getCloseSound() {
 		return closeSound.get();
+	}
+
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new LargeFurnitureTileEntity(pos, state);
 	}
 }

@@ -4,40 +4,37 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.LockableLootTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class MailboxTileEntity extends LockableLootTileEntity {
+public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 18;
 	private static final ResourceLocation MAIL_TAG = new ResourceLocation(Furnish.MODID, "mail");
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
 	private String ownerDisplayName;
 
-	protected MailboxTileEntity(TileEntityType<?> type) {
-		super(type);
-	}
-
-	public MailboxTileEntity() {
-		super(FurnishData.TileEntities.TE_Mailbox.get());
+	public MailboxTileEntity(BlockPos pos, BlockState state) {
+		super(FurnishData.TileEntities.TE_Mailbox.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -52,30 +49,29 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 	}
 
 	@Override
-	protected ITextComponent getDefaultName() {
-		return new TranslationTextComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+	protected Component getDefaultName() {
+		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT nbt) {
-		super.save(nbt);
-		ItemStackHelper.saveAllItems(nbt, inventory);
+	public void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
+		ContainerHelper.saveAllItems(nbt, inventory);
 		nbt.putString("Owner", owner == null ? "" : owner);
 		nbt.putString("OwnerDisplayName", ownerDisplayName);
-		return nbt;
 	}
 
 	@Override
-	public void load(BlockState state, CompoundNBT nbt) {
-		super.load(state, nbt);
+	public void load(CompoundTag nbt) {
+		super.load(nbt);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(nbt, inventory);
+		ContainerHelper.loadAllItems(nbt, inventory);
 		owner = nbt.getString("Owner");
 		ownerDisplayName = nbt.getString("OwnerDisplayName");
 	}
 
 	@Override
-	protected Container createMenu(int syncId, PlayerInventory playerInventory) {
+	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
 		return new MailboxContainer(syncId, playerInventory, this);
 	}
 
@@ -89,17 +85,17 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 		return false;
 	}
 
-	public void updateDisplayName(PlayerEntity playerEntity) {
+	public void updateDisplayName(Player playerEntity) {
 		if(isOwner(playerEntity)) {
 			String playerName = playerEntity.getGameProfile().getName();
 			if(!ownerDisplayName.equals(playerName)) {
 				ownerDisplayName = playerName;
-				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Constants.BlockFlags.BLOCK_UPDATE);
+				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 			}
 		}
 	}
 
-	public void setOwner(PlayerEntity playerEntity) {
+	public void setOwner(Player playerEntity) {
 		owner = playerEntity.getStringUUID();
 		updateDisplayName(playerEntity);
 	}
@@ -112,7 +108,7 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 		return owner != null && !owner.isEmpty();
 	}
 
-	public boolean isOwner(PlayerEntity playerEntity) {
+	public boolean isOwner(Player playerEntity) {
 		return hasOwner() && playerEntity.getStringUUID().equals(owner);
 	}
 
@@ -135,12 +131,12 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 			ItemStack result = inventory.set(slot, stack);
 
 			if(result.isEmpty()) {
-				PlayerEntity mailboxOwner = level.getPlayerByUUID(getOwner());
+				Player mailboxOwner = level.getPlayerByUUID(getOwner());
 				if (mailboxOwner != null) {
 					if (hasCustomName()) {
-						mailboxOwner.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.new_mail_loc", getCustomName()), true);
+						mailboxOwner.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.new_mail_loc", getCustomName()), true);
 					} else {
-						mailboxOwner.displayClientMessage(new TranslationTextComponent("msg.furnish.mailbox.new_mail"), true);
+						mailboxOwner.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.new_mail"), true);
 					}
 				}
 			}
@@ -150,8 +146,8 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 		return stack;
 	}
 
-	public ITextComponent getOwnerDisplayName() {
-		return (!hasOwner() || ownerDisplayName.isEmpty()) ? null : new StringTextComponent(ownerDisplayName);
+	public Component getOwnerDisplayName() {
+		return (!hasOwner() || ownerDisplayName.isEmpty()) ? null : new TextComponent(ownerDisplayName);
 	}
 
 	private int getFreeSlot() {
@@ -165,23 +161,22 @@ public class MailboxTileEntity extends LockableLootTileEntity {
 
 	@Nullable
 	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(this.worldPosition, 1234, save(new CompoundNBT()));
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		BlockState state = this.getBlockState();
-		load(state, pkt.getTag());
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		this.load(pkt.getTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag() {
-		return save(new CompoundNBT());
+	public CompoundTag getUpdateTag() {
+		return this.saveWithFullMetadata();
 	}
 
 	@Override
-	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-		load(state, tag);
+	public void handleUpdateTag(CompoundTag tag) {
+		load(tag);
 	}
 }

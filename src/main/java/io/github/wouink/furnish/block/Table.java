@@ -1,18 +1,17 @@
 package io.github.wouink.furnish.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
@@ -33,12 +32,12 @@ public class Table extends Block {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(NW, NE, SW, SE);
 	}
 
-	public BlockState getState(BlockState state, IWorld world, BlockPos pos) {
+	public BlockState getState(BlockState state, LevelAccessor world, BlockPos pos) {
 		BlockState N = world.getBlockState(pos.north());
 		BlockState W = world.getBlockState(pos.west());
 		BlockState S = world.getBlockState(pos.south());
@@ -57,27 +56,22 @@ public class Table extends Block {
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return getState(getStateDefinition().any(), ctx.getLevel(), ctx.getClickedPos());
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
-        return VoxelShapes.or(BASE_SHAPE,
-				state.getValue(NE).booleanValue() ? NE_SHAPE : VoxelShapes.empty(),
-				state.getValue(NW).booleanValue() ? NW_SHAPE : VoxelShapes.empty(),
-				state.getValue(SE).booleanValue() ? SE_SHAPE : VoxelShapes.empty(),
-				state.getValue(SW).booleanValue() ? SW_SHAPE : VoxelShapes.empty()
+	public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
+        return Shapes.or(BASE_SHAPE,
+				state.getValue(NE).booleanValue() ? NE_SHAPE : Shapes.empty(),
+				state.getValue(NW).booleanValue() ? NW_SHAPE : Shapes.empty(),
+				state.getValue(SE).booleanValue() ? SE_SHAPE : Shapes.empty(),
+				state.getValue(SW).booleanValue() ? SW_SHAPE : Shapes.empty()
         );
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction dir, BlockState facingState, IWorld world, BlockPos pos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState state, Direction dir, BlockState facingState, LevelAccessor world, BlockPos pos, BlockPos facingPos) {
 		return getState(state, world, pos);
-	}
-
-	@Override
-	public BlockRenderType getRenderShape(BlockState state) {
-		return BlockRenderType.MODEL;
 	}
 }

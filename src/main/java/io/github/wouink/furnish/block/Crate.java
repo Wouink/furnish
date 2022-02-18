@@ -4,33 +4,34 @@ import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.item.util.TooltipHelper;
 import io.github.wouink.furnish.setup.FurnishItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.*;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Crate extends Block implements ISpecialItemProperties {
+public class Crate extends Block implements EntityBlock, ISpecialItemProperties {
 	public static ArrayList<Crate> All_Crates = new ArrayList<>();
 
 	public Crate(Properties p) {
@@ -38,45 +39,39 @@ public class Crate extends Block implements ISpecialItemProperties {
 		All_Crates.add(this);
 	}
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
 	@Nullable
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new CrateTileEntity();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new CrateTileEntity(pos, state);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, world, tooltip, flag);
 		TooltipHelper.appendInventoryContent(stack, tooltip);
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult result) {
-		if(world.isClientSide()) return ActionResultType.SUCCESS;
-		else if(playerEntity.isSpectator()) return ActionResultType.CONSUME;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult result) {
+		if(world.isClientSide()) return InteractionResult.SUCCESS;
+		else if(playerEntity.isSpectator()) return InteractionResult.CONSUME;
 		else {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof CrateTileEntity) {
 				playerEntity.openMenu((CrateTileEntity) tileEntity);
-				return ActionResultType.CONSUME;
-			} else return ActionResultType.PASS;
+				return InteractionResult.CONSUME;
+			} else return InteractionResult.PASS;
 		}
 	}
 
 	@Override
-	public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity playerEntity) {
-		TileEntity tileEntity = world.getBlockEntity(pos);
+	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player playerEntity) {
+		BlockEntity tileEntity = world.getBlockEntity(pos);
 		if(tileEntity instanceof CrateTileEntity) {
 			CrateTileEntity crate = (CrateTileEntity) tileEntity;
 			if(!world.isClientSide() && playerEntity.isCreative() && !crate.isEmpty()) {
 				ItemStack stack = new ItemStack(this);
-				CompoundNBT nbt = crate.save(new CompoundNBT());
-				if(!nbt.isEmpty()) stack.addTagElement("BlockEntityTag", nbt);
+				crate.saveToItem(stack);
 				if(crate.hasCustomName()) stack.setHoverName(crate.getCustomName());
 				ItemEntity item = new ItemEntity(world, (double)pos.getX() + .5, (double)pos.getZ() + .5, (double)pos.getZ() + .5, stack);
 				item.setDefaultPickUpDelay();
@@ -90,7 +85,7 @@ public class Crate extends Block implements ISpecialItemProperties {
 
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		TileEntity tileEntity = builder.getOptionalParameter(LootParameters.BLOCK_ENTITY);
+		BlockEntity tileEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 		if(tileEntity instanceof CrateTileEntity) {
 			CrateTileEntity crate = (CrateTileEntity) tileEntity;
 			builder = builder.withDynamicDrop(ShulkerBoxBlock.CONTENTS, (lootCtx, stackConsumer) -> {
@@ -103,9 +98,9 @@ public class Crate extends Block implements ISpecialItemProperties {
 	}
 
 	@Override
-	public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		if(stack.hasCustomHoverName()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof CrateTileEntity) {
 				((CrateTileEntity) tileEntity).setCustomName(stack.getHoverName());
 			}
@@ -118,10 +113,10 @@ public class Crate extends Block implements ISpecialItemProperties {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(IBlockReader world, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
 		ItemStack stack = super.getCloneItemStack(world, pos, state);
 		CrateTileEntity crate = (CrateTileEntity) world.getBlockEntity(pos);
-		CompoundNBT nbt = crate.saveToTag(new CompoundNBT());
+		CompoundTag nbt = crate.saveToTag(new CompoundTag());
 		if(!nbt.isEmpty()) stack.addTagElement("BlockEntityTag", nbt);
 		return stack;
 	}

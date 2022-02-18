@@ -1,20 +1,20 @@
 package io.github.wouink.furnish.block.util;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VoxelShapeHelper {
 
 	// with some help from https://github.com/MrCrayfish/MrCrayfishFurnitureMod/blob/1.16.X/src/main/java/com/mrcrayfish/furniture/util/VoxelShapeHelper.java
 
 	public static VoxelShape[] getMergedShapes(VoxelShape[]...  rotatedShapes) {
-		VoxelShape[] ret = new VoxelShape[] { VoxelShapes.empty(), VoxelShapes.empty(), VoxelShapes.empty(), VoxelShapes.empty() };
+		VoxelShape[] ret = new VoxelShape[] { Shapes.empty(), Shapes.empty(), Shapes.empty(), Shapes.empty() };
 		for(int i = 0; i < rotatedShapes.length; i++) {
-			ret[0] = VoxelShapes.or(ret[0], rotatedShapes[i][0]);
-			ret[1] = VoxelShapes.or(ret[1], rotatedShapes[i][1]);
-			ret[2] = VoxelShapes.or(ret[2], rotatedShapes[i][2]);
-			ret[3] = VoxelShapes.or(ret[3], rotatedShapes[i][3]);
+			ret[0] = Shapes.or(ret[0], rotatedShapes[i][0]);
+			ret[1] = Shapes.or(ret[1], rotatedShapes[i][1]);
+			ret[2] = Shapes.or(ret[2], rotatedShapes[i][2]);
+			ret[3] = Shapes.or(ret[3], rotatedShapes[i][3]);
 		}
 		ret[0] = ret[0].optimize();
 		ret[1] = ret[1].optimize();
@@ -33,7 +33,7 @@ public class VoxelShapeHelper {
 
 	public static VoxelShape rotate(VoxelShape source, Direction dir) {
 		double[] adjustedValues = adjustValues(dir, source.min(Direction.Axis.X), source.min(Direction.Axis.Z), source.max(Direction.Axis.X), source.max(Direction.Axis.Z));
-		return VoxelShapes.box(adjustedValues[0], source.min(Direction.Axis.Y), adjustedValues[1], adjustedValues[2], source.max(Direction.Axis.Y), adjustedValues[3]);
+		return Shapes.box(adjustedValues[0], source.min(Direction.Axis.Y), adjustedValues[1], adjustedValues[2], source.max(Direction.Axis.Y), adjustedValues[3]);
 	}
 
 	public static double[] adjustValues(Direction dir, double v1, double v2, double v3, double v4) {

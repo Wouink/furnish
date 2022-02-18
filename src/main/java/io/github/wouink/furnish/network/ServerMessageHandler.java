@@ -1,9 +1,9 @@
 package io.github.wouink.furnish.network;
 
 import io.github.wouink.furnish.Furnish;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -19,7 +19,7 @@ public class ServerMessageHandler {
 			return;
 		}
 
-		final ServerPlayerEntity playerEntity = ctx.getSender();
+		final ServerPlayer playerEntity = ctx.getSender();
 		if(playerEntity == null) {
 			System.err.println("ServerPlayerEntity was null when ItemStackUpdateMessage was received.");
 			return;
@@ -28,9 +28,9 @@ public class ServerMessageHandler {
 		ctx.enqueueWork(() -> processMessage(message, playerEntity));
 	}
 
-	private static void processMessage(ItemStackUpdateMessage message, ServerPlayerEntity playerEntity) {
-		playerEntity.inventory.setItem(message.getSlot(), message.getStack());
-		playerEntity.inventory.setChanged();
+	private static void processMessage(ItemStackUpdateMessage message, ServerPlayer playerEntity) {
+		playerEntity.getInventory().setItem(message.getSlot(), message.getStack());
+		playerEntity.getInventory().setChanged();
 	}
 
 	public static boolean acceptsProtocol(String protocol) {

@@ -1,27 +1,27 @@
 package io.github.wouink.furnish.entity;
 
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.util.List;
 
 public class SeatEntity extends Entity {
 	private BlockPos seatBlock;
 
-	public SeatEntity(World world) {
+	public SeatEntity(Level world) {
 		super(FurnishData.Entities.Seat_Entity.get(), world);
 		this.noPhysics = true;
 	}
 
-	private SeatEntity(World world, BlockPos pos, double yOffset) {
+	private SeatEntity(Level world, BlockPos pos, double yOffset) {
 		this(world);
 		this.seatBlock = pos;
 		this.setPos(seatBlock.getX() + 0.5, seatBlock.getY() + yOffset, seatBlock.getZ() + 0.5);
@@ -33,17 +33,7 @@ public class SeatEntity extends Entity {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundNBT nbt) {
-
-	}
-
-	@Override
-	protected void addAdditionalSaveData(CompoundNBT nbt) {
-
-	}
-
-	@Override
-	public IPacket<?> getAddEntityPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -55,9 +45,19 @@ public class SeatEntity extends Entity {
 		}
 		if(!level.isClientSide()) {
 			if(getPassengers().isEmpty() || level.isEmptyBlock(seatBlock)) {
-				remove();
+				remove(RemovalReason.DISCARDED);
 			}
 		}
+	}
+
+	@Override
+	protected void readAdditionalSaveData(CompoundTag nbt) {
+
+	}
+
+	@Override
+	protected void addAdditionalSaveData(CompoundTag nbt) {
+
 	}
 
 	@Override
@@ -70,15 +70,15 @@ public class SeatEntity extends Entity {
 		return 0.0;
 	}
 
-	public static ActionResultType create(World world, BlockPos pos, double yOffset, PlayerEntity playerEntity) {
+	public static InteractionResult create(Level world, BlockPos pos, double yOffset, Player playerEntity) {
 		if(!world.isClientSide()) {
-			List<SeatEntity> seatsInThisBlock = world.getEntitiesOfClass(SeatEntity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0, pos.getY() + 1.0, pos.getZ() + 1.0));
+			List<SeatEntity> seatsInThisBlock = world.getEntitiesOfClass(SeatEntity.class, new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0, pos.getY() + 1.0, pos.getZ() + 1.0));
 			if(seatsInThisBlock.isEmpty()) {
 				SeatEntity seat = new SeatEntity(world, pos, yOffset);
 				world.addFreshEntity(seat);
 				playerEntity.startRiding(seat);
 			}
 		}
-		return ActionResultType.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 }

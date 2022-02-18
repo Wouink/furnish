@@ -1,13 +1,16 @@
 package io.github.wouink.furnish;
 
-import io.github.wouink.furnish.event.*;
+import io.github.wouink.furnish.event.AddArmsToArmorStand;
+import io.github.wouink.furnish.event.CyclePainting;
+import io.github.wouink.furnish.event.KnockOnDoor;
+import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
 import io.github.wouink.furnish.network.ServerMessageHandler;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -16,9 +19,9 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,7 +51,7 @@ public class Furnish {
 		MinecraftForge.EVENT_BUS.register(AddArmsToArmorStand.class);
 		MinecraftForge.EVENT_BUS.register(CyclePainting.class);
 		MinecraftForge.EVENT_BUS.register(KnockOnDoor.class);
-		MinecraftForge.EVENT_BUS.register(AppendPlatesToLoot.class);
+//		MinecraftForge.EVENT_BUS.register(AppendPlatesToLoot.class);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

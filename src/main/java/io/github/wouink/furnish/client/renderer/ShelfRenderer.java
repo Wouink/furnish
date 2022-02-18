@@ -1,45 +1,48 @@
 package io.github.wouink.furnish.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import io.github.wouink.furnish.block.Plate;
 import io.github.wouink.furnish.block.tileentity.ShelfTileEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 
-public class ShelfRenderer extends TileEntityRenderer<ShelfTileEntity> {
-	public ShelfRenderer(TileEntityRendererDispatcher dispatcher) {
-		super(dispatcher);
+public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
+
+	private final ItemRenderer itemRenderer;
+
+	public ShelfRenderer(BlockEntityRendererProvider.Context ctx) {
+		itemRenderer = Minecraft.getInstance().getItemRenderer();
 	}
 
 	@Override
-	public void render(ShelfTileEntity shelf, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffer, int light, int overlay) {
+	public void render(ShelfTileEntity shelf, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 		ItemStack stack = shelf.getHeldItem();
 		if(!stack.isEmpty()) {
 			ms.pushPose();
 
-			ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-			boolean blockItem = itemRenderer.getModel(stack, shelf.getLevel(), null).isGui3d();
+			BakedModel model = itemRenderer.getModel(stack, shelf.getLevel(), null, 0);
 			Direction dir = shelf.getBlockState().getValue(Plate.FACING).getOpposite();
 
 			if(stack.getItem() instanceof BlockItem && (((BlockItem) stack.getItem()).getBlock() instanceof Plate)) prepareRenderPlate(ms, dir);
-			else if(blockItem) prepareRenderBlock(ms, dir);
+			else if(model.isGui3d()) prepareRenderBlock(ms, dir);
 			else prepareRenderItem(ms, dir);
 
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffer);
+			itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, ms, buffer, light, overlay, model);
 
 			ms.popPose();
 		}
 	}
 
-	public void prepareRenderItem(MatrixStack ms, Direction dir) {
+	public void prepareRenderItem(PoseStack ms, Direction dir) {
 		// center the anchor point
 		switch(dir) {
 			case NORTH:
@@ -63,7 +66,7 @@ public class ShelfRenderer extends TileEntityRenderer<ShelfTileEntity> {
 		ms.scale(.6f, .6f, .6f);
 	}
 
-	public void prepareRenderBlock(MatrixStack ms, Direction dir) {
+	public void prepareRenderBlock(PoseStack ms, Direction dir) {
 		// center the anchor point
 		switch(dir) {
 			case NORTH:
@@ -87,7 +90,7 @@ public class ShelfRenderer extends TileEntityRenderer<ShelfTileEntity> {
 		ms.scale(.6f, .6f, .6f);
 	}
 
-	public void prepareRenderPlate(MatrixStack ms, Direction dir) {
+	public void prepareRenderPlate(PoseStack ms, Direction dir) {
 		// center the anchor point
 		switch(dir) {
 			case NORTH:

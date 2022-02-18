@@ -2,33 +2,33 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class Sofa extends HorizontalBlock {
+public class Sofa extends HorizontalDirectionalBlock {
 
-	public enum SofaType implements IStringSerializable {
+	public enum SofaType implements StringRepresentable {
 		ARMCHAIR("armchair"),
 		LEFT("left"),
 		RIGHT("right"),
@@ -70,12 +70,12 @@ public class Sofa extends HorizontalBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, SOFA_TYPE);
 	}
 
-	private BlockState setBlockState(BlockState state, Direction dir, BlockPos pos, IWorld world) {
+	private BlockState setBlockState(BlockState state, Direction dir, BlockPos pos, LevelAccessor world) {
 		BlockState leftState = world.getBlockState(pos.relative(dir.getCounterClockWise()));
 		BlockState rightState = world.getBlockState(pos.relative(dir.getClockWise()));
 		boolean left = (leftState.getBlock() instanceof Sofa) &&
@@ -102,7 +102,7 @@ public class Sofa extends HorizontalBlock {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		int index = state.getValue(FACING).ordinal() - 2;
 		VoxelShape ret = ARMCHAIR_SHAPE[index];
 		switch(state.getValue(SOFA_TYPE).ordinal()) {
@@ -128,31 +128,29 @@ public class Sofa extends HorizontalBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction dir, BlockState fromState, IWorld world, BlockPos pos, BlockPos formPos) {
-		// add some particle effect to see which blocks update
-		// world.addParticle(ParticleTypes.HEART, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 0, 0, 0);
-		return setBlockState(state, state.getValue(FACING).getOpposite(), pos, world);
+	public BlockState updateShape(BlockState state, Direction dir, BlockState fromState, LevelAccessor level, BlockPos pos, BlockPos fromPos) {
+		return setBlockState(state, state.getValue(FACING).getOpposite(), pos, level);
 	}
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext ctx) {
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		return setBlockState(state, ctx.getHorizontalDirection(), ctx.getClickedPos(), ctx.getLevel());
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
 		return SeatEntity.create(world, pos, 0.2, playerEntity);
 	}
 
 	@Override
-	public void fallOn(World world, BlockPos pos, Entity entity, float dist) {
-		super.fallOn(world, pos, entity, dist * 0.5f);
+	public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, float dist) {
+		super.fallOn(world, state, pos, entity, dist * .5f);
 	}
 
 	@Override
-	public void updateEntityAfterFallOn(IBlockReader reader, Entity entity) {
+	public void updateEntityAfterFallOn(BlockGetter reader, Entity entity) {
 		if(entity.isSuppressingBounce()) {
 			super.updateEntityAfterFallOn(reader, entity);
 		} else {
@@ -162,7 +160,7 @@ public class Sofa extends HorizontalBlock {
 
 	// copied from BedBlock
 	private static void bounceUp(Entity entity) {
-		Vector3d vector3d = entity.getDeltaMovement();
+		Vec3 vector3d = entity.getDeltaMovement();
 		if (vector3d.y < 0.0D) {
 			double d0 = entity instanceof LivingEntity ? 1.0D : 0.8D;
 			entity.setDeltaMovement(vector3d.x, -vector3d.y * (double) 0.66F * d0, vector3d.z);

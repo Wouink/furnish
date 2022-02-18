@@ -1,79 +1,68 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ISidedInventoryProvider;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class Amphora extends SimpleFurniture implements ISidedInventoryProvider {
+public class Amphora extends SimpleFurniture implements EntityBlock {
 	public static final VoxelShape AMPHORA_BODY = Block.box(2, 0, 2, 14, 13, 14);
 	public static final VoxelShape AMPHORA_TOP = Block.box(4, 13, 4, 12, 16, 12);
-	public static final VoxelShape AMPHORA = VoxelShapes.or(AMPHORA_BODY, AMPHORA_TOP).optimize();
+	public static final VoxelShape AMPHORA = Shapes.or(AMPHORA_BODY, AMPHORA_TOP).optimize();
 	public Amphora(Properties p) {
 		super(p);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
 		return AMPHORA;
 	}
 
-	@Override
-	public ISidedInventory getContainer(BlockState state, IWorld world, BlockPos pos) {
-		TileEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof ISidedInventoryProvider) {
-			return (ISidedInventory) tileEntity;
-		}
-		return null;
-	}
-
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
+//	@Override
+//	public ISidedInventory getContainer(BlockState state, IWorld world, BlockPos pos) {
+//		TileEntity tileEntity = world.getBlockEntity(pos);
+//		if(tileEntity instanceof ISidedInventoryProvider) {
+//			return (ISidedInventory) tileEntity;
+//		}
+//		return null;
+//	}
 
 	@Nullable
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new AmphoraTileEntity();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new AmphoraTileEntity(pos, state);
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult blockRayTraceResult) {
-		if(world.isClientSide()) return ActionResultType.SUCCESS;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
+		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
-			TileEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof AmphoraTileEntity) {
-				playerEntity.openMenu((INamedContainerProvider) tileEntity);
+				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
-			return ActionResultType.CONSUME;
+			return InteractionResult.CONSUME;
 		}
 	}
 
 	@Override
-	public void onRemove(BlockState state, World world, BlockPos pos, BlockState newState, boolean moving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(state.getBlock() != newState.getBlock()) {
-			TileEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof IInventory) {
-				InventoryHelper.dropContents(world, pos, (IInventory) tileEntity);
+			BlockEntity tileEntity = world.getBlockEntity(pos);
+			if(tileEntity instanceof Container) {
+				Containers.dropContents(world, pos, (Container) tileEntity);
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);

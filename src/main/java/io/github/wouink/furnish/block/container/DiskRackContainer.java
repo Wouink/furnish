@@ -2,26 +2,30 @@ package io.github.wouink.furnish.block.container;
 
 import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MusicDiscItem;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.RecordItem;
 
-public class DiskRackContainer extends Container {
-	protected final IInventory inventory;
+public class DiskRackContainer extends AbstractContainerMenu {
+	protected final Container inventory;
 
 	private static final ResourceLocation MUSIC_DISCS = new ResourceLocation("furnish", "music_discs");
 
 	public static boolean canPlaceInRack(ItemStack stack) {
-		return stack.getItem() instanceof MusicDiscItem || stack.getItem().getTags().contains(MUSIC_DISCS);
+		return stack.getItem() instanceof RecordItem || stack.getItem().getTags().contains(MUSIC_DISCS);
 	}
 
-	public DiskRackContainer(int syncId, PlayerInventory playerInventory, IInventory inventory) {
+	public DiskRackContainer(int syncId, Inventory playerInventory) {
+		this(syncId, playerInventory, new SimpleContainer(DiskRackTileEntity.SIZE));
+	}
+
+	public DiskRackContainer(int syncId, Inventory playerInventory, Container inventory) {
 		super(FurnishData.Containers.Disk_Rack.get(), syncId);
 		this.inventory = inventory;
 		this.inventory.startOpen(playerInventory.player);
@@ -48,22 +52,18 @@ public class DiskRackContainer extends Container {
 	}
 
 	@Override
-	public void removed(PlayerEntity playerEntity) {
+	public void removed(Player playerEntity) {
 		super.removed(playerEntity);
 		this.inventory.stopOpen(playerEntity);
 	}
 
-	public DiskRackContainer(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new Inventory(DiskRackTileEntity.SIZE));
-	}
-
 	@Override
-	public boolean stillValid(PlayerEntity playerEntity) {
+	public boolean stillValid(Player playerEntity) {
 		return inventory.stillValid(playerEntity);
 	}
 
 	@Override
-	public ItemStack quickMoveStack(PlayerEntity playerEntity, int slotIndex) {
+	public ItemStack quickMoveStack(Player playerEntity, int slotIndex) {
 		ItemStack stack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(slotIndex);
 
