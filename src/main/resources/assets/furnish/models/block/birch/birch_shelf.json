@@ -1,7 +1,53 @@
 {
-  "parent": "furnish:block/parent/shelf",
-  "textures": {
-    "planks": "minecraft:block/birch_planks",
-    "stripped_log": "minecraft:block/stripped_birch_log"
-  }
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"planks": "block/birch_planks",
+		"stripped_log": "block/stripped_birch_log",
+		"particle": "#planks"
+	},
+	"elements": [
+		{
+			"name": "shelf",
+			"from": [0, 2, 11],
+			"to": [16, 4, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 19]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 2], "texture": "#planks"},
+				"east": {"uv": [0, 0, 5, 2], "texture": "#planks"},
+				"south": {"uv": [0, 0, 16, 2], "texture": "#planks"},
+				"west": {"uv": [0, 0, 5, 2], "texture": "#planks"},
+				"up": {"uv": [0, 0, 16, 5], "texture": "#planks"},
+				"down": {"uv": [0, 0, 16, 5], "texture": "#planks"}
+			}
+		},
+		{
+			"name": "wall_fix",
+			"from": [14, 0, 13],
+			"to": [15, 2, 16],
+			"rotation": {"angle": 0, "axis": "x", "origin": [22, 8, 21]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 2], "texture": "#stripped_log"},
+				"east": {"uv": [0, 0, 3, 2], "texture": "#stripped_log"},
+				"south": {"uv": [0, 0, 1, 2], "texture": "#stripped_log"},
+				"west": {"uv": [0, 0, 3, 2], "texture": "#stripped_log"},
+				"up": {"uv": [0, 0, 3, 1], "texture": "#stripped_log"},
+				"down": {"uv": [0, 0, 3, 1], "texture": "#stripped_log"}
+			}
+		},
+		{
+			"name": "wall_fix",
+			"from": [1, 0, 13],
+			"to": [2, 2, 16],
+			"rotation": {"angle": 0, "axis": "x", "origin": [22, 8, 21]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 2], "texture": "#stripped_log"},
+				"east": {"uv": [0, 0, 3, 2], "texture": "#stripped_log"},
+				"south": {"uv": [0, 0, 1, 2], "texture": "#stripped_log"},
+				"west": {"uv": [0, 0, 3, 2], "texture": "#stripped_log"},
+				"up": {"uv": [0, 0, 3, 1], "texture": "#stripped_log"},
+				"down": {"uv": [0, 0, 3, 1], "texture": "#stripped_log"}
+			}
+		}
+	]
 }
