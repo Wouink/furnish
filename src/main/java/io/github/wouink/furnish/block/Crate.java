@@ -64,37 +64,43 @@ public class Crate extends Block implements EntityBlock, ISpecialItemProperties 
 		}
 	}
 
-	@Override
-	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player playerEntity) {
-		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof CrateTileEntity) {
-			CrateTileEntity crate = (CrateTileEntity) tileEntity;
-			if(!world.isClientSide() && playerEntity.isCreative() && !crate.isEmpty()) {
-				ItemStack stack = new ItemStack(this);
-				crate.saveToItem(stack);
-				if(crate.hasCustomName()) stack.setHoverName(crate.getCustomName());
-				ItemEntity item = new ItemEntity(world, (double)pos.getX() + .5, (double)pos.getZ() + .5, (double)pos.getZ() + .5, stack);
-				item.setDefaultPickUpDelay();
-				world.addFreshEntity(item);
+	// copied from ShulkerBoxBlock
+	public void playerWillDestroy(Level p_56212_, BlockPos p_56213_, BlockState p_56214_, Player p_56215_) {
+		BlockEntity blockentity = p_56212_.getBlockEntity(p_56213_);
+		if (blockentity instanceof CrateTileEntity) {
+			CrateTileEntity shulkerboxblockentity = (CrateTileEntity) blockentity;
+			if (!p_56212_.isClientSide && p_56215_.isCreative() && !shulkerboxblockentity.isEmpty()) {
+				ItemStack itemstack = new ItemStack(this);
+				blockentity.saveToItem(itemstack);
+				if (shulkerboxblockentity.hasCustomName()) {
+					itemstack.setHoverName(shulkerboxblockentity.getCustomName());
+				}
+
+				ItemEntity itementity = new ItemEntity(p_56212_, (double)p_56213_.getX() + 0.5D, (double)p_56213_.getY() + 0.5D, (double)p_56213_.getZ() + 0.5D, itemstack);
+				itementity.setDefaultPickUpDelay();
+				p_56212_.addFreshEntity(itementity);
 			} else {
-				crate.unpackLootTable(playerEntity);
+				shulkerboxblockentity.unpackLootTable(p_56215_);
 			}
 		}
-		super.playerWillDestroy(world, pos, state, playerEntity);
+
+		super.playerWillDestroy(p_56212_, p_56213_, p_56214_, p_56215_);
 	}
 
-	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		BlockEntity tileEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-		if(tileEntity instanceof CrateTileEntity) {
-			CrateTileEntity crate = (CrateTileEntity) tileEntity;
-			builder = builder.withDynamicDrop(ShulkerBoxBlock.CONTENTS, (lootCtx, stackConsumer) -> {
-				for(int i = 0; i < crate.getContainerSize(); i++) {
-					stackConsumer.accept(crate.getItem(i));
+	// copied from ShulkerBoxBlock
+	public List<ItemStack> getDrops(BlockState p_56246_, LootContext.Builder p_56247_) {
+		BlockEntity blockentity = p_56247_.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+		if (blockentity instanceof CrateTileEntity) {
+			CrateTileEntity shulkerboxblockentity = (CrateTileEntity) blockentity;
+			p_56247_ = p_56247_.withDynamicDrop(ShulkerBoxBlock.CONTENTS, (p_56218_, p_56219_) -> {
+				for(int i = 0; i < shulkerboxblockentity.getContainerSize(); ++i) {
+					p_56219_.accept(shulkerboxblockentity.getItem(i));
 				}
+
 			});
 		}
-		return super.getDrops(state, builder);
+
+		return super.getDrops(p_56246_, p_56247_);
 	}
 
 	@Override

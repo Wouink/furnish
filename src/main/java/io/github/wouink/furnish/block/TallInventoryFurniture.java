@@ -36,7 +36,7 @@ public class TallInventoryFurniture extends TallFurniture implements EntityBlock
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return state.getValue(TOP).booleanValue() ? new LargeFurnitureTileEntity(pos, state) : null;
+		return state.getValue(TOP).booleanValue() ? null : new LargeFurnitureTileEntity(pos, state);
 	}
 
 	@Override

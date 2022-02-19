@@ -1,9 +1,6 @@
 package io.github.wouink.furnish;
 
-import io.github.wouink.furnish.event.AddArmsToArmorStand;
-import io.github.wouink.furnish.event.CyclePainting;
-import io.github.wouink.furnish.event.KnockOnDoor;
-import io.github.wouink.furnish.event.PlaceCarpet;
+import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
 import io.github.wouink.furnish.network.ServerMessageHandler;
@@ -51,7 +48,7 @@ public class Furnish {
 		MinecraftForge.EVENT_BUS.register(AddArmsToArmorStand.class);
 		MinecraftForge.EVENT_BUS.register(CyclePainting.class);
 		MinecraftForge.EVENT_BUS.register(KnockOnDoor.class);
-//		MinecraftForge.EVENT_BUS.register(AppendPlatesToLoot.class);
+		MinecraftForge.EVENT_BUS.register(GivePlateToEnderman.class);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

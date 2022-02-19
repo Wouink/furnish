@@ -63,7 +63,7 @@ public class AmphoraTileEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory inv) {
-		return new ChestMenu(MenuType.GENERIC_9x3, syncId, inv, this, 3);
+		return new ChestMenu(MenuType.GENERIC_3x3, syncId, inv, this, 1);
 	}
 
 	@Override

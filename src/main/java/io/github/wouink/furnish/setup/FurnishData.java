@@ -73,16 +73,20 @@ public class FurnishData {
 
 	public static class Containers {
 		public static final DeferredRegister<MenuType<?>> Registry = DeferredRegister.create(ForgeRegistries.CONTAINERS, Furnish.MODID);
-		public static final RegistryObject<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench = Registry.register("furniture_workbench",
+		public static final RegistryObject<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench = Registry.register(
+				"furniture_workbench",
 				() -> new MenuType<>(FurnitureWorkbenchContainer::new)
 		);
-		public static final RegistryObject<MenuType<CrateContainer>> Crate = Registry.register("crate",
+		public static final RegistryObject<MenuType<CrateContainer>> Crate = Registry.register(
+				"crate",
 				() -> new MenuType<>(CrateContainer::new)
 		);
-		public static final RegistryObject<MenuType<MailboxContainer>> Mailbox = Registry.register("mailbox",
+		public static final RegistryObject<MenuType<MailboxContainer>> Mailbox = Registry.register(
+				"mailbox",
 				() -> new MenuType<>(MailboxContainer::new)
 		);
-		public static final RegistryObject<MenuType<DiskRackContainer>> Disk_Rack = Registry.register("disk_rack",
+		public static final RegistryObject<MenuType<DiskRackContainer>> Disk_Rack = Registry.register(
+				"disk_rack",
 				() -> new MenuType<>(DiskRackContainer::new)
 		);
 	}
