@@ -16,7 +16,7 @@
       "tag": "minecraft:planks"
     },
     "l": {
-      "tag": "minecraft:logs"
+      "tag": "minecraft:logs_that_burn"
     },
     "c": {
       "item": "minecraft:crafting_table"

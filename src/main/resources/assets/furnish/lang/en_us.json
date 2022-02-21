@@ -150,6 +150,8 @@
   "block.furnish.red_bunting": "Red-Orange Bunting",
   "block.furnish.yellow_bunting": "Blue-Yellow Bunting",
   "block.furnish.green_bunting": "Purple-Lime Bunting",
+  "block.furnish.lantern_bunting": "Lantern Bunting",
+  "block.furnish.soul_lantern_bunting": "Soul Lantern Bunting",
 
   "block.furnish.metal_mailbox": "Metal Mailbox",
   "msg.furnish.mailbox.ownership_info": "Right-Click again to claim ownership",

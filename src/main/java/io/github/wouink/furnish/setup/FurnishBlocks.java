@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,7 +23,6 @@ public class FurnishBlocks {
 	public static final DeferredRegister<Block> Registry = DeferredRegister.create(ForgeRegistries.BLOCKS, Furnish.MODID);
 
 	public static class CustomProperties {
-		public static final IntegerProperty NOTE = IntegerProperty.create("note", 0, 12);
 		public static final BooleanProperty RIGHT = BooleanProperty.create("right");
 	}
 
@@ -106,6 +104,8 @@ public class FurnishBlocks {
 	public static final Block Red_Bunting = register("red_bunting", new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
 	public static final Block Yellow_Bunting = register("yellow_bunting", new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
 	public static final Block Green_Bunting = register("green_bunting", new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
+	public static final Block Lantern_Bunting = register("lantern_bunting", new LanternBunting(BlockBehaviour.Properties.of(Material.METAL).strength(1.0f).sound(SoundType.LANTERN).lightLevel((state) -> 15)));
+	public static final Block Soul_Lantern_Bunting = register("soul_lantern_bunting", new LanternBunting(BlockBehaviour.Properties.of(Material.METAL).strength(1.0f).sound(SoundType.LANTERN).lightLevel((state) -> 10)));
 
 	public static final Block Metal_Mailbox = register("metal_mailbox", new Mailbox(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().strength(2.0f).sound(SoundType.METAL)));
 

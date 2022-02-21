@@ -1,0 +1,15 @@
+{
+  "multipart": [
+    {
+      "apply": {"model": "minecraft:block/lantern"}
+    },
+    {
+      "when": {"z_axis": false},
+      "apply": {"model": "furnish:block/bunting/parent/rope"}
+    },
+    {
+      "when": {"z_axis": true},
+      "apply": {"model": "furnish:block/bunting/parent/rope", "y": 90}
+    }
+  ]
+}
