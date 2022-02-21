@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "furnish:block/lamp/paper_lamp"
+    },
+    "hanging=true": {
+      "model": "furnish:block/lamp/paper_lamp_hanging"
+    }
+  }
+}

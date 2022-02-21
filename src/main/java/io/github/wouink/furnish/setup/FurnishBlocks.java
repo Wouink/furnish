@@ -114,6 +114,9 @@ public class FurnishBlocks {
 
 	public static final Block Disk_Rack = register("disk_rack", new DiskRack(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
+	public static final Block Paper_Lamp = register("paper_lamp", new PaperLamp());
+	public static final Block Red_Paper_Lamp = register("red_paper_lamp", new PaperLamp());
+
 	public static Block[] FurnitureInvProvider = {
 			Oak_Bedside_Table, Oak_Kitchen_Cabinet, Oak_Cabinet,
 			Birch_Bedside_Table, Birch_Kitchen_Cabinet, Birch_Cabinet,

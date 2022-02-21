@@ -153,6 +153,9 @@
   "block.furnish.lantern_bunting": "Lantern Bunting",
   "block.furnish.soul_lantern_bunting": "Soul Lantern Bunting",
 
+  "block.furnish.paper_lamp": "Paper Lamp",
+  "block.furnish.red_paper_lamp": "Red Paper Lamp",
+
   "block.furnish.metal_mailbox": "Metal Mailbox",
   "msg.furnish.mailbox.ownership_info": "Right-Click again to claim ownership",
   "msg.furnish.mailbox.set_owner": "You are the Owner of this Mailbox",

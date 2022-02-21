@@ -1,0 +1,9 @@
+{
+	"parent": "furnish:block/lamp/paper_lamp",
+	"textures": {
+		"0": "furnish:block/red_paper_lamp_side",
+		"1": "furnish:block/red_paper_lamp_top",
+		"2": "minecraft:block/dark_oak_planks",
+		"particle": "furnish:block/red_paper_lamp_side"
+	}
+}
