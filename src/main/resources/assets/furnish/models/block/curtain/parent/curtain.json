@@ -22,16 +22,41 @@
 		},
 		{
 			"name": "curtain",
-			"from": [0, 0, 14],
+			"from": [0, 1, 14],
 			"to": [16, 16, 15],
-			"rotation": {"angle": 0, "axis": "y", "origin": [22, 8, 22]},
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#wool"},
-				"east": {"uv": [0, 0, 1, 16], "texture": "#wool"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#wool"},
-				"west": {"uv": [0, 0, 1, 16], "texture": "#wool"},
+				"north": {"uv": [0, 0, 16, 15], "texture": "#wool"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#wool"},
+				"south": {"uv": [0, 0, 16, 15], "texture": "#wool"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#wool"},
 				"up": {"uv": [0, 0, 16, 1], "texture": "#wool"},
 				"down": {"uv": [0, 0, 16, 1], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "curtain",
+			"from": [0, 0, 14],
+			"to": [7, 1, 15],
+			"faces": {
+				"north": {"uv": [9, 15, 16, 16], "texture": "#wool"},
+				"east": {"uv": [9, 15, 10, 16], "texture": "#wool"},
+				"south": {"uv": [9, 15, 16, 16], "texture": "#wool"},
+				"west": {"uv": [15, 15, 16, 16], "texture": "#wool"},
+				"up": {"uv": [9, 15, 16, 16], "texture": "#wool"},
+				"down": {"uv": [9, 15, 16, 16], "texture": "#wool"}
+			}
+		},
+		{
+			"name": "curtain",
+			"from": [9, 0, 14],
+			"to": [16, 1, 15],
+			"faces": {
+				"north": {"uv": [0, 15, 7, 16], "texture": "#wool"},
+				"east": {"uv": [0, 15, 1, 16], "texture": "#wool"},
+				"south": {"uv": [0, 15, 7, 16], "texture": "#wool"},
+				"west": {"uv": [6, 15, 7, 16], "texture": "#wool"},
+				"up": {"uv": [0, 15, 7, 16], "texture": "#wool"},
+				"down": {"uv": [0, 15, 7, 16], "texture": "#wool"}
 			}
 		}
 	]

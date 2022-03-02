@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "result": "furnish:heavy_metal",
+  "count": 1
+}

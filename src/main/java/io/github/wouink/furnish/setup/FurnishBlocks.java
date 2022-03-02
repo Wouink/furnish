@@ -109,13 +109,15 @@ public class FurnishBlocks {
 
 	public static final Block Metal_Mailbox = register("metal_mailbox", new Mailbox(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().strength(2.0f).sound(SoundType.METAL)));
 
-	public static final Block Brick_Chimney_Conduit = register("brick_chimney_conduit", new ChimneyConduit(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
+	public static final Block Brick_Chimney_Conduit = register("brick_chimney_conduit", new ChimneyConduit(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.0f, 3.0f)));
 	public static final Block Brick_Chimney_Cap = register("chimney_cap", new ChimneyCap(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f)));
 
 	public static final Block Disk_Rack = register("disk_rack", new DiskRack(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
 	public static final Block Paper_Lamp = register("paper_lamp", new PaperLamp());
 	public static final Block Red_Paper_Lamp = register("red_paper_lamp", new PaperLamp());
+
+	public static final Block Heavy_Metal = register("heavy_metal", new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f, 8.0f)));
 
 	public static Block[] FurnitureInvProvider = {
 			Oak_Bedside_Table, Oak_Kitchen_Cabinet, Oak_Cabinet,
