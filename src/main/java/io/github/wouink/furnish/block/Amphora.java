@@ -22,7 +22,7 @@ public class Amphora extends SimpleFurniture implements EntityBlock {
 	public static final VoxelShape AMPHORA_TOP = Block.box(4, 13, 4, 12, 16, 12);
 	public static final VoxelShape AMPHORA = Shapes.or(AMPHORA_BODY, AMPHORA_TOP).optimize();
 	public Amphora(Properties p) {
-		super(p);
+		super(p.requiresCorrectToolForDrops());
 	}
 
 	@Override

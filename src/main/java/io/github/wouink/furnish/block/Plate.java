@@ -33,7 +33,7 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock, IS
 	private static final ResourceLocation WHITELIST = new ResourceLocation(Furnish.MODID, "food");
 
 	public Plate(Properties p) {
-		super(p.noOcclusion());
+		super(p.noOcclusion().requiresCorrectToolForDrops());
 	}
 
 	@Override

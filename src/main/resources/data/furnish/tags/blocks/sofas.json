@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:black_sofa",
+    "furnish:blue_sofa",
+    "furnish:brown_sofa",
+    "furnish:cyan_sofa",
+    "furnish:gray_sofa",
+    "furnish:green_sofa",
+    "furnish:light_blue_sofa",
+    "furnish:light_gray_sofa",
+    "furnish:lime_sofa",
+    "furnish:magenta_sofa",
+    "furnish:orange_sofa",
+    "furnish:pink_sofa",
+    "furnish:purple_sofa",
+    "furnish:red_sofa",
+    "furnish:white_sofa",
+    "furnish:yellow_sofa"
+  ]
+}

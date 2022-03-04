@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#furnish:oak_furniture",
+    "#furnish:birch_furniture",
+    "#furnish:acacia_furniture",
+    "#furnish:jungle_furniture",
+    "#furnish:dark_oak_furniture",
+    "#furnish:spruce_furniture"
+  ]
+}

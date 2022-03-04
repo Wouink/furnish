@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "furnish:brick_chimney_conduit",
-    "furnish:heavy_metal"
+    "furnish:heavy_metal",
+    "furnish:metal_mailbox",
+    "furnish:chimney_cap",
+    "#furnish:plates",
+    "#furnish:amphorae",
+    "#furnish:showcases"
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:amphora",
+    "furnish:black_amphora",
+    "furnish:blue_amphora",
+    "furnish:brown_amphora",
+    "furnish:cyan_amphora",
+    "furnish:gray_amphora",
+    "furnish:green_amphora",
+    "furnish:light_blue_amphora",
+    "furnish:light_gray_amphora",
+    "furnish:lime_amphora",
+    "furnish:magenta_amphora",
+    "furnish:orange_amphora",
+    "furnish:pink_amphora",
+    "furnish:purple_amphora",
+    "furnish:red_amphora",
+    "furnish:white_amphora",
+    "furnish:yellow_amphora"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:spruce_table",
+    "furnish:spruce_square_table",
+    "furnish:spruce_bedside_table",
+    "furnish:spruce_kitchen_cabinet",
+    "furnish:spruce_cabinet",
+    "furnish:spruce_wardrobe",
+    "furnish:spruce_stool",
+    "furnish:spruce_chair",
+    "furnish:spruce_shutter",
+    "furnish:spruce_crate",
+    "furnish:spruce_shelf"
+  ]
+}

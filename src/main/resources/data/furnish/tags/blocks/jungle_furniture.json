@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:jungle_table",
+    "furnish:jungle_square_table",
+    "furnish:jungle_bedside_table",
+    "furnish:jungle_kitchen_cabinet",
+    "furnish:jungle_cabinet",
+    "furnish:jungle_wardrobe",
+    "furnish:jungle_stool",
+    "furnish:jungle_chair",
+    "furnish:jungle_shutter",
+    "furnish:jungle_crate",
+    "furnish:jungle_shelf"
+  ]
+}

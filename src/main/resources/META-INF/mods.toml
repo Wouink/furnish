@@ -11,9 +11,7 @@ logoFile="furnish.png"
 displayURL="https://wouink.github.io"
 credits="Book Pile model from the 'Comfy Cozy' mod (MIT Licensed). Brazilian translations by mayrotiem."
 authors="Wink'"
-description='''
-Adds lovely and useful Furnitures to Minecraft
-'''
+description="Adds lovely and useful Furniture to Minecraft"
 
 [[dependencies.furnish]]
     modId="forge"

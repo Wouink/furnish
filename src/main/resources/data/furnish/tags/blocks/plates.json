@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:plate",
+    "furnish:black_plate",
+    "furnish:blue_plate",
+    "furnish:brown_plate",
+    "furnish:cyan_plate",
+    "furnish:gray_plate",
+    "furnish:green_plate",
+    "furnish:light_blue_plate",
+    "furnish:light_gray_plate",
+    "furnish:lime_plate",
+    "furnish:magenta_plate",
+    "furnish:orange_plate",
+    "furnish:pink_plate",
+    "furnish:purple_plate",
+    "furnish:red_plate",
+    "furnish:white_plate",
+    "furnish:yellow_plate",
+    "furnish:rare_chinese_plate",
+    "furnish:rare_english_plate"
+  ]
+}

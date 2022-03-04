@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#furnish:carpets_on_stairs",
+    "#furnish:carpets_on_trapdoors"
+  ]
+}

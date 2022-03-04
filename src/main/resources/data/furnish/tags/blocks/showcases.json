@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:black_showcase",
+    "furnish:blue_showcase",
+    "furnish:brown_showcase",
+    "furnish:cyan_showcase",
+    "furnish:gray_showcase",
+    "furnish:green_showcase",
+    "furnish:light_blue_showcase",
+    "furnish:light_gray_showcase",
+    "furnish:lime_showcase",
+    "furnish:magenta_showcase",
+    "furnish:orange_showcase",
+    "furnish:pink_showcase",
+    "furnish:purple_showcase",
+    "furnish:red_showcase",
+    "furnish:white_showcase",
+    "furnish:yellow_showcase"
+  ]
+}

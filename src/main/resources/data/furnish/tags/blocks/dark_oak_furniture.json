@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:dark_oak_table",
+    "furnish:dark_oak_square_table",
+    "furnish:dark_oak_bedside_table",
+    "furnish:dark_oak_kitchen_cabinet",
+    "furnish:dark_oak_cabinet",
+    "furnish:dark_oak_wardrobe",
+    "furnish:dark_oak_stool",
+    "furnish:dark_oak_chair",
+    "furnish:dark_oak_shutter",
+    "furnish:dark_oak_crate",
+    "furnish:dark_oak_shelf"
+  ]
+}

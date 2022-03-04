@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:black_carpet_on_trapdoor",
+    "furnish:blue_carpet_on_trapdoor",
+    "furnish:brown_carpet_on_trapdoor",
+    "furnish:cyan_carpet_on_trapdoor",
+    "furnish:gray_carpet_on_trapdoor",
+    "furnish:green_carpet_on_trapdoor",
+    "furnish:light_blue_carpet_on_trapdoor",
+    "furnish:light_gray_carpet_on_trapdoor",
+    "furnish:lime_carpet_on_trapdoor",
+    "furnish:magenta_carpet_on_trapdoor",
+    "furnish:orange_carpet_on_trapdoor",
+    "furnish:pink_carpet_on_trapdoor",
+    "furnish:purple_carpet_on_trapdoor",
+    "furnish:red_carpet_on_trapdoor",
+    "furnish:white_carpet_on_trapdoor",
+    "furnish:yellow_carpet_on_trapdoor"
+  ]
+}
