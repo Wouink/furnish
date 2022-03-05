@@ -160,6 +160,12 @@ public class FurnishData {
 
 		paintingRegistry.register(createPainting("steve", 1, 1));
 		paintingRegistry.register(createPainting("alex", 1, 1));
+		paintingRegistry.register(createPainting("oak", 1, 1));
+		paintingRegistry.register(createPainting("birch", 1, 1));
+		paintingRegistry.register(createPainting("spruce", 1, 2));
+		paintingRegistry.register(createPainting("jungle", 1, 2));
+		paintingRegistry.register(createPainting("acacia", 1, 1));
+		paintingRegistry.register(createPainting("dark_oak", 1, 1));
 
 		Furnish.LOG.info("Registered Furnish Paintings.");
 	}
