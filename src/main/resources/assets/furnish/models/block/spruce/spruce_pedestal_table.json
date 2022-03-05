@@ -1,0 +1,7 @@
+{
+	"parent": "furnish:block/parent/pedestal_table_4",
+	"textures": {
+		"table": "minecraft:block/stripped_spruce_log",
+		"log": "minecraft:block/spruce_log"
+	}
+}

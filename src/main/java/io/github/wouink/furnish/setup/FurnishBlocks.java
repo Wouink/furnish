@@ -31,6 +31,7 @@ public class FurnishBlocks {
 
 	public static final Block Oak_Table = register("oak_table", new Table(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final Block Oak_Square_Table = register("oak_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final Block Oak_Pedestal_Table = register("oak_pedestal_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final Block Oak_Bedside_Table = register("oak_bedside_table", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Oak_Kitchen_Cabinet = register("oak_kitchen_cabinet", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Oak_Cabinet = register("oak_cabinet", new Cabinet(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -43,6 +44,7 @@ public class FurnishBlocks {
 
 	public static final Block Birch_Table = register("birch_table", new Table(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final Block Birch_Square_Table = register("birch_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final Block Birch_Pedestal_Table = register("birch_pedestal_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final Block Birch_Bedside_Table = register("birch_bedside_table", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Birch_Kitchen_Cabinet = register("birch_kitchen_cabinet", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Birch_Cabinet = register("birch_cabinet", new Cabinet(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -55,6 +57,7 @@ public class FurnishBlocks {
 
 	public static final Block Acacia_Table = register("acacia_table", new Table(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Square_Table = register("acacia_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final Block Acacia_Pedestal_Table = register("acacia_pedestal_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Bedside_Table = register("acacia_bedside_table", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Acacia_Kitchen_Cabinet = register("acacia_kitchen_cabinet", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Acacia_Cabinet = register("acacia_cabinet", new Cabinet(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -67,6 +70,7 @@ public class FurnishBlocks {
 
 	public static final Block Jungle_Table = register("jungle_table", new Table(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Square_Table = register("jungle_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final Block Jungle_Pedestal_Table = register("jungle_pedestal_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Bedside_Table = register("jungle_bedside_table", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Jungle_Kitchen_Cabinet = register("jungle_kitchen_cabinet", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Jungle_Cabinet = register("jungle_cabinet", new Cabinet(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -79,6 +83,7 @@ public class FurnishBlocks {
 
 	public static final Block Spruce_Table = register("spruce_table", new Table(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final Block Spruce_Square_Table = register("spruce_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final Block Spruce_Pedestal_Table = register("spruce_pedestal_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final Block Spruce_Bedside_Table = register("spruce_bedside_table", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Spruce_Kitchen_Cabinet = register("spruce_kitchen_cabinet", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Spruce_Cabinet = register("spruce_cabinet", new Cabinet(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), FurnishData.Sounds.Spruce_Cabinet_Open, FurnishData.Sounds.Spruce_Cabinet_Close));
@@ -91,6 +96,7 @@ public class FurnishBlocks {
 
 	public static final Block Dark_Oak_Table = register("dark_oak_table", new Table(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final Block Dark_Oak_Square_Table = register("dark_oak_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final Block Dark_Oak_Pedestal_Table = register("dark_oak_pedestal_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final Block Dark_Oak_Bedside_Table = register("dark_oak_bedside_table", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Dark_Oak_Kitchen_Cabinet = register("dark_oak_kitchen_cabinet", new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final Block Dark_Oak_Cabinet = register("dark_oak_cabinet", new Cabinet(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), FurnishData.Sounds.Spruce_Cabinet_Open, FurnishData.Sounds.Spruce_Cabinet_Close));

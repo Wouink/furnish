@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:dark_oak_planks"
+  },
+  "result": "furnish:dark_oak_pedestal_table",
+  "count": 1
+}

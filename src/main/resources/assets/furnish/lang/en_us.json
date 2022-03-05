@@ -37,6 +37,7 @@
   "block.furnish.oak_wardrobe": "Oak Wardrobe",
   "block.furnish.oak_shutter": "Oak Shutter",
   "block.furnish.oak_shelf": "Oak Shelf",
+  "block.furnish.oak_pedestal_table": "Oak Pedestal Table",
 
   "block.furnish.birch_cabinet": "Birch Cabinet",
   "block.furnish.birch_wardrobe": "Birch Wardrobe",
@@ -48,6 +49,7 @@
   "block.furnish.birch_stool": "Birch Stool",
   "block.furnish.birch_shutter": "Birch Shutter",
   "block.furnish.birch_shelf": "Birch Shelf",
+  "block.furnish.birch_pedestal_table": "Birch Pedestal Table",
 
   "block.furnish.acacia_cabinet": "Acacia Cabinet",
   "block.furnish.acacia_wardrobe": "Acacia Wardrobe",
@@ -59,6 +61,7 @@
   "block.furnish.acacia_stool": "Acacia Stool",
   "block.furnish.acacia_shutter": "Acacia Shutter",
   "block.furnish.acacia_shelf": "Acacia Shelf",
+  "block.furnish.acacia_pedestal_table": "Acacia Pedestal Table",
 
   "block.furnish.jungle_cabinet": "Jungle Cabinet",
   "block.furnish.jungle_wardrobe": "Jungle Wardrobe",
@@ -70,6 +73,7 @@
   "block.furnish.jungle_stool": "Jungle Stool",
   "block.furnish.jungle_shutter": "Jungle Shutter",
   "block.furnish.jungle_shelf": "Jungle Shelf",
+  "block.furnish.jungle_pedestal_table": "Jungle Pedestal Table",
 
   "block.furnish.dark_oak_cabinet": "Dark Oak Cabinet",
   "block.furnish.dark_oak_wardrobe": "Dark Oak Wardrobe",
@@ -81,6 +85,7 @@
   "block.furnish.dark_oak_stool": "Dark Oak Stool",
   "block.furnish.dark_oak_shutter": "Dark Oak Shutter",
   "block.furnish.dark_oak_shelf": "Dark Oak Shelf",
+  "block.furnish.dark_oak_pedestal_table": "Dark Oak Pedestal Table",
 
   "block.furnish.spruce_cabinet": "Spruce Cabinet",
   "block.furnish.spruce_wardrobe": "Spruce Wardrobe",
@@ -92,6 +97,7 @@
   "block.furnish.spruce_stool": "Spruce Stool",
   "block.furnish.spruce_shutter": "Spruce Shutter",
   "block.furnish.spruce_shelf": "Spruce Shelf",
+  "block.furnish.spruce_pedestal_table": "Spruce Pedestal Table",
 
   "block.furnish.white_sofa": "White Sofa",
   "block.furnish.black_sofa": "Black Sofa",
