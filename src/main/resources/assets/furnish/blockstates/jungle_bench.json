@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/jungle/jungle_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/jungle/jungle_bench",
+      "y": 90
+    }
+  }
+}

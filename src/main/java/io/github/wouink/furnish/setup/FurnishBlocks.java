@@ -41,6 +41,7 @@ public class FurnishBlocks {
 	public static final Block Oak_Shutter = register("oak_shutter", new Shutter(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)));
 	public static final Block Oak_Crate = register("oak_crate", new Crate(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final Block Oak_Shelf = register("oak_shelf", new Shelf(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final Block Oak_Bench = register("oak_bench", new Bench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
 	public static final Block Birch_Table = register("birch_table", new Table(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final Block Birch_Square_Table = register("birch_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
@@ -54,6 +55,7 @@ public class FurnishBlocks {
 	public static final Block Birch_Shutter = register("birch_shutter", new Shutter(BlockBehaviour.Properties.copy(Blocks.BIRCH_TRAPDOOR)));
 	public static final Block Birch_Crate = register("birch_crate", new Crate(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final Block Birch_Shelf = register("birch_shelf", new Shelf(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final Block Birch_Bench = register("birch_bench", new Bench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 
 	public static final Block Acacia_Table = register("acacia_table", new Table(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Square_Table = register("acacia_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
@@ -67,6 +69,7 @@ public class FurnishBlocks {
 	public static final Block Acacia_Shutter = register("acacia_shutter", new Shutter(BlockBehaviour.Properties.copy(Blocks.ACACIA_TRAPDOOR)));
 	public static final Block Acacia_Crate = register("acacia_crate", new Crate(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final Block Acacia_Shelf = register("acacia_shelf", new Shelf(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final Block Acacia_Bench = register("acacia_bench", new Bench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 
 	public static final Block Jungle_Table = register("jungle_table", new Table(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Square_Table = register("jungle_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
@@ -80,6 +83,7 @@ public class FurnishBlocks {
 	public static final Block Jungle_Shutter = register("jungle_shutter", new Shutter(BlockBehaviour.Properties.copy(Blocks.JUNGLE_TRAPDOOR)));
 	public static final Block Jungle_Crate = register("jungle_crate", new Crate(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final Block Jungle_Shelf = register("jungle_shelf", new Shelf(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final Block Jungle_Bench = register("jungle_bench", new Bench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 
 	public static final Block Spruce_Table = register("spruce_table", new Table(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final Block Spruce_Square_Table = register("spruce_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
@@ -93,6 +97,7 @@ public class FurnishBlocks {
 	public static final Block Spruce_Shutter = register("spruce_shutter", new Shutter(BlockBehaviour.Properties.copy(Blocks.SPRUCE_TRAPDOOR)));
 	public static final Block Spruce_Crate = register("spruce_crate", new Crate(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final Block Spruce_Shelf = register("spruce_shelf", new Shelf(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final Block Spruce_Bench = register("spruce_bench", new Bench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
 	public static final Block Dark_Oak_Table = register("dark_oak_table", new Table(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final Block Dark_Oak_Square_Table = register("dark_oak_square_table", new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
@@ -106,6 +111,7 @@ public class FurnishBlocks {
 	public static final Block Dark_Oak_Shutter = register("dark_oak_shutter", new Shutter(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_TRAPDOOR)));
 	public static final Block Dark_Oak_Crate = register("dark_oak_crate", new Crate(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final Block Dark_Oak_Shelf = register("dark_oak_shelf", new Shelf(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final Block Dark_Oak_Bench = register("dark_oak_bench", new Bench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 
 	public static final Block Red_Bunting = register("red_bunting", new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
 	public static final Block Yellow_Bunting = register("yellow_bunting", new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));

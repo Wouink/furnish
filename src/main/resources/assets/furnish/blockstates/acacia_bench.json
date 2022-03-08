@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/acacia/acacia_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/acacia/acacia_bench",
+      "y": 90
+    }
+  }
+}

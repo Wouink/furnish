@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/dark_oak/dark_oak_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/dark_oak/dark_oak_bench",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/spruce/spruce_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/spruce/spruce_bench",
+      "y": 90
+    }
+  }
+}

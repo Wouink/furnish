@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/bench",
+  "textures": {
+    "planks": "minecraft:block/acacia_planks",
+    "stripped_log": "minecraft:block/stripped_acacia_log"
+  }
+}
