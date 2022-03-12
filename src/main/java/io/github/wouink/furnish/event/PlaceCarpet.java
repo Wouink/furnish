@@ -18,6 +18,9 @@ public class PlaceCarpet {
 	public static void onCarpetPlaced(BlockEvent.EntityPlaceEvent event) {
 		if(event.getWorld().isClientSide()) return;
 		if(event.getPlacedBlock().getBlock() instanceof WoolCarpetBlock) {
+			// only replace vanilla carpets
+			if(!event.getPlacedBlock().getBlock().getRegistryName().getNamespace().equals("minecraft")) return;
+
 			BlockState stateBelow = event.getWorld().getBlockState(event.getPos().below());
 			if(stateBelow.getBlock() instanceof StairBlock && !event.getEntity().isShiftKeyDown()) {
 				if(stateBelow.getValue(StairBlock.HALF) == Half.BOTTOM && stateBelow.getValue(StairBlock.SHAPE) == StairsShape.STRAIGHT) {
