@@ -62,8 +62,8 @@ public class Bunting extends Block {
 
 		Item item = stack.getItem();
 		Block block;
-		if(item == Items.SOUL_LANTERN) block = FurnishBlocks.Soul_Lantern_Bunting;
-		else if(item == Items.LANTERN) block = FurnishBlocks.Lantern_Bunting;
+		if(item == Items.SOUL_LANTERN) block = FurnishBlocks.Soul_Lantern_Bunting.get();
+		else if(item == Items.LANTERN) block = FurnishBlocks.Lantern_Bunting.get();
 		else return InteractionResult.FAIL;
 
 		level.destroyBlock(pos, true);

@@ -42,6 +42,6 @@ public class FurnishJEIPlugin implements IModPlugin {
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		IModPlugin.super.registerRecipeCatalysts(registration);
-		registration.addRecipeCatalyst(new ItemStack(FurnishBlocks.Furniture_Workbench), FurnishData.Furniture_Recipe_Loc);
+		registration.addRecipeCatalyst(new ItemStack(FurnishBlocks.Furniture_Workbench.get()), FurnishData.Furniture_Recipe_Loc);
 	}
 }

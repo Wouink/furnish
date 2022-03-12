@@ -25,6 +25,7 @@ import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,7 +40,15 @@ import net.minecraftforge.registries.RegistryObject;
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishData {
 	public static final ResourceLocation Furniture_Recipe_Loc = new ResourceLocation(Furnish.MODID, "furniture_making");
-	public static final RecipeType<FurnitureRecipe> Furniture_Recipe = RecipeType.register(Furniture_Recipe_Loc.toString());
+	public static RecipeType<FurnitureRecipe> Furniture_Recipe;
+
+	@SubscribeEvent
+	public static void registerRecipeType(RegistryEvent.Register<Block> event) {
+		// Forge does not include a registry for RecipeTypes, and starting from 1.18.2,
+		// registering in a vanilla registry must be done in any registry event.
+		Furniture_Recipe = RecipeType.register(Furniture_Recipe_Loc.toString());
+		System.out.println("Registered Furnish Recipe Type.");
+	}
 
 	public static class RecipeSerializers {
 		public static final DeferredRegister<RecipeSerializer<?>> Registry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Furnish.MODID);
@@ -105,15 +114,15 @@ public class FurnishData {
 
 	public static class TileEntities {
 		public static final DeferredRegister<BlockEntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Furnish.MODID);
-		public static final RegistryObject<BlockEntityType<FurnitureTileEntity>> TE_Furniture = Registry.register("furniture", () -> BlockEntityType.Builder.of(FurnitureTileEntity::new, FurnishBlocks.FurnitureInvProvider).build(null));
-		public static final RegistryObject<BlockEntityType<LargeFurnitureTileEntity>> TE_Large_Furniture = Registry.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureTileEntity::new, FurnishBlocks.FurnitureLargeInvProvider).build(null));
-		public static final RegistryObject<BlockEntityType<AmphoraTileEntity>> TE_Amphora = Registry.register("amphora", () -> BlockEntityType.Builder.of(AmphoraTileEntity::new, FurnishBlocks.Amphorae).build(null));
-		public static final RegistryObject<BlockEntityType<MailboxTileEntity>> TE_Mailbox = Registry.register("mailbox", () -> BlockEntityType.Builder.of(MailboxTileEntity::new, Mailbox.All_Mailboxes.toArray(new Mailbox[0])).build(null));
-		public static final RegistryObject<BlockEntityType<CrateTileEntity>> TE_Crate = Registry.register("crate", () -> BlockEntityType.Builder.of(CrateTileEntity::new, Crate.All_Crates.toArray(new Crate[0])).build(null));
-		public static final RegistryObject<BlockEntityType<PlateTileEntity>> TE_Plate = Registry.register("plate", () -> BlockEntityType.Builder.of(PlateTileEntity::new, FurnishBlocks.Plates).build(null));
-		public static final RegistryObject<BlockEntityType<ShelfTileEntity>> TE_Shelf = Registry.register("shelf", () -> BlockEntityType.Builder.of(ShelfTileEntity::new, FurnishBlocks.Shelves).build(null));
-		public static final RegistryObject<BlockEntityType<ShowcaseTileEntity>> TE_Showcase = Registry.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseTileEntity::new, FurnishBlocks.Showcases).build(null));
-		public static final RegistryObject<BlockEntityType<DiskRackTileEntity>> TE_Disk_Rack = Registry.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackTileEntity::new, FurnishBlocks.Disk_Racks).build(null));
+		public static final RegistryObject<BlockEntityType<FurnitureTileEntity>> TE_Furniture = Registry.register("furniture", () -> BlockEntityType.Builder.of(FurnitureTileEntity::new, FurnishBlocks.Furniture_3x9.toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<LargeFurnitureTileEntity>> TE_Large_Furniture = Registry.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureTileEntity::new, FurnishBlocks.Furniture_6x9.toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<AmphoraTileEntity>> TE_Amphora = Registry.register("amphora", () -> BlockEntityType.Builder.of(AmphoraTileEntity::new, FurnishBlocks.Amphorae.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<MailboxTileEntity>> TE_Mailbox = Registry.register("mailbox", () -> BlockEntityType.Builder.of(MailboxTileEntity::new, Mailbox.All_Mailboxes.toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<CrateTileEntity>> TE_Crate = Registry.register("crate", () -> BlockEntityType.Builder.of(CrateTileEntity::new, Crate.All_Crates.toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<PlateTileEntity>> TE_Plate = Registry.register("plate", () -> BlockEntityType.Builder.of(PlateTileEntity::new, FurnishBlocks.Plates.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<ShelfTileEntity>> TE_Shelf = Registry.register("shelf", () -> BlockEntityType.Builder.of(ShelfTileEntity::new, FurnishBlocks.Shelves.toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<ShowcaseTileEntity>> TE_Showcase = Registry.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseTileEntity::new, FurnishBlocks.Showcases.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<DiskRackTileEntity>> TE_Disk_Rack = Registry.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackTileEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
 	}
 
 	public static void setup(IEventBus bus) {

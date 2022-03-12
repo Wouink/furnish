@@ -17,6 +17,7 @@ public class Wardrobe extends TallInventoryFurniture {
 	public Wardrobe(BlockBehaviour.Properties p, final RegistryObject<SoundEvent> openSound, final RegistryObject<SoundEvent> closeSound) {
 		super(p, openSound, closeSound);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TOP, false).setValue(RIGHT, false));
+		FurnishBlocks.Furniture_6x9.add(this);
 	}
 
 	@Override

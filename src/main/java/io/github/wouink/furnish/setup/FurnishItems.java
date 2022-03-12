@@ -23,7 +23,7 @@ public class FurnishItems {
 	public static final CreativeModeTab Furnish_ItemGroup = new CreativeModeTab(Furnish.MODID) {
 		@Override
 		public ItemStack makeIcon() {
-			return new ItemStack(FurnishBlocks.Furniture_Workbench);
+			return new ItemStack(FurnishBlocks.Furniture_Workbench.get());
 		}
 	};
 

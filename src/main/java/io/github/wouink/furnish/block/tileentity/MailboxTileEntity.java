@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 18;
@@ -124,7 +125,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	public ItemStack addMail(ItemStack stack) {
-		if(Furnish.CONFIG.restrictMailboxItems.get().booleanValue() && !stack.getItem().getTags().contains(MAIL_TAG)) return stack;
+		if(Furnish.CONFIG.restrictMailboxItems.get().booleanValue() && !stack.getTags().collect(Collectors.toSet()).contains(MAIL_TAG)) return stack;
 		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {

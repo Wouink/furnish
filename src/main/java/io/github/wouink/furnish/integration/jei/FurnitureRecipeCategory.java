@@ -24,7 +24,7 @@ public class FurnitureRecipeCategory implements IRecipeCategory<FurnitureRecipe>
 
 	public FurnitureRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(FurnishJEIPlugin.JEI_UI, 0, 220, 82, 34);
-		icon = guiHelper.createDrawableIngredient(new ItemStack(FurnishBlocks.Furniture_Workbench));
+		icon = guiHelper.createDrawableIngredient(new ItemStack(FurnishBlocks.Furniture_Workbench.get()));
 	}
 
 	@Override

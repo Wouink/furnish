@@ -12,13 +12,15 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.RecordItem;
 
+import java.util.stream.Collectors;
+
 public class DiskRackContainer extends AbstractContainerMenu {
 	protected final Container inventory;
 
 	private static final ResourceLocation MUSIC_DISCS = new ResourceLocation("furnish", "music_discs");
 
 	public static boolean canPlaceInRack(ItemStack stack) {
-		return stack.getItem() instanceof RecordItem || stack.getItem().getTags().contains(MUSIC_DISCS);
+		return stack.getItem() instanceof RecordItem || stack.getTags().collect(Collectors.toSet()).contains(MUSIC_DISCS);
 	}
 
 	public DiskRackContainer(int syncId, Inventory playerInventory) {

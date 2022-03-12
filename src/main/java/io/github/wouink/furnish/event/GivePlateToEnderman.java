@@ -20,7 +20,7 @@ public class GivePlateToEnderman {
 
 		Random rand = event.getWorld().getRandom();
 		if(rand.nextInt(100) == 10) {
-			enderman.setCarriedBlock(FurnishBlocks.Plates[17 + rand.nextInt(FurnishBlocks.Rare_Plates_Names.length)].defaultBlockState());
+			enderman.setCarriedBlock(FurnishBlocks.Rare_Plates.get(new Random().nextInt(FurnishBlocks.Rare_Plates.size())).get().defaultBlockState());
 		}
 	}
 }

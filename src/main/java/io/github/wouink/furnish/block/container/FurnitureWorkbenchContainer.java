@@ -104,7 +104,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 
 	@Override
 	public boolean stillValid(Player playerIn) {
-		return stillValid(this.access, playerIn, FurnishBlocks.Furniture_Workbench);
+		return stillValid(this.access, playerIn, FurnishBlocks.Furniture_Workbench.get());
 	}
 
 	@Override

@@ -20,6 +20,6 @@ public class FurnitureRecipe extends FSingleItemRecipe {
 
 	@Override
 	public ItemStack getToastSymbol() {
-		return new ItemStack(FurnishBlocks.Furniture_Workbench);
+		return new ItemStack(FurnishBlocks.Furniture_Workbench.get());
 	}
 }

@@ -27,6 +27,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.stream.Collectors;
 
 public class Plate extends HorizontalDirectionalBlock implements EntityBlock, ISpecialItemProperties {
 	public static final VoxelShape PLATE_SHAPE = Block.box(1, 0, 1, 15, 1, 15);
@@ -56,7 +57,7 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock, IS
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
 		InteractionResult resultType = InteractionResult.FAIL;
 		if(!world.isClientSide()) {
-			if (playerEntity.getItemInHand(hand).isEmpty() || playerEntity.getItemInHand(hand).isEdible() || playerEntity.getItemInHand(hand).getItem().getTags().contains(WHITELIST)) {
+			if (playerEntity.getItemInHand(hand).isEmpty() || playerEntity.getItemInHand(hand).isEdible() || playerEntity.getItemInHand(hand).getTags().collect(Collectors.toSet()).contains(WHITELIST)) {
 				BlockEntity tileEntity = world.getBlockEntity(pos);
 				if (tileEntity instanceof PlateTileEntity) {
 					playerEntity.setItemInHand(hand, ((PlateTileEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));

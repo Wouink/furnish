@@ -35,7 +35,7 @@ public class LanternBunting extends Bunting implements INoBlockItem {
 
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-		return new ItemStack(this == FurnishBlocks.Soul_Lantern_Bunting ? Blocks.SOUL_LANTERN : Blocks.LANTERN);
+		return new ItemStack(this == FurnishBlocks.Soul_Lantern_Bunting.get() ? Blocks.SOUL_LANTERN : Blocks.LANTERN);
 	}
 
 	@Override

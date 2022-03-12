@@ -24,7 +24,7 @@ public class PlaceCarpet {
 					String color = ((WoolCarpetBlock) event.getPlacedBlock().getBlock()).getColor().getName();
 					event.getWorld().setBlock(
 							event.getPos(),
-							FurnishBlocks.Carpets_On_Stairs.get(color).defaultBlockState().setValue(
+							FurnishBlocks.Carpets_On_Stairs.get(color).get().defaultBlockState().setValue(
 									BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)),
 							3
 					);
@@ -34,7 +34,7 @@ public class PlaceCarpet {
 					String color = ((WoolCarpetBlock) event.getPlacedBlock().getBlock()).getColor().getName();
 					event.getWorld().setBlock(
 							event.getPos(),
-							FurnishBlocks.Carpets_On_Trapdoors.get(color).defaultBlockState().setValue(
+							FurnishBlocks.Carpets_On_Trapdoors.get(color).get().defaultBlockState().setValue(
 									BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING))
 									.setValue(CarpetOnTrapdoor.OPEN, stateBelow.getValue(TrapDoorBlock.OPEN)),
 							3

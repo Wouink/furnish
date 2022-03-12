@@ -38,7 +38,7 @@ public class Furnish {
 	public Furnish() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getSpec());
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		FurnishBlocks.setup(bus);
+		FurnishBlocks.Registry.register(bus);
 		FurnishData.setup(bus);
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

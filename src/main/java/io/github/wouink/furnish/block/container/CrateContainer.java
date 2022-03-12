@@ -9,12 +9,14 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.stream.Collectors;
+
 public class CrateContainer extends ConditionalSlotContainer {
 
 	private static final ResourceLocation CRATE_BLACKLIST = new ResourceLocation(Furnish.MODID, "crate_blacklist");
 
 	public static boolean canPlaceInCrate(ItemStack stack) {
-		return !stack.getItem().getTags().contains(CRATE_BLACKLIST);
+		return !stack.getTags().collect(Collectors.toSet()).contains(CRATE_BLACKLIST);
 	}
 
 	public CrateContainer(int syncId, Inventory playerInventory) {

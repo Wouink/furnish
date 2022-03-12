@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.ShelfTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,6 +28,7 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 	private static final VoxelShape[] SHELF = VoxelShapeHelper.getRotatedShapes(Block.box(0, 2, 0, 5, 4, 16));
 	public Shelf(Properties p) {
 		super(p.noOcclusion());
+		FurnishBlocks.Shelves.add(this);
 	}
 
 	@Override

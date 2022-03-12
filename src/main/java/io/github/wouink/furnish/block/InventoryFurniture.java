@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.*;
@@ -21,6 +22,7 @@ public class InventoryFurniture extends SimpleFurniture implements EntityBlock, 
 		super(p);
 		this.openSound = openSound;
 		this.closeSound = closeSound;
+		FurnishBlocks.Furniture_3x9.add(this);
 	}
 
 	@Nullable
