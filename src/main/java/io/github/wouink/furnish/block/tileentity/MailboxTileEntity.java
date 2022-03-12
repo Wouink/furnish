@@ -6,6 +6,7 @@ import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,11 +27,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 18;
-	private static final ResourceLocation MAIL_TAG = new ResourceLocation(Furnish.MODID, "mail");
+	private static final TagKey MAIL_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "mail"));
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
 	private String ownerDisplayName;
@@ -125,7 +126,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	public ItemStack addMail(ItemStack stack) {
-		if(Furnish.CONFIG.restrictMailboxItems.get().booleanValue() && !stack.getTags().collect(Collectors.toSet()).contains(MAIL_TAG)) return stack;
+		if(Furnish.CONFIG.restrictMailboxItems.get().booleanValue() && !stack.is(MAIL_TAG)) return stack;
 		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {

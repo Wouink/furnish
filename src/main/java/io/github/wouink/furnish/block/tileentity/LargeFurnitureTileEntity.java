@@ -41,16 +41,20 @@ public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity 
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
-		ContainerHelper.saveAllItems(tag, inventory);
+	protected void saveAdditional(CompoundTag nbt) {
+		super.saveAdditional(nbt);
+		if(!this.trySaveLootTable(nbt)) {
+			ContainerHelper.saveAllItems(nbt, inventory);
+		}
 	}
 
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(nbt, inventory);
+		if(!this.tryLoadLootTable(nbt)) {
+			ContainerHelper.loadAllItems(nbt, inventory);
+		}
 	}
 
 	@Override

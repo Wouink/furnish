@@ -3,20 +3,20 @@ package io.github.wouink.furnish.block.container;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
 import io.github.wouink.furnish.setup.FurnishData;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.stream.Collectors;
-
 public class CrateContainer extends ConditionalSlotContainer {
 
-	private static final ResourceLocation CRATE_BLACKLIST = new ResourceLocation(Furnish.MODID, "crate_blacklist");
+	private static final TagKey CRATE_BLACKLIST = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "crate_blacklist"));
 
 	public static boolean canPlaceInCrate(ItemStack stack) {
-		return !stack.getTags().collect(Collectors.toSet()).contains(CRATE_BLACKLIST);
+		return !stack.is(CRATE_BLACKLIST);
 	}
 
 	public CrateContainer(int syncId, Inventory playerInventory) {

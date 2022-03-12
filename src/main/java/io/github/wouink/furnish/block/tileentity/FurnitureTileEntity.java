@@ -43,14 +43,18 @@ public class FurnitureTileEntity extends RandomizableContainerBlockEntity {
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
-		ContainerHelper.saveAllItems(nbt, inventory);
+		if(!this.trySaveLootTable(nbt)) {
+			ContainerHelper.saveAllItems(nbt, inventory);
+		}
 	}
 
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(nbt, inventory);
+		if(!this.tryLoadLootTable(nbt)) {
+			ContainerHelper.loadAllItems(nbt, inventory);
+		}
 	}
 
 	@Override

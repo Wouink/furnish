@@ -5,7 +5,9 @@ import io.github.wouink.furnish.block.tileentity.PlateTileEntity;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.setup.FurnishItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -27,11 +29,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
-import java.util.stream.Collectors;
 
 public class Plate extends HorizontalDirectionalBlock implements EntityBlock, ISpecialItemProperties {
 	public static final VoxelShape PLATE_SHAPE = Block.box(1, 0, 1, 15, 1, 15);
-	private static final ResourceLocation WHITELIST = new ResourceLocation(Furnish.MODID, "food");
+	private static final TagKey WHITELIST = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "food"));
 
 	public Plate(Properties p) {
 		super(p.noOcclusion().requiresCorrectToolForDrops());
@@ -57,7 +58,7 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock, IS
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
 		InteractionResult resultType = InteractionResult.FAIL;
 		if(!world.isClientSide()) {
-			if (playerEntity.getItemInHand(hand).isEmpty() || playerEntity.getItemInHand(hand).isEdible() || playerEntity.getItemInHand(hand).getTags().collect(Collectors.toSet()).contains(WHITELIST)) {
+			if (playerEntity.getItemInHand(hand).isEmpty() || playerEntity.getItemInHand(hand).isEdible() || playerEntity.getItemInHand(hand).is(WHITELIST)) {
 				BlockEntity tileEntity = world.getBlockEntity(pos);
 				if (tileEntity instanceof PlateTileEntity) {
 					playerEntity.setItemInHand(hand, ((PlateTileEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));

@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -54,13 +55,12 @@ public class Crate extends Block implements EntityBlock, ISpecialItemProperties 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult result) {
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
-		else if(playerEntity.isSpectator()) return InteractionResult.CONSUME;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof CrateTileEntity) {
-				playerEntity.openMenu((CrateTileEntity) tileEntity);
-				return InteractionResult.CONSUME;
-			} else return InteractionResult.PASS;
+				playerEntity.openMenu((MenuProvider) tileEntity);
+			}
+			return InteractionResult.CONSUME;
 		}
 	}
 

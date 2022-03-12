@@ -40,6 +40,9 @@ public class CrateTileEntity extends RandomizableContainerBlockEntity {
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
+		if(!this.trySaveLootTable(nbt)) {
+			ContainerHelper.saveAllItems(nbt, inventory, false);
+		}
 	}
 
 	@Override

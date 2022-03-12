@@ -25,7 +25,6 @@ public class ConditionalSlotContainerScreen extends AbstractContainerScreen<Cond
 	}
 
 	public void render(PoseStack p_230430_1_, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-		this.renderBackground(p_230430_1_);
 		super.render(p_230430_1_, p_230430_2_, p_230430_3_, p_230430_4_);
 		this.renderTooltip(p_230430_1_, p_230430_2_, p_230430_3_);
 	}
