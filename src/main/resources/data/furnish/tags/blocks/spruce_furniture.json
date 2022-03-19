@@ -13,6 +13,7 @@
     "furnish:spruce_crate",
     "furnish:spruce_shelf",
     "furnish:spruce_pedestal_table",
-    "furnish:spruce_bench"
+    "furnish:spruce_bench",
+    "furnish:spruce_log_bench"
   ]
 }

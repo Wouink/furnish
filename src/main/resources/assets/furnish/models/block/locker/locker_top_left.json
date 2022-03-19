@@ -1,0 +1,37 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "furnish:block/metal",
+		"metal": "furnish:block/metal",
+		"door": "furnish:block/locker_door_top_left"
+	},
+	"elements": [
+		{
+			"name": "body",
+			"from": [0, 0, 1],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#metal"},
+				"east": {"uv": [0, 0, 15, 16], "texture": "#metal"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#metal"},
+				"west": {"uv": [0, 0, 15, 16], "texture": "#metal"},
+				"up": {"uv": [0, 0, 16, 15], "texture": "#metal"},
+				"down": {"uv": [0, 0, 16, 15], "texture": "#metal"}
+			}
+		},
+		{
+			"name": "door",
+			"from": [1, 0, 0],
+			"to": [15, 14, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 14, 14], "texture": "#door"},
+				"east": {"uv": [0, 0, 1, 14], "texture": "#door"},
+				"south": {"uv": [0, 0, 14, 14], "texture": "#door"},
+				"west": {"uv": [0, 0, 1, 14], "texture": "#door"},
+				"up": {"uv": [0, 0, 14, 1], "texture": "#door"},
+				"down": {"uv": [0, 0, 14, 1], "texture": "#door"}
+			}
+		}
+	]
+}

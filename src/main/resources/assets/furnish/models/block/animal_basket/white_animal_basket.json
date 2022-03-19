@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/animal_basket/animal_basket",
+  "textures": {
+    "wool": "minecraft:block/white_wool",
+    "motive": "furnish:block/animal_basket/white"
+  }
+}

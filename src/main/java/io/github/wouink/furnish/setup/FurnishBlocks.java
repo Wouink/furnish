@@ -47,6 +47,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Oak_Crate = Registry.register("oak_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistryObject<Block> Oak_Shelf = Registry.register("oak_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistryObject<Block> Oak_Bench = Registry.register("oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> Oak_Log_Bench = Registry.register("oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
 	public static final RegistryObject<Block> Birch_Table = Registry.register("birch_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Square_Table = Registry.register("birch_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
@@ -61,6 +62,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Birch_Crate = Registry.register("birch_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Shelf = Registry.register("birch_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Bench = Registry.register("birch_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final RegistryObject<Block> Birch_Log_Bench = Registry.register("birch_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 
 	public static final RegistryObject<Block> Acacia_Table = Registry.register("acacia_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Square_Table = Registry.register("acacia_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
@@ -75,6 +77,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Acacia_Crate = Registry.register("acacia_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Shelf = Registry.register("acacia_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Bench = Registry.register("acacia_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final RegistryObject<Block> Acacia_Log_Bench = Registry.register("acacia_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 
 	public static final RegistryObject<Block> Jungle_Table = Registry.register("jungle_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Square_Table = Registry.register("jungle_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
@@ -89,6 +92,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Jungle_Crate = Registry.register("jungle_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Shelf = Registry.register("jungle_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Bench = Registry.register("jungle_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final RegistryObject<Block> Jungle_Log_Bench = Registry.register("jungle_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 
 	public static final RegistryObject<Block> Spruce_Table = Registry.register("spruce_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Square_Table = Registry.register("spruce_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
@@ -103,6 +107,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Spruce_Crate = Registry.register("spruce_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Shelf = Registry.register("spruce_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Bench = Registry.register("spruce_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final RegistryObject<Block> Spruce_Log_Bench = Registry.register("spruce_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
 	public static final RegistryObject<Block> Dark_Oak_Table = Registry.register("dark_oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Square_Table = Registry.register("dark_oak_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
@@ -117,6 +122,10 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Dark_Oak_Crate = Registry.register("dark_oak_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Shelf = Registry.register("dark_oak_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Bench = Registry.register("dark_oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final RegistryObject<Block> Dark_Oak_Log_Bench = Registry.register("dark_oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+
+	public static final RegistryObject<Block> Small_Locker = Registry.register("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
+	public static final RegistryObject<Block> Locker = Registry.register("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
 
 	public static final RegistryObject<Block> Red_Bunting = Registry.register("red_bunting", () -> new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
 	public static final RegistryObject<Block> Yellow_Bunting = Registry.register("yellow_bunting", () -> new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
@@ -148,10 +157,12 @@ public class FurnishBlocks {
 	public static ArrayList<RegistryObject<Block>> Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Rare_Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Showcases = new ArrayList<>();
+	public static ArrayList<RegistryObject<Block>> Animal_Baskets = new ArrayList<>();
 
 	static {
 		Amphorae.add(Registry.register("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
 		Plates.add(Registry.register("plate", () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
+		Animal_Baskets.add(Registry.register("white_animal_basket", () -> new AnimalBasket(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL))));
 
 		for(DyeColor dyeColor : DyeColor.values()) {
 			String color = dyeColor.getName();

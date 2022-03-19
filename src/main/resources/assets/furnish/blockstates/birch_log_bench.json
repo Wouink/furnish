@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/birch/birch_log_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/birch/birch_log_bench",
+      "y": 90
+    }
+  }
+}

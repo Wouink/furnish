@@ -60,6 +60,20 @@
       "minecraft:block/grindstone/grindstone3"
     ]
   },
+  "block.furniture_locker.open": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.locker_open",
+    "sounds": [
+      "furnish:block/locker_open"
+    ]
+  },
+  "block.furniture_locker.close": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.locker_close",
+    "sounds": [
+      "furnish:block/locker_close"
+    ]
+  },
   "event.knock_on_door.wood": {
     "category": "players",
     "subtitle": "subtitle.furnish.door_knock",

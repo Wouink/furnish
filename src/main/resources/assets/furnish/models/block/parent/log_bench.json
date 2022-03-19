@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#log"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 3],
+			"to": [16, 10, 13],
+			"faces": {
+				"north": {"uv": [0, 0, 10, 16], "rotation": 90, "texture": "#log"},
+				"east": {"uv": [0, 0, 10, 10], "texture": "#log_top"},
+				"south": {"uv": [0, 0, 10, 16], "rotation": 90, "texture": "#log"},
+				"west": {"uv": [0, 0, 10, 10], "texture": "#log_top"},
+				"up": {"uv": [0, 0, 10, 16], "rotation": 90, "texture": "#log"},
+				"down": {"uv": [0, 0, 10, 16], "rotation": 90, "texture": "#log"}
+			}
+		}
+	]
+}

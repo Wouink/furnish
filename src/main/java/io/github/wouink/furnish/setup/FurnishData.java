@@ -66,6 +66,8 @@ public class FurnishData {
 		public static final RegistryObject<SoundEvent> Spruce_Cabinet_Close = registerSound("block.furniture_spruce.close");
 		public static final RegistryObject<SoundEvent> Drawers_Open = registerSound("block.furniture_drawers.open");
 		public static final RegistryObject<SoundEvent> Drawers_Close = registerSound("block.furniture_drawers.close");
+		public static final RegistryObject<SoundEvent> Locker_Open = registerSound("block.furniture_locker.open");
+		public static final RegistryObject<SoundEvent> Locker_Close = registerSound("block.furniture_locker.close");
 		public static final RegistryObject<SoundEvent> Amphora_Open = registerSound("block.amphora.open");
 		public static final RegistryObject<SoundEvent> Amphora_Close = registerSound("block.amphora.close");
 		public static final RegistryObject<SoundEvent> Wooden_Door_Knock = registerSound("event.knock_on_door.wood");

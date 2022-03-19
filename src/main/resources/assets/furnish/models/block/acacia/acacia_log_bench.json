@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/log_bench",
+  "textures": {
+    "log": "minecraft:block/acacia_log",
+    "log_top": "furnish:block/acacia_log_bench_top"
+  }
+}
