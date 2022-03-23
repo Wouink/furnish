@@ -48,6 +48,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Oak_Shelf = Registry.register("oak_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistryObject<Block> Oak_Bench = Registry.register("oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistryObject<Block> Oak_Log_Bench = Registry.register("oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> Oak_Ladder = Registry.register("oak_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
 	public static final RegistryObject<Block> Birch_Table = Registry.register("birch_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Square_Table = Registry.register("birch_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));

@@ -42,7 +42,7 @@ public class TallFurniture extends HorizontalDirectionalBlock {
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean moving) {
 		super.onPlace(state, world, pos, oldState, moving);
 		if(!state.getValue(TOP).booleanValue()) {
-			world.setBlock(pos.above(), state.setValue(TOP, true), 3);
+			world.setBlock(pos.above(), state.setValue(TOP, true), Block.UPDATE_ALL);
 		}
 	}
 

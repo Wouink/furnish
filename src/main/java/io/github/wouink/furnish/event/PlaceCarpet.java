@@ -2,6 +2,7 @@ package io.github.wouink.furnish.event;
 
 import io.github.wouink.furnish.block.CarpetOnTrapdoor;
 import io.github.wouink.furnish.setup.FurnishBlocks;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WoolCarpetBlock;
@@ -29,7 +30,7 @@ public class PlaceCarpet {
 							event.getPos(),
 							FurnishBlocks.Carpets_On_Stairs.get(color).get().defaultBlockState().setValue(
 									BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)),
-							3
+							Block.UPDATE_ALL
 					);
 				}
 			} else if(stateBelow.getBlock() instanceof TrapDoorBlock) {
@@ -40,7 +41,7 @@ public class PlaceCarpet {
 							FurnishBlocks.Carpets_On_Trapdoors.get(color).get().defaultBlockState().setValue(
 									BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING))
 									.setValue(CarpetOnTrapdoor.OPEN, stateBelow.getValue(TrapDoorBlock.OPEN)),
-							3
+							Block.UPDATE_ALL
 					);
 				}
 			}

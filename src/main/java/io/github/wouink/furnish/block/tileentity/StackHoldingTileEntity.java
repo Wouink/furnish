@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +40,7 @@ public abstract class StackHoldingTileEntity extends BlockEntity {
 	public ItemStack swap(ItemStack newStack) {
 		ItemStack ret = holding;
 		holding = newStack;
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
 		return ret;
 	}
 

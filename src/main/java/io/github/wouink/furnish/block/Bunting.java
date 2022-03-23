@@ -67,7 +67,7 @@ public class Bunting extends Block {
 		else return InteractionResult.FAIL;
 
 		level.destroyBlock(pos, true);
-		level.setBlock(pos, block.defaultBlockState().setValue(LanternBunting.Z_AXIS, state.getValue(Z_AXIS)), 2);
+		level.setBlock(pos, block.defaultBlockState().setValue(LanternBunting.Z_AXIS, state.getValue(Z_AXIS)), Block.UPDATE_ALL);
 		stack.shrink(1);
 		player.setItemInHand(hand, stack);
 

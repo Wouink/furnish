@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -92,7 +93,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 			String playerName = playerEntity.getGameProfile().getName();
 			if(ownerDisplayName == null || !ownerDisplayName.equals(playerName)) {
 				ownerDisplayName = playerName;
-				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
 			}
 		}
 	}

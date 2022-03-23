@@ -91,7 +91,7 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighbor, BlockPos neighborPos, boolean moving) {
 		boolean flag = world.hasNeighborSignal(pos);
 		if (flag != state.getValue(POWERED)) {
-			world.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(flag)), 2);
+			world.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(flag)), Block.UPDATE_ALL);
 		}
 	}
 }

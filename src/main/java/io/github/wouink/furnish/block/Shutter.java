@@ -77,18 +77,18 @@ public class Shutter extends HorizontalDirectionalBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		if(world.setBlock(pos, state.cycle(STATE), 3)) {
+		if(world.setBlock(pos, state.cycle(STATE), Block.UPDATE_ALL)) {
 			world.playSound(playerEntity, pos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0f, 1.0f);
 			// update shutters in the same column
 			boolean rightProp = world.getBlockState(pos).getValue(RIGHT).booleanValue();
 			BlockPos scan = pos.below();
 			while(world.getBlockState(scan).getBlock() == this && world.getBlockState(scan).getValue(RIGHT) == rightProp) {
-				world.setBlock(scan, world.getBlockState(pos), 3);
+				world.setBlock(scan, world.getBlockState(pos), Block.UPDATE_ALL);
 				scan = scan.below();
 			}
 			scan = pos.above();
 			while(world.getBlockState(scan).getBlock() == this && world.getBlockState(scan).getValue(RIGHT) == rightProp) {
-				world.setBlock(scan, world.getBlockState(pos), 3);
+				world.setBlock(scan, world.getBlockState(pos), Block.UPDATE_ALL);
 				scan = scan.above();
 			}
 		}

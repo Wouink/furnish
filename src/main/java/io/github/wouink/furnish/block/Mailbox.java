@@ -85,7 +85,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		if(tileEntity instanceof MailboxTileEntity) {
 			boolean mail = ((MailboxTileEntity) tileEntity).hasMail();
 			if(state.getValue(HAS_MAIL).booleanValue() != mail) {
-				world.setBlock(pos, state.setValue(HAS_MAIL, mail), 3);
+				world.setBlock(pos, state.setValue(HAS_MAIL, mail), Block.UPDATE_ALL);
 				tileEntity.setChanged();
 				world.playSound(null, pos, FurnishData.Sounds.Mailbox_Update.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				return true;
