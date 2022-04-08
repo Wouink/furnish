@@ -57,6 +57,7 @@
   "block.furnish.birch_pedestal_table": "Birch Pedestal Table",
   "block.furnish.birch_bench": "Birch Bench",
   "block.furnish.birch_log_bench": "Birch Log Bench",
+  "block.furnish.birch_ladder": "Birch Ladder",
 
   "block.furnish.acacia_cabinet": "Acacia Cabinet",
   "block.furnish.acacia_wardrobe": "Acacia Wardrobe",
@@ -71,6 +72,7 @@
   "block.furnish.acacia_pedestal_table": "Acacia Pedestal Table",
   "block.furnish.acacia_bench": "Acacia Bench",
   "block.furnish.acacia_log_bench": "Acacia Log Bench",
+  "block.furnish.acacia_ladder": "Acacia Ladder",
 
   "block.furnish.jungle_cabinet": "Jungle Cabinet",
   "block.furnish.jungle_wardrobe": "Jungle Wardrobe",
@@ -85,6 +87,7 @@
   "block.furnish.jungle_pedestal_table": "Jungle Pedestal Table",
   "block.furnish.jungle_bench": "Jungle Bench",
   "block.furnish.jungle_log_bench": "Jungle Log Bench",
+  "block.furnish.jungle_ladder": "Jungle Ladder",
 
   "block.furnish.dark_oak_cabinet": "Dark Oak Cabinet",
   "block.furnish.dark_oak_wardrobe": "Dark Oak Wardrobe",
@@ -99,6 +102,7 @@
   "block.furnish.dark_oak_pedestal_table": "Dark Oak Pedestal Table",
   "block.furnish.dark_oak_bench": "Dark Oak Bench",
   "block.furnish.dark_oak_log_bench": "Dark Oak Log Bench",
+  "block.furnish.dark_oak_ladder": "Dark Oak Ladder",
 
   "block.furnish.spruce_cabinet": "Spruce Cabinet",
   "block.furnish.spruce_wardrobe": "Spruce Wardrobe",
@@ -113,6 +117,7 @@
   "block.furnish.spruce_pedestal_table": "Spruce Pedestal Table",
   "block.furnish.spruce_bench": "Spruce Bench",
   "block.furnish.spruce_log_bench": "Spruce Log Bench",
+  "block.furnish.spruce_ladder": "Spruce Ladder",
 
   "block.furnish.white_sofa": "White Sofa",
   "block.furnish.black_sofa": "Black Sofa",
@@ -266,5 +271,7 @@
   "block.furnish.small_locker": "Small Locker",
   "block.furnish.locker": "Locker",
 
-  "block.furnish.white_animal_basket": "White Animal Basket"
+  "block.furnish.white_animal_basket": "White Animal Basket",
+
+  "block.furnish.paper_sheet": "Paper Sheet"
 }

@@ -64,6 +64,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Birch_Shelf = Registry.register("birch_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Bench = Registry.register("birch_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Log_Bench = Registry.register("birch_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final RegistryObject<Block> Birch_Ladder = Registry.register("birch_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
 	public static final RegistryObject<Block> Acacia_Table = Registry.register("acacia_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Square_Table = Registry.register("acacia_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
@@ -79,6 +80,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Acacia_Shelf = Registry.register("acacia_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Bench = Registry.register("acacia_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Log_Bench = Registry.register("acacia_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final RegistryObject<Block> Acacia_Ladder = Registry.register("acacia_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
 	public static final RegistryObject<Block> Jungle_Table = Registry.register("jungle_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Square_Table = Registry.register("jungle_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
@@ -94,6 +96,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Jungle_Shelf = Registry.register("jungle_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Bench = Registry.register("jungle_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Log_Bench = Registry.register("jungle_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final RegistryObject<Block> Jungle_Ladder = Registry.register("jungle_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
 	public static final RegistryObject<Block> Spruce_Table = Registry.register("spruce_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Square_Table = Registry.register("spruce_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
@@ -109,6 +112,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Spruce_Shelf = Registry.register("spruce_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Bench = Registry.register("spruce_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Log_Bench = Registry.register("spruce_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final RegistryObject<Block> Spruce_Ladder = Registry.register("spruce_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
 	public static final RegistryObject<Block> Dark_Oak_Table = Registry.register("dark_oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Square_Table = Registry.register("dark_oak_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
@@ -124,6 +128,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Dark_Oak_Shelf = Registry.register("dark_oak_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Bench = Registry.register("dark_oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Log_Bench = Registry.register("dark_oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final RegistryObject<Block> Dark_Oak_Ladder = Registry.register("dark_oak_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
 	public static final RegistryObject<Block> Small_Locker = Registry.register("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
 	public static final RegistryObject<Block> Locker = Registry.register("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
@@ -145,6 +150,8 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Red_Paper_Lamp = Registry.register("red_paper_lamp", () -> new PaperLamp());
 
 	public static final RegistryObject<Block> Heavy_Metal = Registry.register("heavy_metal", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f, 8.0f)));
+
+	public static final RegistryObject<Block> Paper_Sheet = Registry.register("paper_sheet", () -> new Paper(BlockBehaviour.Properties.of(Material.DECORATION)));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -195,6 +202,7 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Green_Bunting.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Jungle_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Acacia_Shutter.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}
 }
