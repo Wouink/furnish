@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/paper/paper_lamp",
+  "textures": {
+    "side": "furnish:block/paper/gray_paper_lamp_side",
+    "top": "furnish:block/paper/gray_paper_lamp_top"
+  }
+}

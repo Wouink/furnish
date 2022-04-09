@@ -7,7 +7,7 @@
 	  "entries": [
 		{
 		  "type": "minecraft:item",
-		  "name": "furnish:paper_lamp"
+		  "name": "furnish:purple_paper_lamp"
 		}
 	  ],
 	  "conditions": [

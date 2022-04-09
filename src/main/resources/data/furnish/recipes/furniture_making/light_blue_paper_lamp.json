@@ -3,6 +3,6 @@
   "ingredient": {
     "item": "minecraft:paper"
   },
-  "result": "furnish:paper_lamp",
+  "result": "furnish:light_blue_paper_lamp",
   "count": 1
 }

@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"wood": "minecraft:block/dark_oak_planks",
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"name": "lamp",
+			"from": [2, 2, 2],
+			"to": [14, 14, 14],
+			"faces": {
+				"north": {"uv": [0, 0, 12, 12], "texture": "#side"},
+				"east": {"uv": [0, 0, 12, 12], "texture": "#side"},
+				"south": {"uv": [0, 0, 12, 12], "texture": "#side"},
+				"west": {"uv": [0, 0, 12, 12], "texture": "#side"},
+				"up": {"uv": [0, 0, 12, 12], "texture": "#top"},
+				"down": {"uv": [0, 0, 12, 12], "texture": "#top"}
+			}
+		},
+		{
+			"name": "post",
+			"from": [6, 0, 6],
+			"to": [10, 16, 10],
+			"faces": {
+				"north": {"uv": [0, 0, 4, 16], "texture": "#wood"},
+				"east": {"uv": [0, 0, 4, 16], "texture": "#wood"},
+				"south": {"uv": [0, 0, 4, 16], "texture": "#wood"},
+				"west": {"uv": [0, 0, 4, 16], "texture": "#wood"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#wood"},
+				"down": {"uv": [0, 0, 4, 4], "texture": "#wood"}
+			}
+		}
+	]
+}

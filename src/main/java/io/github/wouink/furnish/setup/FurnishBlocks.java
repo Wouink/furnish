@@ -146,9 +146,6 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Disk_Rack = Registry.register("disk_rack", () -> new DiskRack(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
-	public static final RegistryObject<Block> Paper_Lamp = Registry.register("paper_lamp", () -> new PaperLamp());
-	public static final RegistryObject<Block> Red_Paper_Lamp = Registry.register("red_paper_lamp", () -> new PaperLamp());
-
 	public static final RegistryObject<Block> Heavy_Metal = Registry.register("heavy_metal", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f, 8.0f)));
 
 	public static final RegistryObject<Block> Paper_Sheet = Registry.register("paper_sheet", () -> new Paper(BlockBehaviour.Properties.of(Material.DECORATION)));
@@ -166,6 +163,7 @@ public class FurnishBlocks {
 	public static ArrayList<RegistryObject<Block>> Rare_Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Showcases = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Animal_Baskets = new ArrayList<>();
+	public static ArrayList<RegistryObject<Block>> Paper_Lamps = new ArrayList<>();
 
 	static {
 		Amphorae.add(Registry.register("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
@@ -187,6 +185,8 @@ public class FurnishBlocks {
 			Block coloredTerracotta = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(String.format("minecraft:%s_terracotta", color)));
 			Amphorae.add(Registry.register(String.format("%s_amphora", color), () -> new Amphora(BlockBehaviour.Properties.copy(coloredTerracotta))));
 			Plates.add(Registry.register(String.format("%s_plate", color), () -> new Plate(BlockBehaviour.Properties.copy(coloredTerracotta))));
+
+			Paper_Lamps.add(Registry.register(String.format("%s_paper_lamp", color), () -> new PaperLamp()));
 		}
 
 		for(String s : Rare_Plates_Names) {

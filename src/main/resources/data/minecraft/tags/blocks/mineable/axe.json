@@ -3,8 +3,7 @@
   "values": [
     "furnish:furniture_workbench",
     "furnish:disk_rack",
-    "furnish:paper_lamp",
-    "furnish:red_paper_lamp",
+    "#furnish:paper_lamps",
     "#furnish:wooden_furniture"
   ]
 }

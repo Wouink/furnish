@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+	{
+	  "name": "pool1",
+	  "rolls": 1,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "furnish:gray_paper_lamp"
+		}
+	  ],
+	  "conditions": [
+		{
+		  "condition": "minecraft:survives_explosion"
+		}
+	  ]
+	}
+  ]
+}
