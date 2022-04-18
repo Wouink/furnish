@@ -130,6 +130,12 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Dark_Oak_Log_Bench = Registry.register("dark_oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Ladder = Registry.register("dark_oak_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
+	public static final RegistryObject<Block> Crimson_Drawers = Registry.register("crimson_drawers", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
+	public static final RegistryObject<Block> Crimson_Cabinet = Registry.register("crimson_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
+	public static final RegistryObject<Block> Crimson_Wardrobe = Registry.register("crimson_wardrobe", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
+	public static final RegistryObject<Block> Crimson_Stool = Registry.register("crimson_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), Chair.BASE_SHAPES));
+	public static final RegistryObject<Block> Crimson_Chair = Registry.register("crimson_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
+
 	public static final RegistryObject<Block> Small_Locker = Registry.register("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
 	public static final RegistryObject<Block> Locker = Registry.register("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
 

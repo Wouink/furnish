@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/crimson/crimson_drawers"
+        },
+        "facing=east": {
+            "model": "furnish:block/crimson/crimson_drawers",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/crimson/crimson_drawers",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/crimson/crimson_drawers",
+            "y": 270
+        }
+    }
+}

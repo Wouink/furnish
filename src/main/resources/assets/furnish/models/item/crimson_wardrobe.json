@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:item/parent/wardrobe",
+  "textures": {
+    "0": "minecraft:block/stripped_crimson_stem",
+    "1": "furnish:block/crimson_wardrobe_door_bottom",
+    "2": "minecraft:block/gold_block"
+  }
+}

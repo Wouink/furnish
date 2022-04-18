@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:crimson_cabinet",
+    "furnish:crimson_wardrobe",
+    "furnish:crimson_chair",
+    "furnish:crimson_stool",
+    "furnish:crimson_drawers"
+  ]
+}
