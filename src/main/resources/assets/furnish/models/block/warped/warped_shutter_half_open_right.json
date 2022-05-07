@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/parent/shutter_half_open_right",
+  "textures": {
+    "0": "furnish:block/warped_shutter"
+  }
+}

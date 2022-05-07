@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:warped_cabinet",
+    "furnish:warped_wardrobe",
+    "furnish:warped_chair",
+    "furnish:warped_stool",
+    "furnish:warped_drawers",
+    "furnish:warped_table",
+    "furnish:warped_square_table",
+    "furnish:warped_pedestal_table",
+    "furnish:warped_shutter",
+    "furnish:warped_crate",
+    "furnish:warped_shelf",
+    "furnish:warped_bench",
+    "furnish:warped_log_bench",
+    "furnish:warped_ladder"
+  ]
+}

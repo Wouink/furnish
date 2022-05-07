@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/log_bench",
+  "textures": {
+    "log": "minecraft:block/crimson_stem",
+    "log_top": "furnish:block/crimson_log_bench_top"
+  }
+}

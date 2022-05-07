@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/crimson/crimson_log_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/crimson/crimson_log_bench",
+      "y": 90
+    }
+  }
+}

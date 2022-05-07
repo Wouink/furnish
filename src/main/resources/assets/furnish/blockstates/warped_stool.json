@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "furnish:block/warped/warped_stool"
+        },
+        "facing=east": {
+            "model": "furnish:block/warped/warped_stool",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "furnish:block/warped/warped_stool",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "furnish:block/warped/warped_stool",
+            "y": 270
+        }
+    }
+}

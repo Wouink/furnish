@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/warped/warped_log_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/warped/warped_log_bench",
+      "y": 90
+    }
+  }
+}

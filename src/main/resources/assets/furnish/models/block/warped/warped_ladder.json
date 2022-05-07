@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/ladder",
+  "textures": {
+    "stripped_log": "minecraft:block/stripped_warped_stem",
+    "planks": "minecraft:block/warped_planks"
+  }
+}

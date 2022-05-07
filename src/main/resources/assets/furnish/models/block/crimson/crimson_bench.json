@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/bench",
+  "textures": {
+    "planks": "minecraft:block/crimson_planks",
+    "stripped_log": "minecraft:block/stripped_crimson_stem"
+  }
+}

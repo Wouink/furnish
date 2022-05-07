@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:block/parent/square_table",
+  "textures": {
+    "0": "minecraft:block/stripped_warped_stem",
+    "1": "minecraft:block/warped_stem",
+    "particle": "minecraft:block/stripped_warped_stem"
+  }
+}

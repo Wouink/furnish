@@ -135,9 +135,33 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Crimson_Wardrobe = Registry.register("crimson_wardrobe", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
 	public static final RegistryObject<Block> Crimson_Stool = Registry.register("crimson_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistryObject<Block> Crimson_Chair = Registry.register("crimson_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
+	public static final RegistryObject<Block> Crimson_Table = Registry.register("crimson_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Square_Table = Registry.register("crimson_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Pedestal_Table = Registry.register("crimson_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Shutter = Registry.register("crimson_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.CRIMSON_TRAPDOOR)));
+	public static final RegistryObject<Block> Crimson_Crate = Registry.register("crimson_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Shelf = Registry.register("crimson_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Bench = Registry.register("crimson_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Log_Bench = Registry.register("crimson_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistryObject<Block> Crimson_Ladder = Registry.register("crimson_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
 
-	public static final RegistryObject<Block> Small_Locker = Registry.register("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
-	public static final RegistryObject<Block> Locker = Registry.register("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
+	public static final RegistryObject<Block> Warped_Drawers = Registry.register("warped_drawers", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
+	public static final RegistryObject<Block> Warped_Cabinet = Registry.register("warped_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
+	public static final RegistryObject<Block> Warped_Wardrobe = Registry.register("warped_wardrobe", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
+	public static final RegistryObject<Block> Warped_Stool = Registry.register("warped_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), Chair.BASE_SHAPES));
+	public static final RegistryObject<Block> Warped_Chair = Registry.register("warped_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
+	public static final RegistryObject<Block> Warped_Table = Registry.register("warped_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Square_Table = Registry.register("warped_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Pedestal_Table = Registry.register("warped_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Shutter = Registry.register("warped_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.WARPED_TRAPDOOR)));
+	public static final RegistryObject<Block> Warped_Crate = Registry.register("warped_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Shelf = Registry.register("warped_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Bench = Registry.register("warped_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Log_Bench = Registry.register("warped_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistryObject<Block> Warped_Ladder = Registry.register("warped_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+
+	public static final RegistryObject<Block> Small_Locker = Registry.register("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
+	public static final RegistryObject<Block> Locker = Registry.register("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), FurnishData.Sounds.Locker_Open, FurnishData.Sounds.Locker_Close));
 
 	public static final RegistryObject<Block> Red_Bunting = Registry.register("red_bunting", () -> new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
 	public static final RegistryObject<Block> Yellow_Bunting = Registry.register("yellow_bunting", () -> new Bunting(BlockBehaviour.Properties.copy(Blocks.TRIPWIRE)));
@@ -208,6 +232,8 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Green_Bunting.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Jungle_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Acacia_Shutter.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Crimson_Shutter.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Warped_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}

@@ -1,0 +1,7 @@
+{
+	"parent": "furnish:block/parent/pedestal_table",
+	"textures": {
+		"table": "minecraft:block/stripped_warped_stem",
+		"log": "minecraft:block/warped_stem"
+	}
+}

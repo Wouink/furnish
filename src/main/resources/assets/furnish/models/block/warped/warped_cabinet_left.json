@@ -1,0 +1,90 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#body",
+		"body": "minecraft:block/stripped_warped_stem",
+		"door": "furnish:block/warped_cabinet_door",
+		"handle": "minecraft:block/quartz_block_bottom"
+	},
+	"elements": [
+		{
+			"name": "body",
+			"from": [0, 0, 2],
+			"to": [8, 16, 16],
+			"faces": {
+				"north": {"uv": [8, 0, 16, 16], "texture": "#body"},
+				"east": {"uv": [0, 0, 14, 16], "texture": "#body"},
+				"south": {"uv": [0, 0, 8, 16], "texture": "#body"},
+				"west": {"uv": [2, 0, 16, 16], "texture": "#body"},
+				"up": {"uv": [0, 2, 8, 16], "texture": "#body"},
+				"down": {"uv": [0, 2, 8, 16], "texture": "#body"}
+			}
+		},
+		{
+			"name": "body",
+			"from": [8, 0, 1],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 8, 16], "texture": "#body"},
+				"east": {"uv": [0, 0, 15, 16], "texture": "#body"},
+				"south": {"uv": [8, 0, 16, 16], "texture": "#body"},
+				"west": {"uv": [0, 0, 15, 16], "texture": "#body"},
+				"up": {"uv": [8, 1, 16, 16], "texture": "#body"},
+				"down": {"uv": [8, 1, 16, 16], "texture": "#body"}
+			}
+		},
+		{
+			"name": "door",
+			"from": [1, 1, 1],
+			"to": [7, 15, 2],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 14], "texture": "#door"},
+				"east": {"uv": [0, 0, 1, 14], "texture": "#door"},
+				"south": {"uv": [0, 0, 6, 14], "texture": "#door"},
+				"west": {"uv": [0, 0, 1, 14], "texture": "#door"},
+				"up": {"uv": [0, 0, 6, 1], "texture": "#door"},
+				"down": {"uv": [0, 0, 6, 1], "texture": "#door"}
+			}
+		},
+		{
+			"name": "door",
+			"from": [9, 1, 0],
+			"to": [15, 15, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 14], "texture": "#door"},
+				"east": {"uv": [0, 0, 1, 14], "texture": "#door"},
+				"south": {"uv": [0, 0, 6, 14], "texture": "#door"},
+				"west": {"uv": [0, 0, 1, 14], "texture": "#door"},
+				"up": {"uv": [0, 0, 6, 1], "texture": "#door"},
+				"down": {"uv": [0, 0, 6, 1], "texture": "#door"}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [2, 7, 0],
+			"to": [3, 9, 1],
+			"faces": {
+				"north": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"east": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"south": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"west": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#handle"},
+				"down": {"uv": [0, 0, 1, 1], "texture": "#handle"}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [10, 7, -1],
+			"to": [11, 9, 0],
+			"faces": {
+				"north": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"east": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"south": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"west": {"uv": [0, 0, 1, 2], "texture": "#handle"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#handle"},
+				"down": {"uv": [0, 0, 1, 1], "texture": "#handle"}
+			}
+		}
+	]
+}

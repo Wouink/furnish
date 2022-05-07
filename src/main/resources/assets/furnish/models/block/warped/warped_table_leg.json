@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/table_leg",
+  "textures": {
+    "0": "minecraft:block/warped_stem",
+    "particle": "#0"
+  }
+}

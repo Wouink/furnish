@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:item/parent/table",
+  "textures": {
+    "0": "furnish:block/crimson_table_top",
+    "1": "minecraft:block/stripped_crimson_stem"
+  }
+}
