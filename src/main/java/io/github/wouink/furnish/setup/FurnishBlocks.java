@@ -176,9 +176,9 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Disk_Rack = Registry.register("disk_rack", () -> new DiskRack(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
-	public static final RegistryObject<Block> Heavy_Metal = Registry.register("heavy_metal", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f, 8.0f)));
+	// public static final RegistryObject<Block> Heavy_Metal = Registry.register("heavy_metal", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f, 8.0f)));
 
-	public static final RegistryObject<Block> Paper_Sheet = Registry.register("paper_sheet", () -> new Paper(BlockBehaviour.Properties.of(Material.DECORATION)));
+	// public static final RegistryObject<Block> Paper_Sheet = Registry.register("paper_sheet", () -> new Paper(BlockBehaviour.Properties.of(Material.DECORATION)));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -192,13 +192,13 @@ public class FurnishBlocks {
 	public static ArrayList<RegistryObject<Block>> Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Rare_Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Showcases = new ArrayList<>();
-	public static ArrayList<RegistryObject<Block>> Animal_Baskets = new ArrayList<>();
+	// public static ArrayList<RegistryObject<Block>> Animal_Baskets = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Paper_Lamps = new ArrayList<>();
 
 	static {
 		Amphorae.add(Registry.register("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
 		Plates.add(Registry.register("plate", () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
-		Animal_Baskets.add(Registry.register("white_animal_basket", () -> new AnimalBasket(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL))));
+		// Animal_Baskets.add(Registry.register("white_animal_basket", () -> new AnimalBasket(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL))));
 
 		for(DyeColor dyeColor : DyeColor.values()) {
 			String color = dyeColor.getName();
@@ -234,7 +234,7 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Acacia_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Crimson_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Warped_Shutter.get(), RenderType.translucent());
-		ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
+		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}
 }
