@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "furnish:block/recycle_bin" }
+    }
+}

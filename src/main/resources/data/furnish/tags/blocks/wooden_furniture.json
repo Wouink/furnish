@@ -6,6 +6,7 @@
     "#furnish:acacia_furniture",
     "#furnish:jungle_furniture",
     "#furnish:dark_oak_furniture",
-    "#furnish:spruce_furniture"
+    "#furnish:spruce_furniture",
+    "furnish:recycle_bin"
   ]
 }

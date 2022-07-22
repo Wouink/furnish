@@ -14,7 +14,7 @@ plugins {
 }
 apply plugin: 'net.minecraftforge.gradle'
 
-version = '1.18-0.6'
+version = '1.18-0.6-fix1'
 group = 'io.github.wouink.furnish'
 archivesBaseName = 'furnish'
 

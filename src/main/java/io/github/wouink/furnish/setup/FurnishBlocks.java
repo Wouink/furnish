@@ -180,6 +180,8 @@ public class FurnishBlocks {
 
 	// public static final RegistryObject<Block> Paper_Sheet = Registry.register("paper_sheet", () -> new Paper(BlockBehaviour.Properties.of(Material.DECORATION)));
 
+	public static final RegistryObject<Block> Recycle_Bin = Registry.register("recycle_bin", () -> new RecycleBin(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.SCAFFOLDING).strength(0.5f)));
+
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
 	public static HashMap<String, RegistryObject<Block>> Carpets_On_Stairs = new HashMap<>(16);
@@ -234,6 +236,7 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Acacia_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Crimson_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Warped_Shutter.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Recycle_Bin.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}

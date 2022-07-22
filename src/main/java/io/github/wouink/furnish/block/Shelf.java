@@ -82,15 +82,19 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
-		if(state.getBlock() != newState.getBlock()) {
-			super.onRemove(state, world, pos, newState, moving);
+		System.out.println("onRemove");
+		if(!state.is(newState.getBlock())) {
+			System.out.println("pas le meme block");
 			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if (tileEntity instanceof ShelfTileEntity) {
+				System.out.println("shelf");
 				ItemStack stack = ((ShelfTileEntity) tileEntity).getHeldItem();
 				if (!stack.isEmpty()) {
+					System.out.println("stack not empty");
 					world.addFreshEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, stack));
 				}
 			}
+			super.onRemove(state, world, pos, newState, moving);
 		}
 	}
 }
