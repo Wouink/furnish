@@ -3,7 +3,7 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,7 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import javax.annotation.Nullable;
 
 public class FurnitureWorkbench extends HorizontalDirectionalBlock {
-	private static final TranslatableComponent Container_Name = new TranslatableComponent("container.furniture_workbench");
+	private static final Component Container_Name = Component.translatable("container.furniture_workbench");
 
 	public FurnitureWorkbench() {
 		super(Properties.of(Material.WOOD).strength(1.0f).sound(SoundType.WOOD).noOcclusion());

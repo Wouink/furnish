@@ -7,7 +7,6 @@ import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -65,7 +64,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		if(entity instanceof Player) {
-			((Player) entity).displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.ownership_info"), true);
+			((Player) entity).displayClientMessage(Component.translatable("msg.furnish.mailbox.ownership_info"), true);
 		}
 		if(stack.hasCustomHoverName()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
@@ -105,7 +104,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 			if(!mailbox.hasOwner()) {
 				Furnish.LOG.debug("Mailbox does not have an owner -- setting owner and quitting");
 				mailbox.setOwner(playerEntity);
-				playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.set_owner"), true);
+				playerEntity.displayClientMessage(Component.translatable("msg.furnish.mailbox.set_owner"), true);
 				return InteractionResult.sidedSuccess(false);
 			}
 
@@ -122,7 +121,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 
 			if(playerEntity.getItemInHand(hand).isEmpty()) {
 				Furnish.LOG.debug("Player has no item in hand -- quitting");
-				playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.no_permission"), true);
+				playerEntity.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
 				return InteractionResult.FAIL;
 			}
 
@@ -130,7 +129,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 
 			if(mailbox.isFull()) {
 				Furnish.LOG.debug("Mailbox is full -- quitting");
-				playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.full"), true);
+				playerEntity.displayClientMessage(Component.translatable("msg.furnish.mailbox.full"), true);
 				return InteractionResult.FAIL;
 			}
 
@@ -144,16 +143,16 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 				Furnish.LOG.debug("Mail is added to mailbox -- quitting");
 				Component ownerName = mailbox.getOwnerDisplayName();
 				if (ownerName != null) {
-					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
+					playerEntity.displayClientMessage(Component.translatable("msg.furnish.mailbox.mail_delivered_to", ownerName), true);
 				} else {
-					playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.mail_delivered"), true);
+					playerEntity.displayClientMessage(Component.translatable("msg.furnish.mailbox.mail_delivered"), true);
 				}
 				return InteractionResult.sidedSuccess(false);
 			}
 
 			Furnish.LOG.debug("Mail is not added to mailbox -- end of method");
 
-			playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.invalid_mail"), true);
+			playerEntity.displayClientMessage(Component.translatable("msg.furnish.mailbox.invalid_mail"), true);
 			return InteractionResult.FAIL;
 		}
 	}
@@ -183,7 +182,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 				if(((MailboxTileEntity) tileEntity).isOwner(player)) {
 					return super.onDestroyedByPlayer(state, world, pos, player, willHarvest, fluid);
 				} else {
-					player.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.no_permission"), true);
+					player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
 				}
 			}
 		}

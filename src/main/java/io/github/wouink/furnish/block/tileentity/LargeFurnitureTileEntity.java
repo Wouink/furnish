@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
@@ -8,7 +7,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
@@ -59,7 +57,7 @@ public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity 
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+		return this.getBlockState().getBlock().getName();
 	}
 
 	@Override

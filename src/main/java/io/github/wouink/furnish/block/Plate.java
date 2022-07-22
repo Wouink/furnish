@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
@@ -77,7 +78,7 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock, IS
 
 	@Override
 	public Item.Properties getProperties() {
-		Rarity rarity = getRegistryName().getPath().startsWith("rare_") ? Rarity.RARE : Rarity.COMMON;
+		Rarity rarity = ForgeRegistries.BLOCKS.getKey(this).getPath().startsWith("rare_") ? Rarity.RARE : Rarity.COMMON;
 		return new Item.Properties().tab(FurnishItems.Furnish_ItemGroup).stacksTo(16).rarity(rarity);
 	}
 

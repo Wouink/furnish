@@ -13,16 +13,14 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class LetterScreen extends Screen {
-	private static final Component SCREEN_NAME = new TranslatableComponent("item.furnish.letter");
-	private static final Component SIGN_LETTER = new TranslatableComponent("book.signButton");
+	private static final Component SCREEN_NAME = Component.translatable("item.furnish.letter");
+	private static final Component SIGN_LETTER = Component.translatable("book.signButton");
 	private static final ResourceLocation LETTER_BACKGROUND = new ResourceLocation(Furnish.MODID, "textures/gui/letter.png");
 
 	// Max length is 16 lines of 18 characters
@@ -160,12 +158,12 @@ public class LetterScreen extends Screen {
 		// text and cursor rendering
 		if (editable) {
 			if(frameTick / 6 % 2 == 0) {
-				font.drawWordWrap(new TextComponent(letterText).append("_"), startX + 36, 20, 108, 0);
+				font.drawWordWrap(Component.literal(letterText).append("_"), startX + 36, 20, 108, 0);
 			} else {
-				font.drawWordWrap(new TextComponent(letterText).append(" "), startX + 36, 20, 108, 0);
+				font.drawWordWrap(Component.literal(letterText).append(" "), startX + 36, 20, 108, 0);
 			}
 		} else {
-			font.drawWordWrap(new TextComponent(letterText), startX + 36, 20, 108, 0);
+			font.drawWordWrap(Component.literal(letterText), startX + 36, 20, 108, 0);
 		}
 
 		super.render(ms, mouseX, mouseY, partialTicks);

@@ -1,9 +1,10 @@
 package io.github.wouink.furnish.event;
 
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.decoration.Motive;
 import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -16,9 +17,9 @@ import java.util.List;
 
 public class CyclePainting {
 
-	public static List<Motive> getSimilarSizeArt(Motive art) {
-		List<Motive> similar = new ArrayList<>();
-		for(Motive p : ForgeRegistries.PAINTING_TYPES.getValues()) {
+	public static List<PaintingVariant> getSimilarSizeArt(PaintingVariant art) {
+		List<PaintingVariant> similar = new ArrayList<>();
+		for(PaintingVariant p : ForgeRegistries.PAINTING_VARIANTS.getValues()) {
 			if(p.getWidth() == art.getWidth() && p.getHeight() == art.getHeight()) {
 				similar.add(p);
 			}
@@ -28,33 +29,32 @@ public class CyclePainting {
 
 	@SubscribeEvent
 	public static void onPaintingInteract(PlayerInteractEvent.EntityInteract event) {
-		Level world = event.getWorld();
+		Level world = event.getLevel();
 		if(world.isClientSide()) return;
 		if(!event.getItemStack().getItem().equals(Items.PAINTING)) return;
 		if(!(event.getTarget() instanceof Painting)) return;
 
 		Painting target = (Painting) event.getTarget();
-		Motive newArt = null;
+		PaintingVariant newArt = null;
 
-		List<Motive> similarSizeArts = getSimilarSizeArt(target.motive);
+		List<PaintingVariant> similarSizeArts = getSimilarSizeArt(target.getVariant().get());
 		if(similarSizeArts.isEmpty() || similarSizeArts.size() < 2) {
-			event.getPlayer().displayClientMessage(new TranslatableComponent("msg.furnish.cycle_no_painting"), true);
+			event.getEntity().displayClientMessage(Component.translatable("msg.furnish.cycle_no_painting"), true);
 			return;
 		}
 
 		// for(PaintingType p : similarSizeArts) System.out.println(p.getRegistryName().toString());
 
-		if(event.getPlayer().isCrouching()) Collections.reverse(similarSizeArts);
-		int index = similarSizeArts.indexOf(target.motive);
+		if(event.getEntity().isCrouching()) Collections.reverse(similarSizeArts);
+		int index = similarSizeArts.indexOf(target.getVariant().get());
 		newArt = similarSizeArts.get((index + 1) % similarSizeArts.size());
 
 		// System.out.println(newArt.getRegistryName().toString());
 
 		// doesn't update
-		// target.motive = newArt;
+		// target.PaintingVariant = newArt;
 
-		 Painting newPainting = new Painting(world, target.getPos(), target.getMotionDirection());
-		 newPainting.motive = newArt;
+		 Painting newPainting = new Painting(world, target.getPos(), target.getMotionDirection(), (Holder<PaintingVariant>) newArt);
 		 target.remove(Entity.RemovalReason.DISCARDED);
 		 world.addFreshEntity(newPainting);
 	}

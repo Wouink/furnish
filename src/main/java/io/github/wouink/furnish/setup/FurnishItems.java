@@ -4,18 +4,17 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.util.INoBlockItem;
 import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.item.Letter;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishItems {
@@ -28,24 +27,26 @@ public class FurnishItems {
 	};
 
 	public static BlockItem getBlockItem(Block block) {
-		return (BlockItem) new BlockItem(block, new Item.Properties().tab(Furnish_ItemGroup)).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
+		return (BlockItem) new BlockItem(block, new Item.Properties().tab(Furnish_ItemGroup));
 	}
 
 	public static BlockItem getBlockItemWithProperties(Block block, Item.Properties properties) {
-		return (BlockItem) new BlockItem(block, properties).setRegistryName(Objects.requireNonNull(block.getRegistryName()));
+		return (BlockItem) new BlockItem(block, properties);
 	}
 
 	@SubscribeEvent
-	public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-		IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
-		for(RegistryObject<Block> b : FurnishBlocks.Registry.getEntries()) {
-			if(!(b.get() instanceof INoBlockItem)) {
-				if(b.get() instanceof ISpecialItemProperties) {
-					itemRegistry.register(getBlockItemWithProperties(b.get(), ((ISpecialItemProperties) b.get()).getProperties()));
-				} else itemRegistry.register(getBlockItem(b.get()));
+	public static void onItemRegistry(final RegisterEvent event) {
+		event.register(ForgeRegistries.Keys.ITEMS, helper -> {
+			for(RegistryObject<Block> b : FurnishBlocks.Registry.getEntries()) {
+				if(!(b.get() instanceof INoBlockItem)) {
+					if(b.get() instanceof ISpecialItemProperties) {
+						helper.register(b.getId(), getBlockItemWithProperties(b.get(), ((ISpecialItemProperties) b.get()).getProperties()));
+					} else helper.register(b.getId(), getBlockItem(b.get()));
+				}
 			}
-		}
-		itemRegistry.register(new Letter(new Item.Properties().tab(Furnish_ItemGroup).stacksTo(1), "letter"));
+			helper.register(new ResourceLocation(Furnish.MODID, "letter"), new Letter(new Item.Properties().tab(Furnish_ItemGroup).stacksTo(1)));
+		});
+
 		Furnish.LOG.info("Registered Furnish Items.");
 	}
 }

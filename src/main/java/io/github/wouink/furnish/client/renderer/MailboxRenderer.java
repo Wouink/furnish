@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -49,7 +48,7 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxTileEntity> {
 		if(!Minecraft.renderNames()) return;
 
 		Component content = mailbox.getOwnerDisplayName();
-		if(content == null) content = new TextComponent("???");
+		if(content == null) content = Component.literal("???");
 
 		ms.pushPose();
 		ms.translate(.5, 1, .5);

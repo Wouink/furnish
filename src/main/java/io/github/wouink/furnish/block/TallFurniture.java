@@ -2,7 +2,7 @@ package io.github.wouink.furnish.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -32,7 +32,7 @@ public class TallFurniture extends HorizontalDirectionalBlock {
 			return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		} else {
 			if(ctx.getLevel().isClientSide()) {
-				ctx.getPlayer().displayClientMessage(new TranslatableComponent("msg.furnish.furniture_too_big"), true);
+				ctx.getPlayer().displayClientMessage(Component.translatable("msg.furnish.furniture_too_big"), true);
 			}
 			return null;
 		}

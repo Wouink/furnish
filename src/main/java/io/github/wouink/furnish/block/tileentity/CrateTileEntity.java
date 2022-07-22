@@ -1,13 +1,11 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -67,7 +65,7 @@ public class CrateTileEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+		return this.getBlockState().getBlock().getName();
 	}
 
 	@Override

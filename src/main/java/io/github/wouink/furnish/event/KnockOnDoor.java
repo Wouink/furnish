@@ -15,14 +15,14 @@ public class KnockOnDoor {
 
 	@SubscribeEvent
 	public static void onDoorHit(PlayerInteractEvent.LeftClickBlock event) {
-		if(event.getWorld().isClientSide()) return;
-		if(event.getPlayer().isCreative()) return;
-		if(event.getPlayer().getItemInHand(event.getHand()).isEmpty()) {
-			BlockState hitBlock = event.getWorld().getBlockState(event.getPos());
+		if(event.getLevel().isClientSide()) return;
+		if(event.getEntity().isCreative()) return;
+		if(event.getEntity().getItemInHand(event.getHand()).isEmpty()) {
+			BlockState hitBlock = event.getLevel().getBlockState(event.getPos());
 			if(hitBlock.getBlock() instanceof DoorBlock) {
 				if(hitBlock.getMaterial() == Material.METAL) {
-					event.getWorld().playSound(null, event.getPos(), FurnishData.Sounds.Iron_Door_Knock.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
-				} else event.getWorld().playSound(null, event.getPos(), FurnishData.Sounds.Wooden_Door_Knock.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+					event.getLevel().playSound(null, event.getPos(), FurnishData.Sounds.Iron_Door_Knock.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+				} else event.getLevel().playSound(null, event.getPos(), FurnishData.Sounds.Wooden_Door_Knock.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 			}
 		}
 	}

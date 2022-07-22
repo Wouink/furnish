@@ -11,16 +11,16 @@ public class AddArmsToArmorStand {
 
 	@SubscribeEvent
 	public static void onStickRightClicked(PlayerInteractEvent.EntityInteractSpecific event) {
-		if(event.getWorld().isClientSide()) return;
+		if(event.getLevel().isClientSide()) return;
 		if(event.getTarget() instanceof ArmorStand) {
 			ArmorStand armorStand = (ArmorStand) event.getTarget();
 			if(!armorStand.isShowArms()) {
-				ItemStack heldItem = event.getPlayer().getItemInHand(event.getHand());
+				ItemStack heldItem = event.getEntity().getItemInHand(event.getHand());
 				if(heldItem.getItem() == Items.STICK) {
 					SynchedEntityData data = armorStand.getEntityData();
 					// showArms is the 4th bit of ArmorStandEntity.DATA_CLIENT_FLAGS byte
 					data.set(ArmorStand.DATA_CLIENT_FLAGS, setBit(data.get(ArmorStand.DATA_CLIENT_FLAGS), 4, true));
-					if(!event.getPlayer().isCreative()) {
+					if(!event.getEntity().isCreative()) {
 						heldItem.setCount(heldItem.getCount() - 1);
 					}
 					// cancel the event to prevent giving the stick to the ArmorStand

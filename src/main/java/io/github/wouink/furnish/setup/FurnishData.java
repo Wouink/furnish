@@ -21,20 +21,19 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.decoration.Motive;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -43,10 +42,10 @@ public class FurnishData {
 	public static RecipeType<FurnitureRecipe> Furniture_Recipe;
 
 	@SubscribeEvent
-	public static void registerRecipeType(RegistryEvent.Register<Block> event) {
-		// Forge does not include a registry for RecipeTypes, and starting from 1.18.2,
-		// registering in a vanilla registry must be done in any registry event.
-		Furniture_Recipe = RecipeType.register(Furniture_Recipe_Loc.toString());
+	public static void registerRecipeType(RegisterEvent event) {
+		event.register(ForgeRegistries.Keys.RECIPE_TYPES, helper -> {
+			helper.register(Furniture_Recipe_Loc, Furniture_Recipe);
+		});
 		System.out.println("Registered Furnish Recipe Type.");
 	}
 
@@ -83,7 +82,7 @@ public class FurnishData {
 	}
 
 	public static class Containers {
-		public static final DeferredRegister<MenuType<?>> Registry = DeferredRegister.create(ForgeRegistries.CONTAINERS, Furnish.MODID);
+		public static final DeferredRegister<MenuType<?>> Registry = DeferredRegister.create(ForgeRegistries.Keys.MENU_TYPES, Furnish.MODID);
 		public static final RegistryObject<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench = Registry.register(
 				"furniture_workbench",
 				() -> new MenuType<>(FurnitureWorkbenchContainer::new)
@@ -103,7 +102,7 @@ public class FurnishData {
 	}
 
 	public static class Entities {
-		public static final DeferredRegister<EntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.ENTITIES, Furnish.MODID);
+		public static final DeferredRegister<EntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.Keys.ENTITY_TYPES, Furnish.MODID);
 		public static final RegistryObject<EntityType<SeatEntity>> Seat_Entity = register("seat",
 				EntityType.Builder.<SeatEntity>of((type, world) -> new SeatEntity(world), MobCategory.MISC)
 						.sized(0.0f, 0.0f).setCustomClientFactory(((spawnEntity, world) -> new SeatEntity(world)))
@@ -115,7 +114,7 @@ public class FurnishData {
 	}
 
 	public static class TileEntities {
-		public static final DeferredRegister<BlockEntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Furnish.MODID);
+		public static final DeferredRegister<BlockEntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, Furnish.MODID);
 		public static final RegistryObject<BlockEntityType<FurnitureTileEntity>> TE_Furniture = Registry.register("furniture", () -> BlockEntityType.Builder.of(FurnitureTileEntity::new, FurnishBlocks.Furniture_3x9.toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<LargeFurnitureTileEntity>> TE_Large_Furniture = Registry.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureTileEntity::new, FurnishBlocks.Furniture_6x9.toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<AmphoraTileEntity>> TE_Amphora = Registry.register("amphora", () -> BlockEntityType.Builder.of(AmphoraTileEntity::new, FurnishBlocks.Amphorae.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
@@ -159,25 +158,18 @@ public class FurnishData {
 		Furnish.LOG.info("Registered Furnish Entity/BlockEntity Renderers.");
 	}
 
-	public static Motive createPainting(String name, int w, int h) {
-		Motive painting = new Motive(16 * w, 16 * h);
-		painting.setRegistryName(Furnish.MODID, name);
-		return painting;
-	}
-
 	@SubscribeEvent
-	public static void registerPaintings(RegistryEvent.Register<Motive> paintingRegistryEvent) {
-		IForgeRegistry<Motive> paintingRegistry = paintingRegistryEvent.getRegistry();
-
-		paintingRegistry.register(createPainting("steve", 1, 1));
-		paintingRegistry.register(createPainting("alex", 1, 1));
-		paintingRegistry.register(createPainting("oak", 1, 1));
-		paintingRegistry.register(createPainting("birch", 1, 1));
-		paintingRegistry.register(createPainting("spruce", 1, 2));
-		paintingRegistry.register(createPainting("jungle", 1, 2));
-		paintingRegistry.register(createPainting("acacia", 1, 1));
-		paintingRegistry.register(createPainting("dark_oak", 1, 1));
-
+	public static void registerPaintings(RegisterEvent event) {
+		event.register(ForgeRegistries.Keys.PAINTING_VARIANTS, helper -> {
+			helper.register(new ResourceLocation(Furnish.MODID, "steve"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "alex"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "oak"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "birch"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "spruce"), new PaintingVariant(16, 32));
+			helper.register(new ResourceLocation(Furnish.MODID, "jungle"), new PaintingVariant(16, 32));
+			helper.register(new ResourceLocation(Furnish.MODID, "acacia"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "dark_oak"), new PaintingVariant(16, 16));
+		});
 		Furnish.LOG.info("Registered Furnish Paintings.");
 	}
 }

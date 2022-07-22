@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.item;
 
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.client.gui.LetterScreen;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.ChatFormatting;
@@ -8,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,9 +22,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Letter extends Item {
-	public Letter(Properties p, String registryName) {
+	public Letter(Properties p) {
 		super(p);
-		setRegistryName(Furnish.MODID, registryName);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -40,11 +37,11 @@ public class Letter extends Item {
 		if(letter.hasTag()) {
 			CompoundTag letterTag = letter.getTag();
 			if(letterTag.contains("Author")) {
-				tooltip.add(new TranslatableComponent("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));
+				tooltip.add(Component.translatable("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));
 			}
 			if(letterTag.contains("Attachment")) {
 				ItemStack attachment = ItemStack.of(letterTag.getCompound("Attachment"));
-				tooltip.add(new TranslatableComponent("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
+				tooltip.add(Component.translatable("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
@@ -92,7 +89,7 @@ public class Letter extends Item {
 				if(!result.isEmpty()) {
 					playerEntity.addItem(result);
 					if(world.isClientSide()) {
-						playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.letter.attachment_removed"), true);
+						playerEntity.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_removed"), true);
 						playerEntity.playSound(FurnishData.Sounds.Detach_From_Letter.get(), 1.0f, 1.0f);
 					}
 					return InteractionResultHolder.sidedSuccess(letter, world.isClientSide());
@@ -103,7 +100,7 @@ public class Letter extends Item {
 					playerEntity.setItemInHand(InteractionHand.OFF_HAND, result);
 					if(result.isEmpty()) {
 						if(world.isClientSide()) {
-							playerEntity.displayClientMessage(new TranslatableComponent("msg.furnish.letter.attachment_added", offHandStack.getItem().getDescription()), true);
+							playerEntity.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_added", offHandStack.getItem().getDescription()), true);
 							playerEntity.playSound(FurnishData.Sounds.Attach_To_Letter.get(), 1.0f, 1.0f);
 						}
 						return InteractionResultHolder.sidedSuccess(letter, world.isClientSide());

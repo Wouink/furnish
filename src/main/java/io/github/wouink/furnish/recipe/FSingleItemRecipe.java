@@ -67,7 +67,7 @@ public abstract class FSingleItemRecipe implements Recipe<Container> {
 		return this.result.copy();
 	}
 
-	public static class Serializer<T extends FSingleItemRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+	public static class Serializer<T extends FSingleItemRecipe> implements RecipeSerializer<T> {
 		final IRecipeFactory<T> factory;
 
 		public Serializer(IRecipeFactory<T> fac) {

@@ -10,8 +10,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -53,7 +51,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent(String.format("block.%s.%s", Furnish.MODID, this.getBlockState().getBlock().getRegistryName().getPath()));
+		return this.getBlockState().getBlock().getName();
 	}
 
 	@Override
@@ -137,9 +135,9 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 				Player mailboxOwner = level.getPlayerByUUID(getOwner());
 				if (mailboxOwner != null) {
 					if (hasCustomName()) {
-						mailboxOwner.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.new_mail_loc", getCustomName()), true);
+						mailboxOwner.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail_loc", getCustomName()), true);
 					} else {
-						mailboxOwner.displayClientMessage(new TranslatableComponent("msg.furnish.mailbox.new_mail"), true);
+						mailboxOwner.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail"), true);
 					}
 				}
 			}
@@ -150,7 +148,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	public Component getOwnerDisplayName() {
-		return (!hasOwner() || ownerDisplayName.isEmpty()) ? null : new TextComponent(ownerDisplayName);
+		return (!hasOwner() || ownerDisplayName.isEmpty()) ? null : Component.literal(ownerDisplayName);
 	}
 
 	private int getFreeSlot() {
