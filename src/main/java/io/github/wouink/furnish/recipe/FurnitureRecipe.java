@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 
 public class FurnitureRecipe extends FSingleItemRecipe {
 	public FurnitureRecipe(ResourceLocation rl, String s, Ingredient ing, ItemStack stack) {
-		super(FurnishData.Furniture_Recipe, FurnishData.RecipeSerializers.Furniture_Recipe_Serializer.get(), rl, s, ing, stack);
+		super(FurnishData.RecipeTypes.Furniture_Recipe.get(), FurnishData.RecipeSerializers.Furniture_Recipe_Serializer.get(), rl, s, ing, stack);
 	}
 
 	@Override

@@ -134,7 +134,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 		this.selectedRecipe.set(-1);
 		this.outputSlot.set(ItemStack.EMPTY);
 		if(!stack.isEmpty()) {
-			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishData.Furniture_Recipe, inv, this.level);
+			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishData.RecipeTypes.Furniture_Recipe.get(), inv, this.level);
 		}
 	}
 
@@ -181,7 +181,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 				if(!this.moveItemStackTo(itemStack1, 2, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(this.level.getRecipeManager().getRecipeFor(FurnishData.Furniture_Recipe, new SimpleContainer(itemStack1), this.level).isPresent()) {
+			} else if(this.level.getRecipeManager().getRecipeFor(FurnishData.RecipeTypes.Furniture_Recipe.get(), new SimpleContainer(itemStack1), this.level).isPresent()) {
 				if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}

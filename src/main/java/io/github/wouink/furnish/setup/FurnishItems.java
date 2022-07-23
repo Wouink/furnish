@@ -26,22 +26,14 @@ public class FurnishItems {
 		}
 	};
 
-	public static BlockItem getBlockItem(Block block) {
-		return (BlockItem) new BlockItem(block, new Item.Properties().tab(Furnish_ItemGroup));
-	}
-
-	public static BlockItem getBlockItemWithProperties(Block block, Item.Properties properties) {
-		return (BlockItem) new BlockItem(block, properties);
-	}
-
 	@SubscribeEvent
 	public static void onItemRegistry(final RegisterEvent event) {
 		event.register(ForgeRegistries.Keys.ITEMS, helper -> {
 			for(RegistryObject<Block> b : FurnishBlocks.Registry.getEntries()) {
 				if(!(b.get() instanceof INoBlockItem)) {
 					if(b.get() instanceof ISpecialItemProperties) {
-						helper.register(b.getId(), getBlockItemWithProperties(b.get(), ((ISpecialItemProperties) b.get()).getProperties()));
-					} else helper.register(b.getId(), getBlockItem(b.get()));
+						helper.register(b.getId(), new BlockItem (b.get(), ((ISpecialItemProperties) b.get()).getProperties()));
+					} else helper.register(b.getId(), new BlockItem(b.get(), new Item.Properties().tab(Furnish_ItemGroup)));
 				}
 			}
 			helper.register(new ResourceLocation(Furnish.MODID, "letter"), new Letter(new Item.Properties().tab(Furnish_ItemGroup).stacksTo(1)));

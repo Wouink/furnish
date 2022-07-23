@@ -38,22 +38,24 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishData {
-	public static final ResourceLocation Furniture_Recipe_Loc = new ResourceLocation(Furnish.MODID, "furniture_making");
-	public static RecipeType<FurnitureRecipe> Furniture_Recipe;
-
-	@SubscribeEvent
-	public static void registerRecipeType(RegisterEvent event) {
-		event.register(ForgeRegistries.Keys.RECIPE_TYPES, helper -> {
-			helper.register(Furniture_Recipe_Loc, Furniture_Recipe);
-		});
-		System.out.println("Registered Furnish Recipe Type.");
+	public static class RecipeTypes {
+		public static final DeferredRegister<RecipeType<?>> Registry = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, Furnish.MODID);
+		public static final RegistryObject<RecipeType<FurnitureRecipe>> Furniture_Recipe = Registry.register(
+				"furniture_making",
+				() -> new RecipeType<>() {
+					@Override
+					public String toString() {
+						return "furniture_making";
+					}
+				}
+		);
 	}
 
 	public static class RecipeSerializers {
 		public static final DeferredRegister<RecipeSerializer<?>> Registry = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Furnish.MODID);
 		public static final RegistryObject<RecipeSerializer<FurnitureRecipe>> Furniture_Recipe_Serializer = Registry.register(
 				"furniture_making",
-				() -> new FSingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new) {}
+				() -> new FSingleItemRecipe.Serializer<>(FurnitureRecipe::new)
 		);
 	}
 
@@ -82,7 +84,7 @@ public class FurnishData {
 	}
 
 	public static class Containers {
-		public static final DeferredRegister<MenuType<?>> Registry = DeferredRegister.create(ForgeRegistries.Keys.MENU_TYPES, Furnish.MODID);
+		public static final DeferredRegister<MenuType<?>> Registry = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Furnish.MODID);
 		public static final RegistryObject<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench = Registry.register(
 				"furniture_workbench",
 				() -> new MenuType<>(FurnitureWorkbenchContainer::new)
@@ -102,7 +104,7 @@ public class FurnishData {
 	}
 
 	public static class Entities {
-		public static final DeferredRegister<EntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.Keys.ENTITY_TYPES, Furnish.MODID);
+		public static final DeferredRegister<EntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Furnish.MODID);
 		public static final RegistryObject<EntityType<SeatEntity>> Seat_Entity = register("seat",
 				EntityType.Builder.<SeatEntity>of((type, world) -> new SeatEntity(world), MobCategory.MISC)
 						.sized(0.0f, 0.0f).setCustomClientFactory(((spawnEntity, world) -> new SeatEntity(world)))
@@ -114,7 +116,7 @@ public class FurnishData {
 	}
 
 	public static class TileEntities {
-		public static final DeferredRegister<BlockEntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, Furnish.MODID);
+		public static final DeferredRegister<BlockEntityType<?>> Registry = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Furnish.MODID);
 		public static final RegistryObject<BlockEntityType<FurnitureTileEntity>> TE_Furniture = Registry.register("furniture", () -> BlockEntityType.Builder.of(FurnitureTileEntity::new, FurnishBlocks.Furniture_3x9.toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<LargeFurnitureTileEntity>> TE_Large_Furniture = Registry.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureTileEntity::new, FurnishBlocks.Furniture_6x9.toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<AmphoraTileEntity>> TE_Amphora = Registry.register("amphora", () -> BlockEntityType.Builder.of(AmphoraTileEntity::new, FurnishBlocks.Amphorae.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
@@ -129,6 +131,8 @@ public class FurnishData {
 	public static void setup(IEventBus bus) {
 		Containers.Registry.register(bus);
 		Furnish.LOG.info("Registered Furnish Containers.");
+		RecipeTypes.Registry.register(bus);
+		Furnish.LOG.info("Registered Furnish Recipe Types.");
 		RecipeSerializers.Registry.register(bus);
 		Furnish.LOG.info("Registered Furnish Recipes Serializers.");
 		Entities.Registry.register(bus);
