@@ -179,7 +179,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		if(!world.isClientSide()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof MailboxTileEntity) {
-				if(((MailboxTileEntity) tileEntity).isOwner(player)) {
+				if(((MailboxTileEntity) tileEntity).isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || Furnish.CONFIG.creativeDestroyMailbox.get()))) {
 					return super.onDestroyedByPlayer(state, world, pos, player, willHarvest, fluid);
 				} else {
 					player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
