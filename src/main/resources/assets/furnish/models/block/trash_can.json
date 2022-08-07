@@ -1,0 +1,51 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "furnish:block/trash_can_side",
+		"side": "furnish:block/trash_can_side",
+		"top": "furnish:block/trash_can_top",
+		"handle": "furnish:block/trash_can_handle"
+	},
+	"elements": [
+		{
+			"name": "body",
+			"from": [2.5, 0, 2.5],
+			"to": [13.5, 14, 13.5],
+			"faces": {
+				"north": {"uv": [0, 0, 11, 14], "texture": "#side"},
+				"east": {"uv": [0, 0, 11, 14], "texture": "#side"},
+				"south": {"uv": [0, 0, 11, 14], "texture": "#side"},
+				"west": {"uv": [0, 0, 11, 14], "texture": "#side"},
+				"up": {"uv": [0, 0, 11, 11], "texture": "#side"},
+				"down": {"uv": [1, 1, 12, 12], "texture": "#top"}
+			}
+		},
+		{
+			"name": "cover",
+			"from": [1.5, 14, 1.5],
+			"to": [14.5, 16, 14.5],
+			"faces": {
+				"north": {"uv": [0, 0, 13, 2], "texture": "#top"},
+				"east": {"uv": [0, 0, 13, 2], "texture": "#top"},
+				"south": {"uv": [0, 0, 13, 2], "texture": "#top"},
+				"west": {"uv": [0, 0, 13, 2], "texture": "#top"},
+				"up": {"uv": [0, 0, 13, 13], "texture": "#top"},
+				"down": {"uv": [0, 0, 13, 13], "texture": "#top"}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [6, 16, 7],
+			"to": [10, 17, 9],
+			"faces": {
+				"north": {"uv": [0, 0, 4, 1], "texture": "#handle"},
+				"east": {"uv": [0, 0, 2, 1], "texture": "#handle"},
+				"south": {"uv": [0, 0, 4, 1], "texture": "#handle"},
+				"west": {"uv": [0, 0, 2, 1], "texture": "#handle"},
+				"up": {"uv": [0, 0, 4, 2], "texture": "#handle"},
+				"down": {"uv": [0, 0, 4, 2], "texture": "#handle"}
+			}
+		}
+	]
+}

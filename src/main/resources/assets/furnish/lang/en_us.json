@@ -4,6 +4,7 @@
   "msg.furnish.cycle_no_painting": "No other painting",
   "furnish.furniture_inventory": "Furniture Inventory",
   "furnish.furniture_making": "Furniture Making",
+  "msg.furnish.recycle_bin_full": "It's full! Shift-Right-Click to empty.",
 
   "subtitle.furnish.furniture_open": "Furniture Opens",
   "subtitle.furnish.furniture_close": "Furniture Closes",
@@ -16,6 +17,7 @@
   "subtitle.furnish.door_knock": "Someone Knocks on a Door",
   "subtitle.furnish.door_knock_iron": "Someone Knocks on an Iron Door",
   "subtitle.furnish.use_curtain": "Curtain",
+  "subtitle.furnish.recycle_bin_empty": "Empty Recycle Bin",
 
   "advancement.furnish.root.name": "Welcome to Furnish!",
   "advancement.furnish.root.description": "Use the Furniture Workbench to create Furniture",
@@ -309,7 +311,8 @@
   "block.furnish.warped_table": "Warped Table",
   "block.furnish.warped_wardrobe": "Warped Wardrobe",
 
-  "block.furnish.recycle_bin": "Recycle Bin (WIP)",
+  "block.furnish.recycle_bin": "Recycle Bin",
+  "block.furnish.trash_can": "Trash Can",
 
 
   "block.furnish.disk_rack": "Disk Rack",

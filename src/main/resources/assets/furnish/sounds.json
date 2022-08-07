@@ -128,5 +128,19 @@
       "minecraft:dig/cloth3",
       "minecraft:dig/cloth4"
     ]
+  },
+  "block.recycle_bin.empty": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.recycle_bin_empty",
+    "sounds": [
+      "furnish:block/recycle_bin_empty"
+    ]
+  },
+  "block.trash_can.empty": {
+    "category": "blocks",
+    "subtitle": "subtitle.furnish.recycle_bin_empty",
+    "sounds": [
+      "furnish:block/trash_can_empty"
+    ]
   }
 }

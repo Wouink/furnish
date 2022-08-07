@@ -77,6 +77,8 @@ public class FurnishData {
 		public static final RegistryObject<SoundEvent> Attach_To_Letter = registerSound("item.letter.add_attachment");
 		public static final RegistryObject<SoundEvent> Detach_From_Letter = registerSound("item.letter.remove_attachment");
 		public static final RegistryObject<SoundEvent> Curtain = registerSound("block.curtain.interact");
+		public static final RegistryObject<SoundEvent> Recycle_Bin_Empty = registerSound("block.recycle_bin.empty");
+		public static final RegistryObject<SoundEvent> Trash_Can_Empty = registerSound("block.trash_can.empty");
 
 		private static RegistryObject<SoundEvent> registerSound(String key) {
 			return Registry.register(key, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, key)));
@@ -126,6 +128,7 @@ public class FurnishData {
 		public static final RegistryObject<BlockEntityType<ShelfTileEntity>> TE_Shelf = Registry.register("shelf", () -> BlockEntityType.Builder.of(ShelfTileEntity::new, FurnishBlocks.Shelves.toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<ShowcaseTileEntity>> TE_Showcase = Registry.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseTileEntity::new, FurnishBlocks.Showcases.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<DiskRackTileEntity>> TE_Disk_Rack = Registry.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackTileEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
+		public static final RegistryObject<BlockEntityType<RecycleBinTileEntity>> TE_Recycle_Bin = Registry.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinTileEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
 	}
 
 	public static void setup(IEventBus bus) {

@@ -26,6 +26,7 @@ public class FurnishBlocks {
 	public static ArrayList<Block> Furniture_3x9 = new ArrayList<>();
 	public static ArrayList<Block> Furniture_6x9 = new ArrayList<>();
 	public static ArrayList<Block> Shelves = new ArrayList<>();
+	public static ArrayList<Block> Recycle_Bins = new ArrayList<>();
 
 	public static class CustomProperties {
 		public static final BooleanProperty RIGHT = BooleanProperty.create("right");
@@ -180,7 +181,8 @@ public class FurnishBlocks {
 
 	// public static final RegistryObject<Block> Paper_Sheet = Registry.register("paper_sheet", () -> new Paper(BlockBehaviour.Properties.of(Material.DECORATION)));
 
-	public static final RegistryObject<Block> Recycle_Bin = Registry.register("recycle_bin", () -> new RecycleBin(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.SCAFFOLDING).strength(0.5f)));
+	public static final RegistryObject<Block> Recycle_Bin = Registry.register("recycle_bin", () -> new RecycleBin(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.SCAFFOLDING).strength(0.5f), FurnishData.Sounds.Recycle_Bin_Empty));
+	public static final RegistryObject<Block> Trash_Can = Registry.register("trash_can", () -> new RecycleBin(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.0f), FurnishData.Sounds.Trash_Can_Empty));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
