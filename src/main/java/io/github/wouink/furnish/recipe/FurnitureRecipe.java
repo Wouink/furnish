@@ -22,4 +22,11 @@ public class FurnitureRecipe extends FSingleItemRecipe {
 	public ItemStack getToastSymbol() {
 		return new ItemStack(FurnishBlocks.Furniture_Workbench.get());
 	}
+
+	// set ignored by recipe book
+	// prevents error messages when joining world
+	@Override
+	public boolean isSpecial() {
+		return true;
+	}
 }

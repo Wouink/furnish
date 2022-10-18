@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:item/parent/coffin",
+  "textures": {
+    "0": "minecraft:block/jungle_log",
+    "1": "furnish:block/jungle_coffin_sides"
+  }
+}

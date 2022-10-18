@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.RecycleBinTileEntity;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -33,6 +34,7 @@ public class RecycleBin extends Block implements EntityBlock {
 	public RecycleBin(Properties p, RegistryObject<SoundEvent> sound) {
 		super(p.noOcclusion());
 		this.sound = sound;
+		FurnishBlocks.Recycle_Bins.add(this);
 	}
 
 	@Override
@@ -62,9 +64,10 @@ public class RecycleBin extends Block implements EntityBlock {
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof RecycleBinTileEntity) {
-				if(playerEntity.isCrouching()) ((RecycleBinTileEntity) tileEntity).empty();
+				RecycleBinTileEntity rb = (RecycleBinTileEntity) tileEntity;
+				if(playerEntity.isCrouching()) rb.empty();
 				else if(!playerEntity.getItemInHand(hand).isEmpty()) {
-					playerEntity.setItemInHand(hand, ((RecycleBinTileEntity) tileEntity).addItem(playerEntity.getItemInHand(hand)));
+					playerEntity.setItemInHand(hand, rb.addItem(playerEntity.getItemInHand(hand)));
 					if(!playerEntity.getItemInHand(hand).isEmpty()) playerEntity.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_full"), true);
 				} else playerEntity.openMenu((MenuProvider) tileEntity);
 			}

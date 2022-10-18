@@ -184,6 +184,15 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Recycle_Bin = Registry.register("recycle_bin", () -> new RecycleBin(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.SCAFFOLDING).strength(0.5f), FurnishData.Sounds.Recycle_Bin_Empty));
 	public static final RegistryObject<Block> Trash_Can = Registry.register("trash_can", () -> new RecycleBin(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.0f), FurnishData.Sounds.Trash_Can_Empty));
 
+	// Halloween Update
+	public static final RegistryObject<Block> Oak_Coffin = Registry.register("oak_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> Birch_Coffin = Registry.register("birch_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final RegistryObject<Block> Spruce_Coffin = Registry.register("spruce_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final RegistryObject<Block> Acacia_Coffin = Registry.register("acacia_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final RegistryObject<Block> Dark_Oak_Coffin = Registry.register("dark_oak_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final RegistryObject<Block> Jungle_Coffin = Registry.register("jungle_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final RegistryObject<Block> Gravestone = Registry.register("gravestone", () -> new Gravestone(BlockBehaviour.Properties.copy(Blocks.ANDESITE)));
+
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
 	public static HashMap<String, RegistryObject<Block>> Carpets_On_Stairs = new HashMap<>(16);

@@ -66,4 +66,9 @@ public class Furnish {
 		FurnishBlocks.clientSetup();
 		FurnishData.clientSetup();
 	}
+
+	public static void debug(String msg) {
+		// Toggle comment on the following line to enable/disable debug messages
+		// System.out.println(msg);
+	}
 }
