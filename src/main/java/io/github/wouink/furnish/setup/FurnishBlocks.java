@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -191,7 +192,9 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Acacia_Coffin = Registry.register("acacia_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Coffin = Registry.register("dark_oak_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Coffin = Registry.register("jungle_coffin", () -> new Coffin(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
-	public static final RegistryObject<Block> Gravestone = Registry.register("gravestone", () -> new Gravestone(BlockBehaviour.Properties.copy(Blocks.ANDESITE)));
+	public static final RegistryObject<Block> Gravestone = Registry.register("gravestone", () -> new VerticalSlab(BlockBehaviour.Properties.copy(Blocks.ANDESITE)));
+	public static final RegistryObject<Block> Iron_Bars_Top = Registry.register("iron_bars_top", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
+	public static final RegistryObject<Block> Iron_Gate = Registry.register("iron_gate", () -> new IronGate(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -248,6 +251,7 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Crimson_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Warped_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Recycle_Bin.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Iron_Bars_Top.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}

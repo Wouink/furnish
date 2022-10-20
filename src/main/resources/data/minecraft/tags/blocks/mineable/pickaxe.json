@@ -10,6 +10,8 @@
     "furnish:locker",
     "furnish:small_locker",
     "furnish:trash_can",
-    "furnish:gravestone"
+    "furnish:gravestone",
+    "furnish:iron_bars_top",
+    "furnish:iron_gate"
   ]
 }

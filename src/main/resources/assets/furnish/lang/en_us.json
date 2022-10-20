@@ -326,12 +326,12 @@
   "block.furnish.paper_sheet": "Paper Sheet",
 
   "block.furnish.gravestone": "Gravestone",
-  "furnish.gravestone.edit": "Write an Epitaph",
   "block.furnish.oak_coffin": "Oak Coffin",
   "block.furnish.birch_coffin": "Birch Coffin",
   "block.furnish.spruce_coffin": "Spruce Coffin",
   "block.furnish.jungle_coffin": "Jungle Coffin",
   "block.furnish.acacia_coffin": "Acacia Coffin",
-  "block.furnish.dark_oak_coffin": "Dark Oak Coffin"
-
+  "block.furnish.dark_oak_coffin": "Dark Oak Coffin",
+  "block.furnish.iron_bars_top": "Iron Bars Top",
+  "block.furnish.iron_gate": "Iron Gate"
 }

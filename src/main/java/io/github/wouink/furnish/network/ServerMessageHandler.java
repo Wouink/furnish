@@ -25,12 +25,7 @@ public class ServerMessageHandler {
 			return;
 		}
 
-		ctx.enqueueWork(() -> processMessage(message, playerEntity));
-	}
-
-	private static void processMessage(ItemStackUpdateMessage message, ServerPlayer playerEntity) {
-		playerEntity.getInventory().setItem(message.getSlot(), message.getStack());
-		playerEntity.getInventory().setChanged();
+		ctx.enqueueWork(() -> ItemStackUpdateMessage.process(message, playerEntity));
 	}
 
 	public static boolean acceptsProtocol(String protocol) {

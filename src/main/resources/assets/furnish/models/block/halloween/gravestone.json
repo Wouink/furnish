@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"0": "furnish:block/gravestone_front",
+		"0": "furnish:block/gravestone_front_2",
 		"1": "furnish:block/gravestone_side",
 		"2": "minecraft:block/polished_andesite",
 		"particle": "furnish:block/gravestone_front"

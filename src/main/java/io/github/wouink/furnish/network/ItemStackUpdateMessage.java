@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.network;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemStackUpdateMessage {
@@ -32,5 +33,10 @@ public class ItemStackUpdateMessage {
 		int decodedSlot = packetBuffer.readVarInt();
 		ItemStack decodedStack = packetBuffer.readItem();
 		return new ItemStackUpdateMessage(decodedSlot, decodedStack);
+	}
+
+	public static void process(ItemStackUpdateMessage message, ServerPlayer player) {
+		player.getInventory().setItem(message.getSlot(), message.getStack());
+		player.getInventory().setChanged();
 	}
 }
