@@ -333,5 +333,7 @@
   "block.furnish.acacia_coffin": "Acacia Coffin",
   "block.furnish.dark_oak_coffin": "Dark Oak Coffin",
   "block.furnish.iron_bars_top": "Iron Bars Top",
-  "block.furnish.iron_gate": "Iron Gate"
+  "block.furnish.iron_gate": "Iron Gate",
+  "subtitle.furnish.iron_gate_open": "Iron Gate Opens",
+  "subtitle.furnish.iron_gate_close": "Iron Gate Closes"
 }

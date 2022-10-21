@@ -1,10 +1,11 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -17,116 +18,103 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-// copied from net.minecraft.world.level.block.FenceGateBlock
-
 public class IronGate extends HorizontalDirectionalBlock {
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-	protected static final VoxelShape Z_SHAPE = Block.box(0.0D, 0.0D, 6.0D, 16.0D, 16.0D, 10.0D);
-	protected static final VoxelShape X_SHAPE = Block.box(6.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
-	protected static final VoxelShape Z_COLLISION_SHAPE = Block.box(0.0D, 0.0D, 6.0D, 16.0D, 24.0D, 10.0D);
-	protected static final VoxelShape X_COLLISION_SHAPE = Block.box(6.0D, 0.0D, 0.0D, 10.0D, 24.0D, 16.0D);
-	protected static final VoxelShape Z_OCCLUSION_SHAPE = Shapes.or(Block.box(0.0D, 5.0D, 7.0D, 2.0D, 16.0D, 9.0D), Block.box(14.0D, 5.0D, 7.0D, 16.0D, 16.0D, 9.0D));
-	protected static final VoxelShape X_OCCLUSION_SHAPE = Shapes.or(Block.box(7.0D, 5.0D, 0.0D, 9.0D, 16.0D, 2.0D), Block.box(7.0D, 5.0D, 14.0D, 9.0D, 16.0D, 16.0D));
 
-	public IronGate(BlockBehaviour.Properties p_53356_) {
-		super(p_53356_);
+	private static final VoxelShape Z_SHAPE = Block.box(0.0D, 0.0D, 7.0D, 16.0D, 16.0D, 9.0D);
+	private static final VoxelShape X_SHAPE = Block.box(7.0D, 0.0D, 0.0D, 9.0D, 16.0D, 16.0D);
+	private static final VoxelShape X_SUPPORT_SHAPE = Shapes.or(
+			Block.box(0, 0, 0, 16, 16, 1),
+			Block.box(0, 0, 15, 16, 16, 16)
+	);
+	private static final VoxelShape Z_SUPPORT_SHAPE = Shapes.or(
+			Block.box(0, 0, 0, 1, 16, 16),
+			Block.box(15, 0, 0, 16, 16, 16)
+	);
+
+	public IronGate(BlockBehaviour.Properties p) {
+		super(p.noOcclusion());
 		this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, Boolean.valueOf(false)).setValue(POWERED, Boolean.valueOf(false)));
 	}
 
-	public VoxelShape getShape(BlockState p_53391_, BlockGetter p_53392_, BlockPos p_53393_, CollisionContext p_53394_) {
-			return p_53391_.getValue(FACING).getAxis() == Direction.Axis.X ? X_SHAPE : Z_SHAPE;
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+			return state.getValue(FACING).getAxis() == Direction.Axis.X ? X_SHAPE : Z_SHAPE;
 	}
 
-	public BlockState updateShape(BlockState p_53382_, Direction p_53383_, BlockState p_53384_, LevelAccessor p_53385_, BlockPos p_53386_, BlockPos p_53387_) {
-		Direction.Axis direction$axis = p_53383_.getAxis();
-		if (p_53382_.getValue(FACING).getClockWise().getAxis() != direction$axis) {
-			return super.updateShape(p_53382_, p_53383_, p_53384_, p_53385_, p_53386_, p_53387_);
+	public BlockState updateShape(BlockState state, Direction dir, BlockState fromState, LevelAccessor world, BlockPos pos, BlockPos fromPos) {
+		Direction.Axis axis = dir.getAxis();
+		if (state.getValue(FACING).getClockWise().getAxis() != axis) {
+			return super.updateShape(state, dir, fromState, world, pos, fromPos);
 		} else {
-			return p_53382_;
+			return state;
 		}
 	}
 
-	public VoxelShape getCollisionShape(BlockState p_53396_, BlockGetter p_53397_, BlockPos p_53398_, CollisionContext p_53399_) {
-		if (p_53396_.getValue(OPEN)) {
+	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+		if (state.getValue(OPEN)) {
 			return Shapes.empty();
 		} else {
-			return p_53396_.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE : X_COLLISION_SHAPE;
+			return state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_SHAPE : X_SHAPE;
 		}
 	}
 
-	public VoxelShape getOcclusionShape(BlockState p_53401_, BlockGetter p_53402_, BlockPos p_53403_) {
-		return p_53401_.getValue(FACING).getAxis() == Direction.Axis.X ? X_OCCLUSION_SHAPE : Z_OCCLUSION_SHAPE;
-	}
-
-	public boolean isPathfindable(BlockState p_53360_, BlockGetter p_53361_, BlockPos p_53362_, PathComputationType p_53363_) {
-		switch (p_53363_) {
-			case LAND:
-				return p_53360_.getValue(OPEN);
-			case WATER:
-				return false;
-			case AIR:
-				return p_53360_.getValue(OPEN);
+	public boolean isPathfindable(BlockState state, BlockGetter world, BlockPos pos, PathComputationType type) {
+		switch (type) {
+			case LAND, AIR:
+				return state.getValue(OPEN);
 			default:
 				return false;
 		}
 	}
 
-	public BlockState getStateForPlacement(BlockPlaceContext p_53358_) {
-		Level level = p_53358_.getLevel();
-		BlockPos blockpos = p_53358_.getClickedPos();
+	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+		Level level = ctx.getLevel();
+		BlockPos blockpos = ctx.getClickedPos();
 		boolean flag = level.hasNeighborSignal(blockpos);
-		Direction direction = p_53358_.getHorizontalDirection();
-		Direction.Axis direction$axis = direction.getAxis();
+		Direction direction = ctx.getHorizontalDirection();
 		return this.defaultBlockState().setValue(FACING, direction).setValue(OPEN, Boolean.valueOf(flag)).setValue(POWERED, Boolean.valueOf(flag));
 	}
 
-	public InteractionResult use(BlockState p_53365_, Level p_53366_, BlockPos p_53367_, Player p_53368_, InteractionHand p_53369_, BlockHitResult p_53370_) {
-		if (p_53365_.getValue(OPEN)) {
-			p_53365_ = p_53365_.setValue(OPEN, Boolean.valueOf(false));
-			p_53366_.setBlock(p_53367_, p_53365_, 10);
-		} else {
-			Direction direction = p_53368_.getDirection();
-			if (p_53365_.getValue(FACING) == direction.getOpposite()) {
-				p_53365_ = p_53365_.setValue(FACING, direction);
-			}
-
-			p_53365_ = p_53365_.setValue(OPEN, Boolean.valueOf(true));
-			p_53366_.setBlock(p_53367_, p_53365_, 10);
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if(level.isClientSide()) return InteractionResult.SUCCESS;
+		state = state.cycle(OPEN);
+		Direction direction = player.getDirection();
+		if (state.getValue(FACING) == direction.getOpposite()) {
+			state = state.setValue(FACING, direction);
 		}
+		level.setBlock(pos, state, 10);
 
-		boolean flag = p_53365_.getValue(OPEN);
-		p_53366_.levelEvent(p_53368_, flag ? 1008 : 1014, p_53367_, 0);
-		p_53366_.gameEvent(p_53368_, flag ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, p_53367_);
-		return InteractionResult.sidedSuccess(p_53366_.isClientSide);
+		boolean flag = state.getValue(OPEN);
+		level.playSound(null, pos, flag ? FurnishData.Sounds.Iron_Gate_Open.get() : FurnishData.Sounds.Iron_Gate_Close.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+		return InteractionResult.CONSUME;
 	}
 
-	public void neighborChanged(BlockState p_53372_, Level p_53373_, BlockPos p_53374_, Block p_53375_, BlockPos p_53376_, boolean p_53377_) {
-		if (!p_53373_.isClientSide) {
-			boolean flag = p_53373_.hasNeighborSignal(p_53374_);
-			if (p_53372_.getValue(POWERED) != flag) {
-				p_53373_.setBlock(p_53374_, p_53372_.setValue(POWERED, Boolean.valueOf(flag)).setValue(OPEN, Boolean.valueOf(flag)), 2);
-				if (p_53372_.getValue(OPEN) != flag) {
-					p_53373_.levelEvent((Player) null, flag ? 1008 : 1014, p_53374_, 0);
-					p_53373_.gameEvent((Entity) null, flag ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, p_53374_);
+	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_53375_, BlockPos p_53376_, boolean p_53377_) {
+		if (!level.isClientSide()) {
+			boolean flag = level.hasNeighborSignal(pos);
+			if (state.getValue(POWERED) != flag) {
+				level.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(flag)).setValue(OPEN, Boolean.valueOf(flag)), 2);
+				if (state.getValue(OPEN) != flag) {
+					level.playSound(null, pos, flag ? FurnishData.Sounds.Iron_Gate_Open.get() : FurnishData.Sounds.Iron_Gate_Close.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 			}
-
 		}
 	}
 
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_53389_) {
-		p_53389_.add(FACING, OPEN, POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(FACING, OPEN, POWERED);
 	}
 
-	public static boolean connectsToDirection(BlockState p_53379_, Direction p_53380_) {
-		return p_53379_.getValue(FACING).getAxis() == p_53380_.getClockWise().getAxis();
+	@Override
+	public VoxelShape getBlockSupportShape(BlockState state, BlockGetter world, BlockPos pos) {
+		return state.getValue(FACING).getAxis() == Direction.Axis.X ? X_SUPPORT_SHAPE : Z_SUPPORT_SHAPE;
 	}
 }

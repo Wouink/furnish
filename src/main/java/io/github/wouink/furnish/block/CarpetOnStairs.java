@@ -42,8 +42,8 @@ public class CarpetOnStairs extends HorizontalDirectionalBlock implements INoBlo
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction dir, BlockState newState, LevelAccessor world, BlockPos pos, BlockPos newPos) {
-		return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, dir, newState, world, pos, newPos);
+	public BlockState updateShape(BlockState state, Direction dir, BlockState fromState, LevelAccessor world, BlockPos pos, BlockPos fromPos) {
+		return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, dir, fromState, world, pos, fromPos);
 	}
 
 	@Override

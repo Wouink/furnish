@@ -1,0 +1,28 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"0": "furnish:block/skulls/skeleton_back",
+		"1": "furnish:block/skulls/skeleton_bottom",
+		"2": "furnish:block/skulls/skeleton_face",
+		"3": "furnish:block/skulls/skeleton_left",
+		"4": "furnish:block/skulls/skeleton_right",
+		"5": "furnish:block/skulls/skeleton_top",
+		"particle": "furnish:block/skulls/skeleton_back"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 4],
+			"to": [12, 8, 12],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 8, 8], "texture": "#2"},
+				"east": {"uv": [0, 0, 8, 8], "texture": "#3"},
+				"south": {"uv": [0, 0, 8, 8], "texture": "#0"},
+				"west": {"uv": [0, 0, 8, 8], "texture": "#4"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#5"},
+				"down": {"uv": [0, 0, 8, 8], "texture": "#1"}
+			}
+		}
+	]
+}

@@ -5,6 +5,7 @@ import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -195,6 +196,8 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Gravestone = Registry.register("gravestone", () -> new VerticalSlab(BlockBehaviour.Properties.copy(Blocks.ANDESITE)));
 	public static final RegistryObject<Block> Iron_Bars_Top = Registry.register("iron_bars_top", () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
 	public static final RegistryObject<Block> Iron_Gate = Registry.register("iron_gate", () -> new IronGate(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
+	public static final RegistryObject<Block> Skull_Torch = Registry.register("skull_torch", () -> new SkullTorch(BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL).lightLevel((state) -> 10), ParticleTypes.FLAME));
+	public static final RegistryObject<Block> Wither_Skull_Torch = Registry.register("wither_skull_torch", () -> new SkullTorch(BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL).lightLevel((state) -> 7), ParticleTypes.SOUL_FIRE_FLAME));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -252,6 +255,9 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Warped_Shutter.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Recycle_Bin.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Iron_Bars_Top.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Iron_Gate.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Skull_Torch.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Wither_Skull_Torch.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}
