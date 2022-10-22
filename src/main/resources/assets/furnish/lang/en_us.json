@@ -337,5 +337,6 @@
   "subtitle.furnish.iron_gate_open": "Iron Gate Opens",
   "subtitle.furnish.iron_gate_close": "Iron Gate Closes",
   "block.furnish.skull_torch": "Skull Torch",
-  "block.furnish.wither_skull_torch": "Wither Skull Torch"
+  "block.furnish.wither_skull_torch": "Wither Skull Torch",
+  "block.furnish.cobweb": "Cobweb"
 }

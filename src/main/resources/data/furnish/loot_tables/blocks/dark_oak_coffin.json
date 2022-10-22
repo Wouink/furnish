@@ -13,7 +13,7 @@
 					"type": "minecraft:item",
 					"conditions": [
 						{
-							"block": "minecraft:white_bed",
+							"block": "furnish:dark_oak_coffin",
 							"condition": "minecraft:block_state_property",
 							"properties": {
 								"part": "head"

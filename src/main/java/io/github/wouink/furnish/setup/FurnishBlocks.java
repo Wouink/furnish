@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.setup;
 
+import io.github.wouink.furnish.block.Cobweb;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
@@ -198,6 +199,7 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Iron_Gate = Registry.register("iron_gate", () -> new IronGate(BlockBehaviour.Properties.copy(Blocks.IRON_BARS)));
 	public static final RegistryObject<Block> Skull_Torch = Registry.register("skull_torch", () -> new SkullTorch(BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL).lightLevel((state) -> 10), ParticleTypes.FLAME));
 	public static final RegistryObject<Block> Wither_Skull_Torch = Registry.register("wither_skull_torch", () -> new SkullTorch(BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL).lightLevel((state) -> 7), ParticleTypes.SOUL_FIRE_FLAME));
+	public static final RegistryObject<Block> Cobweb = Registry.register("cobweb", () -> new Cobweb(BlockBehaviour.Properties.of(Material.WEB).strength(0.0f)));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -256,6 +258,7 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Recycle_Bin.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Iron_Bars_Top.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Iron_Gate.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Cobweb.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}
