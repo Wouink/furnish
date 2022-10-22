@@ -50,6 +50,7 @@ public class Furnish {
 		MinecraftForge.EVENT_BUS.register(KnockOnDoor.class);
 		MinecraftForge.EVENT_BUS.register(GivePlateToEnderman.class);
 		MinecraftForge.EVENT_BUS.register(AddGoalsToPets.class);
+		MinecraftForge.EVENT_BUS.register(SleepInCoffin.class);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
