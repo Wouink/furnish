@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:wither_skeleton_skull"
+  },
+  "result": "furnish:wither_skull_torch",
+  "count": 1
+}

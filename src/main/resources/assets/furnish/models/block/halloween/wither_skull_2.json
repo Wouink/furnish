@@ -1,0 +1,14 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "furnish:block/halloween/skull_2",
+  "textures": {
+    "0": "furnish:block/skulls/wither_skeleton_back",
+    "1": "furnish:block/skulls/wither_skeleton_bottom",
+    "2": "furnish:block/skulls/wither_skeleton_face",
+    "3": "furnish:block/skulls/wither_skeleton_left",
+    "4": "furnish:block/skulls/wither_skeleton_right",
+    "5": "furnish:block/skulls/wither_skeleton_top",
+    "6": "minecraft:block/light_blue_candle_lit",
+    "particle": "furnish:block/skulls/wither_skeleton_back"
+  }
+}

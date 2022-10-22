@@ -12,6 +12,8 @@
     "furnish:trash_can",
     "furnish:gravestone",
     "furnish:iron_bars_top",
-    "furnish:iron_gate"
+    "furnish:iron_gate",
+    "furnish:skull_torch",
+    "furnish:wither_skull_torch"
   ]
 }

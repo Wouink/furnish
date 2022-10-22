@@ -256,8 +256,6 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Recycle_Bin.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Iron_Bars_Top.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Iron_Gate.get(), RenderType.translucent());
-		ItemBlockRenderTypes.setRenderLayer(Skull_Torch.get(), RenderType.translucent());
-		ItemBlockRenderTypes.setRenderLayer(Wither_Skull_Torch.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}

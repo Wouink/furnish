@@ -59,9 +59,9 @@ public class SkullTorch extends Block {
 	@Override
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource randomSource) {
 		double x = pos.getX() + .5d;
-		double y = pos.getY() + .25d;
+		double y = pos.getY() + .8d;
 		double z = pos.getZ() + .5d;
 		world.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, 0.0D, 0.0D);
-		world.addParticle(this.flameParticle, x, y, z, 0.0D, 0.0D, 0.0D);
+		world.addAlwaysVisibleParticle(this.flameParticle, x, y, z, 0.0D, 0.0D, 0.0D);
 	}
 }
