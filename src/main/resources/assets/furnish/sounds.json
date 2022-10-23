@@ -156,5 +156,12 @@
     "sounds": [
       "furnish:block/locker_close"
     ]
+  },
+  "event.mail_received": {
+    "category": "players",
+    "subtitle": "subtitle.furnish.mail_received",
+    "sounds": [
+      "furnish:event/mail_received"
+    ]
   }
 }

@@ -81,6 +81,7 @@ public class FurnishData {
 		public static final RegistryObject<SoundEvent> Trash_Can_Empty = registerSound("block.trash_can.empty");
 		public static final RegistryObject<SoundEvent> Iron_Gate_Open = registerSound("block.iron_gate.open");
 		public static final RegistryObject<SoundEvent> Iron_Gate_Close = registerSound("block.iron_gate.close");
+		public static final RegistryObject<SoundEvent> Mail_Received = registerSound("event.mail_received");
 
 		private static RegistryObject<SoundEvent> registerSound(String key) {
 			return Registry.register(key, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, key)));

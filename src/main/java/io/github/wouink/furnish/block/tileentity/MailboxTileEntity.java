@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.MailboxContainer;
+import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
@@ -14,13 +15,14 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -91,7 +93,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 			String playerName = playerEntity.getGameProfile().getName();
 			if(ownerDisplayName == null || !ownerDisplayName.equals(playerName)) {
 				ownerDisplayName = playerName;
-				level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+				TileEntityHelper.broadcastUpdate(this, false);
 			}
 		}
 	}
@@ -130,6 +132,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {
 			ItemStack result = inventory.set(slot, stack);
+			TileEntityHelper.broadcastUpdate(this, false);
 
 			if(result.isEmpty()) {
 				Player mailboxOwner = level.getPlayerByUUID(getOwner());
@@ -139,6 +142,8 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 					} else {
 						mailboxOwner.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail"), true);
 					}
+					if(mailboxOwner instanceof ServerPlayer serverPlayer)
+					TileEntityHelper.playSoundToPlayer(serverPlayer, FurnishData.Sounds.Mail_Received.get(), SoundSource.MASTER, 1.0f, 1.0f);
 				}
 			}
 

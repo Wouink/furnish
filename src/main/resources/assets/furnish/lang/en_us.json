@@ -209,6 +209,7 @@
   "msg.furnish.mailbox.new_mail_loc": "Received mail at %s",
   "msg.furnish.mailbox.invalid_mail": "You cannot mail that",
   "subtitle.furnish.mailbox_update": "Mailbox toggles",
+  "subtitle.furnish.mail_received": "Mail received",
   "item.furnish.letter": "Letter",
   "msg.furnish.letter.attachment_added": "Attached %s to Letter",
   "msg.furnish.letter.attachment_removed": "Removed attachment",
