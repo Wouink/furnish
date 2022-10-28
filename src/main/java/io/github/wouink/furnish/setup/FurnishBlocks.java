@@ -176,7 +176,9 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Metal_Mailbox = Registry.register("metal_mailbox", () -> new Mailbox(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().strength(2.0f).sound(SoundType.METAL)));
 
 	public static final RegistryObject<Block> Brick_Chimney_Conduit = Registry.register("brick_chimney_conduit", () -> new ChimneyConduit(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.0f, 3.0f)));
-	public static final RegistryObject<Block> Brick_Chimney_Cap = Registry.register("chimney_cap", () -> new ChimneyCap(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f)));
+	public static final RegistryObject<Block> Blackstone_Chimney_Conduit = Registry.register("blackstone_chimney_conduit", () -> new ChimneyConduit(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.0f, 3.0f)));
+	public static final RegistryObject<Block> Stone_Bricks_Chimney_Conduit = Registry.register("stone_bricks_chimney_conduit", () -> new ChimneyConduit(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(1.0f, 3.0f)));
+	public static final RegistryObject<Block> Chimney_Cap = Registry.register("chimney_cap", () -> new ChimneyCap(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.LANTERN).strength(2.0f)));
 
 	public static final RegistryObject<Block> Disk_Rack = Registry.register("disk_rack", () -> new DiskRack(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 

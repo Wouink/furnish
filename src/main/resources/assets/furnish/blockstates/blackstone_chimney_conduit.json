@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "furnish:block/chimney/blackstone_chimney_conduit"
+    }
+  }
+}

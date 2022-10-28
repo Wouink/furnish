@@ -225,6 +225,8 @@
   "block.furnish.dark_oak_crate": "Dark Oak Crate",
 
   "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
+  "block.furnish.blackstone_chimney_conduit": "Blackstone Chimney Conduit",
+  "block.furnish.stone_bricks_chimney_conduit": "Stone Bricks Chimney Conduit",
   "block.furnish.chimney_cap": "Chimney Cap",
 
   "block.furnish.cooking_pot": "Cooking Pot",
@@ -314,7 +316,6 @@
 
   "block.furnish.recycle_bin": "Recycle Bin",
   "block.furnish.trash_can": "Trash Can",
-
 
   "block.furnish.disk_rack": "Disk Rack",
   "block.furnish.heavy_metal": "Heavy Metal",
