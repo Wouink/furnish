@@ -1,15 +1,20 @@
 package io.github.wouink.furnish.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AnimalBasket extends HorizontalDirectionalBlock {
 	private static final VoxelShape BASKET = Block.box(0, 0, 0, 16, 2, 16);
@@ -39,5 +44,11 @@ public class AnimalBasket extends HorizontalDirectionalBlock {
 	@Override
 	public VoxelShape getInteractionShape(BlockState state, BlockGetter world, BlockPos pos) {
 		return BASKET_INTERACTION;
+	}
+
+	public static boolean isOccupied(Level level, BlockPos pos) {
+		if(!(level.getBlockState(pos).getBlock() instanceof AnimalBasket)) return true;
+		List<LivingEntity> occupants = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos));
+		return !occupants.isEmpty();
 	}
 }

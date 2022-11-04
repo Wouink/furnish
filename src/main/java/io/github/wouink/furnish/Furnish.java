@@ -49,7 +49,7 @@ public class Furnish {
 		MinecraftForge.EVENT_BUS.register(CyclePainting.class);
 		MinecraftForge.EVENT_BUS.register(KnockOnDoor.class);
 		MinecraftForge.EVENT_BUS.register(GivePlateToEnderman.class);
-		MinecraftForge.EVENT_BUS.register(AddGoalsToPets.class);
+		//MinecraftForge.EVENT_BUS.register(AddGoalsToPets.class);
 		MinecraftForge.EVENT_BUS.register(SleepInCoffin.class);
 	}
 
@@ -70,6 +70,6 @@ public class Furnish {
 
 	public static void debug(String msg) {
 		// Toggle comment on the following line to enable/disable debug messages
-		// System.out.println(msg);
+		//System.out.println(msg);
 	}
 }

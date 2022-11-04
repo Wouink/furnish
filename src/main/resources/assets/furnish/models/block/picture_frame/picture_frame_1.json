@@ -1,0 +1,38 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"0": "furnish:block/picture_frame_1",
+		"1": "block/stripped_spruce_log",
+		"particle": "#0"
+	},
+	"elements": [
+		{
+			"name": "frame",
+			"from": [4, -0.06566, 5.38476],
+			"to": [12, 9.93434, 6.38476],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 4.93434, 5.88476]},
+			"faces": {
+				"north": {"uv": [0, 0, 8, 10], "texture": "#0"},
+				"east": {"uv": [0, 0, 1, 10], "texture": "#0"},
+				"south": {"uv": [8, 0, 16, 10], "texture": "#0"},
+				"west": {"uv": [0, 0, 1, 10], "texture": "#0"},
+				"up": {"uv": [0, 0, 8, 1], "texture": "#0"},
+				"down": {"uv": [0, 0, 8, 1], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6.5, 0, 8],
+			"to": [9.5, 7, 9],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [1.5, 3, 8.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 7], "texture": "#1"},
+				"east": {"uv": [0, 0, 1, 7], "texture": "#1"},
+				"south": {"uv": [0, 9, 3, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 1, 7], "texture": "#1"},
+				"up": {"uv": [0, 0, 3, 1], "texture": "#1"},
+				"down": {"uv": [0, 0, 3, 1], "texture": "#1"}
+			}
+		}
+	]
+}

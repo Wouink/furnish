@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.RecycleBin;
+import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -34,22 +34,18 @@ public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected NonNullList<ItemStack> getItems() {
-		Furnish.debug("getitems");
 		return inventory;
 	}
 
 	@Override
 	protected void setItems(NonNullList<ItemStack> stacks) {
-		Furnish.debug("setitems");
 		inventory = stacks;
 	}
 
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
-		Furnish.debug("save called");
 		if(!this.trySaveLootTable(nbt)) {
-			Furnish.debug("container save items");
 			ContainerHelper.saveAllItems(nbt, inventory);
 		}
 	}
@@ -58,9 +54,7 @@ public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		Furnish.debug("load called");
 		if(!this.tryLoadLootTable(nbt)) {
-			Furnish.debug("container load items");
 			ContainerHelper.loadAllItems(nbt, inventory);
 		}
 	}
@@ -71,38 +65,22 @@ public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
 			break;
 		}
 		setItems(NonNullList.withSize(getContainerSize(), ItemStack.EMPTY));
-		markUpdated();
+		TileEntityHelper.broadcastUpdate(this, true);
 	}
 
 	public ItemStack addItem(ItemStack stack) {
-		BlockState blockStateBefore = getBlockState();
 		ItemStack ret = stack;
 		for(int i = 0; i < getContainerSize(); i++) {
 			if(inventory.get(i).isEmpty()) {
 				inventory.set(i, stack);
 				ret = ItemStack.EMPTY;
-				Furnish.debug("add to slot " + i);
 				break;
 			}
 		}
 		setItems(inventory);
-		markUpdated();
+		TileEntityHelper.broadcastUpdate(this, true);
 		return ret;
 	}
-
-/*	public ItemStack addItem(ItemStack stack) {
-		for(int slot = 0; slot < getContainerSize(); slot++) {
-			if(inventory.get(slot).isEmpty()) {
-				inventory.set(slot, stack);
-				setItems(inventory);
-				this.level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
-				this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-				return ItemStack.EMPTY;
-			}
-		}
-		this.level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
-		return stack;
-	}*/
 
 	public final NonNullList<ItemStack> getItemsForRender() {
 		return getItems();
@@ -125,14 +103,12 @@ public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	public void startOpen(Player playerEntity) {
-		// if(!playerEntity.isSpectator()) playSound(FurnishData.Sounds.Amphora_Open.get());
-		markUpdated();
+		TileEntityHelper.broadcastUpdate(this, true);
 	}
 
 	@Override
 	public void stopOpen(Player playerEntity) {
-		// if(!playerEntity.isSpectator()) playSound(FurnishData.Sounds.Amphora_Close.get());
-		markUpdated();
+		TileEntityHelper.broadcastUpdate(this, true);
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity
@@ -143,41 +119,27 @@ public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
 		this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 	}
 
-	private void markUpdated() {
-		this.setChanged();
-		this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
-		this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
-	}
-
 	// communication between client/server for rendering purposes
 
 	@Nullable
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		Furnish.debug("get update packet");
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
 	@Override
 	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		Furnish.debug("on data packet");
-		Furnish.debug("inventaire avant chargement = " + inventory);
 		this.load(pkt.getTag());
-		Furnish.debug("inventaire chargé = " + inventory);
 	}
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		Furnish.debug("get update tag");
-		Furnish.debug("inventaire actuel = " + inventory);
 		CompoundTag tag = this.saveWithoutMetadata();
-		Furnish.debug("inventaire envoyé = " + tag.get("Items"));
 		return tag;
 	}
 
 	@Override
 	public void handleUpdateTag(CompoundTag tag) {
-		Furnish.debug("handle update tag");
 		load(tag);
 	}
 }

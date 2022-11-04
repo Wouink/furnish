@@ -1,0 +1,49 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"0": "furnish:block/picture_frame_3",
+		"particle": "#0"
+	},
+	"elements": [
+		{
+			"name": "frame1",
+			"from": [8, 0, 9],
+			"to": [14, 6, 10],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 1, 6], "texture": "#0"},
+				"south": {"uv": [6, 0, 12, 6], "texture": "#0"},
+				"west": {"uv": [0, 0, 1, 6], "texture": "#0"},
+				"up": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"down": {"uv": [0, 0, 6, 1], "texture": "#0"}
+			}
+		},
+		{
+			"name": "frame2",
+			"from": [2, 0, 10],
+			"to": [8, 6, 11],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 1, 6], "texture": "#0"},
+				"south": {"uv": [6, 0, 12, 6], "texture": "#0"},
+				"west": {"uv": [0, 0, 1, 6], "texture": "#0"},
+				"up": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"down": {"uv": [0, 0, 6, 1], "texture": "#0"}
+			}
+		},
+		{
+			"name": "frame3",
+			"from": [7, 6, 10],
+			"to": [12, 11, 11],
+			"faces": {
+				"north": {"uv": [0, 6, 5, 11], "texture": "#0"},
+				"east": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"south": {"uv": [5, 6, 10, 11], "texture": "#0"},
+				"west": {"uv": [0, 6, 1, 11], "texture": "#0"},
+				"up": {"uv": [0, 6, 5, 7], "texture": "#0"},
+				"down": {"uv": [0, 6, 5, 7], "texture": "#0"}
+			}
+		}
+	]
+}

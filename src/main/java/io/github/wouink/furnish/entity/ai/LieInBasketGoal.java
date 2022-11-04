@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.entity.ai;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.block.AnimalBasket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 
@@ -31,16 +33,16 @@ public class LieInBasketGoal extends MoveToBlockGoal {
 
 	@Override
 	public void start() {
-		System.out.println("start");
-		super.start();
+		Furnish.debug("start, move to " + getMoveToTarget());
 		pet.setInSittingPose(false);
+		super.start();
 	}
 
 	@Override
 	public void stop() {
-		System.out.println("stop");
+		Furnish.debug("stop");
 		super.stop();
-		pet.setInSittingPose(false);
+		// pet.setInSittingPose(false);
 	}
 
 	public void tick() {
@@ -50,12 +52,16 @@ public class LieInBasketGoal extends MoveToBlockGoal {
 
 	@Override
 	protected boolean isValidTarget(LevelReader world, BlockPos pos) {
-		return world.isEmptyBlock(pos.above()) && world.getBlockState(pos).is(BASKETS);
+		// the target is inside the basket
+		BlockPos check = pos.above();
+		return world.isEmptyBlock(check.above())
+				&& world.getBlockState(check).is(BASKETS)
+				&& AnimalBasket.isOccupied((Level) world, check);
 	}
 
-	public static class CatGoal extends LieInBasketGoal {
+	public static class CatLieInBasketGoal extends LieInBasketGoal {
 		private Cat cat;
-		public CatGoal(Cat cat, double speed, int searchRange, int verticalSearchRange) {
+		public CatLieInBasketGoal(Cat cat, double speed, int searchRange, int verticalSearchRange) {
 			super(cat, speed, searchRange, verticalSearchRange);
 			this.cat = cat;
 		}
@@ -68,7 +74,7 @@ public class LieInBasketGoal extends MoveToBlockGoal {
 		@Override
 		public void stop() {
 			super.stop();
-			cat.setLying(false);
+			cat.setLying(true);
 		}
 
 		@Override

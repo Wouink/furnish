@@ -88,6 +88,10 @@ public class FurnishData {
 		}
 	}
 
+	public static class SoundTypes {
+		// public static final SoundType Paper = new ForgeSoundType(1.0f, 1.0f, break, step, place, hit, fall);
+	}
+
 	public static class Containers {
 		public static final DeferredRegister<MenuType<?>> Registry = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Furnish.MODID);
 		public static final RegistryObject<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench = Registry.register(

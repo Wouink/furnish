@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -33,6 +34,7 @@ public class FurnishBlocks {
 
 	public static class CustomProperties {
 		public static final BooleanProperty RIGHT = BooleanProperty.create("right");
+		public static final IntegerProperty COUNT_3 = IntegerProperty.create("count", 1, 3);
 	}
 
 	public static final RegistryObject<Block> Furniture_Workbench = Registry.register("furniture_workbench", () -> new FurnitureWorkbench());
@@ -203,6 +205,8 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Wither_Skull_Torch = Registry.register("wither_skull_torch", () -> new SkullTorch(BlockBehaviour.Properties.copy(Blocks.SKELETON_SKULL).lightLevel((state) -> 7), ParticleTypes.SOUL_FIRE_FLAME));
 	public static final RegistryObject<Block> Cobweb = Registry.register("cobweb", () -> new Cobweb(BlockBehaviour.Properties.of(Material.WEB).strength(0.0f)));
 
+	public static final RegistryObject<Block> Picture_Frame = Registry.register("picture_frame", () -> new PictureFrame(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING).noCollission().noOcclusion()));
+
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
 	public static HashMap<String, RegistryObject<Block>> Carpets_On_Stairs = new HashMap<>(16);
@@ -215,13 +219,13 @@ public class FurnishBlocks {
 	public static ArrayList<RegistryObject<Block>> Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Rare_Plates = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Showcases = new ArrayList<>();
-	// public static ArrayList<RegistryObject<Block>> Animal_Baskets = new ArrayList<>();
+	//public static ArrayList<RegistryObject<Block>> Animal_Baskets = new ArrayList<>();
 	public static ArrayList<RegistryObject<Block>> Paper_Lamps = new ArrayList<>();
 
 	static {
 		Amphorae.add(Registry.register("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
 		Plates.add(Registry.register("plate", () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
-		// Animal_Baskets.add(Registry.register("white_animal_basket", () -> new AnimalBasket(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL))));
+		//Animal_Baskets.add(Registry.register("white_animal_basket", () -> new AnimalBasket(BlockBehaviour.Properties.copy(Blocks.WHITE_WOOL))));
 
 		for(DyeColor dyeColor : DyeColor.values()) {
 			String color = dyeColor.getName();

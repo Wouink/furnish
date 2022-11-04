@@ -18,7 +18,7 @@ public class PaperLamp extends Block {
 	);
 
 	public PaperLamp() {
-		super(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.5f).sound(SoundType.WOOD).noOcclusion().lightLevel((state) -> 15));
+		super(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.5f).sound(SoundType.SCAFFOLDING).noOcclusion().lightLevel((state) -> 15));
 	}
 
 	@Override
