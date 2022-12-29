@@ -1,5 +1,6 @@
 package io.github.wouink.furnish;
 
+import io.github.wouink.furnish.block.FlowerPot;
 import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
@@ -51,6 +52,10 @@ public class Furnish {
 		MinecraftForge.EVENT_BUS.register(GivePlateToEnderman.class);
 		//MinecraftForge.EVENT_BUS.register(AddGoalsToPets.class);
 		MinecraftForge.EVENT_BUS.register(SleepInCoffin.class);
+		MinecraftForge.EVENT_BUS.register(PlaceSnow.class);
+
+		// Now, right-clicks on blocks have to be registered as events
+		MinecraftForge.EVENT_BUS.register(FlowerPot.class);
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

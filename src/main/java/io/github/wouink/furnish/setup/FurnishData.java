@@ -136,6 +136,7 @@ public class FurnishData {
 		public static final RegistryObject<BlockEntityType<ShowcaseTileEntity>> TE_Showcase = Registry.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseTileEntity::new, FurnishBlocks.Showcases.stream().map(RegistryObject::get).toArray(Block[]::new)).build(null));
 		public static final RegistryObject<BlockEntityType<DiskRackTileEntity>> TE_Disk_Rack = Registry.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackTileEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
 		public static final RegistryObject<BlockEntityType<RecycleBinTileEntity>> TE_Recycle_Bin = Registry.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinTileEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
+		public static final RegistryObject<BlockEntityType<FlowerPotTileEntity>> TE_Flower_Pot = Registry.register("flower_pot", () -> BlockEntityType.Builder.of(FlowerPotTileEntity::new, FurnishBlocks.Flower_Pots.toArray(Block[]::new)).build(null));
 	}
 
 	public static void setup(IEventBus bus) {
@@ -170,6 +171,7 @@ public class FurnishData {
 		event.registerBlockEntityRenderer(TileEntities.TE_Showcase.get(), ShowcaseRenderer::new);
 		event.registerBlockEntityRenderer(TileEntities.TE_Disk_Rack.get(), DiskRackRenderer::new);
 		event.registerBlockEntityRenderer(TileEntities.TE_Recycle_Bin.get(), RecycleBinRenderer::new);
+		event.registerBlockEntityRenderer(TileEntities.TE_Flower_Pot.get(), FlowerPotRenderer::new);
 		Furnish.LOG.info("Registered Furnish Entity/BlockEntity Renderers.");
 	}
 
@@ -184,6 +186,7 @@ public class FurnishData {
 			helper.register(new ResourceLocation(Furnish.MODID, "jungle"), new PaintingVariant(16, 32));
 			helper.register(new ResourceLocation(Furnish.MODID, "acacia"), new PaintingVariant(16, 16));
 			helper.register(new ResourceLocation(Furnish.MODID, "dark_oak"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "trader_llama"), new PaintingVariant(16, 16));
 		});
 		Furnish.LOG.info("Registered Furnish Paintings.");
 	}

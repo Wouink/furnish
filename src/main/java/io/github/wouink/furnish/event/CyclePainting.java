@@ -54,7 +54,7 @@ public class CyclePainting {
 		// doesn't update
 		// target.PaintingVariant = newArt;
 
-		 Painting newPainting = new Painting(world, target.getPos(), target.getMotionDirection(), (Holder<PaintingVariant>) newArt);
+		 Painting newPainting = new Painting(world, target.getPos(), target.getMotionDirection(), Holder.direct(newArt));
 		 target.remove(Entity.RemovalReason.DISCARDED);
 		 world.addFreshEntity(newPainting);
 	}

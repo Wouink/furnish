@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "tag": "minecraft:terracotta"
+  },
+  "result": "furnish:flower_pot",
+  "count": 1
+}

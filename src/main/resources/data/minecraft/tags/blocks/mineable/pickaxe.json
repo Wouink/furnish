@@ -16,6 +16,7 @@
     "furnish:iron_bars_top",
     "furnish:iron_gate",
     "furnish:skull_torch",
-    "furnish:wither_skull_torch"
+    "furnish:wither_skull_torch",
+    "#furnish:flower_pots"
   ]
 }

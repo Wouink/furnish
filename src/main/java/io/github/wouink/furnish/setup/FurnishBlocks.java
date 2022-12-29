@@ -31,6 +31,7 @@ public class FurnishBlocks {
 	public static ArrayList<Block> Furniture_6x9 = new ArrayList<>();
 	public static ArrayList<Block> Shelves = new ArrayList<>();
 	public static ArrayList<Block> Recycle_Bins = new ArrayList<>();
+	public static ArrayList<Block> Flower_Pots = new ArrayList<>();
 
 	public static class CustomProperties {
 		public static final BooleanProperty RIGHT = BooleanProperty.create("right");
@@ -206,6 +207,11 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Cobweb = Registry.register("cobweb", () -> new Cobweb(BlockBehaviour.Properties.of(Material.WEB).strength(0.0f)));
 
 	public static final RegistryObject<Block> Picture_Frame = Registry.register("picture_frame", () -> new PictureFrame(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING).noCollission().noOcclusion()));
+	public static final RegistryObject<Block> Flower_Pot = Registry.register("flower_pot", () -> new FlowerPot(BlockBehaviour.Properties.of(Material.CLAY).strength(1.0f).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops(), 1));
+
+	// Winter
+	public static final RegistryObject<Block> Snow_On_Fence = Registry.register("snow_on_fence", () -> new SnowOnFence(BlockBehaviour.Properties.copy(Blocks.SNOW)));
+	public static final RegistryObject<Block> Snow_On_Stairs = Registry.register("snow_on_stairs", () -> new CarpetOnStairs(BlockBehaviour.Properties.copy(Blocks.SNOW), Blocks.SNOW));
 
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
@@ -265,6 +271,8 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Iron_Bars_Top.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Iron_Gate.get(), RenderType.translucent());
 		ItemBlockRenderTypes.setRenderLayer(Cobweb.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Flower_Pot.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(Snow_On_Stairs.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
 	}

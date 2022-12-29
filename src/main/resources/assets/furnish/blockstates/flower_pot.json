@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=true" : {
+      "model": "furnish:block/flower_pot/flower_pot_hanging"
+    },
+    "hanging=false": {
+      "model": "furnish:block/flower_pot/flower_pot"
+    }
+  }
+}
