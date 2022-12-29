@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "tag": "minecraft:planks"
+  },
+  "result": "furnish:chess_board",
+  "count": 1
+}

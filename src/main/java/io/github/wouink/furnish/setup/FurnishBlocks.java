@@ -1,14 +1,18 @@
 package io.github.wouink.furnish.setup;
 
-import io.github.wouink.furnish.block.Cobweb;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -17,6 +21,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -24,6 +31,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class FurnishBlocks {
 	public static final DeferredRegister<Block> Registry = DeferredRegister.create(ForgeRegistries.BLOCKS, Furnish.MODID);
 
@@ -43,7 +51,7 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Oak_Table = Registry.register("oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistryObject<Block> Oak_Square_Table = Registry.register("oak_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
-	public static final RegistryObject<Block> Oak_Pedestal_Table = Registry.register("oak_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> Oak_Pedestal_Table = Registry.register("oak_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), false));
 	public static final RegistryObject<Block> Oak_Bedside_Table = Registry.register("oak_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Oak_Kitchen_Cabinet = Registry.register("oak_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Oak_Cabinet = Registry.register("oak_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -59,7 +67,7 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Birch_Table = Registry.register("birch_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistryObject<Block> Birch_Square_Table = Registry.register("birch_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
-	public static final RegistryObject<Block> Birch_Pedestal_Table = Registry.register("birch_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final RegistryObject<Block> Birch_Pedestal_Table = Registry.register("birch_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), false));
 	public static final RegistryObject<Block> Birch_Bedside_Table = Registry.register("birch_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Birch_Kitchen_Cabinet = Registry.register("birch_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Birch_Cabinet = Registry.register("birch_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -75,7 +83,7 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Acacia_Table = Registry.register("acacia_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistryObject<Block> Acacia_Square_Table = Registry.register("acacia_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
-	public static final RegistryObject<Block> Acacia_Pedestal_Table = Registry.register("acacia_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final RegistryObject<Block> Acacia_Pedestal_Table = Registry.register("acacia_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), false));
 	public static final RegistryObject<Block> Acacia_Bedside_Table = Registry.register("acacia_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Acacia_Kitchen_Cabinet = Registry.register("acacia_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Acacia_Cabinet = Registry.register("acacia_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -91,7 +99,7 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Jungle_Table = Registry.register("jungle_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistryObject<Block> Jungle_Square_Table = Registry.register("jungle_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
-	public static final RegistryObject<Block> Jungle_Pedestal_Table = Registry.register("jungle_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final RegistryObject<Block> Jungle_Pedestal_Table = Registry.register("jungle_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), false));
 	public static final RegistryObject<Block> Jungle_Bedside_Table = Registry.register("jungle_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Jungle_Kitchen_Cabinet = Registry.register("jungle_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Jungle_Cabinet = Registry.register("jungle_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), FurnishData.Sounds.Cabinet_Open, FurnishData.Sounds.Cabinet_Close));
@@ -107,7 +115,7 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Spruce_Table = Registry.register("spruce_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistryObject<Block> Spruce_Square_Table = Registry.register("spruce_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
-	public static final RegistryObject<Block> Spruce_Pedestal_Table = Registry.register("spruce_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final RegistryObject<Block> Spruce_Pedestal_Table = Registry.register("spruce_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), false));
 	public static final RegistryObject<Block> Spruce_Bedside_Table = Registry.register("spruce_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Spruce_Kitchen_Cabinet = Registry.register("spruce_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Spruce_Cabinet = Registry.register("spruce_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), FurnishData.Sounds.Spruce_Cabinet_Open, FurnishData.Sounds.Spruce_Cabinet_Close));
@@ -123,7 +131,7 @@ public class FurnishBlocks {
 
 	public static final RegistryObject<Block> Dark_Oak_Table = Registry.register("dark_oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistryObject<Block> Dark_Oak_Square_Table = Registry.register("dark_oak_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
-	public static final RegistryObject<Block> Dark_Oak_Pedestal_Table = Registry.register("dark_oak_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final RegistryObject<Block> Dark_Oak_Pedestal_Table = Registry.register("dark_oak_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), false));
 	public static final RegistryObject<Block> Dark_Oak_Bedside_Table = Registry.register("dark_oak_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Dark_Oak_Kitchen_Cabinet = Registry.register("dark_oak_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), FurnishData.Sounds.Drawers_Open, FurnishData.Sounds.Drawers_Close));
 	public static final RegistryObject<Block> Dark_Oak_Cabinet = Registry.register("dark_oak_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), FurnishData.Sounds.Spruce_Cabinet_Open, FurnishData.Sounds.Spruce_Cabinet_Close));
@@ -213,6 +221,8 @@ public class FurnishBlocks {
 	public static final RegistryObject<Block> Snow_On_Fence = Registry.register("snow_on_fence", () -> new SnowOnFence(BlockBehaviour.Properties.copy(Blocks.SNOW)));
 	public static final RegistryObject<Block> Snow_On_Stairs = Registry.register("snow_on_stairs", () -> new CarpetOnStairs(BlockBehaviour.Properties.copy(Blocks.SNOW), Blocks.SNOW));
 
+	public static final RegistryObject<Block> Chess_Board = Registry.register("chess_board", () -> new ChessBoard(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(.5f)));
+
 	public static final String[] Rare_Plates_Names = {"chinese", "english"};
 
 	public static HashMap<String, RegistryObject<Block>> Carpets_On_Stairs = new HashMap<>(16);
@@ -275,5 +285,37 @@ public class FurnishBlocks {
 		ItemBlockRenderTypes.setRenderLayer(Snow_On_Stairs.get(), RenderType.translucent());
 		// ItemBlockRenderTypes.setRenderLayer(Paper_Sheet.get(), RenderType.translucent());
 		for(RegistryObject<Block> b : Showcases) ItemBlockRenderTypes.setRenderLayer(b.get(), RenderType.translucent());
+	}
+
+	private static boolean isLeaveSnowy(BlockAndTintGetter level, BlockPos pos) {
+		if(level.getBlockState(pos.above()).is(Blocks.SNOW)) return true;
+		else if(level.getBlockState(pos.above()).is(BlockTags.LEAVES)) return isLeaveSnowy(level, pos.above());
+		return false;
+	}
+
+	// todo When Furnish will be ported to Architectury API, replace this event with
+	// ColorHandlerRegistry.registerBlockColors in client setup
+	@SubscribeEvent
+	public static void onBlockColorEvent(RegisterColorHandlersEvent.Block event) {
+		event.register((state, level, pos, index) -> {
+			if(level == null) return FoliageColor.getDefaultColor();
+
+			int color = BiomeColors.getAverageFoliageColor(level, pos);
+			if(state.getBlock() == Blocks.BIRCH_LEAVES) color = FoliageColor.getBirchColor();
+			// spruce trees are "evergreen"
+			// else if(state.getBlock() == Blocks.SPRUCE_LEAVES) color = FoliageColor.getEvergreenColor();
+
+			if(!isLeaveSnowy(level, pos)) return color;
+
+			int red = (color >> 16 & 0xff);
+			int green = (color >> 8 & 0xff);
+			int blue = (color & 0xff);
+			red += (0xff - red);
+			green += (0xff - green);
+			blue += (0xff - blue);
+
+			return red << 16 | green << 8 | blue;
+		}, Blocks.OAK_LEAVES, Blocks.BIRCH_LEAVES, Blocks.JUNGLE_LEAVES,
+				Blocks.ACACIA_LEAVES, Blocks.DARK_OAK_LEAVES, Blocks.MANGROVE_LEAVES);
 	}
 }
