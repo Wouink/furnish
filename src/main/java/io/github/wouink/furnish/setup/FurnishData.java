@@ -187,6 +187,8 @@ public class FurnishData {
 			helper.register(new ResourceLocation(Furnish.MODID, "acacia"), new PaintingVariant(16, 16));
 			helper.register(new ResourceLocation(Furnish.MODID, "dark_oak"), new PaintingVariant(16, 16));
 			helper.register(new ResourceLocation(Furnish.MODID, "trader_llama"), new PaintingVariant(16, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "owl"), new PaintingVariant(32, 16));
+			helper.register(new ResourceLocation(Furnish.MODID, "fox"), new PaintingVariant(32, 32));
 		});
 		Furnish.LOG.info("Registered Furnish Paintings.");
 	}

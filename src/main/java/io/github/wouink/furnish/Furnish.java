@@ -53,7 +53,7 @@ public class Furnish {
 		//MinecraftForge.EVENT_BUS.register(AddGoalsToPets.class);
 		MinecraftForge.EVENT_BUS.register(SleepInCoffin.class);
 		MinecraftForge.EVENT_BUS.register(PlaceSnow.class);
-		MinecraftForge.EVENT_BUS.register(PopLecternBook.class);
+		//MinecraftForge.EVENT_BUS.register(PopLecternBook.class);
 
 		// Now, right-clicks on blocks have to be registered as events
 		MinecraftForge.EVENT_BUS.register(FlowerPot.class);

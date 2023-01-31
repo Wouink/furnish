@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:spruce_planks"
+  },
+  "result": "minecraft:spruce_sign",
+  "count": 1
+}
