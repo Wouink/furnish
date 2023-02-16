@@ -6,6 +6,7 @@ import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
 import io.github.wouink.furnish.network.ServerMessageHandler;
 import io.github.wouink.furnish.setup.FurnishBlocks;
+import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.resources.ResourceLocation;
@@ -70,7 +71,7 @@ public class Furnish {
 	}
 
 	private void clientSetup(final FMLClientSetupEvent event) {
-		FurnishBlocks.clientSetup();
+		FurnishClient.clientSetup();
 		FurnishData.clientSetup();
 	}
 
