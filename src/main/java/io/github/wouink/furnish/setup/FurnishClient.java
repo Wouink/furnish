@@ -1,18 +1,13 @@
 package io.github.wouink.furnish.setup;
 
-import io.github.wouink.furnish.Furnish;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -55,6 +50,7 @@ public class FurnishClient {
 	// White tint for Snowy Leaves
 	// todo When Furnish will be ported to Architectury API, replace this event with
 	// ColorHandlerRegistry.registerBlockColors in client setup
+	/*
 	@SubscribeEvent
 	public static void onBlockColorEvent(RegisterColorHandlersEvent.Block event) {
 		event.register((state, level, pos, index) -> {
@@ -81,4 +77,5 @@ public class FurnishClient {
 				}, Blocks.OAK_LEAVES, Blocks.BIRCH_LEAVES, Blocks.JUNGLE_LEAVES, Blocks.SPRUCE_LEAVES,
 				Blocks.ACACIA_LEAVES, Blocks.DARK_OAK_LEAVES, Blocks.MANGROVE_LEAVES);
 	}
+	 */
 }
