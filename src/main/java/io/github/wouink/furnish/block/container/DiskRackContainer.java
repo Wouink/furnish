@@ -3,7 +3,7 @@ package io.github.wouink.furnish.block.container;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
 import io.github.wouink.furnish.setup.FurnishData;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.RecordItem;
 public class DiskRackContainer extends AbstractContainerMenu {
 	protected final Container inventory;
 
-	private static final TagKey MUSIC_DISCS = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "music_discs"));
+	private static final TagKey MUSIC_DISCS = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "music_discs"));
 
 	public static boolean canPlaceInRack(ItemStack stack) {
 		return stack.getItem() instanceof RecordItem || stack.is(MUSIC_DISCS);

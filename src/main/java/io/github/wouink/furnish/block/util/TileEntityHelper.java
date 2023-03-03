@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block.util;
 
-import net.minecraft.network.protocol.game.ClientboundCustomSoundPacket;
+import net.minecraft.core.Holder;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -9,8 +10,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TileEntityHelper {
 
+	// from net.minecraft.server.command.PlaySoundCommand#playSound
 	public static void playSoundToPlayer(ServerPlayer player, SoundEvent sound, SoundSource source, float volume, float pitch) {
-		player.connection.send(new ClientboundCustomSoundPacket(sound.getLocation(), source, player.position(), volume, pitch, player.getLevel().getRandom().nextLong()));
+		Holder<SoundEvent> holder = Holder.direct(SoundEvent.createVariableRangeEvent(sound.getLocation()));
+		player.connection.send(new ClientboundSoundPacket(holder, source, player.position().x(), player.position().y(), player.position().z(), volume, pitch, player.getLevel().getRandom().nextLong()));
 	}
 
 	public static void broadcastUpdate(BlockEntity blockEntity, boolean updateRedstone) {

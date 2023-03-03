@@ -3,7 +3,7 @@ package io.github.wouink.furnish.entity.ai;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.AnimalBasket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.TamableAnimal;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.EnumSet;
 
 public class LieInBasketGoal extends MoveToBlockGoal {
-	private static final TagKey<Block> BASKETS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "animal_baskets"));
+	private static final TagKey<Block> BASKETS = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "animal_baskets"));
 	private TamableAnimal pet;
 
 	public LieInBasketGoal(TamableAnimal pet, double speed, int searchRange, int verticalSearchRange) {

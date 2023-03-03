@@ -5,10 +5,7 @@ import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.network.ClientMessageHandler;
 import io.github.wouink.furnish.network.ItemStackUpdateMessage;
 import io.github.wouink.furnish.network.ServerMessageHandler;
-import io.github.wouink.furnish.setup.FurnishBlocks;
-import io.github.wouink.furnish.setup.FurnishClient;
-import io.github.wouink.furnish.setup.FurnishConfig;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -41,6 +38,7 @@ public class Furnish {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.getSpec());
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		FurnishBlocks.Registry.register(bus);
+		FurnishItems.Registry.register(bus);
 		FurnishData.setup(bus);
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

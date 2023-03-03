@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
 import io.github.wouink.furnish.block.tileentity.ShowcaseTileEntity;
 import net.minecraft.client.Minecraft;
@@ -61,7 +61,7 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			default:
 				angleOffset += 270;
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(angleOffset));
+		ms.mulPose(Axis.YP.rotationDegrees(angleOffset));
 
 		// scale the block
 		ms.scale(.8f, .8f, .8f);
@@ -86,10 +86,10 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			default:
 				angleOffset += 270;
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(angleOffset));
+		ms.mulPose(Axis.YP.rotationDegrees(angleOffset));
 
 		// slightly lean the item
-		ms.mulPose(Vector3f.XP.rotationDegrees(10));
+		ms.mulPose(Axis.XP.rotationDegrees(10));
 
 		// scale the plate
 		ms.scale(1f, 1f, 1f);

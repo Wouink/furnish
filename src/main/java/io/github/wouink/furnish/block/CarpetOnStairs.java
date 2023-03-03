@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.util.INoBlockItem;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CarpetOnStairs extends HorizontalDirectionalBlock implements INoBlockItem {
+public class CarpetOnStairs extends HorizontalDirectionalBlock {
 	public static final VoxelShape[] CARPET_SHAPE = VoxelShapeHelper.getMergedShapes(
 			VoxelShapeHelper.getRotatedShapes(Block.box(8, 0, 0, 16, 1, 16)),
 			VoxelShapeHelper.getRotatedShapes(Block.box(7, -8, 0, 8, 1, 16)),

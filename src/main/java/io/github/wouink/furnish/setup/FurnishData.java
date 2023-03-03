@@ -84,7 +84,7 @@ public class FurnishData {
 		public static final RegistryObject<SoundEvent> Mail_Received = registerSound("event.mail_received");
 
 		private static RegistryObject<SoundEvent> registerSound(String key) {
-			return Registry.register(key, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, key)));
+			return Registry.register(key, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Furnish.MODID, key)));
 		}
 	}
 

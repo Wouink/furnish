@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
 import io.github.wouink.furnish.block.tileentity.PlateTileEntity;
 import net.minecraft.client.Minecraft;
@@ -48,10 +48,10 @@ public class PlateRenderer implements BlockEntityRenderer<PlateTileEntity> {
 
 		// rotate to the adequate direction
 		float angle = -dir.toYRot();
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
+		ms.mulPose(Axis.YP.rotationDegrees(angle));
 
 		// place the item flat
-		ms.mulPose(Vector3f.XP.rotationDegrees(90));
+		ms.mulPose(Axis.XP.rotationDegrees(90));
 
 		// scale the item
 		ms.scale(.6f, .6f, .6f);
@@ -63,7 +63,7 @@ public class PlateRenderer implements BlockEntityRenderer<PlateTileEntity> {
 
 		// rotate to the adequate direction
 		float angle = -dir.toYRot();
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
+		ms.mulPose(Axis.YP.rotationDegrees(angle));
 
 		// scale the block
 		ms.scale(.8f, .8f, .8f);

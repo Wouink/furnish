@@ -7,7 +7,7 @@ import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ import java.util.UUID;
 
 public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 18;
-	private static final TagKey MAIL_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "mail"));
+	private static final TagKey MAIL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "mail"));
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
 	private String ownerDisplayName;

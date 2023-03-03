@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.util.INoBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +23,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CarpetOnTrapdoor extends HorizontalDirectionalBlock implements INoBlockItem {
+public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
 	private static final VoxelShape CLOSED_SHAPE = Block.box(0, 0, 0, 16, 1, 16);
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 	private final Block clone;

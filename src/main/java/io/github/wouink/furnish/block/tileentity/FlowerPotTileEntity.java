@@ -6,7 +6,7 @@ import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class FlowerPotTileEntity extends RandomizableContainerBlockEntity {
-	public static final TagKey VALID_PLANTS = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "plants"));
+	public static final TagKey VALID_PLANTS = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "plants"));
 	protected NonNullList<ItemStack> inventory;
 
 	public FlowerPotTileEntity(BlockPos p_155630_, BlockState p_155631_) {

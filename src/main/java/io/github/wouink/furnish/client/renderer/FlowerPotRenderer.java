@@ -1,11 +1,8 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3d;
-import com.mojang.math.Vector3f;
-import io.github.wouink.furnish.block.FlowerPot;
+import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.tileentity.FlowerPotTileEntity;
-import io.github.wouink.furnish.block.util.VectorHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -28,7 +25,7 @@ public class FlowerPotRenderer implements BlockEntityRenderer<FlowerPotTileEntit
 		// System.out.println("rendering");
 		// Direction dir = flowerPot.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 		Direction dir = Direction.EAST;
-		ps.mulPose(Vector3f.YP.rotationDegrees(dir.toYRot()));
+		ps.mulPose(Axis.YP.rotationDegrees(dir.toYRot()));
 
 		for(int i = 0; i < flowerPot.getContainerSize(); i++) {
 			// System.out.println("checking item in slot " + i);
@@ -36,7 +33,7 @@ public class FlowerPotRenderer implements BlockEntityRenderer<FlowerPotTileEntit
 			if(!flower.isEmpty()) {
 				System.out.println("flower is not empty");
 				ps.pushPose();
-				Vector3d flowerRenderPos = VectorHelper.rotateVectorForRenderer(((FlowerPot)flowerPot.getBlockState().getBlock()).getRenderPos(i), dir);
+				// Vector3d flowerRenderPos = VectorHelper.rotateVectorForRenderer(((FlowerPot)flowerPot.getBlockState().getBlock()).getRenderPos(i), dir);
 				BakedModel bakedModel = itemRenderer.getModel(flower, flowerPot.getLevel(), null, 0);
 				itemRenderer.render(flower, ItemTransforms.TransformType.FIXED, true, ps, buffers, combinedLight, overlay, bakedModel);
 				ps.popPose();

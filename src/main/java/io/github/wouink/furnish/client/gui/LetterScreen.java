@@ -80,21 +80,20 @@ public class LetterScreen extends Screen {
 	protected void init() {
 		super.init();
 		if(editable) {
-			this.addRenderableWidget(new Button(this.width / 2 - 102, 196, 100, 20, SIGN_LETTER, (var) -> {
-				save();
+			this.addRenderableWidget(Button.builder(SIGN_LETTER, (var) -> {
 				Letter.signLetter(letter, playerEntity.getGameProfile().getName());
 				sendUpdate();
 				this.minecraft.setScreen(null);
-			}));
-			this.addRenderableWidget(new Button(this.width / 2 + 2, 196, 100, 20, CommonComponents.GUI_DONE, (var) -> {
+			}).bounds(this.width / 2 - 102, 196, 100, 20).build());
+			this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (var) -> {
 				save();
 				sendUpdate();
 				this.minecraft.setScreen(null);
-			}));
+			}).bounds(this.width / 2 + 2, 196, 100, 20).build());
 		} else {
-			this.addRenderableWidget(new Button(this.width / 2 - 50, 196, 100, 20, CommonComponents.GUI_DONE, (var) -> {
+			this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (var) -> {
 				this.minecraft.setScreen(null);
-			}));
+			}).bounds(this.width / 2 - 50, 196, 100, 20).build());
 		}
 	}
 

@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import com.mojang.math.Vector3d;
 import io.github.wouink.furnish.block.tileentity.FlowerPotTileEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
@@ -21,6 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3d;
 
 public class FlowerPot extends Block implements EntityBlock {
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
