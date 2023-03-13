@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="All rights reserved"
+
+[[mods]]
+    modId="furnish"
+    version="${file.jarVersion}"
+    displayName="Furnish"
+    logoFile="furnish.png"
+    #updateJSONURL="https://change.me.example.invalid/updates.json"
+    displayURL="https://wouink.github.io"
+    credits="Book Pile model from the 'Comfy Cozy' mod (MIT Licensed). Brazilian translations by mayrotiem. Chinese translations by Pancakes0228."
+    authors="Wink'"
+    description="Adds lovely and useful Furniture to Minecraft"
+
+[[dependencies.furnish]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.furnish]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19,1.20)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.furnish]]
+    modId = "architectury"
+    mandatory = true
+    versionRange = "[6.2.43,)"
+    ordering = "AFTER"
+    side = "BOTH"
