@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -94,18 +93,19 @@ public class FlowerPotTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		this.load(pkt.getTag());
-	}
-
-	@Override
 	public CompoundTag getUpdateTag() {
 		CompoundTag tag = this.saveWithoutMetadata();
 		return tag;
 	}
 
+	/*
+	@Override
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		this.load(pkt.getTag());
+	}
 	@Override
 	public void handleUpdateTag(CompoundTag tag) {
 		load(tag);
 	}
+	 */
 }

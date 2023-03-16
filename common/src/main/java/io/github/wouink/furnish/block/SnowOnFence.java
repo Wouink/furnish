@@ -1,9 +1,7 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.util.INoBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -16,13 +14,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SnowOnFence extends Block implements INoBlockItem {
+public class SnowOnFence extends Block {
 	public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
 	public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
 	public static final BooleanProperty EAST = BlockStateProperties.EAST;
@@ -59,7 +56,6 @@ public class SnowOnFence extends Block implements INoBlockItem {
 	}
 
 	private boolean onGround(LevelAccessor world, BlockPos pos) {
-		System.out.println("onGround called");
 		return world.getBlockState(pos.below().below()).isFaceSturdy(world, pos.below().below(), Direction.UP);
 	}
 
@@ -89,7 +85,7 @@ public class SnowOnFence extends Block implements INoBlockItem {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+	public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
 		return new ItemStack(Blocks.SNOW);
 	}
 }

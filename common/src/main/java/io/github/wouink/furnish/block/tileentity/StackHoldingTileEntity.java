@@ -2,7 +2,6 @@ package io.github.wouink.furnish.block.tileentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -52,18 +51,22 @@ public abstract class StackHoldingTileEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
+	/*
 	@Override
 	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
 		this.load(pkt.getTag());
 	}
+	 */
 
 	@Override
 	public CompoundTag getUpdateTag() {
 		return this.saveWithoutMetadata();
 	}
 
+	/*
 	@Override
 	public void handleUpdateTag(CompoundTag tag) {
 		load(tag);
 	}
+	 */
 }

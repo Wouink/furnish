@@ -3,6 +3,7 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
+import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,7 +26,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -175,17 +175,17 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 	}
 
 	@Override
-	public boolean onDestroyedByPlayer(BlockState state, Level world, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-		if(!world.isClientSide()) {
-			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof MailboxTileEntity) {
-				if(((MailboxTileEntity) tileEntity).isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || Furnish.CONFIG.creativeDestroyMailbox.get()))) {
-					return super.onDestroyedByPlayer(state, world, pos, player, willHarvest, fluid);
-				} else {
-					player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
+	public void playerDestroy(Level level, Player player, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity, ItemStack itemStack) {
+		if(!level.isClientSide()) {
+			if(blockEntity != null) {
+				if(blockEntity instanceof MailboxTileEntity mailboxTileEntity) {
+					if(mailboxTileEntity.isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || FurnishConfig.INSTANCE.nonOpCreativePlayersCanDestroyMailbox))) {
+						super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack);
+					} else {
+						player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
+					}
 				}
 			}
 		}
-		return false;
 	}
 }

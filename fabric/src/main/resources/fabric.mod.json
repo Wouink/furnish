@@ -16,7 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "io.github.wouink.furnish.fabric.FurnishFabric"
+    ],
+    "client": [
+      "io.github.wouink.furnish.fabric.FurnishFabricClient"
     ]
   },
   "depends": {

@@ -7,6 +7,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -32,7 +34,7 @@ public class FurnishBlocks {
 	}
 
 	public static final RegistrySupplier<Block> Furniture_Workbench = FurnishRegistries.registerBlockWithItem("furniture_workbench", () -> new FurnitureWorkbench());
-	public static final RegistrySupplier<Block> Book_Pile = FurnishRegistries.registerBlockWithItem("book_pile", () -> new BookPile(BlockBehaviour.Properties.of(Material.WOOL).strength(0.2f)));
+	public static final RegistrySupplier<Block> Book_Pile = FurnishRegistries.registerBlockWithItem("book_pile", () -> new BookPile(BlockBehaviour.Properties.of(Material.WOOL).sound(SoundType.WOOL).strength(0.2f)));
 
 	public static final RegistrySupplier<Block> Oak_Table = FurnishRegistries.registerBlockWithItem("oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Oak_Square_Table = FurnishRegistries.registerBlockWithItem("oak_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
@@ -44,7 +46,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Oak_Stool = FurnishRegistries.registerBlockWithItem("oak_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistrySupplier<Block> Oak_Chair = FurnishRegistries.registerBlockWithItem("oak_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
 	public static final RegistrySupplier<Block> Oak_Shutter = FurnishRegistries.registerBlockWithItem("oak_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Oak_Crate = FurnishRegistries.registerBlockWithItem("oak_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+	public static final RegistrySupplier<Block> Oak_Crate = FurnishRegistries.registerBlockWithItem("oak_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Oak_Shelf = FurnishRegistries.registerBlockWithItem("oak_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Oak_Bench = FurnishRegistries.registerBlockWithItem("oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Oak_Log_Bench = FurnishRegistries.registerBlockWithItem("oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
@@ -60,7 +62,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Birch_Stool = FurnishRegistries.registerBlockWithItem("birch_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistrySupplier<Block> Birch_Chair = FurnishRegistries.registerBlockWithItem("birch_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
 	public static final RegistrySupplier<Block> Birch_Shutter = FurnishRegistries.registerBlockWithItem("birch_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.BIRCH_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Birch_Crate = FurnishRegistries.registerBlockWithItem("birch_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
+	public static final RegistrySupplier<Block> Birch_Crate = FurnishRegistries.registerBlockWithItem("birch_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Birch_Shelf = FurnishRegistries.registerBlockWithItem("birch_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistrySupplier<Block> Birch_Bench = FurnishRegistries.registerBlockWithItem("birch_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistrySupplier<Block> Birch_Log_Bench = FurnishRegistries.registerBlockWithItem("birch_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
@@ -76,7 +78,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Acacia_Stool = FurnishRegistries.registerBlockWithItem("acacia_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistrySupplier<Block> Acacia_Chair = FurnishRegistries.registerBlockWithItem("acacia_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_TALL_SEAT)));
 	public static final RegistrySupplier<Block> Acacia_Shutter = FurnishRegistries.registerBlockWithItem("acacia_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.ACACIA_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Acacia_Crate = FurnishRegistries.registerBlockWithItem("acacia_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
+	public static final RegistrySupplier<Block> Acacia_Crate = FurnishRegistries.registerBlockWithItem("acacia_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Acacia_Shelf = FurnishRegistries.registerBlockWithItem("acacia_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistrySupplier<Block> Acacia_Bench = FurnishRegistries.registerBlockWithItem("acacia_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistrySupplier<Block> Acacia_Log_Bench = FurnishRegistries.registerBlockWithItem("acacia_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
@@ -92,7 +94,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Jungle_Stool = FurnishRegistries.registerBlockWithItem("jungle_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistrySupplier<Block> Jungle_Chair = FurnishRegistries.registerBlockWithItem("jungle_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
 	public static final RegistrySupplier<Block> Jungle_Shutter = FurnishRegistries.registerBlockWithItem("jungle_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.JUNGLE_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Jungle_Crate = FurnishRegistries.registerBlockWithItem("jungle_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
+	public static final RegistrySupplier<Block> Jungle_Crate = FurnishRegistries.registerBlockWithItem("jungle_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Jungle_Shelf = FurnishRegistries.registerBlockWithItem("jungle_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistrySupplier<Block> Jungle_Bench = FurnishRegistries.registerBlockWithItem("jungle_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistrySupplier<Block> Jungle_Log_Bench = FurnishRegistries.registerBlockWithItem("jungle_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
@@ -108,7 +110,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Spruce_Stool = FurnishRegistries.registerBlockWithItem("spruce_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistrySupplier<Block> Spruce_Chair = FurnishRegistries.registerBlockWithItem("spruce_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_TALL_SEAT)));
 	public static final RegistrySupplier<Block> Spruce_Shutter = FurnishRegistries.registerBlockWithItem("spruce_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.SPRUCE_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Spruce_Crate = FurnishRegistries.registerBlockWithItem("spruce_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
+	public static final RegistrySupplier<Block> Spruce_Crate = FurnishRegistries.registerBlockWithItem("spruce_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Spruce_Shelf = FurnishRegistries.registerBlockWithItem("spruce_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistrySupplier<Block> Spruce_Bench = FurnishRegistries.registerBlockWithItem("spruce_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistrySupplier<Block> Spruce_Log_Bench = FurnishRegistries.registerBlockWithItem("spruce_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
@@ -124,7 +126,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Dark_Oak_Stool = FurnishRegistries.registerBlockWithItem("dark_oak_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), Chair.BASE_SHAPES));
 	public static final RegistrySupplier<Block> Dark_Oak_Chair = FurnishRegistries.registerBlockWithItem("dark_oak_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT_THRONE)));
 	public static final RegistrySupplier<Block> Dark_Oak_Shutter = FurnishRegistries.registerBlockWithItem("dark_oak_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Dark_Oak_Crate = FurnishRegistries.registerBlockWithItem("dark_oak_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
+	public static final RegistrySupplier<Block> Dark_Oak_Crate = FurnishRegistries.registerBlockWithItem("dark_oak_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Dark_Oak_Shelf = FurnishRegistries.registerBlockWithItem("dark_oak_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Dark_Oak_Bench = FurnishRegistries.registerBlockWithItem("dark_oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Dark_Oak_Log_Bench = FurnishRegistries.registerBlockWithItem("dark_oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
@@ -139,7 +141,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Crimson_Square_Table = FurnishRegistries.registerBlockWithItem("crimson_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 	public static final RegistrySupplier<Block> Crimson_Pedestal_Table = FurnishRegistries.registerBlockWithItem("crimson_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 	public static final RegistrySupplier<Block> Crimson_Shutter = FurnishRegistries.registerBlockWithItem("crimson_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.CRIMSON_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Crimson_Crate = FurnishRegistries.registerBlockWithItem("crimson_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
+	public static final RegistrySupplier<Block> Crimson_Crate = FurnishRegistries.registerBlockWithItem("crimson_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Crimson_Shelf = FurnishRegistries.registerBlockWithItem("crimson_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 	public static final RegistrySupplier<Block> Crimson_Bench = FurnishRegistries.registerBlockWithItem("crimson_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 	public static final RegistrySupplier<Block> Crimson_Log_Bench = FurnishRegistries.registerBlockWithItem("crimson_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
@@ -154,7 +156,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Warped_Square_Table = FurnishRegistries.registerBlockWithItem("warped_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 	public static final RegistrySupplier<Block> Warped_Pedestal_Table = FurnishRegistries.registerBlockWithItem("warped_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 	public static final RegistrySupplier<Block> Warped_Shutter = FurnishRegistries.registerBlockWithItem("warped_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.WARPED_TRAPDOOR)));
-	public static final RegistrySupplier<Block> Warped_Crate = FurnishRegistries.registerBlockWithItem("warped_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
+	public static final RegistrySupplier<Block> Warped_Crate = FurnishRegistries.registerBlockWithItem("warped_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)), new Item.Properties().stacksTo(1));
 	public static final RegistrySupplier<Block> Warped_Shelf = FurnishRegistries.registerBlockWithItem("warped_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 	public static final RegistrySupplier<Block> Warped_Bench = FurnishRegistries.registerBlockWithItem("warped_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 	public static final RegistrySupplier<Block> Warped_Log_Bench = FurnishRegistries.registerBlockWithItem("warped_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
@@ -242,13 +244,13 @@ public class FurnishBlocks {
 
 			Block coloredTerracotta = Registry.BLOCK.get(new ResourceLocation(String.format("minecraft:%s_terracotta", color)));
 			Amphorae.add(FurnishRegistries.registerBlockWithItem(String.format("%s_amphora", color), () -> new Amphora(BlockBehaviour.Properties.copy(coloredTerracotta))));
-			Plates.add(FurnishRegistries.registerBlockWithItem(String.format("%s_plate", color), () -> new Plate(BlockBehaviour.Properties.copy(coloredTerracotta))));
+			Plates.add(FurnishRegistries.registerBlockWithItem(String.format("%s_plate", color), () -> new Plate(BlockBehaviour.Properties.copy(coloredTerracotta)), new Item.Properties().stacksTo(16)));
 
 			Paper_Lamps.add(FurnishRegistries.registerBlockWithItem(String.format("%s_paper_lamp", color), () -> new PaperLamp()));
 		}
 
 		for(String s : Rare_Plates_Names) {
-			Rare_Plates.add(FurnishRegistries.registerBlockWithItem(String.format("rare_%s_plate", s), () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
+			Rare_Plates.add(FurnishRegistries.registerBlockWithItem(String.format("rare_%s_plate", s), () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA)), new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
 		}
 
 		Plates.addAll(Rare_Plates);

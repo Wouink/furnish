@@ -1,22 +1,46 @@
 package io.github.wouink.furnish.event;
 
+import dev.architectury.event.EventResult;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CyclePainting {
+
+	public static EventResult onPaintingInteract(Player player, Entity entity, InteractionHand hand) {
+		Level level = player.getLevel();
+		if(level.isClientSide()) return EventResult.pass();
+		if(!player.getItemInHand(hand).getItem().equals(Items.PAINTING)) return EventResult.pass();
+		if(!(entity instanceof Painting painting)) return EventResult.pass();
+
+		PaintingVariant newArt = null;
+		List<PaintingVariant> similarSizeArts = getSimilarSizeArt(painting.getVariant().value());
+		if(similarSizeArts.isEmpty() || similarSizeArts.size() < 2) {
+			player.displayClientMessage(Component.translatable("msg.furnish.cycle_no_painting"), true);
+			return EventResult.interruptFalse();
+		}
+
+		if(player.isShiftKeyDown()) Collections.reverse(similarSizeArts);
+		int index = similarSizeArts.indexOf(painting.getVariant().value());
+		newArt = similarSizeArts.get((index + 1) % similarSizeArts.size());
+
+		Painting newPainting = new Painting(level, painting.getPos(), painting.getMotionDirection(), Holder.direct(newArt));
+		painting.remove(Entity.RemovalReason.DISCARDED);
+		level.addFreshEntity(newPainting);
+
+		return EventResult.interruptTrue();
+	}
 
 	public static List<PaintingVariant> getSimilarSizeArt(PaintingVariant art) {
 		List<PaintingVariant> similar = new ArrayList<>();
@@ -26,37 +50,5 @@ public class CyclePainting {
 			}
 		}
 		return similar;
-	}
-
-	@SubscribeEvent
-	public static void onPaintingInteract(PlayerInteractEvent.EntityInteract event) {
-		Level world = event.getLevel();
-		if(world.isClientSide()) return;
-		if(!event.getItemStack().getItem().equals(Items.PAINTING)) return;
-		if(!(event.getTarget() instanceof Painting)) return;
-
-		Painting target = (Painting) event.getTarget();
-		PaintingVariant newArt = null;
-
-		List<PaintingVariant> similarSizeArts = getSimilarSizeArt(target.getVariant().get());
-		if(similarSizeArts.isEmpty() || similarSizeArts.size() < 2) {
-			event.getEntity().displayClientMessage(Component.translatable("msg.furnish.cycle_no_painting"), true);
-			return;
-		}
-
-		// for(PaintingType p : similarSizeArts) System.out.println(p.getRegistryName().toString());
-
-		if(event.getEntity().isCrouching()) Collections.reverse(similarSizeArts);
-		int index = similarSizeArts.indexOf(target.getVariant().get());
-		newArt = similarSizeArts.get((index + 1) % similarSizeArts.size());
-
-		// System.out.println(newArt.getRegistryName().toString());
-
-		// doesn't update
-		// target.PaintingVariant = newArt;
-
-		 Painting newPainting = new Painting(world, target.getPos(), target.getMotionDirection(), Holder.direct(newArt));
-		 target.remove(Entity.RemovalReason.DISCARDED);
-		 world.addFreshEntity(newPainting);
 	}
 }

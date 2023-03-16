@@ -1,9 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
-import io.github.wouink.furnish.block.util.ISpecialItemProperties;
 import io.github.wouink.furnish.item.util.TooltipHelper;
-import io.github.wouink.furnish.setup.FurnishItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -13,7 +11,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -32,7 +29,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Crate extends Block implements EntityBlock, ISpecialItemProperties {
+public class Crate extends Block implements EntityBlock {
 	public static ArrayList<Crate> All_Crates = new ArrayList<>();
 
 	public Crate(Properties p) {
@@ -125,10 +122,5 @@ public class Crate extends Block implements EntityBlock, ISpecialItemProperties 
 		CompoundTag nbt = crate.saveToTag(new CompoundTag());
 		if(!nbt.isEmpty()) stack.addTagElement("BlockEntityTag", nbt);
 		return stack;
-	}
-
-	@Override
-	public Item.Properties getProperties() {
-		return new Item.Properties().stacksTo(1).tab(FurnishItems.Furnish_ItemGroup);
 	}
 }

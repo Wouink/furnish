@@ -4,12 +4,12 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.item.Letter;
+import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -127,7 +127,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	public ItemStack addMail(ItemStack stack) {
-		if(Furnish.CONFIG.restrictMailboxItems.get().booleanValue() && !stack.is(MAIL_TAG)) return stack;
+		if(FurnishConfig.INSTANCE.onlyMailTaggedItemsInMailbox && !stack.is(MAIL_TAG)) return stack;
 		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {
@@ -164,6 +164,20 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 
 	// communication between client/server for rendering purposes
 
+	/*
+	@Override
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		this.load(pkt.getTag());
+	}
+	 */
+
+	/*
+	@Override
+	public void handleUpdateTag(CompoundTag tag) {
+		load(tag);
+	}
+	 */
+
 	@Nullable
 	@Override
 	public Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -171,17 +185,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		this.load(pkt.getTag());
-	}
-
-	@Override
 	public CompoundTag getUpdateTag() {
 		return this.saveWithFullMetadata();
-	}
-
-	@Override
-	public void handleUpdateTag(CompoundTag tag) {
-		load(tag);
 	}
 }

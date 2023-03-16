@@ -1,29 +1,49 @@
 package io.github.wouink.furnish.setup;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+import dev.architectury.platform.Platform;
+import io.github.wouink.furnish.Furnish;
+
+import java.io.*;
+import java.nio.file.Path;
 
 public class FurnishConfig {
-	private final ForgeConfigSpec spec;
+	public boolean onlyMailTaggedItemsInMailbox = true;
+	public boolean nonOpCreativePlayersCanDestroyMailbox = false;
 
-	public final ForgeConfigSpec.BooleanValue restrictMailboxItems;
-	public final ForgeConfigSpec.BooleanValue creativeDestroyMailbox;
-	public final ForgeConfigSpec.BooleanValue whitenSnowyLeaves;
-	public final ForgeConfigSpec.BooleanValue whitenSpruceLeaves;
+	public static FurnishConfig INSTANCE;
 
-	public FurnishConfig() {
-		final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-		builder.comment("Restrict items that can be inserted by other players in a Mailbox to items tagged #furnish:mail?");
-		restrictMailboxItems = builder.define("restrictMailboxItems", true);
-		builder.comment("Allow all creative players to destroy claimed Mailboxes? By default, only op players are allowed.");
-		creativeDestroyMailbox = builder.define("creativeDestroyMailbox", false);
-		builder.comment("Whiten Leaves when they are covered with snow?");
-		whitenSnowyLeaves = builder.define("whitenSnowyLeaves", true);
-		builder.comment("Also whiten Spruce Leaves, even tho they are supposed to stay evergreen?");
-		whitenSpruceLeaves = builder.define("whitenSpruceLeaves", false);
-		spec = builder.build();
+	public static void load() {
+		Gson gson = new GsonBuilder().setLenient().setPrettyPrinting().create();
+		File configFile = getConfigFile().toFile();
+		INSTANCE = new FurnishConfig();
+
+		if(configFile.exists()) {
+			try {
+				FileReader fileReader = new FileReader(configFile);
+				JsonReader reader = new JsonReader(fileReader);
+				INSTANCE = gson.fromJson(reader, FurnishConfig.class);
+				writeConfig(gson, configFile, INSTANCE);
+			} catch (Exception e) {
+				Furnish.LOG.error("Failed to load config file, the following error was encountered...");
+				e.printStackTrace();
+			}
+		} else writeConfig(gson, configFile, INSTANCE);
 	}
 
-	public ForgeConfigSpec getSpec() {
-		return spec;
+	public static void writeConfig(Gson gson, File configFile, FurnishConfig furnishConfig) {
+		try {
+			FileWriter fileWriter = new FileWriter(configFile);
+			gson.toJson(furnishConfig, fileWriter);
+		} catch (Exception e) {
+			Furnish.LOG.error("Failed to write config file, the following error was encoutered...");
+			e.printStackTrace();
+		}
+	}
+
+	public static Path getConfigFile() {
+		return Platform.getConfigFolder().resolve(Furnish.MODID + ".json");
 	}
 }

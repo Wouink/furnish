@@ -1,33 +1,36 @@
 package io.github.wouink.furnish.event;
 
+import dev.architectury.event.EventResult;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.level.Level;
 
 public class AddArmsToArmorStand {
 
-	@SubscribeEvent
-	public static void onStickRightClicked(PlayerInteractEvent.EntityInteractSpecific event) {
-		if(event.getLevel().isClientSide()) return;
-		if(event.getTarget() instanceof ArmorStand) {
-			ArmorStand armorStand = (ArmorStand) event.getTarget();
+	public static EventResult rightClickArmorStand(Player player, Entity entity, InteractionHand hand) {
+		Level level = player.getLevel();
+		if(level.isClientSide()) return EventResult.pass();
+		if(entity instanceof ArmorStand armorStand) {
 			if(!armorStand.isShowArms()) {
-				ItemStack heldItem = event.getEntity().getItemInHand(event.getHand());
+				ItemStack heldItem = player.getItemInHand(hand);
 				if(heldItem.getItem() == Items.STICK) {
 					SynchedEntityData data = armorStand.getEntityData();
-					// showArms is the 4th bit of ArmorStandEntity.DATA_CLIENT_FLAGS byte
 					data.set(ArmorStand.DATA_CLIENT_FLAGS, setBit(data.get(ArmorStand.DATA_CLIENT_FLAGS), 4, true));
-					if(!event.getEntity().isCreative()) {
-						heldItem.setCount(heldItem.getCount() - 1);
-					}
-					// cancel the event to prevent giving the stick to the ArmorStand
-					event.setCanceled(true);
 				}
+				if(!player.isCreative()) {
+					heldItem.shrink(1);
+					player.setItemInHand(hand, heldItem);
+				}
+				// todo is the event canceled? the armor stand should not get the stick in it's hand
+				return EventResult.interruptFalse();
 			}
 		}
+		return EventResult.interruptFalse();
 	}
 
 	private static byte setBit(byte b, int n, boolean v) {

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
+import io.github.wouink.furnish.network.C2S_UpdateItemStack;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.font.TextFieldHelper;
@@ -72,7 +73,7 @@ public class LetterScreen extends Screen {
 
 	private void sendUpdate() {
 		int slot = this.hand == InteractionHand.MAIN_HAND ? this.playerEntity.getInventory().selected : 40;
-		//TODO Furnish.networkChannel.sendToServer(new ItemStackUpdateMessage(slot, letter));
+		new C2S_UpdateItemStack(slot, letter).sendToServer();
 	}
 
 	@Override

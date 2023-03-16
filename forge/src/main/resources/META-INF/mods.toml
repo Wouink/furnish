@@ -4,7 +4,7 @@ license="All rights reserved"
 
 [[mods]]
     modId="furnish"
-    version="${file.jarVersion}"
+    version="${version}"
     displayName="Furnish"
     logoFile="furnish.png"
     #updateJSONURL="https://change.me.example.invalid/updates.json"

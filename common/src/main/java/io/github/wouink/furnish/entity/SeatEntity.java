@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.entity;
 
+import dev.architectury.networking.NetworkManager;
 import io.github.wouink.furnish.setup.FurnishData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -61,7 +62,7 @@ public class SeatEntity extends Entity {
 
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return null;
+		return NetworkManager.createAddEntityPacket(this);
 	}
 
 	@Override

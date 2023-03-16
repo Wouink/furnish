@@ -5,6 +5,7 @@ import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.registry.registries.RegistrySupplier;
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.DiskRackScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
@@ -31,6 +32,7 @@ public class FurnishClient {
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Cobweb.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Snow_On_Stairs.get());
 		for(RegistrySupplier<Block> b : FurnishBlocks.Showcases) RenderTypeRegistry.register(RenderType.translucent(), b.get());
+		Furnish.LOG.info("Registered Furnish Block Render Types.");
 	}
 
 	public static void bindScreensToContainers() {
@@ -38,10 +40,12 @@ public class FurnishClient {
 		MenuRegistry.registerScreenFactory(FurnishData.Containers.Crate.get(), ConditionalSlotContainerScreen::new);
 		MenuRegistry.registerScreenFactory(FurnishData.Containers.Mailbox.get(), ConditionalSlotContainerScreen::new);
 		MenuRegistry.registerScreenFactory(FurnishData.Containers.Disk_Rack.get(), DiskRackScreen::new);
+		Furnish.LOG.info("Bound Furnish Containers to their Screens.");
 	}
 
 	public static void registerEntityRenderers() {
 		EntityRendererRegistry.register(FurnishData.Entities.Seat_Entity::get, SeatRenderer::new);
+		Furnish.LOG.info("Registered Furnish Entities Renderers.");
 
 		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Mailbox.get(), MailboxRenderer::new);
 		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Plate.get(), PlateRenderer::new);
@@ -50,6 +54,7 @@ public class FurnishClient {
 		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Disk_Rack.get(), DiskRackRenderer::new);
 		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Recycle_Bin.get(), RecycleBinRenderer::new);
 		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Flower_Pot.get(), FlowerPotRenderer::new);
+		Furnish.LOG.info("Registered Furnish Blocks Entities Renderers.");
 	}
 
 	/**
