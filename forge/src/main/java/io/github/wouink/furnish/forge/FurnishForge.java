@@ -15,11 +15,11 @@ public class FurnishForge {
         EventBuses.registerModEventBus(Furnish.MODID, FMLJavaModLoadingContext.get().getModEventBus());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::initClient);
+        Furnish.init();
     }
 
     private void init(final FMLCommonSetupEvent event) {
-        Furnish.LOG.info("Furnish FML Common Setup event.");
-        Furnish.init();
+        // no-op
     }
 
     private void initClient(final FMLClientSetupEvent event) {

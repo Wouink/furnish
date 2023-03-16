@@ -3,7 +3,7 @@ package io.github.wouink.furnish.block.tileentity;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.FlowerPot;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -27,7 +27,7 @@ public class FlowerPotTileEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
 
 	public FlowerPotTileEntity(BlockPos p_155630_, BlockState p_155631_) {
-		super(FurnishData.TileEntities.TE_Flower_Pot.get(), p_155630_, p_155631_);
+		super(FurnishRegistries.Flower_Pot_BlockEntity.get(), p_155630_, p_155631_);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

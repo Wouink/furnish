@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.block.container.DiskRackContainer;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +23,7 @@ public class DiskRackTileEntity extends RandomizableContainerBlockEntity {
 	private NonNullList<ItemStack> inventory;
 
 	public DiskRackTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishData.TileEntities.TE_Disk_Rack.get(), pos, state);
+		super(FurnishRegistries.Disk_Rack_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 	}
 

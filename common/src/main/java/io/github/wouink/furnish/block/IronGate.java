@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -93,7 +93,7 @@ public class IronGate extends HorizontalDirectionalBlock {
 		level.setBlock(pos, state, 10);
 
 		boolean flag = state.getValue(OPEN);
-		level.playSound(null, pos, flag ? FurnishData.Sounds.Iron_Gate_Open.get() : FurnishData.Sounds.Iron_Gate_Close.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+		level.playSound(null, pos, flag ? FurnishRegistries.Iron_Gate_Open_Sound.get() : FurnishRegistries.Iron_Gate_Close_Sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 		return InteractionResult.CONSUME;
 	}
 
@@ -103,7 +103,7 @@ public class IronGate extends HorizontalDirectionalBlock {
 			if (state.getValue(POWERED) != flag) {
 				level.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(flag)).setValue(OPEN, Boolean.valueOf(flag)), 2);
 				if (state.getValue(OPEN) != flag) {
-					level.playSound(null, pos, flag ? FurnishData.Sounds.Iron_Gate_Open.get() : FurnishData.Sounds.Iron_Gate_Close.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+					level.playSound(null, pos, flag ? FurnishRegistries.Iron_Gate_Open_Sound.get() : FurnishRegistries.Iron_Gate_Close_Sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				}
 			}
 		}

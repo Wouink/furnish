@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.recipe;
 
 import io.github.wouink.furnish.setup.FurnishBlocks;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 
 public class FurnitureRecipe extends FSingleItemRecipe {
 	public FurnitureRecipe(ResourceLocation rl, String s, Ingredient ing, ItemStack stack) {
-		super(FurnishData.RecipeTypes.Furniture_Recipe.get(), FurnishData.RecipeSerializers.Furniture_Recipe_Serializer.get(), rl, s, ing, stack);
+		super(FurnishRegistries.Furniture_Recipe.get(), FurnishRegistries.Furniture_Recipe_Serializer.get(), rl, s, ing, stack);
 	}
 
 	@Override

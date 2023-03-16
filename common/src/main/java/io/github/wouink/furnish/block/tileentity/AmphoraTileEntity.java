@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
@@ -27,7 +27,7 @@ public class AmphoraTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	public AmphoraTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishData.TileEntities.TE_Amphora.get(), pos, state);
+		super(FurnishRegistries.Amphora_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -75,12 +75,12 @@ public class AmphoraTileEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	public void startOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(FurnishData.Sounds.Amphora_Open.get());
+		if(!playerEntity.isSpectator()) playSound(FurnishRegistries.Amphora_Open_Sound.get());
 	}
 
 	@Override
 	public void stopOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(FurnishData.Sounds.Amphora_Close.get());
+		if(!playerEntity.isSpectator()) playSound(FurnishRegistries.Amphora_Close_Sound.get());
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity

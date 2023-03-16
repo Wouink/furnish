@@ -36,24 +36,24 @@ public class FurnishClient {
 	}
 
 	public static void bindScreensToContainers() {
-		MenuRegistry.registerScreenFactory(FurnishData.Containers.Furniture_Workbench.get(), FurnitureWorkbenchScreen::new);
-		MenuRegistry.registerScreenFactory(FurnishData.Containers.Crate.get(), ConditionalSlotContainerScreen::new);
-		MenuRegistry.registerScreenFactory(FurnishData.Containers.Mailbox.get(), ConditionalSlotContainerScreen::new);
-		MenuRegistry.registerScreenFactory(FurnishData.Containers.Disk_Rack.get(), DiskRackScreen::new);
+		MenuRegistry.registerScreenFactory(FurnishRegistries.Furniture_Workbench_Container.get(), FurnitureWorkbenchScreen::new);
+		MenuRegistry.registerScreenFactory(FurnishRegistries.Crate_Container.get(), ConditionalSlotContainerScreen::new);
+		MenuRegistry.registerScreenFactory(FurnishRegistries.Mailbox_Container.get(), ConditionalSlotContainerScreen::new);
+		MenuRegistry.registerScreenFactory(FurnishRegistries.Disk_Rack_Container.get(), DiskRackScreen::new);
 		Furnish.LOG.info("Bound Furnish Containers to their Screens.");
 	}
 
 	public static void registerEntityRenderers() {
-		EntityRendererRegistry.register(FurnishData.Entities.Seat_Entity::get, SeatRenderer::new);
+		EntityRendererRegistry.register(FurnishRegistries.Seat_Entity::get, SeatRenderer::new);
 		Furnish.LOG.info("Registered Furnish Entities Renderers.");
 
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Mailbox.get(), MailboxRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Plate.get(), PlateRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Shelf.get(), ShelfRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Showcase.get(), ShowcaseRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Disk_Rack.get(), DiskRackRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Recycle_Bin.get(), RecycleBinRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishData.TileEntities.TE_Flower_Pot.get(), FlowerPotRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Mailbox_BlockEntity.get(), MailboxRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Plate_BlockEntity.get(), PlateRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Shelf_BlockEntity.get(), ShelfRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Showcase_BlockEntity.get(), ShowcaseRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Disk_Rack_BlockEntity.get(), DiskRackRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Recycle_Bin_BlockEntity.get(), RecycleBinRenderer::new);
+		BlockEntityRendererRegistry.register(FurnishRegistries.Flower_Pot_BlockEntity.get(), FlowerPotRenderer::new);
 		Furnish.LOG.info("Registered Furnish Blocks Entities Renderers.");
 	}
 

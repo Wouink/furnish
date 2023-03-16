@@ -5,7 +5,7 @@ import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishConfig;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -37,7 +37,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	private String ownerDisplayName;
 
 	public MailboxTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishData.TileEntities.TE_Mailbox.get(), pos, state);
+		super(FurnishRegistries.Mailbox_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -143,7 +143,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 						mailboxOwner.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail"), true);
 					}
 					if(mailboxOwner instanceof ServerPlayer serverPlayer)
-					TileEntityHelper.playSoundToPlayer(serverPlayer, FurnishData.Sounds.Mail_Received.get(), SoundSource.MASTER, 1.0f, 1.0f);
+					TileEntityHelper.playSoundToPlayer(serverPlayer, FurnishRegistries.Mail_Received_Sound.get(), SoundSource.MASTER, 1.0f, 1.0f);
 				}
 			}
 

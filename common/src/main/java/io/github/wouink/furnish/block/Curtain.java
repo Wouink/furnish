@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -55,7 +55,7 @@ public class Curtain extends HorizontalDirectionalBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult result) {
 		if(!world.isClientSide()) world.setBlockAndUpdate(pos, state.cycle(OPEN));
-		world.playSound(playerEntity, pos, FurnishData.Sounds.Curtain.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+		world.playSound(playerEntity, pos, FurnishRegistries.Curtain_Sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 

@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.event;
 
 import dev.architectury.event.EventResult;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -21,7 +21,7 @@ public class KnockOnDoor {
 		if(player.getItemInHand(hand).isEmpty()) {
 			BlockState hitBlock = level.getBlockState(pos);
 			if(hitBlock.getBlock() instanceof DoorBlock) {
-				level.playSound(null, pos, hitBlock.getMaterial() == Material.METAL ? FurnishData.Sounds.Iron_Door_Knock.get() : FurnishData.Sounds.Wooden_Door_Knock.get(), SoundSource.BLOCKS, 1.0f ,1.0f);
+				level.playSound(null, pos, hitBlock.getMaterial() == Material.METAL ? FurnishRegistries.Iron_Door_Knock_Sound.get() : FurnishRegistries.Wooden_Door_Knock_Sound.get(), SoundSource.BLOCKS, 1.0f ,1.0f);
 				return EventResult.interruptTrue();
 			}
 		}

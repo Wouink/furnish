@@ -4,7 +4,7 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishConfig;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -86,7 +86,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 			if(state.getValue(HAS_MAIL).booleanValue() != mail) {
 				world.setBlock(pos, state.setValue(HAS_MAIL, mail), Block.UPDATE_ALL);
 				tileEntity.setChanged();
-				world.playSound(null, pos, FurnishData.Sounds.Mailbox_Update.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+				world.playSound(null, pos, FurnishRegistries.Mailbox_Update_Sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 				return true;
 			}
 		}

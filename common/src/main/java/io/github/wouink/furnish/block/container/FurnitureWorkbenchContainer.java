@@ -3,7 +3,7 @@ package io.github.wouink.furnish.block.container;
 import com.google.common.collect.Lists;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.setup.FurnishBlocks;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -41,7 +41,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 	}
 
 	public FurnitureWorkbenchContainer(int syncId, Inventory playerInventory, final ContainerLevelAccess posCallable) {
-		super(FurnishData.Containers.Furniture_Workbench.get(), syncId);
+		super(FurnishRegistries.Furniture_Workbench_Container.get(), syncId);
 		this.access = posCallable;
 		this.level = playerInventory.player.level;
 		this.inputSlot = this.addSlot(new Slot(this.inputContainer, 0, 20, 33));
@@ -134,7 +134,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 		this.selectedRecipe.set(-1);
 		this.outputSlot.set(ItemStack.EMPTY);
 		if(!stack.isEmpty()) {
-			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishData.RecipeTypes.Furniture_Recipe.get(), inv, this.level);
+			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishRegistries.Furniture_Recipe.get(), inv, this.level);
 		}
 	}
 
@@ -150,7 +150,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 
 	@Override
 	public MenuType<?> getType() {
-		return FurnishData.Containers.Furniture_Workbench.get();
+		return FurnishRegistries.Furniture_Workbench_Container.get();
 	}
 
 	public void setInventoryUpdateListener(Runnable listenerIn) {
@@ -181,7 +181,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 				if(!this.moveItemStackTo(itemStack1, 2, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(this.level.getRecipeManager().getRecipeFor(FurnishData.RecipeTypes.Furniture_Recipe.get(), new SimpleContainer(itemStack1), this.level).isPresent()) {
+			} else if(this.level.getRecipeManager().getRecipeFor(FurnishRegistries.Furniture_Recipe.get(), new SimpleContainer(itemStack1), this.level).isPresent()) {
 				if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}

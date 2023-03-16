@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.entity;
 
 import dev.architectury.networking.NetworkManager;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -17,7 +17,7 @@ public class SeatEntity extends Entity {
 	private BlockPos seatBlock;
 
 	public SeatEntity(Level world) {
-		super(FurnishData.Entities.Seat_Entity.get(), world);
+		super(FurnishRegistries.Seat_Entity.get(), world);
 		this.noPhysics = true;
 	}
 

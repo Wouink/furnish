@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.block.container.CrateContainer;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +21,7 @@ public class CrateTileEntity extends RandomizableContainerBlockEntity {
 	private NonNullList<ItemStack> inventory;
 
 	public CrateTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishData.TileEntities.TE_Crate.get(), pos, state);
+		super(FurnishRegistries.Crate_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

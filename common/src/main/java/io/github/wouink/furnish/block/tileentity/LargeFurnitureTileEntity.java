@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
@@ -24,7 +24,7 @@ public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity 
 	protected NonNullList<ItemStack> inventory;
 
 	public LargeFurnitureTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishData.TileEntities.TE_Large_Furniture.get(), pos, state);
+		super(FurnishRegistries.Large_Furniture_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

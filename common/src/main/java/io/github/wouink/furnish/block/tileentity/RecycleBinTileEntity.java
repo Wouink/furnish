@@ -2,7 +2,7 @@ package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.block.RecycleBin;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
-import io.github.wouink.furnish.setup.FurnishData;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -27,7 +27,7 @@ public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
 
 	public RecycleBinTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishData.TileEntities.TE_Recycle_Bin.get(), pos, state);
+		super(FurnishRegistries.Recycle_Bin_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 

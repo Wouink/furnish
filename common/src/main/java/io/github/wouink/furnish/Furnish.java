@@ -5,11 +5,18 @@ import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.networking.simple.MessageType;
 import dev.architectury.networking.simple.SimpleNetworkManager;
+import dev.architectury.platform.Platform;
+import dev.architectury.registry.CreativeTabRegistry;
+import dev.architectury.utils.Env;
 import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.network.C2S_UpdateItemStack;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,13 +25,14 @@ public class Furnish {
 	public static final Logger LOG = LogManager.getLogger("Furnish");
 	public static final SimpleNetworkManager NET = SimpleNetworkManager.create(MODID);
 	public static final MessageType CL_UPDATE_ITEMSTACK = NET.registerC2S("cl_update_itemstack", C2S_UpdateItemStack::new);
+	public static final CreativeModeTab CREATIVE_TAB = CreativeTabRegistry.create(new ResourceLocation(Furnish.MODID, "furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get()));
 
 	public static void init() {
 		FurnishConfig.load();
 
-		FurnishRegistries.BLOCKS.register();
+		FurnishBlocks.BLOCKS.register();
 		LOG.info("Registered Furnish Blocks.");
-		FurnishRegistries.ITEMS.register();
+		FurnishBlocks.ITEMS.register();
 		LOG.info("Registered Furnish Items.");
 		FurnishRegistries.RECIPE_TYPES.register();
 		LOG.info("Registered Furnish Recipe Types.");
@@ -51,9 +59,11 @@ public class Furnish {
 	}
 
 	public static void initClient() {
-		FurnishClient.registerBlockRenderTypes();
-		FurnishClient.bindScreensToContainers();
-		FurnishClient.registerEntityRenderers();
+		if(Platform.getEnvironment() == Env.CLIENT) {
+			FurnishClient.registerBlockRenderTypes();
+			FurnishClient.bindScreensToContainers();
+			FurnishClient.registerEntityRenderers();
+		} else LOG.error("Attempt to call initClient elsewhere than on client.");
 	}
 
 	public static void debug(String msg) {
