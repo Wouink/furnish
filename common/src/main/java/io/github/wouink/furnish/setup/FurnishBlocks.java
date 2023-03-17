@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class FurnishBlocks {
 	
 	// Registries
@@ -80,7 +81,7 @@ public class FurnishBlocks {
 
 	// All blocks
 
-	public static final RegistrySupplier<Block> Furniture_Workbench = registerBlockWithItem("furniture_workbench", () -> new FurnitureWorkbench());
+	public static final RegistrySupplier<Block> Furniture_Workbench = registerBlockWithItem("furniture_workbench", FurnitureWorkbench::new);
 	public static final RegistrySupplier<Block> Book_Pile = registerBlockWithItem("book_pile", () -> new BookPile(BlockBehaviour.Properties.of(Material.WOOL).sound(SoundType.WOOL).strength(0.2f)));
 
 	public static final RegistrySupplier<Block> Oak_Table = registerBlockWithItem("oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
@@ -273,7 +274,7 @@ public class FurnishBlocks {
 			Amphorae.add(registerBlockWithItem(String.format("%s_amphora", color), () -> new Amphora(BlockBehaviour.Properties.copy(coloredTerracotta))));
 			Plates.add(registerBlockWithItem(String.format("%s_plate", color), () -> new Plate(BlockBehaviour.Properties.copy(coloredTerracotta)), new Item.Properties().stacksTo(16)));
 
-			Paper_Lamps.add(registerBlockWithItem(String.format("%s_paper_lamp", color), () -> new PaperLamp()));
+			Paper_Lamps.add(registerBlockWithItem(String.format("%s_paper_lamp", color), PaperLamp::new));
 		}
 
 		Rare_Plates.add(registerBlockWithItem("rare_english_plate", () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA)), new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));

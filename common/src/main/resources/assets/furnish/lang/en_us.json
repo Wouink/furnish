@@ -1,5 +1,5 @@
 {
-  "itemGroup.furnish": "Furnish",
+  "itemGroup.furnish.furnish": "Furnish",
   "msg.furnish.furniture_too_big": "Too big to fit here",
   "msg.furnish.cycle_no_painting": "No other painting",
   "furnish.furniture_inventory": "Furniture Inventory",

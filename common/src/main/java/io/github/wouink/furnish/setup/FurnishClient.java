@@ -9,10 +9,15 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.client.gui.ConditionalSlotContainerScreen;
 import io.github.wouink.furnish.client.gui.DiskRackScreen;
 import io.github.wouink.furnish.client.gui.FurnitureWorkbenchScreen;
+import io.github.wouink.furnish.client.gui.LetterScreen;
 import io.github.wouink.furnish.client.renderer.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -55,6 +60,10 @@ public class FurnishClient {
 		BlockEntityRendererRegistry.register(FurnishRegistries.Recycle_Bin_BlockEntity.get(), RecycleBinRenderer::new);
 		BlockEntityRendererRegistry.register(FurnishRegistries.Flower_Pot_BlockEntity.get(), FlowerPotRenderer::new);
 		Furnish.LOG.info("Registered Furnish Blocks Entities Renderers.");
+	}
+
+	public static void openLetterGui(ItemStack stack, Player player, InteractionHand hand) {
+		Minecraft.getInstance().setScreen(new LetterScreen(stack, player, hand));
 	}
 
 	/**

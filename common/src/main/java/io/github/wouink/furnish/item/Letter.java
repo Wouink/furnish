@@ -3,14 +3,13 @@ package io.github.wouink.furnish.item;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.client.gui.LetterScreen;
+import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -32,8 +31,8 @@ public class Letter extends Item {
 			Furnish.LOG.error("Furnish Letter Item - Attempt to call openGui elsewhere than on client.");
 			return;
 		}
-		Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f));
-		Minecraft.getInstance().setScreen(new LetterScreen(stack, playerEntity, hand));
+		playerEntity.level.playSound(null, playerEntity.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
+		FurnishClient.openLetterGui(stack, playerEntity, hand);
 	}
 
 	@Override
