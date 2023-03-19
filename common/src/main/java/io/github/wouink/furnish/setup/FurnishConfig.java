@@ -38,7 +38,7 @@ public class FurnishConfig {
 			FileWriter fileWriter = new FileWriter(configFile);
 			gson.toJson(furnishConfig, fileWriter);
 		} catch (Exception e) {
-			Furnish.LOG.error("Failed to write config file, the following error was encoutered...");
+			Furnish.LOG.error("Failed to write config file, the following error was encountered...");
 			e.printStackTrace();
 		}
 	}

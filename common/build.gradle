@@ -12,6 +12,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+
+    // REI
+    // see https://github.com/shedaniel/RoughlyEnoughItems/wiki for documentation
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:${rei_version}"
 }
 
 publishing {
