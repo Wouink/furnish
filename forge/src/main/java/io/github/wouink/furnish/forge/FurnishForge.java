@@ -5,6 +5,7 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -21,6 +22,9 @@ public class FurnishForge {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::initClient);
         Furnish.init();
+
+        // Architectury InteractionEvent.INTERACT_ENTITY does not seem to work with Armor Stands and Paintings...
+        MinecraftForge.EVENT_BUS.register(FurnishForgeEvents.class);
     }
 
     private void init(final FMLCommonSetupEvent event) {

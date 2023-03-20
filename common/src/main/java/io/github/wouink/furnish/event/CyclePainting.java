@@ -4,6 +4,8 @@ import dev.architectury.event.EventResult;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.Painting;
@@ -38,6 +40,9 @@ public class CyclePainting {
 		Painting newPainting = new Painting(level, painting.getPos(), painting.getMotionDirection(), Holder.direct(newArt));
 		painting.remove(Entity.RemovalReason.DISCARDED);
 		level.addFreshEntity(newPainting);
+
+		level.playSound(null, newPainting.blockPosition(), SoundEvents.PAINTING_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
+		player.swing(hand);
 
 		return EventResult.interruptTrue();
 	}

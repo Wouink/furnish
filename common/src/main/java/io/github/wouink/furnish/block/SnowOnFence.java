@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.Furnish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -80,7 +81,7 @@ public class SnowOnFence extends Block {
 
 	@Override
 	public BlockState updateShape(BlockState state, Direction dir, BlockState newState, LevelAccessor world, BlockPos pos, BlockPos fromPos) {
-		System.out.println("updateShape called for pos " + pos);
+		Furnish.debug("updateShape called for pos " + pos);
 		return !state.canSurvive(world, pos) ? Blocks.AIR.defaultBlockState() : getConnections(super.updateShape(state, dir, newState, world, pos, fromPos), world, pos).setValue(GROUND, onGround(world, pos));
 	}
 

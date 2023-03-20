@@ -8,7 +8,10 @@ import dev.architectury.networking.simple.SimpleNetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.utils.Env;
-import io.github.wouink.furnish.event.*;
+import io.github.wouink.furnish.event.GivePlateToEnderman;
+import io.github.wouink.furnish.event.KnockOnDoor;
+import io.github.wouink.furnish.event.PlaceCarpet;
+import io.github.wouink.furnish.event.PlaceSnow;
 import io.github.wouink.furnish.network.C2S_UpdateItemStack;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishClient;
@@ -48,10 +51,14 @@ public class Furnish {
 
 		BlockEvent.PLACE.register(PlaceCarpet::onCarpetPlaced);
 		InteractionEvent.RIGHT_CLICK_BLOCK.register(PlaceSnow::onSnowLayerUsedOnBlock);
-		InteractionEvent.INTERACT_ENTITY.register(AddArmsToArmorStand::rightClickArmorStand);
-		InteractionEvent.INTERACT_ENTITY.register(CyclePainting::onPaintingInteract);
 		InteractionEvent.LEFT_CLICK_BLOCK.register(KnockOnDoor::onDoorHit);
 		EntityEvent.ADD.register(GivePlateToEnderman::onEndermanSpawn);
+
+		// These InteractionEvents do not fire with Armor Stand or Painting (but fires with Slimes...), the event registration is therefore moved to Forge/Fabric code
+		// See FurnishForge @SubscribeEvent-s and FurnishFabric.onInitialize for details
+		// InteractionEvent.INTERACT_ENTITY.register(AddArmsToArmorStand::rightClickArmorStand);
+		// InteractionEvent.INTERACT_ENTITY.register(CyclePainting::onPaintingInteract);
+
 		LOG.info("Registered Furnish Events.");
 	}
 

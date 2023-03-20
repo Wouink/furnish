@@ -316,6 +316,8 @@
 
   "block.furnish.recycle_bin": "Recycle Bin",
   "block.furnish.trash_can": "Trash Can",
+  "block.furnish.recycle_bin.tooltip.1": "Right-Click with an item to put the item inside",
+  "block.furnish.recycle_bin.tooltip.2": "When it's full, Shift-Right-Click to empty",
 
   "block.furnish.disk_rack": "Disk Rack",
   "block.furnish.heavy_metal": "Heavy Metal",

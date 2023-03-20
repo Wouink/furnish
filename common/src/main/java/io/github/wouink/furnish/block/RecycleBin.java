@@ -3,14 +3,19 @@ package io.github.wouink.furnish.block;
 import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.block.tileentity.RecycleBinTileEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +29,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class RecycleBin extends Block implements EntityBlock {
 	private static final VoxelShape SHAPE = Block.box(2.5, 0, 2.5, 13.5, 16, 13.5);
@@ -48,6 +55,13 @@ public class RecycleBin extends Block implements EntityBlock {
 		builder.add(TRIGGERED);
 	}
 
+	@Override
+	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> list, TooltipFlag tooltipFlag) {
+		super.appendHoverText(itemStack, blockGetter, list, tooltipFlag);
+		list.add(Component.translatable("block.furnish.recycle_bin.tooltip.1").withStyle(ChatFormatting.GRAY));
+		list.add(Component.translatable("block.furnish.recycle_bin.tooltip.2").withStyle(ChatFormatting.GRAY));
+	}
+
 	public RegistrySupplier<SoundEvent> getSound() {
 		return sound;
 	}
@@ -63,12 +77,13 @@ public class RecycleBin extends Block implements EntityBlock {
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof RecycleBinTileEntity) {
-				RecycleBinTileEntity rb = (RecycleBinTileEntity) tileEntity;
+			if(tileEntity instanceof RecycleBinTileEntity rb) {
 				if(playerEntity.isCrouching()) rb.empty();
 				else if(!playerEntity.getItemInHand(hand).isEmpty()) {
 					playerEntity.setItemInHand(hand, rb.addItem(playerEntity.getItemInHand(hand)));
-					if(!playerEntity.getItemInHand(hand).isEmpty()) playerEntity.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_full"), true);
+					if(!playerEntity.getItemInHand(hand).isEmpty()) {
+						playerEntity.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_full"), true);
+					} else world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
 				} else playerEntity.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;

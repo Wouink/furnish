@@ -29,7 +29,6 @@ public class PlaceCarpet {
 						return EventResult.interruptTrue();
 					}
 				} else if(stateBelow.getBlock() instanceof TrapDoorBlock) {
-					// todo replace BlockStateProperties.OPEN with CarpetOnTrapdoor.OPEN and TrapdoorBlock.OPEN if fail
 					level.setBlock(pos, FurnishBlocks.Carpets_On_Trapdoors.get(color).get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)).setValue(BlockStateProperties.OPEN, stateBelow.getValue(BlockStateProperties.OPEN)), Block.UPDATE_ALL);
 					return EventResult.interruptTrue();
 				}

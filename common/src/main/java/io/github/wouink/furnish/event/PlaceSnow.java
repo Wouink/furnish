@@ -50,15 +50,15 @@ public class PlaceSnow {
 			level.playSound(null, pos, SoundEvents.SNOW_PLACE, SoundSource.BLOCKS, 1.0f, 1.0f);
 		}
 
-		return EventResult.interruptTrue();
+		return EventResult.pass();
 	}
 
 	private static BlockState copyFenceProperties(BlockState fenceBelow) {
 		BlockState snowOnFence = FurnishBlocks.Snow_On_Fence.get().defaultBlockState();
-		snowOnFence.setValue(BlockStateProperties.EAST, fenceBelow.getValue(FenceBlock.EAST));
-		snowOnFence.setValue(BlockStateProperties.WEST, fenceBelow.getValue(FenceBlock.WEST));
-		snowOnFence.setValue(BlockStateProperties.NORTH, fenceBelow.getValue(FenceBlock.NORTH));
-		snowOnFence.setValue(BlockStateProperties.SOUTH, fenceBelow.getValue(FenceBlock.SOUTH));
+		snowOnFence = snowOnFence.setValue(BlockStateProperties.EAST, fenceBelow.getValue(FenceBlock.EAST));
+		snowOnFence = snowOnFence.setValue(BlockStateProperties.WEST, fenceBelow.getValue(FenceBlock.WEST));
+		snowOnFence = snowOnFence.setValue(BlockStateProperties.NORTH, fenceBelow.getValue(FenceBlock.NORTH));
+		snowOnFence = snowOnFence.setValue(BlockStateProperties.SOUTH, fenceBelow.getValue(FenceBlock.SOUTH));
 		return snowOnFence;
 	}
 }
