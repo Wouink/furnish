@@ -12,7 +12,6 @@ import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.network.C2S_UpdateItemStack;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishClient;
-import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,8 +27,6 @@ public class Furnish {
 	public static final CreativeModeTab CREATIVE_TAB = CreativeTabRegistry.create(new ResourceLocation(Furnish.MODID, "furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get()));
 
 	public static void init() {
-		FurnishConfig.load();
-
 		FurnishBlocks.BLOCKS.register();
 		LOG.info("Registered Furnish Blocks.");
 		FurnishBlocks.ITEMS.register();

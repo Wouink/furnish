@@ -3,7 +3,6 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
-import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -179,7 +178,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		if(!level.isClientSide()) {
 			if(blockEntity != null) {
 				if(blockEntity instanceof MailboxTileEntity mailboxTileEntity) {
-					if(mailboxTileEntity.isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || FurnishConfig.INSTANCE.nonOpCreativePlayersCanDestroyMailbox))) {
+					if(mailboxTileEntity.isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || blockState.is(FurnishRegistries.NON_OP_CREATIVE_CAN_DESTROY_TAG)))) {
 						super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack);
 					} else {
 						player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);

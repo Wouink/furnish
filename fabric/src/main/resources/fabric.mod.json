@@ -20,12 +20,6 @@
     ],
     "client": [
       "io.github.wouink.furnish.fabric.FurnishFabricClient"
-    ],
-    "rei_common": [
-      "io.github.wouink.furnish.integration.rei.FurnishREIPlugin"
-    ],
-    "rei_client": [
-      "io.github.wouink.furnish.integration.rei.client.FurnishREIPluginClient"
     ]
   },
   "depends": {

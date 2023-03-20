@@ -16,6 +16,7 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -34,6 +35,17 @@ public class FurnishRegistries {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Furnish.MODID, Registry.ENTITY_TYPE_REGISTRY);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Furnish.MODID, Registry.BLOCK_ENTITY_TYPE_REGISTRY);
     public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(Furnish.MODID, Registry.PAINTING_VARIANT_REGISTRY);
+
+    // Tags
+    public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "crate_blacklist"));
+    public static final TagKey MUSIC_DISCS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "music_discs"));
+    public static final TagKey FOOD_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "food"));
+    public static final TagKey PLANTS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "plants"));
+    public static final TagKey MAIL_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "mail"));
+
+    // Mailbox configuration is done with tags
+    public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "bypasses_mail_tag"));
+    public static final TagKey NON_OP_CREATIVE_CAN_DESTROY_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "non_op_creative_can_destroy"));
 
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(

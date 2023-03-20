@@ -1,19 +1,15 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.FlowerPot;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class FlowerPotTileEntity extends RandomizableContainerBlockEntity {
-	public static final TagKey VALID_PLANTS = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "plants"));
+
 	protected NonNullList<ItemStack> inventory;
 
 	public FlowerPotTileEntity(BlockPos p_155630_, BlockState p_155631_) {
@@ -71,7 +67,7 @@ public class FlowerPotTileEntity extends RandomizableContainerBlockEntity {
 
 	public ItemStack setPlant(int slot, ItemStack stack) {
 		ItemStack ret = ItemStack.EMPTY;
-		if(stack.is(VALID_PLANTS) || stack.isEmpty()) {
+		if(stack.is(FurnishRegistries.PLANTS_TAG) || stack.isEmpty()) {
 			ret = inventory.get(slot);
 			inventory.set(slot, stack);
 		}

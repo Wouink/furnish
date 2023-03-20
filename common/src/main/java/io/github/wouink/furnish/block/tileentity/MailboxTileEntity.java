@@ -1,23 +1,18 @@
 package io.github.wouink.furnish.block.tileentity;
 
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.item.Letter;
-import io.github.wouink.furnish.setup.FurnishConfig;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +26,6 @@ import java.util.UUID;
 
 public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 18;
-	private static final TagKey MAIL_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "mail"));
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
 	private String ownerDisplayName;
@@ -127,7 +121,7 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	public ItemStack addMail(ItemStack stack) {
-		if(FurnishConfig.INSTANCE.onlyMailTaggedItemsInMailbox && !stack.is(MAIL_TAG)) return stack;
+		if(!this.getBlockState().is(FurnishRegistries.BYPASSES_MAIL_TAG_TAG) && !stack.is(FurnishRegistries.MAIL_TAG)) return stack;
 		if(stack.getItem() instanceof Letter) Letter.signLetter(stack, "Anonymous Player");
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {
