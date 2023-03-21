@@ -26,6 +26,6 @@ public class KnockOnDoor {
 			}
 		}
 
-		return EventResult.interruptFalse();
+		return EventResult.pass();
 	}
 }
