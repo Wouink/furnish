@@ -1,6 +1,0 @@
-{
-  "parent": "furnish:block/curtain/parent/curtain",
-  "textures": {
-    "wool": "minecraft:block/cyan_wool"
-  }
-}

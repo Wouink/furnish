@@ -47,6 +47,9 @@ public class FurnishRegistries {
     public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "bypasses_mail_tag"));
     public static final TagKey NON_OP_CREATIVE_CAN_DESTROY_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "non_op_creative_can_destroy"));
 
+    // Knock on door configuration also with tag
+    public static final TagKey CAN_KNOCK_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "can_knock_on"));
+
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
             "furniture_making",

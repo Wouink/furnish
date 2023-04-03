@@ -76,6 +76,7 @@ public class FurnishBlocks {
 
 	public static class CustomProperties {
 		public static final BooleanProperty RIGHT = BooleanProperty.create("right");
+		public static final BooleanProperty LEFT = BooleanProperty.create("left");
 		public static final IntegerProperty COUNT_3 = IntegerProperty.create("count", 1, 3);
 	}
 

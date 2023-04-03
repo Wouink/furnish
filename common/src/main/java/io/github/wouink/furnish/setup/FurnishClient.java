@@ -37,6 +37,7 @@ public class FurnishClient {
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Cobweb.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Snow_On_Stairs.get());
 		for(RegistrySupplier<Block> b : FurnishBlocks.Showcases) RenderTypeRegistry.register(RenderType.translucent(), b.get());
+		for(RegistrySupplier<Block> b : FurnishBlocks.Curtains) RenderTypeRegistry.register(RenderType.translucent(), b.get());
 		Furnish.LOG.info("Registered Furnish Block Render Types.");
 	}
 

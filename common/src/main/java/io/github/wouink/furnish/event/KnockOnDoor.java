@@ -13,14 +13,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 
 public class KnockOnDoor {
-
-	// todo is sound still played twice? (with forge events, the event is also fired when releasing mouse button)
 	public static EventResult onDoorHit(Player player, InteractionHand hand, BlockPos pos, Direction face) {
 		Level level = player.getLevel();
 		if(level.isClientSide() || player.isCreative()) return EventResult.pass();
 		if(player.getItemInHand(hand).isEmpty()) {
 			BlockState hitBlock = level.getBlockState(pos);
-			if(hitBlock.getBlock() instanceof DoorBlock) {
+			if(hitBlock.getBlock() instanceof DoorBlock && hitBlock.is(FurnishRegistries.CAN_KNOCK_ON)) {
 				level.playSound(null, pos, hitBlock.getMaterial() == Material.METAL ? FurnishRegistries.Iron_Door_Knock_Sound.get() : FurnishRegistries.Wooden_Door_Knock_Sound.get(), SoundSource.BLOCKS, 1.0f ,1.0f);
 				return EventResult.interruptTrue();
 			}
