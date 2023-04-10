@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "furnish:block/office/paper_sheet_empty"
+    },
+    "facing=east": {
+      "model": "furnish:block/office/paper_sheet_empty",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "furnish:block/office/paper_sheet_empty",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "furnish:block/office/paper_sheet_empty",
+      "y": 270
+    }
+  }
+}

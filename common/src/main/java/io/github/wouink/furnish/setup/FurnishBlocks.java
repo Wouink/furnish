@@ -255,6 +255,16 @@ public class FurnishBlocks {
 
 	public static final RegistrySupplier<Block> Chess_Board = registerBlockWithItem("chess_board", () -> new ChessBoard(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(.5f)));
 
+	// Office furniture
+	public static final RegistrySupplier<Block> Paper_Sheet_Empty = registerBlockWithItem("paper_sheet_empty", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Sheet_Filled = registerBlockWithItem("paper_sheet_filled", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Sheet_Empty_Ink = registerBlockWithItem("paper_sheet_empty_ink", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Sheet_Filled_Ink = registerBlockWithItem("paper_sheet_filled_ink", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Sheet_Side = registerBlockWithItem("paper_sheet_side", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Sheet_Side_Filled = registerBlockWithItem("paper_sheet_side_filled", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Poster = registerBlockWithItem("paper_poster", () -> new Display(BlockBehaviour.Properties.of(Material.WOOD).noCollission().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING)));
+	public static final RegistrySupplier<Block> Paper_Postit = registerBlockWithItem("paper_postit", () -> new Display(BlockBehaviour.Properties.of(Material.WOOD).noCollission().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING)));
+
 	static {
 		Amphorae.add(registerBlockWithItem("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
 		Plates.add(registerBlockWithItem("plate", () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));

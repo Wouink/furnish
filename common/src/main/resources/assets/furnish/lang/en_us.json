@@ -327,7 +327,20 @@
 
   "block.furnish.white_animal_basket": "White Animal Basket",
 
-  "block.furnish.paper_sheet": "Paper Sheet",
+  "block.furnish.paper_poster": "Paper Poster",
+  "block.furnish.paper_postit": "Paper Post-it",
+  "block.furnish.paper_sheet_empty": "Paper Sheet",
+  "block.furnish.paper_sheet_empty.tooltip": "Empty Sheet",
+  "block.furnish.paper_sheet_filled": "Paper Sheet",
+  "block.furnish.paper_sheet_filled.tooltip": "Filled with some text",
+  "block.furnish.paper_sheet_empty_ink": "Paper Sheet",
+  "block.furnish.paper_sheet_empty_ink.tooltip": "Empty Sheet with an Inkwell",
+  "block.furnish.paper_sheet_filled_ink": "Paper Sheet",
+  "block.furnish.paper_sheet_filled_ink.tooltip": "Filled with some text, Inkwell",
+  "block.furnish.paper_sheet_side": "Paper Sheet",
+  "block.furnish.paper_sheet_side.tooltip": "Empty Sheet laying off a Table",
+  "block.furnish.paper_sheet_side_filled": "Paper Sheet",
+  "block.furnish.paper_sheet_side_filled.tooltip": "Filled with some text, laying off a Table",
 
   "block.furnish.gravestone": "Gravestone",
   "block.furnish.oak_coffin": "Oak Coffin",

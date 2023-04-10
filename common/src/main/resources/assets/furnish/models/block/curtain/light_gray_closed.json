@@ -1,0 +1,23 @@
+{
+	"clight_grayit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"1": "furnish:block/curtain/light_gray_curtain_closed",
+		"particle": "block/oak_planks"
+	},
+	"elements": [
+		{
+			"name": "curtain",
+			"from": [0, 0, 15],
+			"to": [16, 16, 15],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 0, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 0], "texture": "#1"},
+				"down": {"uv": [0, 0, 16, 0], "texture": "#1"}
+			}
+		}
+	]
+}

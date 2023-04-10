@@ -137,15 +137,21 @@ public class FurnishRegistries {
 
     // Paintings
 
-    public static final RegistrySupplier<PaintingVariant> Steve_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("steve", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Alex_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("alex", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Oak_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("oak", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Birch_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("birch", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Spruce_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("spruce", () -> new PaintingVariant(16, 32));
-    public static final RegistrySupplier<PaintingVariant> Jungle_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("jungle", () -> new PaintingVariant(16, 32));
-    public static final RegistrySupplier<PaintingVariant> Acacia_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("acacia", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Dark_Oak_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("dark_oak", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Trader_Llama_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("trader_llama", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Owl_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("owl", () -> new PaintingVariant(32, 16));
-    public static final RegistrySupplier<PaintingVariant> Fox_Paintings = FurnishRegistries.PAINTING_VARIANTS.register("fox", () -> new PaintingVariant(32, 32));
+    public static final RegistrySupplier<PaintingVariant> Steve_Painting = FurnishRegistries.PAINTING_VARIANTS.register("steve", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Alex_Painting = FurnishRegistries.PAINTING_VARIANTS.register("alex", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Oak_Painting = FurnishRegistries.PAINTING_VARIANTS.register("oak", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Birch_Painting = FurnishRegistries.PAINTING_VARIANTS.register("birch", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Spruce_Painting = FurnishRegistries.PAINTING_VARIANTS.register("spruce", () -> new PaintingVariant(16, 32));
+    public static final RegistrySupplier<PaintingVariant> Jungle_Painting = FurnishRegistries.PAINTING_VARIANTS.register("jungle", () -> new PaintingVariant(16, 32));
+    public static final RegistrySupplier<PaintingVariant> Acacia_Painting = FurnishRegistries.PAINTING_VARIANTS.register("acacia", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Dark_Oak_Painting = FurnishRegistries.PAINTING_VARIANTS.register("dark_oak", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Trader_Llama_Painting = FurnishRegistries.PAINTING_VARIANTS.register("trader_llama", () -> new PaintingVariant(16, 16));
+    public static final RegistrySupplier<PaintingVariant> Owl_Painting = FurnishRegistries.PAINTING_VARIANTS.register("owl", () -> new PaintingVariant(32, 16));
+    public static final RegistrySupplier<PaintingVariant> Fox_Painting = FurnishRegistries.PAINTING_VARIANTS.register("fox", () -> new PaintingVariant(32, 32));
+    public static final RegistrySupplier<PaintingVariant> Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("cork_board", () -> new PaintingVariant(32, 16));
+    public static final RegistrySupplier<PaintingVariant> Cork_Board_1 = FurnishRegistries.PAINTING_VARIANTS.register("cork_board_1", () -> new PaintingVariant(32, 16));
+    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("large_cork_board", () -> new PaintingVariant(48, 32));
+    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board_1 = FurnishRegistries.PAINTING_VARIANTS.register("large_cork_board_1", () -> new PaintingVariant(48, 32));
+    public static final RegistrySupplier<PaintingVariant> Investigation_Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("investigation_board", () -> new PaintingVariant(32, 16));
+    public static final RegistrySupplier<PaintingVariant> Large_Investigation_Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("large_investigation_board", () -> new PaintingVariant(48, 32));
 }
