@@ -1,19 +1,19 @@
 {
   "variants": {
     "facing=north": {
-      "model": "furnish:block/office/paper_sheet_filled_ink"
-    },
-    "facing=east": {
-      "model": "furnish:block/office/paper_sheet_filled_ink",
-      "y": 90
-    },
-    "facing=south": {
       "model": "furnish:block/office/paper_sheet_filled_ink",
       "y": 180
     },
-    "facing=west": {
+    "facing=east": {
       "model": "furnish:block/office/paper_sheet_filled_ink",
       "y": 270
+    },
+    "facing=south": {
+      "model": "furnish:block/office/paper_sheet_filled_ink"
+    },
+    "facing=west": {
+      "model": "furnish:block/office/paper_sheet_filled_ink",
+      "y": 90
     }
   }
 }

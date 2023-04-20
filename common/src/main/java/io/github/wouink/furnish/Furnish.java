@@ -67,6 +67,7 @@ public class Furnish {
 			FurnishClient.registerBlockRenderTypes();
 			FurnishClient.bindScreensToContainers();
 			FurnishClient.registerEntityRenderers();
+			FurnishClient.copyDoorKnockSilencerPack();
 		} else LOG.error("Attempt to call initClient elsewhere than on client.");
 	}
 

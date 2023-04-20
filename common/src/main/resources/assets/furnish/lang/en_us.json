@@ -342,6 +342,8 @@
   "block.furnish.paper_sheet_side_filled": "Paper Sheet",
   "block.furnish.paper_sheet_side_filled.tooltip": "Filled with some text, laying off a Table",
 
+  "block.furnish.telescope": "Telescope",
+
   "block.furnish.gravestone": "Gravestone",
   "block.furnish.oak_coffin": "Oak Coffin",
   "block.furnish.birch_coffin": "Birch Coffin",

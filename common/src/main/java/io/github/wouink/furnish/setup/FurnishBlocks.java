@@ -265,6 +265,10 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Paper_Poster = registerBlockWithItem("paper_poster", () -> new Display(BlockBehaviour.Properties.of(Material.WOOD).noCollission().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING)));
 	public static final RegistrySupplier<Block> Paper_Postit = registerBlockWithItem("paper_postit", () -> new Display(BlockBehaviour.Properties.of(Material.WOOD).noCollission().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING)));
 
+	//
+
+	public static final RegistrySupplier<Block> Telescope = registerBlockWithItem("telescope", () -> new SimpleFurniture(BlockBehaviour.Properties.of(Material.METAL).strength(1.0f).noOcclusion().sound(SoundType.WOOD)));
+
 	static {
 		Amphorae.add(registerBlockWithItem("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
 		Plates.add(registerBlockWithItem("plate", () -> new Plate(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));

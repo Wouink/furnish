@@ -22,6 +22,11 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class FurnishClient {
 	public static void registerBlockRenderTypes() {
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Red_Bunting.get());
@@ -65,6 +70,28 @@ public class FurnishClient {
 
 	public static void openLetterGui(ItemStack stack, Player player, InteractionHand hand) {
 		Minecraft.getInstance().setScreen(new LetterScreen(stack, player, hand));
+	}
+
+	public static void copyDoorKnockSilencerPack() {
+		File resourcePacksDir = new File(".", "resourcepacks");
+		File target = new File(resourcePacksDir, "Furnish Door Knock Silencer.zip");
+		if(!target.exists()) {
+			Furnish.LOG.info("Copying Furnish Door Knock Silencer resource pack to resourcepacks.");
+			try {
+				resourcePacksDir.mkdirs();
+				InputStream inputStream = Furnish.class.getResourceAsStream("/assets/furnish/no_door_knock.zip");
+				FileOutputStream outputStream = new FileOutputStream(target);
+				byte[] buf = new byte[16384];
+				int len;
+				while((len = inputStream.read(buf)) > 0) {
+					outputStream.write(buf, 0, len);
+				}
+				inputStream.close();
+				outputStream.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
