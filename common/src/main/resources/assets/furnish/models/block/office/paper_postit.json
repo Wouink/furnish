@@ -4,7 +4,8 @@
 	"textures": {
 		"1": "furnish:block/paper_postit_blue",
 		"2": "furnish:block/paper_postit_green",
-		"3": "furnish:block/paper_postit_yellow"
+		"3": "furnish:block/paper_postit_yellow",
+		"particle": "#1"
 	},
 	"elements": [
 		{

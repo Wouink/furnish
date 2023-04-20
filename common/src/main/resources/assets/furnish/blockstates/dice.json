@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "value=1": {
+      "model": "furnish:block/dice"
+    },
+    "value=2": {
+      "model": "furnish:block/dice",
+      "x": 270
+    },
+    "value=3": {
+      "model": "furnish:block/dice_z",
+      "x": 270
+    },
+    "value=4": {
+      "model": "furnish:block/dice_z",
+      "x": 90
+    },
+    "value=5": {
+      "model": "furnish:block/dice",
+      "x": 90
+    },
+    "value=6": {
+      "model": "furnish:block/dice",
+      "x": 180
+    }
+  }
+}

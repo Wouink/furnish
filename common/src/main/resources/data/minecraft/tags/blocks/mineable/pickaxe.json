@@ -18,6 +18,7 @@
     "furnish:skull_torch",
     "furnish:wither_skull_torch",
     "furnish:chess_board",
-    "furnish:telescope"
+    "furnish:telescope",
+    "furnish:dice"
   ]
 }

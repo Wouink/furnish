@@ -16,6 +16,7 @@ import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +26,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FurnishRegistries {
@@ -49,6 +51,9 @@ public class FurnishRegistries {
 
     // Knock on door configuration also with tag
     public static final TagKey CAN_KNOCK_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "can_knock_on"));
+
+    // Same thing for popping lectern book
+    public static final TagKey CAN_POP_BOOK = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "can_pop_book"));
 
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
@@ -112,6 +117,8 @@ public class FurnishRegistries {
     public static final RegistrySupplier<SoundEvent> Iron_Gate_Open_Sound = FurnishRegistries.registerSoundEvent("block.iron_gate.open");
     public static final RegistrySupplier<SoundEvent> Iron_Gate_Close_Sound = FurnishRegistries.registerSoundEvent("block.iron_gate.close");
     public static final RegistrySupplier<SoundEvent> Mail_Received_Sound = FurnishRegistries.registerSoundEvent("event.mail_received");
+
+    public static SoundType Paper_Sound_Type = new SoundType(1.0f, 1.0f, SoundEvents.BOOK_PAGE_TURN, SoundEvents.BOOK_PAGE_TURN, SoundEvents.BOOK_PAGE_TURN, SoundEvents.BOOK_PAGE_TURN, SoundEvents.BOOK_PAGE_TURN);
 
     // Entities
 

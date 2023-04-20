@@ -329,7 +329,23 @@
 
   "block.furnish.white_animal_basket": "Pannier pour Animal Blanc",
 
-  "block.furnish.paper_sheet": "Feuille de Papier",
+  "block.furnish.paper_poster": "Affiche en Papier",
+  "block.furnish.paper_postit": "Post-its",
+  "block.furnish.paper_sheet_empty": "Feuille de Papier",
+  "block.furnish.paper_sheet_empty.tooltip": "Feuille vierge",
+  "block.furnish.paper_sheet_filled": "Feuille de Papier",
+  "block.furnish.paper_sheet_filled.tooltip": "Avec des écritures",
+  "block.furnish.paper_sheet_empty_ink": "Feuille de Papier",
+  "block.furnish.paper_sheet_empty_ink.tooltip": "Feuille vierge avec un Encrier",
+  "block.furnish.paper_sheet_filled_ink": "Feuille de Papier",
+  "block.furnish.paper_sheet_filled_ink.tooltip": "Avec des écritures et un Encrier",
+  "block.furnish.paper_sheet_side": "Feuille de Papier",
+  "block.furnish.paper_sheet_side.tooltip": "Longue liste vierge",
+  "block.furnish.paper_sheet_side_filled": "Feuille de Papier",
+  "block.furnish.paper_sheet_side_filled.tooltip": "Longue liste avec des écritures",
+
+  "block.furnish.telescope": "Téléscope",
+  "block.furnish.dice": "Dé",
 
   "block.furnish.gravestone": "Pierre Tombale",
   "block.furnish.oak_coffin": "Cercueil en Chêne",
