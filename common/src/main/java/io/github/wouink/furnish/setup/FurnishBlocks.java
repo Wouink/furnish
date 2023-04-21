@@ -269,6 +269,7 @@ public class FurnishBlocks {
 
 	public static final RegistrySupplier<Block> Telescope = registerBlockWithItem("telescope", () -> new SimpleFurniture(BlockBehaviour.Properties.of(Material.METAL).strength(1.0f).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistrySupplier<Block> Dice = registerBlockWithItem("dice", () -> new Dice(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK)));
+	public static final RegistrySupplier<Block> Asphalt = registerBlockWithItem("asphalt", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).speedFactor(1.2f)));
 
 	static {
 		Amphorae.add(registerBlockWithItem("amphora", () -> new Amphora(BlockBehaviour.Properties.copy(Blocks.TERRACOTTA))));
