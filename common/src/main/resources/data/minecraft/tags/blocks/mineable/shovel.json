@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "furnish:snow_on_stairs",
-    "furnish:snow_on_fence",
-    "furnish:asphalt"
+    "furnish:snow_on_fence"
   ]
 }
