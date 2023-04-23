@@ -141,6 +141,7 @@ public class FurnishRegistries {
     public static final RegistrySupplier<BlockEntityType<DiskRackTileEntity>> Disk_Rack_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackTileEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
     public static final RegistrySupplier<BlockEntityType<RecycleBinTileEntity>> Recycle_Bin_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinTileEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<FlowerPotTileEntity>> Flower_Pot_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("flower_pot", () -> BlockEntityType.Builder.of(FlowerPotTileEntity::new, FurnishBlocks.Flower_Pots.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<BookshelfChestBlockEntity>> BookshelfChest_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("bookshelf_chest", () -> BlockEntityType.Builder.of(BookshelfChestBlockEntity::new, FurnishBlocks.Bookshelf_Chests.toArray(Block[]::new)).build(null));
 
     // Paintings
 

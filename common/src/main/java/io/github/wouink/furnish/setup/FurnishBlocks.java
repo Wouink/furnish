@@ -71,6 +71,7 @@ public class FurnishBlocks {
 	public static ArrayList<RegistrySupplier<Block>> Rare_Plates = new ArrayList<>();
 	public static ArrayList<RegistrySupplier<Block>> Showcases = new ArrayList<>();
 	public static ArrayList<RegistrySupplier<Block>> Paper_Lamps = new ArrayList<>();
+	public static ArrayList<RegistrySupplier<Block>> Bookshelf_Chests = new ArrayList<>();
 
 	// Custom BlockStateProperties
 
@@ -264,6 +265,8 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Paper_Sheet_Side_Filled = registerBlockWithItem("paper_sheet_side_filled", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(FurnishRegistries.Paper_Sound_Type)));
 	public static final RegistrySupplier<Block> Paper_Poster = registerBlockWithItem("paper_poster", () -> new Display(BlockBehaviour.Properties.of(Material.WOOD).noCollission().noOcclusion().instabreak().sound(FurnishRegistries.Paper_Sound_Type)));
 	public static final RegistrySupplier<Block> Paper_Postit = registerBlockWithItem("paper_postit", () -> new Display(BlockBehaviour.Properties.of(Material.WOOD).noCollission().noOcclusion().instabreak().sound(FurnishRegistries.Paper_Sound_Type)));
+	public static final RegistrySupplier<Block> Cardboard_Box = registerBlockWithItem("cardboard_box", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(.5f)));
+	public static final RegistrySupplier<Block> Paper_Rolls = registerBlockWithItem("paper_rolls", () -> new Paper(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(FurnishRegistries.Paper_Sound_Type)));
 
 	//
 

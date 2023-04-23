@@ -19,11 +19,14 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 public class Showcase extends HorizontalDirectionalBlock implements EntityBlock {
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+
 	public Showcase(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false));
@@ -93,5 +96,10 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 		if (flag != state.getValue(POWERED)) {
 			world.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(flag)), Block.UPDATE_ALL);
 		}
+	}
+
+	@Override
+	public VoxelShape getBlockSupportShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return Shapes.empty();
 	}
 }

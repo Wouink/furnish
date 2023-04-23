@@ -1,8 +1,8 @@
 {
   "type": "furnish:furniture_making",
   "ingredient": {
-    "tag": "minecraft:terracotta"
+    "item": "minecraft:paper"
   },
-  "result": "furnish:flower_pot",
+  "result": "furnish:paper_rolls",
   "count": 1
 }

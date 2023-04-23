@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -11,6 +12,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -62,7 +64,8 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 				access.execute((world, pos) -> {
 					long l = world.getGameTime();
 					if(FurnitureWorkbenchContainer.this.lastOnTake != l) {
-						world.playSound(null, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
+						SoundEvent sound = stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock().getSoundType(blockItem.getBlock().defaultBlockState()).getBreakSound() : SoundEvents.WOOD_BREAK;
+						world.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0f, 1.0f);
 						FurnitureWorkbenchContainer.this.lastOnTake = l;
 					}
 				});

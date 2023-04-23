@@ -1,6 +1,6 @@
 {
-  "pack": {
-    "description": "Example Mod",
-    "pack_format": 9
-  }
+    "pack": {
+        "description": "Furnish Resources",
+        "pack_format": 9
+    }
 }

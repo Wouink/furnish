@@ -343,6 +343,9 @@
   "block.furnish.paper_sheet_side.tooltip": "Longue liste vierge",
   "block.furnish.paper_sheet_side_filled": "Feuille de Papier",
   "block.furnish.paper_sheet_side_filled.tooltip": "Longue liste avec des écritures",
+  "block.furnish.cardboard_box": "Boîte en Carton",
+  "block.furnish.paper_rolls": "Parchemins",
+  "block.furnish.paper_rolls.tooltip": "Ça fait beaucoup de Feuilles de Papier",
 
   "block.furnish.telescope": "Téléscope",
   "block.furnish.dice": "Dé",

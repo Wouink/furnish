@@ -341,6 +341,9 @@
   "block.furnish.paper_sheet_side.tooltip": "Empty Sheet laying off a Table",
   "block.furnish.paper_sheet_side_filled": "Paper Sheet",
   "block.furnish.paper_sheet_side_filled.tooltip": "Filled with some text, laying off a Table",
+  "block.furnish.cardboard_box": "Cardboard Box",
+  "block.furnish.paper_rolls": "Paper Rolls",
+  "block.furnish.paper_rolls.tooltip": "That's a lot of Paper Sheets",
 
   "block.furnish.telescope": "Telescope",
   "block.furnish.dice": "Dice",
