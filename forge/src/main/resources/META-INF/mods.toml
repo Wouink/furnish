@@ -9,8 +9,8 @@ license="All rights reserved"
     logoFile="furnish.png"
     #updateJSONURL="https://change.me.example.invalid/updates.json"
     displayURL="https://wouink.github.io"
-    credits="Book Pile model from the 'Comfy Cozy' mod (MIT Licensed). Brazilian translations by mayrotiem. Chinese translations by Pancakes0228."
-    authors="Wink'"
+    credits="Book Pile model from the 'Comfy Cozy' mod (MIT Licensed). Bookshelf Chest textures from 'Charm' mod (MIT Licensed). Brazilian translations by mayrotiem. Chinese translations by Pancakes0228."
+    authors="Wouink"
     description="Adds lovely and useful Furniture to Minecraft"
 
 [[dependencies.furnish]]

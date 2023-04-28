@@ -351,6 +351,15 @@
   "block.furnish.dice": "Dé",
   "block.furnish.asphalt": "Asphalte",
 
+  "block.furnish.oak_bookshelf_chest": "Biblio-Coffre en Chêne",
+  "block.furnish.birch_bookshelf_chest": "Biblio-Coffre en Bouleau",
+  "block.furnish.spruce_bookshelf_chest": "Biblio-Coffre en Sapin",
+  "block.furnish.jungle_bookshelf_chest": "Biblio-Coffre en Acajou",
+  "block.furnish.acacia_bookshelf_chest": "Biblio-Coffre en Acacia",
+  "block.furnish.dark_oak_bookshelf_chest": "Biblio-Coffre en Chêne Noir",
+  "block.furnish.crimson_bookshelf_chest": "Biblio-Coffre Carmin",
+  "block.furnish.warped_bookshelf_chest": "Biblio-Coffre Biscornu",
+
   "block.furnish.gravestone": "Pierre Tombale",
   "block.furnish.oak_coffin": "Cercueil en Chêne",
   "block.furnish.birch_coffin": "Cercueil en Bouleau",

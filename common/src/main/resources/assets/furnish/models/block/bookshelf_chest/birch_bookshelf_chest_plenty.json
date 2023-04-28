@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "minecraft:block/birch_planks",
+    "side": "furnish:block/bookshelf/birch_bookshelf_chest_plenty"
+  }
+}

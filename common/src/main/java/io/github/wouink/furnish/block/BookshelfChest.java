@@ -1,17 +1,16 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.tileentity.BookshelfChestBlockEntity;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -20,28 +19,23 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class BookshelfChest extends HorizontalDirectionalBlock implements EntityBlock {
+public class BookshelfChest extends Block implements EntityBlock {
     public static final IntegerProperty CAPACITY = IntegerProperty.create("capacity", 0, 3);
     public BookshelfChest(Properties properties) {
         super(properties);
+        FurnishBlocks.Bookshelf_Chests.add(this);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(FACING, CAPACITY);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
+        builder.add(CAPACITY);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return null;
+        return new BookshelfChestBlockEntity(blockPos, blockState);
     }
 
     @Override

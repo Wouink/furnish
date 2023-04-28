@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_bookshelf_chest",
+    "furnish:acacia_bookshelf_chest",
+    "furnish:birch_bookshelf_chest",
+    "furnish:jungle_bookshelf_chest",
+    "furnish:spruce_bookshelf_chest",
+    "furnish:dark_oak_bookshelf_chest",
+    "furnish:crimson_bookshelf_chest",
+    "furnish:warped_bookshelf_chest"
+  ]
+}

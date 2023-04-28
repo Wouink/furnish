@@ -349,6 +349,15 @@
   "block.furnish.dice": "Dice",
   "block.furnish.asphalt": "Asphalt",
 
+  "block.furnish.oak_bookshelf_chest": "Oak Bookshelf Chest",
+  "block.furnish.birch_bookshelf_chest": "Birch Bookshelf Chest",
+  "block.furnish.spruce_bookshelf_chest": "Spruce Bookshelf Chest",
+  "block.furnish.jungle_bookshelf_chest": "Jungle Bookshelf Chest",
+  "block.furnish.acacia_bookshelf_chest": "Acacia Bookshelf Chest",
+  "block.furnish.dark_oak_bookshelf_chest": "Dark Oak Bookshelf Chest",
+  "block.furnish.crimson_bookshelf_chest": "Crimson Bookshelf Chest",
+  "block.furnish.warped_bookshelf_chest": "Warped Bookshelf Chest",
+
   "block.furnish.gravestone": "Gravestone",
   "block.furnish.oak_coffin": "Oak Coffin",
   "block.furnish.birch_coffin": "Birch Coffin",

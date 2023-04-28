@@ -5,10 +5,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.Crate;
 import io.github.wouink.furnish.block.Mailbox;
-import io.github.wouink.furnish.block.container.CrateContainer;
-import io.github.wouink.furnish.block.container.DiskRackContainer;
-import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
-import io.github.wouink.furnish.block.container.MailboxContainer;
+import io.github.wouink.furnish.block.container.*;
 import io.github.wouink.furnish.block.tileentity.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
@@ -44,6 +41,7 @@ public class FurnishRegistries {
     public static final TagKey FOOD_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "food"));
     public static final TagKey PLANTS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "plants"));
     public static final TagKey MAIL_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "mail"));
+    public static final TagKey BOOKS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "books"));
 
     // Mailbox configuration is done with tags
     public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "bypasses_mail_tag"));
@@ -88,6 +86,10 @@ public class FurnishRegistries {
     public static final RegistrySupplier<MenuType<DiskRackContainer>> Disk_Rack_Container = FurnishRegistries.CONTAINERS.register(
             "disk_rack",
             () -> new MenuType<>(DiskRackContainer::new)
+    );
+    public static final RegistrySupplier<MenuType<BookshelfChestContainer>> Bookshelf_Chest_Container = FurnishRegistries.CONTAINERS.register(
+            "bookshelf_chest",
+            () -> new MenuType<>(BookshelfChestContainer::new)
     );
 
     // Sounds

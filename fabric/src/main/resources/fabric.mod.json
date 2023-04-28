@@ -3,16 +3,16 @@
   "id": "furnish",
   "version": "${version}",
   "name": "Furnish",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Adds lovely and useful Furniture to Minecraft. Credits -- Book Pile model from the 'Comfy Cozy' mod (MIT Licensed). Bookshelf Chest textures from 'Charm' mod (MIT Licensed). Brazilian translations by mayrotiem. Chinese translations by Pancakes0228.",
   "authors": [
-    "Me!"
+    "Wouink"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://wouink.github.io",
+    "sources": "https://github.com/wouink/furnish"
   },
   "license": "Insert License Here",
-  "icon": "assets/examplemod/icon.png",
+  "icon": "furnish.png",
   "environment": "*",
   "entrypoints": {
     "main": [

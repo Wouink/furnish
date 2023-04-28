@@ -71,7 +71,7 @@ public class FurnishBlocks {
 	public static ArrayList<RegistrySupplier<Block>> Rare_Plates = new ArrayList<>();
 	public static ArrayList<RegistrySupplier<Block>> Showcases = new ArrayList<>();
 	public static ArrayList<RegistrySupplier<Block>> Paper_Lamps = new ArrayList<>();
-	public static ArrayList<RegistrySupplier<Block>> Bookshelf_Chests = new ArrayList<>();
+	public static ArrayList<Block> Bookshelf_Chests = new ArrayList<>();
 
 	// Custom BlockStateProperties
 
@@ -101,6 +101,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Oak_Bench = registerBlockWithItem("oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Oak_Log_Bench = registerBlockWithItem("oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Oak_Ladder = registerBlockWithItem("oak_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Oak_Bookshelf_Chest = registerBlockWithItem("oak_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
 
 	public static final RegistrySupplier<Block> Birch_Table = registerBlockWithItem("birch_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistrySupplier<Block> Birch_Square_Table = registerBlockWithItem("birch_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
@@ -117,6 +118,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Birch_Bench = registerBlockWithItem("birch_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistrySupplier<Block> Birch_Log_Bench = registerBlockWithItem("birch_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 	public static final RegistrySupplier<Block> Birch_Ladder = registerBlockWithItem("birch_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Birch_Bookshelf_Chest = registerBlockWithItem("birch_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.BIRCH_PLANKS)));
 
 	public static final RegistrySupplier<Block> Acacia_Table = registerBlockWithItem("acacia_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistrySupplier<Block> Acacia_Square_Table = registerBlockWithItem("acacia_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
@@ -133,6 +135,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Acacia_Bench = registerBlockWithItem("acacia_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistrySupplier<Block> Acacia_Log_Bench = registerBlockWithItem("acacia_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 	public static final RegistrySupplier<Block> Acacia_Ladder = registerBlockWithItem("acacia_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Acacia_Bookshelf_Chest = registerBlockWithItem("acacia_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.ACACIA_PLANKS)));
 
 	public static final RegistrySupplier<Block> Jungle_Table = registerBlockWithItem("jungle_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistrySupplier<Block> Jungle_Square_Table = registerBlockWithItem("jungle_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
@@ -149,6 +152,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Jungle_Bench = registerBlockWithItem("jungle_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistrySupplier<Block> Jungle_Log_Bench = registerBlockWithItem("jungle_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 	public static final RegistrySupplier<Block> Jungle_Ladder = registerBlockWithItem("jungle_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Jungle_Bookshelf_Chest = registerBlockWithItem("jungle_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS)));
 
 	public static final RegistrySupplier<Block> Spruce_Table = registerBlockWithItem("spruce_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistrySupplier<Block> Spruce_Square_Table = registerBlockWithItem("spruce_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
@@ -165,6 +169,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Spruce_Bench = registerBlockWithItem("spruce_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistrySupplier<Block> Spruce_Log_Bench = registerBlockWithItem("spruce_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 	public static final RegistrySupplier<Block> Spruce_Ladder = registerBlockWithItem("spruce_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Spruce_Bookshelf_Chest = registerBlockWithItem("spruce_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS)));
 
 	public static final RegistrySupplier<Block> Dark_Oak_Table = registerBlockWithItem("dark_oak_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Dark_Oak_Square_Table = registerBlockWithItem("dark_oak_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
@@ -181,6 +186,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Dark_Oak_Bench = registerBlockWithItem("dark_oak_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Dark_Oak_Log_Bench = registerBlockWithItem("dark_oak_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 	public static final RegistrySupplier<Block> Dark_Oak_Ladder = registerBlockWithItem("dark_oak_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Dark_Oak_Bookshelf_Chest = registerBlockWithItem("dark_oak_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_PLANKS)));
 
 	public static final RegistrySupplier<Block> Crimson_Drawers = registerBlockWithItem("crimson_drawers", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), FurnishRegistries.Drawers_Open_Sound, FurnishRegistries.Drawers_Close_Sound));
 	public static final RegistrySupplier<Block> Crimson_Cabinet = registerBlockWithItem("crimson_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS), FurnishRegistries.Cabinet_Open_Sound, FurnishRegistries.Cabinet_Close_Sound));
@@ -196,6 +202,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Crimson_Bench = registerBlockWithItem("crimson_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 	public static final RegistrySupplier<Block> Crimson_Log_Bench = registerBlockWithItem("crimson_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 	public static final RegistrySupplier<Block> Crimson_Ladder = registerBlockWithItem("crimson_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Crimson_Bookshelf_Chest = registerBlockWithItem("crimson_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.CRIMSON_PLANKS)));
 
 	public static final RegistrySupplier<Block> Warped_Drawers = registerBlockWithItem("warped_drawers", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), FurnishRegistries.Drawers_Open_Sound, FurnishRegistries.Drawers_Close_Sound));
 	public static final RegistrySupplier<Block> Warped_Cabinet = registerBlockWithItem("warped_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS), FurnishRegistries.Cabinet_Open_Sound, FurnishRegistries.Cabinet_Close_Sound));
@@ -211,6 +218,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Warped_Bench = registerBlockWithItem("warped_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 	public static final RegistrySupplier<Block> Warped_Log_Bench = registerBlockWithItem("warped_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 	public static final RegistrySupplier<Block> Warped_Ladder = registerBlockWithItem("warped_ladder", () -> new Ladder(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Warped_Bookshelf_Chest = registerBlockWithItem("warped_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS)));
 
 	public static final RegistrySupplier<Block> Small_Locker = registerBlockWithItem("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), FurnishRegistries.Locker_Open_Sound, FurnishRegistries.Locker_Close_Sound));
 	public static final RegistrySupplier<Block> Locker = registerBlockWithItem("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), FurnishRegistries.Locker_Open_Sound, FurnishRegistries.Locker_Close_Sound));
