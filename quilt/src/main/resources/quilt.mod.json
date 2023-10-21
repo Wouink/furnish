@@ -1,23 +1,25 @@
 {
   "schema_version": 1,
   "quilt_loader": {
-    "group": "${group}",
+    "group": "io.github.wouink",
     "id": "furnish",
     "version": "${version}",
-    "name": "Furnish",
-    "description": "Adds lovely and useful furniture to Minecraft!",
-    "authors": ["Me!"],
-    "contact": {
-      "sources": "https://github.com/Wouink/furnish"
+    "metadata": {
+      "name": "Furnish",
+      "description": "Adds lovely and useful furniture to Minecraft!",
+      "contributors": {
+        "Wouink": "Owner"
+      },
+      "contact": {
+        "homepage": "https://curseforge.com/minecraft/mc-mods/furnish",
+        "issues": "https://github.com/Wouink/furnish/issues",
+        "sources": "https://github.com/Wouink/furnish"
+      },
+      "icon": "assets/furnish/icon.png"
     },
-    "license": "Insert License Here",
-    "icon": "assets/furnish/icon.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
-    "environment": "*",
     "entrypoints": {
-      "init": [
-        "net.examplemod.quilt.ExampleModQuilt"
-      ]
+      "init": "io.github.wouink.furnish.quilt.FurnishQuilt"
     },
     "depends": [
       {

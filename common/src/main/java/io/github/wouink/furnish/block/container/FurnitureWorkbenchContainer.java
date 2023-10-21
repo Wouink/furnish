@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block.container;
 
 import com.google.common.collect.Lists;
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -45,7 +46,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 	public FurnitureWorkbenchContainer(int syncId, Inventory playerInventory, final ContainerLevelAccess posCallable) {
 		super(FurnishRegistries.Furniture_Workbench_Container.get(), syncId);
 		this.access = posCallable;
-		this.level = playerInventory.player.level;
+		this.level = playerInventory.player.level();
 		this.inputSlot = this.addSlot(new Slot(this.inputContainer, 0, 20, 33));
 		this.outputSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
 			@Override
@@ -60,7 +61,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 					FurnitureWorkbenchContainer.this.updateRecipeResultSlot();
 				}
 
-				stack.getItem().onCraftedBy(stack, thePlayer.level, thePlayer);
+				stack.getItem().onCraftedBy(stack, thePlayer.level(), thePlayer);
 				access.execute((world, pos) -> {
 					long l = world.getGameTime();
 					if(FurnitureWorkbenchContainer.this.lastOnTake != l) {
@@ -112,10 +113,11 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 
 	@Override
 	public boolean clickMenuButton(Player playerIn, int id) {
+		Furnish.debug("Click on id = " + id);
 		if(this.isValidRecipeIndex(id)) {
 			this.selectedRecipe.set(id);
 			this.updateRecipeResultSlot();
-		}
+		} else Furnish.debug("This is not a valid recipe id! Valid if >= 0 and < " + this.getRecipeListSize());
 		return true;
 	}
 
@@ -144,7 +146,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 	public void updateRecipeResultSlot() {
 		if(!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipe.get())) {
 			FurnitureRecipe recipe = this.recipes.get(this.selectedRecipe.get());
-			this.outputSlot.set(recipe.assemble(this.inputContainer));
+			this.outputSlot.set(recipe.assemble(this.inputContainer, this.level.registryAccess()));
 		} else {
 			this.outputSlot.set(ItemStack.EMPTY);
 		}
@@ -174,7 +176,7 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 			Item item = itemStack1.getItem();
 			itemStack = itemStack1.copy();
 			if(index == 1) {
-				item.onCraftedBy(itemStack1, playerIn.level, playerIn);
+				item.onCraftedBy(itemStack1, playerIn.level(), playerIn);
 				if(!this.moveItemStackTo(itemStack1, 2, 38, true)) {
 					return ItemStack.EMPTY;
 				}

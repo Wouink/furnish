@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-import javax.annotation.Nullable;
+
 
 public class TallInventoryFurniture extends TallFurniture implements EntityBlock, IFurnitureWithSound {
 	private RegistrySupplier<SoundEvent> openSound;
@@ -33,9 +33,8 @@ public class TallInventoryFurniture extends TallFurniture implements EntityBlock
 		super.onRemove(state, world, pos, newState, moving);
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return state.getValue(TOP).booleanValue() ? null : new LargeFurnitureTileEntity(pos, state);
 	}
 

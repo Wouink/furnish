@@ -3,7 +3,7 @@ package io.github.wouink.furnish.event;
 import dev.architectury.event.EventResult;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +20,7 @@ public class PlaceCarpet {
 	public static EventResult onCarpetPlaced(Level level, BlockPos pos, BlockState state, Entity placer) {
 		if(level.isClientSide()) return EventResult.pass();
 		if(state.getBlock() instanceof WoolCarpetBlock carpetBlock) {
-			if(Registry.BLOCK.getKey(state.getBlock()).getNamespace().equals("minecraft")) {
+			if(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getNamespace().equals("minecraft")) {
 				String color = carpetBlock.getColor().getName();
 				BlockState stateBelow = level.getBlockState(pos.below());
 				if(stateBelow.getBlock() instanceof StairBlock && !placer.isShiftKeyDown()) {

@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock {
 	private static final VoxelShape RACK_X = Block.box(0, 0, 4, 16, 2, 12);
@@ -34,9 +34,8 @@ public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock 
 		builder.add(FACING);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 	}
 

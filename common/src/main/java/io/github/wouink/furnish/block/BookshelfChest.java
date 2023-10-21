@@ -15,9 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 
 public class BookshelfChest extends Block implements EntityBlock {
     public static final IntegerProperty CAPACITY = IntegerProperty.create("capacity", 0, 3);
@@ -32,7 +30,6 @@ public class BookshelfChest extends Block implements EntityBlock {
         builder.add(CAPACITY);
     }
 
-    @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new BookshelfChestBlockEntity(blockPos, blockState);
@@ -46,11 +43,6 @@ public class BookshelfChest extends Block implements EntityBlock {
     @Override
     public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos blockPos) {
         return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(blockPos));
-    }
-
-    @Override
-    public PushReaction getPistonPushReaction(BlockState blockState) {
-        return PushReaction.BLOCK;
     }
 
     @Override

@@ -15,3 +15,6 @@ ParchmentMC
 	compatible avec les mappings officiels de Mojang
 	tout se fait dans le fichier build.gradle racine
 		-> pareil que https://parchmentmc.org/docs/getting-started pour Fabric et Fabric Loom
+
+JEI
+	https://github.com/mezz/JustEnoughItems/wiki/Getting-Started-%5BJEI-10-or-higher-for-Forge-or-Fabric%5D

@@ -2,6 +2,7 @@ package io.github.wouink.furnish.recipe;
 
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +17,11 @@ public class FurnitureRecipe extends FSingleItemRecipe {
 	@Override
 	public boolean matches(Container inv, Level l) {
 		return this.ingredient.test(inv.getItem(0));
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess registryAccess) {
+		return this.result;
 	}
 
 	@Override

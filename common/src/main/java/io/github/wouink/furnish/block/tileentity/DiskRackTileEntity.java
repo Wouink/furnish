@@ -78,9 +78,8 @@ public class DiskRackTileEntity extends RandomizableContainerBlockEntity {
 
 	// communication between client/server for rendering purposes
 
-	@Nullable
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 

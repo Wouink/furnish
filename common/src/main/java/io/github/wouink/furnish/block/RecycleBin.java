@@ -56,7 +56,7 @@ public class RecycleBin extends Block implements EntityBlock {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> list, TooltipFlag tooltipFlag) {
+	public void appendHoverText(ItemStack itemStack, BlockGetter blockGetter, List<Component> list, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, blockGetter, list, tooltipFlag);
 		list.add(Component.translatable("block.furnish.recycle_bin.tooltip.1").withStyle(ChatFormatting.GRAY));
 		list.add(Component.translatable("block.furnish.recycle_bin.tooltip.2").withStyle(ChatFormatting.GRAY));
@@ -66,9 +66,8 @@ public class RecycleBin extends Block implements EntityBlock {
 		return sound;
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new RecycleBinTileEntity(pos, state);
 	}
 

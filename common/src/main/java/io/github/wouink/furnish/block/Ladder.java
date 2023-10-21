@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Ladder extends HorizontalDirectionalBlock {
 	private static final VoxelShape[] SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 3, 16, 16));
@@ -38,9 +38,8 @@ public class Ladder extends HorizontalDirectionalBlock {
 		return SHAPES[state.getValue(FACING).ordinal() - 2];
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 	}
 

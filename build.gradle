@@ -51,6 +51,11 @@ allprojects {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
         }
+
+        maven {
+            url = "https://www.cursemaven.com"
+            allowInsecureProtocol = true
+        }
     }
 
     tasks.withType(JavaCompile) {

@@ -25,9 +25,8 @@ public class InventoryFurniture extends SimpleFurniture implements EntityBlock, 
 		FurnishBlocks.Furniture_3x9.add(this);
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new FurnitureTileEntity(pos, state);
 	}
 

@@ -22,7 +22,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 	private static final VoxelShape[] SHELF = VoxelShapeHelper.getRotatedShapes(Block.box(0, 2, 0, 5, 4, 16));
@@ -37,9 +37,8 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 		builder.add(FACING);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 	}
 
@@ -48,9 +47,8 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 		return SHELF[state.getValue(FACING).ordinal() - 2];
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new ShelfTileEntity(pos, state);
 	}
 

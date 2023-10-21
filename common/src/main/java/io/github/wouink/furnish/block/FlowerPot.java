@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.block;
 
-import com.mojang.math.Vector3d;
 import io.github.wouink.furnish.block.tileentity.FlowerPotTileEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
@@ -14,10 +13,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class FlowerPot extends Block implements EntityBlock {
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
@@ -49,19 +48,17 @@ public class FlowerPot extends Block implements EntityBlock {
 		else return COLLISION;
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return this.defaultBlockState().setValue(HANGING, ctx.getClickedFace() == Direction.DOWN);
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new FlowerPotTileEntity(pos, state);
 	}
 
-	public Vector3d getRenderPos(int plantIndex) {
-		return new Vector3d(0.5, 0.5, 0.5);
+	public Vec3 getRenderPos(int plantIndex) {
+		return new Vec3(0.5, 0.5, 0.5);
 	}
 }

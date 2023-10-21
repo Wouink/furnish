@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Table extends Block {
 	public static final BooleanProperty NW = BooleanProperty.create("nw");
@@ -54,9 +54,8 @@ public class Table extends Block {
 				.setValue(SW, !s && !w);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		return getState(getStateDefinition().any(), ctx.getLevel(), ctx.getClickedPos());
 	}
 

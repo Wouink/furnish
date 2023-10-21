@@ -172,9 +172,8 @@ public class MailboxTileEntity extends RandomizableContainerBlockEntity {
 	}
 	 */
 
-	@Nullable
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 

@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Plate extends HorizontalDirectionalBlock implements EntityBlock {
 	public static final VoxelShape PLATE_SHAPE = Block.box(1, 0, 1, 15, 1, 15);
@@ -61,9 +61,8 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock {
 		return resultType == InteractionResult.SUCCESS ? InteractionResult.sidedSuccess(world.isClientSide()) : resultType;
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new PlateTileEntity(pos, state);
 	}
 

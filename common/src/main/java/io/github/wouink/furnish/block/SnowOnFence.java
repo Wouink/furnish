@@ -45,9 +45,8 @@ public class SnowOnFence extends Block {
 		return Shapes.empty();
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState below = ctx.getLevel().getBlockState(ctx.getClickedPos().below());
 		if(below.getBlock() instanceof FenceBlock) {
 			return getConnections(super.getStateForPlacement(ctx), ctx.getLevel(), ctx.getClickedPos())

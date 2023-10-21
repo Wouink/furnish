@@ -29,7 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 
 public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
@@ -50,9 +50,8 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		builder.add(FACING, ON_FENCE, HAS_MAIL);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		if(ctx.getLevel().getBlockState(ctx.getClickedPos().below()).getBlock() instanceof FenceBlock) {
 			state = state.setValue(ON_FENCE, true);
@@ -61,7 +60,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 	}
 
 	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if(entity instanceof Player) {
 			((Player) entity).displayClientMessage(Component.translatable("msg.furnish.mailbox.ownership_info"), true);
 		}
@@ -156,9 +155,8 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		}
 	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new MailboxTileEntity(pos, state);
 	}
 
@@ -174,7 +172,7 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 	}
 
 	@Override
-	public void playerDestroy(Level level, Player player, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity, ItemStack itemStack) {
+	public void playerDestroy(Level level, Player player, BlockPos blockPos, BlockState blockState, BlockEntity blockEntity, ItemStack itemStack) {
 		if(!level.isClientSide()) {
 			if(blockEntity != null) {
 				if(blockEntity instanceof MailboxTileEntity mailboxTileEntity) {

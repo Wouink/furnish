@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.PushReaction;
 
 public class TallFurniture extends HorizontalDirectionalBlock {
 	public static final BooleanProperty TOP = BooleanProperty.create("top");
@@ -44,11 +43,6 @@ public class TallFurniture extends HorizontalDirectionalBlock {
 		if(!state.getValue(TOP).booleanValue()) {
 			world.setBlock(pos.above(), state.setValue(TOP, true), Block.UPDATE_ALL);
 		}
-	}
-
-	@Override
-	public PushReaction getPistonPushReaction(BlockState state) {
-		return PushReaction.BLOCK;
 	}
 
 	@Override

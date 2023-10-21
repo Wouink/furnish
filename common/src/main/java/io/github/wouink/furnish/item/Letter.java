@@ -18,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class Letter extends Item {
@@ -31,12 +30,12 @@ public class Letter extends Item {
 			Furnish.LOG.error("Furnish Letter Item - Attempt to call openGui elsewhere than on client.");
 			return;
 		}
-		playerEntity.level.playSound(null, playerEntity.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
+		playerEntity.level().playSound(null, playerEntity.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);
 		FurnishClient.openLetterGui(stack, playerEntity, hand);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack letter, @Nullable Level world, List<Component> tooltip, TooltipFlag tooltipFlag) {
+	public void appendHoverText(ItemStack letter, Level world, List<Component> tooltip, TooltipFlag tooltipFlag) {
 		if(letter.hasTag()) {
 			CompoundTag letterTag = letter.getTag();
 			if(letterTag.contains("Author")) {

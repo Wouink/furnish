@@ -31,6 +31,9 @@ dependencies {
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+    // jei
+    modImplementation("${jei_forge_curse}")
 }
 
 processResources {

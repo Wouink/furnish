@@ -22,7 +22,6 @@ public class Dice extends Block {
         builder.add(VALUE);
     }
 
-    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
         return super.getStateForPlacement(blockPlaceContext).setValue(VALUE, blockPlaceContext.getLevel().getRandom().nextInt(6) + 1);

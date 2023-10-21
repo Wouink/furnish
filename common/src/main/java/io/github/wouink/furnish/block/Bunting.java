@@ -20,7 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Bunting extends Block {
 	public static final BooleanProperty Z_AXIS = BooleanProperty.create("z_axis");
@@ -38,7 +38,6 @@ public class Bunting extends Block {
 		builder.add(Z_AXIS);
 	}
 
-	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		if(!ctx.getPlayer().isShiftKeyDown()) {

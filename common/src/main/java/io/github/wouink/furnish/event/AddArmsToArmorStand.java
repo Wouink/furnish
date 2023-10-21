@@ -17,7 +17,7 @@ public class AddArmsToArmorStand {
 
 	public static EventResult rightClickArmorStand(Player player, Entity entity, InteractionHand hand) {
 		Furnish.debug("Right click entity " + entity);
-		Level level = player.getLevel();
+		Level level = player.level();
 		if(level.isClientSide()) return EventResult.pass();
 		if(entity instanceof ArmorStand armorStand) {
 			if(!armorStand.isShowArms()) {

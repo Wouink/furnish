@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.properties.StairsShape;
 public class PlaceSnow {
 
 	public static EventResult onSnowLayerUsedOnBlock(Player player, InteractionHand hand, BlockPos pos, Direction face) {
-		Level level = player.getLevel();
+		Level level = player.level();
 		if(level.isClientSide() || player.isShiftKeyDown()) return EventResult.pass();
 		if(!level.isEmptyBlock(pos.above())) return EventResult.pass();
 

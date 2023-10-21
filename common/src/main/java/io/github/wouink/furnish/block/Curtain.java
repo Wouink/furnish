@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Curtain extends HorizontalDirectionalBlock {
 	private static final VoxelShape[] CURTAIN = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 1, 16, 16));
@@ -46,9 +46,8 @@ public class Curtain extends HorizontalDirectionalBlock {
 		builder.add(FACING, OPEN, POWERED, LEFT, RIGHT, UP, DOWN);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = this.defaultBlockState();
 		Level level = ctx.getLevel();
 		BlockPos pos = ctx.getClickedPos();

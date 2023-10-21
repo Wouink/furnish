@@ -10,7 +10,7 @@ import io.github.wouink.furnish.block.tileentity.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -27,31 +28,31 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FurnishRegistries {
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Furnish.MODID, Registry.RECIPE_TYPE_REGISTRY);
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Furnish.MODID, Registry.RECIPE_SERIALIZER_REGISTRY);
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Furnish.MODID, Registry.SOUND_EVENT_REGISTRY);
-    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(Furnish.MODID, Registry.MENU_REGISTRY);
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Furnish.MODID, Registry.ENTITY_TYPE_REGISTRY);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Furnish.MODID, Registry.BLOCK_ENTITY_TYPE_REGISTRY);
-    public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(Furnish.MODID, Registry.PAINTING_VARIANT_REGISTRY);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Furnish.MODID, Registries.RECIPE_TYPE);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Furnish.MODID, Registries.RECIPE_SERIALIZER);
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Furnish.MODID, Registries.SOUND_EVENT);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(Furnish.MODID, Registries.MENU);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Furnish.MODID, Registries.ENTITY_TYPE);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Furnish.MODID, Registries.BLOCK_ENTITY_TYPE);
+    public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(Furnish.MODID, Registries.PAINTING_VARIANT);
 
     // Tags
-    public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "crate_blacklist"));
-    public static final TagKey MUSIC_DISCS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "music_discs"));
-    public static final TagKey FOOD_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "food"));
-    public static final TagKey PLANTS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "plants"));
-    public static final TagKey MAIL_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "mail"));
-    public static final TagKey BOOKS_TAG = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(Furnish.MODID, "books"));
+    public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "crate_blacklist"));
+    public static final TagKey MUSIC_DISCS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "music_discs"));
+    public static final TagKey FOOD_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "food"));
+    public static final TagKey PLANTS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "plants"));
+    public static final TagKey MAIL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "mail"));
+    public static final TagKey BOOKS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "books"));
 
     // Mailbox configuration is done with tags
-    public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "bypasses_mail_tag"));
-    public static final TagKey NON_OP_CREATIVE_CAN_DESTROY_TAG = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "non_op_creative_can_destroy"));
+    public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "bypasses_mail_tag"));
+    public static final TagKey NON_OP_CREATIVE_CAN_DESTROY_TAG = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "non_op_creative_can_destroy"));
 
     // Knock on door configuration also with tag
-    public static final TagKey CAN_KNOCK_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "can_knock_on"));
+    public static final TagKey CAN_KNOCK_ON = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "can_knock_on"));
 
     // Same thing for popping lectern book
-    public static final TagKey CAN_POP_BOOK = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(Furnish.MODID, "can_pop_book"));
+    public static final TagKey CAN_POP_BOOK = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "can_pop_book"));
 
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
@@ -73,29 +74,31 @@ public class FurnishRegistries {
 
     public static final RegistrySupplier<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench_Container = FurnishRegistries.CONTAINERS.register(
             "furniture_workbench",
-            () -> new MenuType<>(FurnitureWorkbenchContainer::new)
+            () -> new MenuType<>(FurnitureWorkbenchContainer::new, FeatureFlagSet.of())
+            // todo FeatureFlagSet.of what?
     );
     public static final RegistrySupplier<MenuType<CrateContainer>> Crate_Container = FurnishRegistries.CONTAINERS.register(
             "crate",
-            () -> new MenuType<>(CrateContainer::new)
+            () -> new MenuType<>(CrateContainer::new, FeatureFlagSet.of())
     );
     public static final RegistrySupplier<MenuType<MailboxContainer>> Mailbox_Container = FurnishRegistries.CONTAINERS.register(
             "mailbox",
-            () -> new MenuType<>(MailboxContainer::new)
+            () -> new MenuType<>(MailboxContainer::new, FeatureFlagSet.of())
     );
     public static final RegistrySupplier<MenuType<DiskRackContainer>> Disk_Rack_Container = FurnishRegistries.CONTAINERS.register(
             "disk_rack",
-            () -> new MenuType<>(DiskRackContainer::new)
+            () -> new MenuType<>(DiskRackContainer::new, FeatureFlagSet.of())
     );
     public static final RegistrySupplier<MenuType<BookshelfChestContainer>> Bookshelf_Chest_Container = FurnishRegistries.CONTAINERS.register(
             "bookshelf_chest",
-            () -> new MenuType<>(BookshelfChestContainer::new)
+            () -> new MenuType<>(BookshelfChestContainer::new, FeatureFlagSet.of())
     );
 
     // Sounds
 
     public static RegistrySupplier<SoundEvent> registerSoundEvent(String soundKey) {
-        return SOUND_EVENTS.register(soundKey, () -> new SoundEvent(new ResourceLocation(Furnish.MODID, soundKey)));
+        // todo variable range event? fixed range event?
+        return SOUND_EVENTS.register(soundKey, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Furnish.MODID, soundKey)));
     }
 
     public static final RegistrySupplier<SoundEvent> Cabinet_Open_Sound = FurnishRegistries.registerSoundEvent("block.furniture.open");

@@ -1,16 +1,16 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -35,14 +35,14 @@ public class DiskRackRenderer implements BlockEntityRenderer<DiskRackTileEntity>
 				ms.pushPose();
 				prepareRenderItem(i, dir, ms);
 				BakedModel model = itemRenderer.getModel(stack, rack.getLevel(), null, 0);
-				itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, ms, buffer, light, overlay, model);
+				itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
 				ms.popPose();
 			}
 		}
 	}
 
 	private void prepareRenderItem(int index, Direction dir, PoseStack ms) {
-		ms.mulPose(Vector3f.YP.rotationDegrees(dir.toYRot()));
+		ms.mulPose(Axis.YP.rotationDegrees(dir.toYRot()));
 		// offset = 1/16bl + index * 2/16b + (.5*1/16bl for centering)
 		double offset = .0625 + index * .125 + .03125;
 		switch(dir) {

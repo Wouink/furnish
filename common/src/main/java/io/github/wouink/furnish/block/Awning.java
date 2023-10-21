@@ -15,7 +15,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
 
 public class Awning extends HorizontalDirectionalBlock {
 	public static final VoxelShape AWNING_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
@@ -33,7 +32,6 @@ public class Awning extends HorizontalDirectionalBlock {
 		builder.add(FACING, LEFT, RIGHT);
 	}
 
-	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		Direction dir = ctx.getHorizontalDirection();

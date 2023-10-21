@@ -1,15 +1,14 @@
 package io.github.wouink.furnish.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.C2S_UpdateItemStack;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -80,21 +79,21 @@ public class LetterScreen extends Screen {
 	protected void init() {
 		super.init();
 		if(editable) {
-			this.addRenderableWidget(new Button(this.width / 2 - 102, 196, 100, 20, SIGN_LETTER, (var) -> {
+			this.addRenderableWidget(Button.builder(SIGN_LETTER, (button) -> {
 				save();
 				Letter.signLetter(letter, playerEntity.getGameProfile().getName());
 				sendUpdate();
 				this.minecraft.setScreen(null);
-			}));
-			this.addRenderableWidget(new Button(this.width / 2 + 2, 196, 100, 20, CommonComponents.GUI_DONE, (var) -> {
+			}).bounds(this.width / 2 - 102, 196, 100, 20).build());
+			this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
 				save();
 				sendUpdate();
 				this.minecraft.setScreen(null);
-			}));
+			}).bounds(this.width / 2 + 2, 196, 100, 20).build());
 		} else {
-			this.addRenderableWidget(new Button(this.width / 2 - 50, 196, 100, 20, CommonComponents.GUI_DONE, (var) -> {
+			this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
 				this.minecraft.setScreen(null);
-			}));
+			}).bounds(this.width / 2 - 50, 196, 100, 20).build());
 		}
 	}
 
@@ -147,26 +146,24 @@ public class LetterScreen extends Screen {
 	}
 
 	@Override
-	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(ms);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, LETTER_BACKGROUND);
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		this.renderBackground(guiGraphics);
+		this.setFocused((GuiEventListener)null);
 		int startX = (this.width - 192) / 2;
-		this.blit(ms, startX, 2, 0, 0, 192, 192);
+		guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);
 
 		// text and cursor rendering
-		if (editable) {
+		if(editable) {
 			if(frameTick / 6 % 2 == 0) {
-				font.drawWordWrap(Component.literal(letterText).append("_"), startX + 36, 20, 108, 0);
+				guiGraphics.drawWordWrap(font, Component.literal(letterText).append("_"), startX + 36, 20, 108, 0);
 			} else {
-				font.drawWordWrap(Component.literal(letterText).append(" "), startX + 36, 20, 108, 0);
+				guiGraphics.drawWordWrap(font, Component.literal(letterText).append(" "), startX + 36, 20, 108, 0);
 			}
 		} else {
-			font.drawWordWrap(Component.literal(letterText), startX + 36, 20, 108, 0);
+			guiGraphics.drawWordWrap(font, Component.literal(letterText), startX + 36, 20, 108, 0);
 		}
 
-		super.render(ms, mouseX, mouseY, partialTicks);
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
 	}
 
 	@Override

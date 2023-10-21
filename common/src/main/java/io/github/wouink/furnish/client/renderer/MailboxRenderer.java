@@ -1,7 +1,6 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
 import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -13,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.joml.Matrix4f;
 
 public class MailboxRenderer implements BlockEntityRenderer<MailboxTileEntity> {
 	private final Camera camera;
@@ -58,8 +58,8 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxTileEntity> {
 		float backOpacity = Minecraft.getInstance().options.getBackgroundOpacity(.25f);
 		int alpha = (int)(backOpacity * 255.0f) << 24;
 		float centerOffset = (float)(-font.width(content) / 2);
-		font.drawInBatch(content, centerOffset, 0, 553648127, false, matrix4f, buffer, false, alpha, light);
-		font.drawInBatch(content, centerOffset, 0, -1, false, matrix4f, buffer, false, 0, light);
+		font.drawInBatch(content, centerOffset, 0, 553648127, false, matrix4f, buffer, Font.DisplayMode.NORMAL, alpha, light);
+		font.drawInBatch(content, centerOffset, 0, -1, false, matrix4f, buffer, Font.DisplayMode.NORMAL, 0, light);
 		ms.popPose();
 	}
 }

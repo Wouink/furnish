@@ -15,7 +15,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Amphora extends SimpleFurniture implements EntityBlock {
 	public static final VoxelShape AMPHORA_BODY = Block.box(2, 0, 2, 14, 13, 14);
@@ -39,7 +39,6 @@ public class Amphora extends SimpleFurniture implements EntityBlock {
 //		return null;
 //	}
 
-	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new AmphoraTileEntity(pos, state);

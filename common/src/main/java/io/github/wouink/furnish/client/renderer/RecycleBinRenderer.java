@@ -5,11 +5,11 @@ import io.github.wouink.furnish.block.tileentity.RecycleBinTileEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinTileEntity> {
@@ -32,7 +32,7 @@ public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinTileEnt
 				ms.pushPose();
 				BakedModel model = itemRenderer.getModel(stack, recycleBin.getLevel(), null, 0);
 				prepareRenderItem(itemIndex, ms);
-				itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, ms, buffer, light, overlay, model);
+				itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
 				ms.popPose();
 				itemIndex++;
 			}

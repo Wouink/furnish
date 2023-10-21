@@ -1,17 +1,17 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
 import io.github.wouink.furnish.block.tileentity.ShowcaseTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -38,7 +38,7 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			if(model.isGui3d()) prepareRenderBlock(ms, dir, angle);
 			else prepareRenderItem(ms, dir, angle);
 
-			itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, ms, buffer, light, overlay, model);
+			itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
 
 			ms.popPose();
 		}
@@ -61,7 +61,7 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			default:
 				angleOffset += 270;
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(angleOffset));
+		ms.mulPose(Axis.YP.rotationDegrees(angleOffset));
 
 		// scale the block
 		ms.scale(.8f, .8f, .8f);
@@ -86,10 +86,10 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			default:
 				angleOffset += 270;
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(angleOffset));
+		ms.mulPose(Axis.YP.rotationDegrees(angleOffset));
 
 		// slightly lean the item
-		ms.mulPose(Vector3f.XP.rotationDegrees(10));
+		ms.mulPose(Axis.XP.rotationDegrees(10));
 
 		// scale the plate
 		ms.scale(1f, 1f, 1f);

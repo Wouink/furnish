@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -18,7 +17,7 @@ public class PaperLamp extends Block {
 	);
 
 	public PaperLamp() {
-		super(BlockBehaviour.Properties.of(Material.DECORATION).strength(0.5f).sound(SoundType.SCAFFOLDING).noOcclusion().lightLevel((state) -> 15));
+		super(BlockBehaviour.Properties.of().strength(0.5f).sound(SoundType.SCAFFOLDING).noOcclusion().lightLevel((state) -> 15));
 	}
 
 	@Override

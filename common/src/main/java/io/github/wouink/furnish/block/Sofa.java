@@ -24,7 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
+
 
 public class Sofa extends HorizontalDirectionalBlock {
 
@@ -132,9 +132,8 @@ public class Sofa extends HorizontalDirectionalBlock {
 		return setBlockState(state, state.getValue(FACING).getOpposite(), pos, level);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		return setBlockState(state, ctx.getHorizontalDirection(), ctx.getClickedPos(), ctx.getLevel());
 	}

@@ -2,7 +2,7 @@ package io.github.wouink.furnish.event;
 
 import dev.architectury.event.EventResult;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,7 +21,7 @@ import java.util.List;
 public class CyclePainting {
 
 	public static EventResult onPaintingInteract(Player player, Entity entity, InteractionHand hand) {
-		Level level = player.getLevel();
+		Level level = player.level();
 		if(level.isClientSide()) return EventResult.pass();
 		if(!player.getItemInHand(hand).getItem().equals(Items.PAINTING)) return EventResult.pass();
 		if(!(entity instanceof Painting painting)) return EventResult.pass();
@@ -49,7 +49,7 @@ public class CyclePainting {
 
 	public static List<PaintingVariant> getSimilarSizeArt(PaintingVariant art) {
 		List<PaintingVariant> similar = new ArrayList<>();
-		for(PaintingVariant p : Registry.PAINTING_VARIANT.stream().toList()) {
+		for(PaintingVariant p : BuiltInRegistries.PAINTING_VARIANT.stream().toList()) {
 			if(p.getWidth() == art.getWidth() && p.getHeight() == art.getHeight()) {
 				similar.add(p);
 			}

@@ -7,13 +7,16 @@ import dev.architectury.networking.simple.MessageType;
 import dev.architectury.networking.simple.SimpleNetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.registry.CreativeTabRegistry;
+import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
 import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.network.C2S_UpdateItemStack;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +27,9 @@ public class Furnish {
 	public static final Logger LOG = LogManager.getLogger("Furnish");
 	public static final SimpleNetworkManager NET = SimpleNetworkManager.create(MODID);
 	public static final MessageType CL_UPDATE_ITEMSTACK = NET.registerC2S("cl_update_itemstack", C2S_UpdateItemStack::new);
-	public static final CreativeModeTab CREATIVE_TAB = CreativeTabRegistry.create(new ResourceLocation(Furnish.MODID, "furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get()));
+
+	private static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Furnish.MODID, Registries.CREATIVE_MODE_TAB);
+	public static final RegistrySupplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("furnish", () -> CreativeTabRegistry.create(Component.translatable("itemGroup.furnish.furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get())));
 
 	public static void init() {
 		FurnishBlocks.BLOCKS.register();
@@ -45,6 +50,8 @@ public class Furnish {
 		LOG.info("Registered Furnish Block Entities.");
 		FurnishRegistries.PAINTING_VARIANTS.register();
 		LOG.info("Registered Furnish Painting Variants.");
+		CREATIVE_TABS.register();
+		LOG.info("Registered Furnish Creative Tab.");
 
 		BlockEvent.PLACE.register(PlaceCarpet::onCarpetPlaced);
 		InteractionEvent.RIGHT_CLICK_BLOCK.register(PlaceSnow::onSnowLayerUsedOnBlock);
@@ -71,6 +78,6 @@ public class Furnish {
 
 	public static void debug(String msg) {
 		// Toggle comment on the following line to enable/disable debug messages
-		//System.out.println(msg);
+		System.out.println(msg);
 	}
 }

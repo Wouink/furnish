@@ -1,18 +1,18 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
 import io.github.wouink.furnish.block.tileentity.ShelfTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
@@ -36,7 +36,7 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
 			else if(model.isGui3d()) prepareRenderBlock(ms, dir);
 			else prepareRenderItem(ms, dir);
 
-			itemRenderer.render(stack, ItemTransforms.TransformType.FIXED, true, ms, buffer, light, overlay, model);
+			itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
 
 			ms.popPose();
 		}
@@ -60,7 +60,7 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
 
 		// rotate to the adequate direction
 		float angle = -dir.toYRot();
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
+		ms.mulPose(Axis.YP.rotationDegrees(angle));
 
 		// scale the item
 		ms.scale(.6f, .6f, .6f);
@@ -84,7 +84,7 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
 
 		// rotate to the adequate direction
 		float angle = -dir.toYRot();
-		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
+		ms.mulPose(Axis.YP.rotationDegrees(angle));
 
 		// scale the block
 		ms.scale(.6f, .6f, .6f);
@@ -98,18 +98,18 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
 				break;
 			case SOUTH:
 				ms.translate(.5, .5, .65);
-				ms.mulPose(Vector3f.YP.rotationDegrees(180));
+				ms.mulPose(Axis.YP.rotationDegrees(180));
 				break;
 			case WEST:
 				ms.translate(.35, .5, .5);
-				ms.mulPose(Vector3f.YP.rotationDegrees(90));
+				ms.mulPose(Axis.YP.rotationDegrees(90));
 				break;
 			default:
 				ms.translate(.65, .5, .5);
-				ms.mulPose(Vector3f.YP.rotationDegrees(270));
+				ms.mulPose(Axis.YP.rotationDegrees(270));
 		}
 
-		ms.mulPose(Vector3f.XP.rotationDegrees(80));
+		ms.mulPose(Axis.XP.rotationDegrees(80));
 
 		// scale the plate
 		ms.scale(1f, 1f, 1f);

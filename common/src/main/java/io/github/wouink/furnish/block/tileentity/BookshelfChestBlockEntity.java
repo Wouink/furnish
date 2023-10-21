@@ -80,7 +80,6 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
         return this.saveWithFullMetadata();
     }
 
-    @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);

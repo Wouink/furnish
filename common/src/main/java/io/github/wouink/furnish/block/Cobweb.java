@@ -32,9 +32,8 @@ public class Cobweb extends HorizontalDirectionalBlock {
 		builder.add(FACING, HALF);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
 		Direction dir = ctx.getClickedFace();
 		state = state.setValue(HALF, dir != Direction.DOWN && (dir == Direction.UP || !(ctx.getClickLocation().y - (double)ctx.getClickedPos().getY() > 0.5D)) ? Half.BOTTOM : Half.TOP);

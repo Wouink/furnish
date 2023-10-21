@@ -20,12 +20,10 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +35,13 @@ public class Crate extends Block implements EntityBlock {
 		All_Crates.add(this);
 	}
 
-	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new CrateTileEntity(pos, state);
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, BlockGetter world, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, world, tooltip, flag);
 		TooltipHelper.appendInventoryContent(stack, tooltip);
 	}
@@ -85,34 +82,30 @@ public class Crate extends Block implements EntityBlock {
 	}
 
 	// copied from ShulkerBoxBlock
-	public List<ItemStack> getDrops(BlockState p_56246_, LootContext.Builder p_56247_) {
-		BlockEntity blockentity = p_56247_.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-		if (blockentity instanceof CrateTileEntity) {
-			CrateTileEntity shulkerboxblockentity = (CrateTileEntity) blockentity;
-			p_56247_ = p_56247_.withDynamicDrop(ShulkerBoxBlock.CONTENTS, (p_56218_, p_56219_) -> {
-				for(int i = 0; i < shulkerboxblockentity.getContainerSize(); ++i) {
-					p_56219_.accept(shulkerboxblockentity.getItem(i));
+
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+		BlockEntity blockEntity = (BlockEntity)params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+		if (blockEntity instanceof CrateTileEntity crateTileEntity) {
+			params = params.withDynamicDrop(ShulkerBoxBlock.CONTENTS, (consumer) -> {
+				for(int i = 0; i < crateTileEntity.getContainerSize(); ++i) {
+					consumer.accept(crateTileEntity.getItem(i));
 				}
 
 			});
 		}
 
-		return super.getDrops(p_56246_, p_56247_);
+		return super.getDrops(state, params);
 	}
 
 	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if(stack.hasCustomHoverName()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if(tileEntity instanceof CrateTileEntity) {
 				((CrateTileEntity) tileEntity).setCustomName(stack.getHoverName());
 			}
 		}
-	}
-
-	@Override
-	public PushReaction getPistonPushReaction(BlockState state) {
-		return PushReaction.DESTROY;
 	}
 
 	@Override

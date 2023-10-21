@@ -30,9 +30,8 @@ public class PictureFrame extends HorizontalDirectionalBlock {
 		builder.add(COUNT, FACING);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
 		BlockState state = ctx.getLevel().getBlockState(ctx.getClickedPos());
 		if(state.is(this)) return state.cycle(COUNT);
 		return this.defaultBlockState().setValue(FACING, ctx.getHorizontalDirection().getOpposite());
