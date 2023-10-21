@@ -1,0 +1,15 @@
+https://docs.architectury.dev/plugin/get_started
+
+Mise a jour des fichiers build.gradle
+	wget https://github.com/architectury/architectury-templates/archive/refs/heads/master.zip
+	unzip
+	export JAVA_HOME=/usr/lib/jvm/java-17-openjdk/ ./gradlew runLocal
+	résultat dans build/templates (un projet gradle architectury de base)
+
+D'après https://github.com/architectury/architectury-templates/releases
+	la version qui nous intéresse dans les fichiers générés par runLocal est Forge-Fabric ou Forge-Fabric-Likes
+
+ParchmentMC
+	https://parchmentmc.org/
+	permet d'avoir de la javadoc et des noms de paramètres explicites pour le code Minecraft
+	compatible avec les mappings officiels de Mojang
