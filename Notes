@@ -13,3 +13,5 @@ ParchmentMC
 	https://parchmentmc.org/
 	permet d'avoir de la javadoc et des noms de paramètres explicites pour le code Minecraft
 	compatible avec les mappings officiels de Mojang
+	tout se fait dans le fichier build.gradle racine
+		-> pareil que https://parchmentmc.org/docs/getting-started pour Fabric et Fabric Loom
