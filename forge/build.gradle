@@ -34,6 +34,7 @@ dependencies {
 
     // jei
     modImplementation("${jei_forge_curse}")
+    modCompileOnly("${jei_forge_curse}")
 }
 
 processResources {

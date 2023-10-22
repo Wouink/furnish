@@ -152,7 +152,6 @@ public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
 		this.selectedRecipeIndex.set(-1);
 		this.resultSlot.set(ItemStack.EMPTY);
 		if (!stack.isEmpty()) {
-			// todo
 			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishRegistries.Furniture_Recipe.get(), container, this.level);
 		}
 

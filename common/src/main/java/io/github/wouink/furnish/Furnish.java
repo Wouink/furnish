@@ -55,6 +55,7 @@ public class Furnish {
 
 		BlockEvent.PLACE.register(PlaceCarpet::onCarpetPlaced);
 		InteractionEvent.RIGHT_CLICK_BLOCK.register(PlaceSnow::onSnowLayerUsedOnBlock);
+		InteractionEvent.RIGHT_CLICK_BLOCK.register(InteractWithShutterThroughWindow::onRightClickWindow);
 		InteractionEvent.LEFT_CLICK_BLOCK.register(PopLecternBook::onLecternLeftClick);
 		InteractionEvent.LEFT_CLICK_BLOCK.register(KnockOnDoor::onDoorHit);
 		EntityEvent.ADD.register(GivePlateToEnderman::onEndermanSpawn);
@@ -78,6 +79,6 @@ public class Furnish {
 
 	public static void debug(String msg) {
 		// Toggle comment on the following line to enable/disable debug messages
-		System.out.println(msg);
+		//System.out.println(msg);
 	}
 }
