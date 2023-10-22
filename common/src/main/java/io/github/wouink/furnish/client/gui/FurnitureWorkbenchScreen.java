@@ -34,6 +34,7 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
 
 	public FurnitureWorkbenchScreen(FurnitureWorkbenchContainer menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title);
+		menu.registerUpdateListener(this::containerChanged);
 		--this.titleLabelY;
 	}
 
@@ -62,9 +63,9 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
 			int i = this.leftPos + 52;
 			int j = this.topPos + 14;
 			int k = this.startIndex + 12;
-			List<FurnitureRecipe> list = this.menu.getRecipeList();
+			List<FurnitureRecipe> list = this.menu.getRecipes();
 
-			for(int l = this.startIndex; l < k && l < this.menu.getRecipeListSize(); ++l) {
+			for(int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
 				int m = l - this.startIndex;
 				int n = i + m % 4 * 16;
 				int o = j + m / 4 * 18 + 2;
@@ -77,13 +78,13 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
 	}
 
 	private void renderButtons(GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y, int lastVisibleElementIndex) {
-		for(int i = this.startIndex; i < lastVisibleElementIndex && i < this.menu.getRecipeListSize(); ++i) {
+		for(int i = this.startIndex; i < lastVisibleElementIndex && i < this.menu.getNumRecipes(); ++i) {
 			int j = i - this.startIndex;
 			int k = x + j % 4 * 16;
 			int l = j / 4;
 			int m = y + l * 18 + 2;
 			int n = this.imageHeight;
-			if (i == this.menu.getSelectedRecipe()) {
+			if (i == this.menu.getSelectedRecipeIndex()) {
 				n += 18;
 			} else if (mouseX >= k && mouseY >= m && mouseX < k + 16 && mouseY < m + 18) {
 				n += 36;
@@ -95,9 +96,9 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
 	}
 
 	private void renderRecipes(GuiGraphics guiGraphics, int x, int y, int startIndex) {
-		List<FurnitureRecipe> list = this.menu.getRecipeList();
+		List<FurnitureRecipe> list = this.menu.getRecipes();
 
-		for(int i = this.startIndex; i < startIndex && i < this.menu.getRecipeListSize(); ++i) {
+		for(int i = this.startIndex; i < startIndex && i < this.menu.getNumRecipes(); ++i) {
 			int j = i - this.startIndex;
 			int k = x + j % 4 * 16;
 			int l = j / 4;
@@ -164,15 +165,15 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
 	}
 
 	private boolean isScrollBarActive() {
-		return this.displayRecipes && this.menu.getRecipeListSize() > 12;
+		return this.displayRecipes && this.menu.getNumRecipes() > 12;
 	}
 
 	protected int getOffscreenRows() {
-		return (this.menu.getRecipeListSize() + 4 - 1) / 4 - 3;
+		return (this.menu.getNumRecipes() + 4 - 1) / 4 - 3;
 	}
 
 	private void containerChanged() {
-		this.displayRecipes = this.menu.hasItemsInInputSlot();
+		this.displayRecipes = this.menu.hasInputItem();
 		if (!this.displayRecipes) {
 			this.scrollOffs = 0.0F;
 			this.startIndex = 0;

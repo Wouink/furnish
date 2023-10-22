@@ -1,7 +1,6 @@
 package io.github.wouink.furnish.block.container;
 
 import com.google.common.collect.Lists;
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -20,205 +19,225 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
+// based on net.minecraft.world.inventory.StonecutterMenu
 public class FurnitureWorkbenchContainer extends AbstractContainerMenu {
+	public static final int INPUT_SLOT = 0;
+	public static final int RESULT_SLOT = 1;
+	private static final int INV_SLOT_START = 2;
+	private static final int INV_SLOT_END = 29;
+	private static final int USE_ROW_SLOT_START = 29;
+	private static final int USE_ROW_SLOT_END = 38;
 	private final ContainerLevelAccess access;
+	private final DataSlot selectedRecipeIndex;
 	private final Level level;
-	private final DataSlot selectedRecipe = DataSlot.standalone();
-	private List<FurnitureRecipe> recipes = Lists.newArrayList();
-	private ItemStack itemStackInput = ItemStack.EMPTY;
-	private long lastOnTake;
+	private List<FurnitureRecipe> recipes;
+	private ItemStack input;
+	long lastSoundTime;
 	final Slot inputSlot;
-	final Slot outputSlot;
-	private Runnable inventoryUpdateListener = () -> {};
-	public final Container inputContainer = new SimpleContainer(1) {
-		public void setChanged() {
-			super.setChanged();
-			FurnitureWorkbenchContainer.this.slotsChanged(this);
-			FurnitureWorkbenchContainer.this.inventoryUpdateListener.run();
-		}
-	};
-	private final ResultContainer resultContainer = new ResultContainer();
+	final Slot resultSlot;
+	Runnable slotUpdateListener;
+	public final Container container;
+	final ResultContainer resultContainer;
 
-	public FurnitureWorkbenchContainer(int syncId, Inventory playerInventory) {
-		this(syncId, playerInventory, ContainerLevelAccess.NULL);
+	public FurnitureWorkbenchContainer(int containerId, Inventory playerInventory) {
+		this(containerId, playerInventory, ContainerLevelAccess.NULL);
 	}
 
-	public FurnitureWorkbenchContainer(int syncId, Inventory playerInventory, final ContainerLevelAccess posCallable) {
-		super(FurnishRegistries.Furniture_Workbench_Container.get(), syncId);
-		this.access = posCallable;
+	public FurnitureWorkbenchContainer(int containerId, Inventory playerInventory, final ContainerLevelAccess access) {
+		super(FurnishRegistries.Furniture_Workbench_Container.get(), containerId);
+		this.selectedRecipeIndex = DataSlot.standalone();
+		this.recipes = Lists.newArrayList();
+		this.input = ItemStack.EMPTY;
+		this.slotUpdateListener = () -> {
+		};
+		this.container = new SimpleContainer(1) {
+			public void setChanged() {
+				super.setChanged();
+				FurnitureWorkbenchContainer.this.slotsChanged(this);
+				FurnitureWorkbenchContainer.this.slotUpdateListener.run();
+			}
+		};
+		this.resultContainer = new ResultContainer();
+		this.access = access;
 		this.level = playerInventory.player.level();
-		this.inputSlot = this.addSlot(new Slot(this.inputContainer, 0, 20, 33));
-		this.outputSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
-			@Override
+		this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
+		this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
 			public boolean mayPlace(ItemStack stack) {
 				return false;
 			}
 
-			@Override
-			public void onTake(Player thePlayer, ItemStack stack) {
+			public void onTake(Player player, ItemStack stack) {
+				stack.onCraftedBy(player.level(), player, stack.getCount());
+				FurnitureWorkbenchContainer.this.resultContainer.awardUsedRecipes(player, this.getRelevantItems());
 				ItemStack itemStack = FurnitureWorkbenchContainer.this.inputSlot.remove(1);
-				if(!itemStack.isEmpty()) {
-					FurnitureWorkbenchContainer.this.updateRecipeResultSlot();
+				if (!itemStack.isEmpty()) {
+					FurnitureWorkbenchContainer.this.setupResultSlot();
 				}
 
-				stack.getItem().onCraftedBy(stack, thePlayer.level(), thePlayer);
-				access.execute((world, pos) -> {
-					long l = world.getGameTime();
-					if(FurnitureWorkbenchContainer.this.lastOnTake != l) {
+				access.execute((level, blockPos) -> {
+					long l = level.getGameTime();
+					if (FurnitureWorkbenchContainer.this.lastSoundTime != l) {
 						SoundEvent sound = stack.getItem() instanceof BlockItem blockItem ? blockItem.getBlock().getSoundType(blockItem.getBlock().defaultBlockState()).getBreakSound() : SoundEvents.WOOD_BREAK;
-						world.playSound(null, pos, sound, SoundSource.BLOCKS, 1.0f, 1.0f);
-						FurnitureWorkbenchContainer.this.lastOnTake = l;
+						level.playSound((Player)null, blockPos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+						FurnitureWorkbenchContainer.this.lastSoundTime = l;
 					}
-				});
 
-				super.onTake(thePlayer, stack);
+				});
+				super.onTake(player, stack);
+			}
+
+			private List<ItemStack> getRelevantItems() {
+				return List.of(FurnitureWorkbenchContainer.this.inputSlot.getItem());
 			}
 		});
 
-		// player's inventory slots
-		for(int i = 0; i < 3; ++i) {
+		int i;
+		for(i = 0; i < 3; ++i) {
 			for(int j = 0; j < 9; ++j) {
 				this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 
-		// player's hotbar
-		for(int k = 0; k < 9; ++k) {
-			this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
+		for(i = 0; i < 9; ++i) {
+			this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
 		}
 
-		this.addDataSlot(this.selectedRecipe);
+		this.addDataSlot(this.selectedRecipeIndex);
 	}
 
-	public int getSelectedRecipe() {
-		return this.selectedRecipe.get();
+	public int getSelectedRecipeIndex() {
+		return this.selectedRecipeIndex.get();
 	}
 
-	public List<FurnitureRecipe> getRecipeList() {
+	public List<FurnitureRecipe> getRecipes() {
 		return this.recipes;
 	}
 
-	public int getRecipeListSize() {
+	public int getNumRecipes() {
 		return this.recipes.size();
 	}
 
-	public boolean hasItemsInInputSlot() {
+	public boolean hasInputItem() {
 		return this.inputSlot.hasItem() && !this.recipes.isEmpty();
 	}
 
-	@Override
-	public boolean stillValid(Player playerIn) {
-		return stillValid(this.access, playerIn, FurnishBlocks.Furniture_Workbench.get());
+	public boolean stillValid(Player player) {
+		return stillValid(this.access, player, FurnishBlocks.Furniture_Workbench.get());
 	}
 
-	@Override
-	public boolean clickMenuButton(Player playerIn, int id) {
-		Furnish.debug("Click on id = " + id);
-		if(this.isValidRecipeIndex(id)) {
-			this.selectedRecipe.set(id);
-			this.updateRecipeResultSlot();
-		} else Furnish.debug("This is not a valid recipe id! Valid if >= 0 and < " + this.getRecipeListSize());
+	public boolean clickMenuButton(Player player, int id) {
+		if (this.isValidRecipeIndex(id)) {
+			this.selectedRecipeIndex.set(id);
+			this.setupResultSlot();
+		}
+
 		return true;
 	}
 
-	public boolean isValidRecipeIndex(int n) {
-		return n >= 0 && n < this.getRecipeListSize();
+	private boolean isValidRecipeIndex(int recipeIndex) {
+		return recipeIndex >= 0 && recipeIndex < this.recipes.size();
 	}
 
-	@Override
-	public void slotsChanged(Container inv) {
+	public void slotsChanged(Container container) {
 		ItemStack itemStack = this.inputSlot.getItem();
-		if(itemStack.getItem() != this.itemStackInput.getItem()) {
-			this.itemStackInput = itemStack.copy();
-			this.updateAvailableRecipes(inv, itemStack);
+		if (!itemStack.is(this.input.getItem())) {
+			this.input = itemStack.copy();
+			this.setupRecipeList(container, itemStack);
 		}
+
 	}
 
-	private void updateAvailableRecipes(Container inv, ItemStack stack) {
+	private void setupRecipeList(Container container, ItemStack stack) {
 		this.recipes.clear();
-		this.selectedRecipe.set(-1);
-		this.outputSlot.set(ItemStack.EMPTY);
-		if(!stack.isEmpty()) {
-			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishRegistries.Furniture_Recipe.get(), inv, this.level);
+		this.selectedRecipeIndex.set(-1);
+		this.resultSlot.set(ItemStack.EMPTY);
+		if (!stack.isEmpty()) {
+			// todo
+			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishRegistries.Furniture_Recipe.get(), container, this.level);
 		}
+
 	}
 
-	public void updateRecipeResultSlot() {
-		if(!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipe.get())) {
-			FurnitureRecipe recipe = this.recipes.get(this.selectedRecipe.get());
-			this.outputSlot.set(recipe.assemble(this.inputContainer, this.level.registryAccess()));
+	void setupResultSlot() {
+		if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
+			FurnitureRecipe recipe = (FurnitureRecipe)this.recipes.get(this.selectedRecipeIndex.get());
+			ItemStack itemStack = recipe.assemble(this.container, this.level.registryAccess());
+			if (itemStack.isItemEnabled(this.level.enabledFeatures())) {
+				this.resultContainer.setRecipeUsed(recipe);
+				this.resultSlot.set(itemStack);
+			} else {
+				this.resultSlot.set(ItemStack.EMPTY);
+			}
 		} else {
-			this.outputSlot.set(ItemStack.EMPTY);
+			this.resultSlot.set(ItemStack.EMPTY);
 		}
+
 		this.broadcastChanges();
 	}
 
-	@Override
 	public MenuType<?> getType() {
 		return FurnishRegistries.Furniture_Workbench_Container.get();
 	}
 
-	public void setInventoryUpdateListener(Runnable listenerIn) {
-		this.inventoryUpdateListener = listenerIn;
+	public void registerUpdateListener(Runnable listener) {
+		this.slotUpdateListener = listener;
 	}
 
-	@Override
 	public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
 		return slot.container != this.resultContainer && super.canTakeItemForPickAll(stack, slot);
 	}
 
-	@Override
-	public ItemStack quickMoveStack(Player playerIn, int index) {
+	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
-		Slot slot = this.slots.get(index);
-		if(slot != null && slot.hasItem()) {
-			ItemStack itemStack1 = slot.getItem();
-			Item item = itemStack1.getItem();
-			itemStack = itemStack1.copy();
-			if(index == 1) {
-				item.onCraftedBy(itemStack1, playerIn.level(), playerIn);
-				if(!this.moveItemStackTo(itemStack1, 2, 38, true)) {
+		Slot slot = (Slot)this.slots.get(index);
+		if (slot != null && slot.hasItem()) {
+			ItemStack itemStack2 = slot.getItem();
+			Item item = itemStack2.getItem();
+			itemStack = itemStack2.copy();
+			if (index == 1) {
+				item.onCraftedBy(itemStack2, player.level(), player);
+				if (!this.moveItemStackTo(itemStack2, 2, 38, true)) {
 					return ItemStack.EMPTY;
 				}
 
-				slot.onQuickCraft(itemStack1, itemStack);
-			} else if(index == 0) {
-				if(!this.moveItemStackTo(itemStack1, 2, 38, false)) {
+				slot.onQuickCraft(itemStack2, itemStack);
+			} else if (index == 0) {
+				if (!this.moveItemStackTo(itemStack2, 2, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(this.level.getRecipeManager().getRecipeFor(FurnishRegistries.Furniture_Recipe.get(), new SimpleContainer(itemStack1), this.level).isPresent()) {
-				if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
+			} else if (this.level.getRecipeManager().getRecipeFor(FurnishRegistries.Furniture_Recipe.get(), new SimpleContainer(new ItemStack[]{itemStack2}), this.level).isPresent()) {
+				if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(index >= 2 && index < 29) {
-				if(!this.moveItemStackTo(itemStack1, 29, 38, false)) {
+			} else if (index >= 2 && index < 29) {
+				if (!this.moveItemStackTo(itemStack2, 29, 38, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if(index >= 29 && index < 38 && !this.moveItemStackTo(itemStack1, 2, 29, false)) {
+			} else if (index >= 29 && index < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false)) {
 				return ItemStack.EMPTY;
 			}
 
-			if(itemStack1.isEmpty()) {
-				slot.set(ItemStack.EMPTY);
+			if (itemStack2.isEmpty()) {
+				slot.setByPlayer(ItemStack.EMPTY);
 			}
 
 			slot.setChanged();
-			if(itemStack1.getCount() == itemStack.getCount()) {
+			if (itemStack2.getCount() == itemStack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTake(playerIn, itemStack1);
+			slot.onTake(player, itemStack2);
 			this.broadcastChanges();
 		}
 
 		return itemStack;
 	}
 
-	public void removed(Player playerIn) {
-		super.removed(playerIn);
+	public void removed(Player player) {
+		super.removed(player);
 		this.resultContainer.removeItemNoUpdate(1);
-		this.access.execute((world, pos) -> {
-			this.clearContainer(playerIn, this.inputContainer);
+		this.access.execute((level, blockPos) -> {
+			this.clearContainer(player, this.container);
 		});
 	}
 }

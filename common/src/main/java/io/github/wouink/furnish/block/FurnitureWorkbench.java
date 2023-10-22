@@ -53,6 +53,8 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
 
 	@Override
 	public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-		return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new FurnitureWorkbenchContainer(p_57074_, p_57075_, ContainerLevelAccess.create(level, pos)), Container_Name);
+		return new SimpleMenuProvider((i, inventory, player) -> {
+			return new FurnitureWorkbenchContainer(i, inventory, ContainerLevelAccess.create(level, pos));
+		}, Container_Name);
 	}
 }
