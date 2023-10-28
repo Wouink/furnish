@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block.tileentity;
 
 import io.github.wouink.furnish.block.container.DiskRackContainer;
+import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -13,10 +14,8 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public class DiskRackTileEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 8;
@@ -64,7 +63,7 @@ public class DiskRackTileEntity extends RandomizableContainerBlockEntity {
 	public void setItem(int slot, ItemStack stack) {
 		super.setItem(slot, stack);
 		// update for render
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+		TileEntityHelper.broadcastUpdate(this, true);
 	}
 
 	@Override

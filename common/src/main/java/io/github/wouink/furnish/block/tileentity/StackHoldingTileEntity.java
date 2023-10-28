@@ -1,16 +1,15 @@
 package io.github.wouink.furnish.block.tileentity;
 
+import io.github.wouink.furnish.block.util.TileEntityHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public abstract class StackHoldingTileEntity extends BlockEntity {
 	private ItemStack holding;
@@ -39,7 +38,7 @@ public abstract class StackHoldingTileEntity extends BlockEntity {
 	public ItemStack swap(ItemStack newStack) {
 		ItemStack ret = holding;
 		holding = newStack;
-		level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+		TileEntityHelper.broadcastUpdate(this, true);
 		return ret;
 	}
 

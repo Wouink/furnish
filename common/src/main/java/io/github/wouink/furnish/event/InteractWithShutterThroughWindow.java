@@ -20,7 +20,8 @@ public class InteractWithShutterThroughWindow {
 
     public static EventResult onRightClickWindow(Player player, InteractionHand hand, BlockPos pos, Direction face) {
         Level level = player.level();
-        if(level.isClientSide()) return EventResult.pass();
+        // handling client/server side of event is done in Shutter#use
+        //if(level.isClientSide()) return EventResult.pass();
         Furnish.debug("Right click on block");
         if(face == Direction.DOWN || face == Direction.UP) return EventResult.pass();
         Furnish.debug("-> correct face");

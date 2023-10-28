@@ -54,10 +54,7 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		// todo fix #36 - duplication bug when placing a letter on a shelf
-		// this should be fixed using InteractionResult.CONSUME by default
-		// another bug found: item is not saved to BlockEntity
-		InteractionResult resultType = InteractionResult.FAIL;
+		InteractionResult resultType = InteractionResult.CONSUME;
 		if(!world.isClientSide()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
 			if (tileEntity instanceof ShelfTileEntity) {
