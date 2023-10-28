@@ -3,6 +3,7 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.block.tileentity.BookshelfChestBlockEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -46,12 +47,15 @@ public class BookshelfChest extends Block implements EntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
-        super.onRemove(blockState, level, blockPos, blockState2, bl);
-        if(blockState.getBlock() != blockState2.getBlock() && level.getBlockEntity(blockPos) instanceof BookshelfChestBlockEntity bookshelf) {
-            Containers.dropContents(level, blockPos, bookshelf);
-            level.updateNeighbourForOutputSignal(blockPos, this);
+    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
+        if(state.getBlock() != newState.getBlock()) {
+            BlockEntity tileEntity = world.getBlockEntity(pos);
+            if(tileEntity instanceof BookshelfChestBlockEntity) {
+                Containers.dropContents(world, pos, (Container) tileEntity);
+                world.updateNeighbourForOutputSignal(pos, this);
+            }
         }
+        super.onRemove(state, world, pos, newState, moving);
     }
 
     @Override
