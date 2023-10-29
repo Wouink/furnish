@@ -18,3 +18,8 @@ ParchmentMC
 
 JEI
 	https://github.com/mezz/JustEnoughItems/wiki/Getting-Started-%5BJEI-10-or-higher-for-Forge-or-Fabric%5D
+
+Build
+    Gradle: Furnish/Tasks/build/build
+    les jars se trouvent ensuite dans (fabric|forge)/build/libs/furnish-version.jar
+    puis Gradle: Furnish/Tasks/build/clean pour nettoyer

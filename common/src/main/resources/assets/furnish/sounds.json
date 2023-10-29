@@ -24,7 +24,9 @@
     "category": "blocks",
     "subtitle": "subtitle.furnish.furniture_close",
     "sounds": [
-      "minecraft:block/chest/close"
+      "minecraft:block/chest/close1",
+      "minecraft:block/chest/close2",
+      "minecraft:block/chest/close3"
     ]
   },
   "block.furniture_drawers.open": {

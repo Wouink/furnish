@@ -17,10 +17,15 @@
   },
   "criteria": {
     "place_mailbox": {
-      "trigger": "minecraft:placed_block",
       "conditions": {
-        "block": "furnish:metal_mailbox"
-      }
+        "location": [
+          {
+            "block": "furnish:metal_mailbox",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
     }
   },
   "requirements": [

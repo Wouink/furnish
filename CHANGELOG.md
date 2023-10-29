@@ -1,5 +1,13 @@
 # Furnish Changelog
 
+## Furnish v25
+
+- Book Pile now provides enchanting power
+- Fix painting cycling not properly saving new art
+- Fix loot table parsing error for Furnish Cobweb
+- Fix "In the Mail" advancement parsing
+- Fix spruce furniture closing sound
+
 ## Furnish v24
 
 - Update to 1.20.1

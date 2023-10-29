@@ -51,11 +51,4 @@ public class BookPile extends HorizontalDirectionalBlock {
 		world.playSound(playerEntity, pos, SoundEvents.BOOK_PAGE_TURN, SoundSource.BLOCKS, 1.0f, 1.0f);
 		return InteractionResult.SUCCESS;
 	}
-
-	/* todo
-	@Override
-	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) {
-		return 0.5f;
-	}
-	 */
 }
