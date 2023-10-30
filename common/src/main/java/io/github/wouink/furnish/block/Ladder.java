@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -60,6 +61,7 @@ public class Ladder extends HorizontalDirectionalBlock {
 
 		if(world.isEmptyBlock(search)) {
 			world.setBlockAndUpdate(search, blockItem.getBlock().defaultBlockState().setValue(FACING, state.getValue(FACING)));
+			world.playSound(null, search, this.getSoundType(this.defaultBlockState()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
 			if(!player.isCreative()) {
 				stack.shrink(1);
 				player.setItemInHand(hand, stack);

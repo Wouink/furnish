@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/log_bench",
+  "textures": {
+    "log": "minecraft:block/cherry_log",
+    "log_top": "furnish:block/cherry_log_bench_top"
+  }
+}

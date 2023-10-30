@@ -17,7 +17,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity {
     protected NonNullList<ItemStack> inventory;
@@ -97,7 +96,7 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
         return filledslots;
     }
 
-    private void updateCapacity() {
+    public void updateCapacity() {
         if (getLevel() == null) return;
 
         var filledslots = getFilledSlots();

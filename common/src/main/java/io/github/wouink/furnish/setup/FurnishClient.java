@@ -32,10 +32,15 @@ public class FurnishClient {
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Red_Bunting.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Yellow_Bunting.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Green_Bunting.get());
+		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Oak_Shutter.get());
+		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Birch_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Jungle_Shutter.get());
+		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Spruce_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Acacia_Shutter.get());
+		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Dark_Oak_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Crimson_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Warped_Shutter.get());
+		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Cherry_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Recycle_Bin.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Iron_Bars_Top.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Iron_Gate.get());

@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:item/parent/table",
+  "textures": {
+    "0": "minecraft:block/stripped_cherry_log",
+    "1": "minecraft:block/cherry_log"
+  }
+}

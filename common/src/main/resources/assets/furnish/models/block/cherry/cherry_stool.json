@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:block/parent/stool",
+  "textures": {
+    "0": "minecraft:block/cherry_log",
+    "1": "minecraft:block/stripped_cherry_log",
+    "particle": "minecraft:block/stripped_cherry_log"
+  }
+}

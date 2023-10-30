@@ -222,6 +222,22 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Warped_Bookshelf_Chest = registerBlockWithItem("warped_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.WARPED_PLANKS).pushReaction(PushReaction.BLOCK)));
 
 	// todo cherry and mangrove furniture
+	public static final RegistrySupplier<Block> Cherry_Table = registerBlockWithItem("cherry_table", () -> new Table(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS)));
+	public static final RegistrySupplier<Block> Cherry_Square_Table = registerBlockWithItem("cherry_square_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS)));
+	public static final RegistrySupplier<Block> Cherry_Pedestal_Table = registerBlockWithItem("cherry_pedestal_table", () -> new SimpleFurniture(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS), false));
+	public static final RegistrySupplier<Block> Cherry_Bedside_Table = registerBlockWithItem("cherry_bedside_table", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS), FurnishRegistries.Drawers_Open_Sound, FurnishRegistries.Drawers_Close_Sound));
+	public static final RegistrySupplier<Block> Cherry_Kitchen_Cabinet = registerBlockWithItem("cherry_kitchen_cabinet", () -> new InventoryFurniture(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS), FurnishRegistries.Drawers_Open_Sound, FurnishRegistries.Drawers_Close_Sound));
+	public static final RegistrySupplier<Block> Cherry_Cabinet = registerBlockWithItem("cherry_cabinet", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS), FurnishRegistries.Cabinet_Open_Sound, FurnishRegistries.Cabinet_Close_Sound));
+	public static final RegistrySupplier<Block> Cherry_Wardrobe = registerBlockWithItem("cherry_wardrobe", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS).pushReaction(PushReaction.BLOCK), FurnishRegistries.Cabinet_Open_Sound, FurnishRegistries.Cabinet_Close_Sound));
+	public static final RegistrySupplier<Block> Cherry_Stool = registerBlockWithItem("cherry_stool", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS), Chair.BASE_SHAPES));
+	public static final RegistrySupplier<Block> Cherry_Chair = registerBlockWithItem("cherry_chair", () -> new Chair(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS), VoxelShapeHelper.getMergedShapes(Chair.BASE_SHAPES, Chair.CHAIR_SEAT)));
+	public static final RegistrySupplier<Block> Cherry_Shutter = registerBlockWithItem("cherry_shutter", () -> new Shutter(BlockBehaviour.Properties.copy(Blocks.CHERRY_TRAPDOOR)));
+	public static final RegistrySupplier<Block> Cherry_Crate = registerBlockWithItem("cherry_crate", () -> new Crate(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS).pushReaction(PushReaction.DESTROY)), new Item.Properties().stacksTo(1));
+	public static final RegistrySupplier<Block> Cherry_Shelf = registerBlockWithItem("cherry_shelf", () -> new Shelf(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS)));
+	public static final RegistrySupplier<Block> Cherry_Bench = registerBlockWithItem("cherry_bench", () -> new Bench(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS)));
+	public static final RegistrySupplier<Block> Cherry_Log_Bench = registerBlockWithItem("cherry_log_bench", () -> new LogBench(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS)));
+	public static final RegistrySupplier<Block> Cherry_Ladder = registerBlockWithItem("cherry_ladder", () -> new Ladder(BlockBehaviour.Properties.of().strength(0.4F).sound(SoundType.LADDER)));
+	public static final RegistrySupplier<Block> Cherry_Bookshelf_Chest = registerBlockWithItem("cherry_bookshelf_chest", () -> new BookshelfChest(BlockBehaviour.Properties.copy(Blocks.CHERRY_PLANKS).pushReaction(PushReaction.BLOCK)));
 
 	public static final RegistrySupplier<Block> Small_Locker = registerBlockWithItem("small_locker", () -> new Cabinet(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), FurnishRegistries.Locker_Open_Sound, FurnishRegistries.Locker_Close_Sound));
 	public static final RegistrySupplier<Block> Locker = registerBlockWithItem("locker", () -> new Wardrobe(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), FurnishRegistries.Locker_Open_Sound, FurnishRegistries.Locker_Close_Sound));

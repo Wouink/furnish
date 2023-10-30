@@ -7,6 +7,8 @@
 - Fix loot table parsing error for Furnish Cobweb
 - Fix "In the Mail" advancement parsing
 - Fix spruce furniture closing sound
+- All Shutters can now use a transparent texture
+- Adding a Ladder to a group of Ladders now makes a sound
 
 ## Furnish v24
 

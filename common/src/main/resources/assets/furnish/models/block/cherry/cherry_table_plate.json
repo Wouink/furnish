@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/table_plate",
+  "textures": {
+    "0": "minecraft:block/stripped_cherry_log",
+    "particle": "minecraft:block/stripped_cherry_log"
+  }
+}
