@@ -1,0 +1,7 @@
+{
+	"parent": "furnish:block/parent/pedestal_table",
+	"textures": {
+		"table": "minecraft:block/stripped_mangrove_log",
+		"log": "minecraft:block/mangrove_log"
+	}
+}

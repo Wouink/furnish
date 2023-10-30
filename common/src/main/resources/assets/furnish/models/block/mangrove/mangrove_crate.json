@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "furnish:block/mangrove_crate",
+    "side": "furnish:block/mangrove_crate"
+  }
+}

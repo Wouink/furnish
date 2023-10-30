@@ -41,6 +41,7 @@ public class FurnishClient {
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Crimson_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Warped_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Cherry_Shutter.get());
+		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Mangrove_Shutter.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Recycle_Bin.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Iron_Bars_Top.get());
 		RenderTypeRegistry.register(RenderType.translucent(), FurnishBlocks.Iron_Gate.get());

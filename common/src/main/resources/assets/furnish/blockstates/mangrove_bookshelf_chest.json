@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "capacity=0": {
+      "model": "furnish:block/bookshelf_chest/mangrove_bookshelf_chest_empty"
+    },
+    "capacity=1": {
+      "model": "furnish:block/bookshelf_chest/mangrove_bookshelf_chest_sparse"
+    },
+    "capacity=2": {
+      "model": "furnish:block/bookshelf_chest/mangrove_bookshelf_chest_plenty"
+    },
+    "capacity=3": {
+      "model": "furnish:block/bookshelf_chest/mangrove_bookshelf_chest_full"
+    }
+  }
+}

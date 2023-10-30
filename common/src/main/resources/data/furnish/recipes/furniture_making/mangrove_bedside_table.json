@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:mangrove_planks"
+  },
+  "result": "furnish:mangrove_bedside_table",
+  "count": 1
+}

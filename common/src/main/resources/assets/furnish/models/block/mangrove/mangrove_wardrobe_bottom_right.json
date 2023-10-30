@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/wardrobe_bottom_right",
+  "textures": {
+    "0": "minecraft:block/stripped_mangrove_log",
+    "1": "minecraft:block/mangrove_log",
+    "2": "minecraft:block/quartz_block_bottom",
+    "particle": "minecraft:block/stripped_mangrove_log"
+  }
+}

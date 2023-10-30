@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/mangrove/mangrove_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/mangrove/mangrove_bench",
+      "y": 90
+    }
+  }
+}
