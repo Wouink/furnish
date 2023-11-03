@@ -2,6 +2,8 @@
 
 ## Furnish v25
 
+- Add Mangrove, Cherry and Bamboo furniture!
+- Rework the texture of most Shutters
 - Book Pile now provides enchanting power
 - Fix painting cycling not properly saving new art
 - Fix loot table parsing error for Furnish Cobweb

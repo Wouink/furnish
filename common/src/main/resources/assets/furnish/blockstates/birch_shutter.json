@@ -46,18 +46,18 @@
       "y": 270
     },
     "facing=north,right=true,state=closed": {
-      "model": "furnish:block/birch/birch_shutter"
+      "model": "furnish:block/birch/birch_shutter_right"
     },
     "facing=east,right=true,state=closed": {
-      "model": "furnish:block/birch/birch_shutter",
+      "model": "furnish:block/birch/birch_shutter_right",
       "y": 90
     },
     "facing=south,right=true,state=closed": {
-      "model": "furnish:block/birch/birch_shutter",
+      "model": "furnish:block/birch/birch_shutter_right",
       "y": 180
     },
     "facing=west,right=true,state=closed": {
-      "model": "furnish:block/birch/birch_shutter",
+      "model": "furnish:block/birch/birch_shutter_right",
       "y": 270
     },
     "facing=north,right=true,state=half_open": {
