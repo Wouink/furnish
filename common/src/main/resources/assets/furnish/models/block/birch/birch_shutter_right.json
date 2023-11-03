@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/parent/shutter",
+  "textures": {
+    "0": "furnish:block/birch_shutter_right"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "furnish:block/parent/shutter_open_left",
+  "textures": {
+    "0": "furnish:block/bamboo_shutter"
+  }
+}

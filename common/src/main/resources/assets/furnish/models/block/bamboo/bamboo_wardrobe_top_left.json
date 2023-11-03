@@ -1,0 +1,9 @@
+{
+  "parent": "furnish:block/parent/wardrobe_top_left",
+  "textures": {
+    "0": "minecraft:block/stripped_bamboo_block",
+    "1": "minecraft:block/bamboo_block",
+    "2": "minecraft:block/quartz_block_bottom",
+    "particle": "#0"
+  }
+}

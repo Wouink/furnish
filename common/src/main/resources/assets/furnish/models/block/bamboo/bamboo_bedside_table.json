@@ -1,0 +1,11 @@
+{
+  "parent": "furnish:block/parent/bedside_table_2",
+  "textures": {
+    "0": "minecraft:block/stripped_bamboo_block",
+    "1": "minecraft:block/bamboo_mosaic",
+    "2": "minecraft:block/bamboo_mosaic",
+    "3": "minecraft:block/bamboo_planks",
+    "4": "minecraft:block/quartz_block_bottom",
+    "particle": "minecraft:block/stripped_bamboo_block"
+  }
+}

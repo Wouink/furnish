@@ -1,0 +1,8 @@
+{
+  "parent": "furnish:block/parent/square_table",
+  "textures": {
+    "0": "minecraft:block/bamboo_mosaic",
+    "1": "minecraft:block/stripped_bamboo_block",
+    "particle": "minecraft:block/bamboo_mosaic"
+  }
+}

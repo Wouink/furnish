@@ -1,0 +1,7 @@
+{
+  "parent": "furnish:block/parent/log_bench",
+  "textures": {
+    "log": "minecraft:block/bamboo_block",
+    "log_top": "furnish:block/bamboo_log_bench_top"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/bamboo/bamboo_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/bamboo/bamboo_bench",
+      "y": 90
+    }
+  }
+}
