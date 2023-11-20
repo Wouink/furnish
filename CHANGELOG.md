@@ -10,6 +10,9 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 
 ## Furnish v26
 
+- Update `it_it.json`. Thanks Zano1999!
+- Update `zh_tw.json`. Thanks Lobster0228!
+
 ## Furnish v25 for Minecraft 1.20.1
 
 - Add Mangrove, Cherry and Bamboo furniture!
