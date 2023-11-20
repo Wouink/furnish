@@ -1,6 +1,6 @@
 # Furnish Changelog
 
-## Furnish versionning
+## Furnish versioning
 
 - Each release of Furnish is only compatible with one version of Minecraft.
 - There will be no backport of any feature in an earlier Minecraft version.

@@ -32,7 +32,7 @@
       },
       {
         "id": "minecraft",
-        "version": ">=1.20.1"
+        "version": "~${minecraft_version}"
       },
       {
         "id": "architectury",
