@@ -1,11 +1,11 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ShowcaseTileEntity extends StackHoldingTileEntity {
-	public ShowcaseTileEntity(BlockPos pos, BlockState state) {
+public class ShowcaseBlockEntity extends StackHoldingBlockEntity {
+	public ShowcaseBlockEntity(BlockPos pos, BlockState state) {
 		super(FurnishRegistries.Showcase_BlockEntity.get(), pos, state);
 	}
 }

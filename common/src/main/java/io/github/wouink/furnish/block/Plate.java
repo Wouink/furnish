@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.PlateTileEntity;
+import io.github.wouink.furnish.block.blockentity.PlateBlockEntity;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -52,8 +52,8 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock {
 		if(!world.isClientSide()) {
 			if (playerEntity.getItemInHand(hand).isEmpty() || playerEntity.getItemInHand(hand).isEdible() || playerEntity.getItemInHand(hand).is(FurnishRegistries.FOOD_TAG)) {
 				BlockEntity tileEntity = world.getBlockEntity(pos);
-				if (tileEntity instanceof PlateTileEntity) {
-					playerEntity.setItemInHand(hand, ((PlateTileEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
+				if (tileEntity instanceof PlateBlockEntity) {
+					playerEntity.setItemInHand(hand, ((PlateBlockEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
 					resultType = InteractionResult.SUCCESS;
 				}
 			}
@@ -63,14 +63,14 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new PlateTileEntity(pos, state);
+		return new PlateBlockEntity(pos, state);
 	}
 
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
 		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof PlateTileEntity) {
-			ItemStack stack = ((PlateTileEntity) tileEntity).getHeldItem().copy();
+		if(tileEntity instanceof PlateBlockEntity) {
+			ItemStack stack = ((PlateBlockEntity) tileEntity).getHeldItem().copy();
 			if(!stack.isEmpty()) {
 				stack.setCount(1);
 				return stack;
@@ -83,8 +83,8 @@ public class Plate extends HorizontalDirectionalBlock implements EntityBlock {
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(state.getBlock() != newState.getBlock()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if (tileEntity instanceof PlateTileEntity) {
-				ItemStack stack = ((PlateTileEntity) tileEntity).getHeldItem();
+			if (tileEntity instanceof PlateBlockEntity) {
+				ItemStack stack = ((PlateBlockEntity) tileEntity).getHeldItem();
 				if (!stack.isEmpty()) {
 					world.addFreshEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, stack));
 				}

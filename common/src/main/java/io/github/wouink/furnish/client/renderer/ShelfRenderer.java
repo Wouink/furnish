@@ -3,7 +3,7 @@ package io.github.wouink.furnish.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
-import io.github.wouink.furnish.block.tileentity.ShelfTileEntity;
+import io.github.wouink.furnish.block.blockentity.ShelfBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
+public class ShelfRenderer implements BlockEntityRenderer<ShelfBlockEntity> {
 
 	private final ItemRenderer itemRenderer;
 
@@ -24,7 +24,7 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfTileEntity> {
 	}
 
 	@Override
-	public void render(ShelfTileEntity shelf, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+	public void render(ShelfBlockEntity shelf, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 		ItemStack stack = shelf.getHeldItem();
 		if(!stack.isEmpty()) {
 			ms.pushPose();

@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.container;
 
-import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
+import io.github.wouink.furnish.block.blockentity.DiskRackBlockEntity;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -19,7 +19,7 @@ public class DiskRackContainer extends AbstractContainerMenu {
 	}
 
 	public DiskRackContainer(int syncId, Inventory playerInventory) {
-		this(syncId, playerInventory, new SimpleContainer(DiskRackTileEntity.SIZE));
+		this(syncId, playerInventory, new SimpleContainer(DiskRackBlockEntity.SIZE));
 	}
 
 	public DiskRackContainer(int syncId, Inventory playerInventory, Container inventory) {

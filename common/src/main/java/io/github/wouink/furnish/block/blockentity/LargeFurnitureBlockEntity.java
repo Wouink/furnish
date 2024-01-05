@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -20,11 +20,11 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class FurnitureTileEntity extends RandomizableContainerBlockEntity {
+public class LargeFurnitureBlockEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
 
-	public FurnitureTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishRegistries.Furniture_BlockEntity.get(), pos, state);
+	public LargeFurnitureBlockEntity(BlockPos pos, BlockState state) {
+		super(FurnishRegistries.Large_Furniture_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -39,7 +39,7 @@ public class FurnitureTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag nbt) {
+	protected void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
 		if(!this.trySaveLootTable(nbt)) {
 			ContainerHelper.saveAllItems(nbt, inventory);
@@ -56,18 +56,18 @@ public class FurnitureTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public Component getDefaultName() {
+	protected Component getDefaultName() {
 		return this.getBlockState().getBlock().getName();
 	}
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory inv) {
-		return new ChestMenu(MenuType.GENERIC_9x3, syncId, inv, this, 3);
+		return new ChestMenu(MenuType.GENERIC_9x6, syncId, inv, this, 6);
 	}
 
 	@Override
 	public int getContainerSize() {
-		return 27;
+		return 54;
 	}
 
 	@Override
@@ -89,3 +89,4 @@ public class FurnitureTileEntity extends RandomizableContainerBlockEntity {
 		this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 	}
 }
+

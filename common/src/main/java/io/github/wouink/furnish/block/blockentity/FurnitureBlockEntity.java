@@ -1,5 +1,6 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
+import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -15,19 +16,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class AmphoraTileEntity extends RandomizableContainerBlockEntity {
+public class FurnitureBlockEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
-	protected AmphoraTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
-	}
 
-	public AmphoraTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishRegistries.Amphora_BlockEntity.get(), pos, state);
+	public FurnitureBlockEntity(BlockPos pos, BlockState state) {
+		super(FurnishRegistries.Furniture_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -59,28 +56,28 @@ public class AmphoraTileEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	protected Component getDefaultName() {
+	public Component getDefaultName() {
 		return this.getBlockState().getBlock().getName();
 	}
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory inv) {
-		return new ChestMenu(MenuType.GENERIC_3x3, syncId, inv, this, 1);
+		return new ChestMenu(MenuType.GENERIC_9x3, syncId, inv, this, 3);
 	}
 
 	@Override
 	public int getContainerSize() {
-		return 9;
+		return 27;
 	}
 
 	@Override
 	public void startOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(FurnishRegistries.Amphora_Open_Sound.get());
+		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getOpenSound());
 	}
 
 	@Override
 	public void stopOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(FurnishRegistries.Amphora_Close_Sound.get());
+		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getCloseSound());
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity

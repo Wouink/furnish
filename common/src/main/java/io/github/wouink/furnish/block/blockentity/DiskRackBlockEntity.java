@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.container.DiskRackContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
@@ -17,11 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DiskRackTileEntity extends RandomizableContainerBlockEntity {
+public class DiskRackBlockEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 8;
 	private NonNullList<ItemStack> inventory;
 
-	public DiskRackTileEntity(BlockPos pos, BlockState state) {
+	public DiskRackBlockEntity(BlockPos pos, BlockState state) {
 		super(FurnishRegistries.Disk_Rack_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
 	}

@@ -2,8 +2,8 @@ package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import io.github.wouink.furnish.block.Plate;
-import io.github.wouink.furnish.block.tileentity.ShowcaseTileEntity;
+import io.github.wouink.furnish.block.Showcase;
+import io.github.wouink.furnish.block.blockentity.ShowcaseBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity> {
+public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseBlockEntity> {
 
 	private final ItemRenderer itemRenderer;
 
@@ -25,28 +25,31 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 	}
 
 	@Override
-	public void render(ShowcaseTileEntity showcase, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+	public void render(ShowcaseBlockEntity showcase, float partialTicks, PoseStack ps, MultiBufferSource buffer, int light, int overlay) {
 		ItemStack stack = showcase.getHeldItem();
 		if(!stack.isEmpty()) {
-			ms.pushPose();
+			ps.pushPose();
 
-			Direction dir = showcase.getBlockState().getValue(Plate.FACING).getOpposite();
+			Direction dir = showcase.getBlockState().getValue(Showcase.FACING).getOpposite();
 			boolean powered = showcase.getBlockState().getValue(BlockStateProperties.POWERED).booleanValue();
 			BakedModel model = itemRenderer.getModel(stack, showcase.getLevel(), null, 0);
+
+			// if the block is powered, the item will be rotating
+			// the current rotation angle is calculated using the game time
 			float angle = powered ? showcase.getLevel().getGameTime() % 360 : 0;
 
-			if(model.isGui3d()) prepareRenderBlock(ms, dir, angle);
-			else prepareRenderItem(ms, dir, angle);
+			if(model.isGui3d()) prepareRenderBlock(ps, dir, angle);
+			else prepareRenderItem(ps, dir, angle);
 
-			itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
+			itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ps, buffer, light, overlay, model);
 
-			ms.popPose();
+			ps.popPose();
 		}
 	}
 
-	public void prepareRenderBlock(PoseStack ms, Direction dir, float angleOffset) {
+	public void prepareRenderBlock(PoseStack ps, Direction dir, float angleOffset) {
 		// center the anchor point
-		ms.translate(.5, .4, .5);
+		ps.translate(.5, .4, .5);
 
 		// rotate
 		switch(dir) {
@@ -61,17 +64,17 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			default:
 				angleOffset += 270;
 		}
-		ms.mulPose(Axis.YP.rotationDegrees(angleOffset));
+		ps.mulPose(Axis.YP.rotationDegrees(angleOffset));
 
 		// scale the block
-		ms.scale(.8f, .8f, .8f);
+		ps.scale(.8f, .8f, .8f);
 	}
 
-	public void prepareRenderItem(PoseStack ms, Direction dir, float angleOffset) {
+	public void prepareRenderItem(PoseStack ps, Direction dir, float angleOffset) {
 		dir = dir.getOpposite();
 
 		// center the anchor point
-		ms.translate(.5, .4, .5);
+		ps.translate(.5, .4, .5);
 
 		// rotate
 		switch(dir) {
@@ -86,12 +89,12 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseTileEntity>
 			default:
 				angleOffset += 270;
 		}
-		ms.mulPose(Axis.YP.rotationDegrees(angleOffset));
+		ps.mulPose(Axis.YP.rotationDegrees(angleOffset));
 
 		// slightly lean the item
-		ms.mulPose(Axis.XP.rotationDegrees(10));
+		ps.mulPose(Axis.XP.rotationDegrees(10));
 
-		// scale the plate
-		ms.scale(1f, 1f, 1f);
+		// scale the item
+		ps.scale(1f, 1f, 1f);
 	}
 }

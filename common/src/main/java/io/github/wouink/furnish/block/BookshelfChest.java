@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.BookshelfChestBlockEntity;
+import io.github.wouink.furnish.block.blockentity.BookshelfChestBlockEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;

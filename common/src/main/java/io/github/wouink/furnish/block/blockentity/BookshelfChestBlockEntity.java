@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.BookshelfChest;
 import io.github.wouink.furnish.block.container.BookshelfChestContainer;

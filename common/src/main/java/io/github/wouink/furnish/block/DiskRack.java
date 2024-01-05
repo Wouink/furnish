@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
+import io.github.wouink.furnish.block.blockentity.DiskRackBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.*;
@@ -46,7 +46,7 @@ public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock 
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new DiskRackTileEntity(pos, state);
+		return new DiskRackBlockEntity(pos, state);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock 
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof DiskRackTileEntity) {
+			if(tileEntity instanceof DiskRackBlockEntity) {
 				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;

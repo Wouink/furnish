@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.FlowerPotTileEntity;
+import io.github.wouink.furnish.block.blockentity.FlowerPotBlockEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -55,7 +55,7 @@ public class FlowerPot extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new FlowerPotTileEntity(pos, state);
+		return new FlowerPotBlockEntity(pos, state);
 	}
 
 	public Vec3 getRenderPos(int plantIndex) {

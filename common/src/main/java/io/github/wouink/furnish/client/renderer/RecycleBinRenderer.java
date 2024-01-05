@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.wouink.furnish.block.tileentity.RecycleBinTileEntity;
+import io.github.wouink.furnish.block.blockentity.RecycleBinBlockEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinTileEntity> {
+public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinBlockEntity> {
 
 	private final ItemRenderer itemRenderer;
 	private static final float startHeight = 3.0f/16.0f;
@@ -23,7 +23,7 @@ public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinTileEnt
 	}
 
 	@Override
-	public void render(final RecycleBinTileEntity recycleBin, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+	public void render(final RecycleBinBlockEntity recycleBin, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 		if(recycleBin.getBlockState().getBlock() == FurnishBlocks.Trash_Can.get()) return;
 		int itemIndex = 0;
 		for(int slot = 0; slot < recycleBin.getContainerSize(); slot++) {

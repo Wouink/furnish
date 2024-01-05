@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -15,12 +15,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.stream.IntStream;
 
-public class CrateTileEntity extends RandomizableContainerBlockEntity {
+public class CrateBlockEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 9;
 	private static final int[] SLOTS = IntStream.range(0, SIZE).toArray();
 	private NonNullList<ItemStack> inventory;
 
-	public CrateTileEntity(BlockPos pos, BlockState state) {
+	public CrateBlockEntity(BlockPos pos, BlockState state) {
 		super(FurnishRegistries.Crate_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}

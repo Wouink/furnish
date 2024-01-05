@@ -8,8 +8,9 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v26
+## Furnish v26 (in development)
 
+- Painting cycling can now be disabled by configuring the `#furnish:can_cycle` item tag (#42)
 - Update `it_it.json`. Thanks Zano1999!
 - Update `zh_tw.json`. Thanks Lobster0228!
 

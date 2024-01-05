@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.RecycleBin;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
@@ -21,12 +21,11 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
-public class RecycleBinTileEntity extends RandomizableContainerBlockEntity {
+public class RecycleBinBlockEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
 
-	public RecycleBinTileEntity(BlockPos pos, BlockState state) {
+	public RecycleBinBlockEntity(BlockPos pos, BlockState state) {
 		super(FurnishRegistries.Recycle_Bin_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}

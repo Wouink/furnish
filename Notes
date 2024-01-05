@@ -7,7 +7,7 @@ Mise a jour des fichiers build.gradle
 	résultat dans build/templates (un projet gradle architectury de base)
 
 D'après https://github.com/architectury/architectury-templates/releases
-	la version qui nous intéresse dans les fichiers générés par runLocal est Forge-Fabric ou Forge-Fabric-Likes
+	la version qui nous intéresse dans les fichiers générés par runLocal est Forge-Fabric ou Forge-Fabric-Like (pas Forge-Fabric-Quilt)
 
 ParchmentMC
 	https://parchmentmc.org/

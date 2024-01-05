@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import dev.architectury.registry.registries.RegistrySupplier;
-import io.github.wouink.furnish.block.tileentity.FurnitureTileEntity;
+import io.github.wouink.furnish.block.blockentity.FurnitureBlockEntity;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 
 public class InventoryFurniture extends SimpleFurniture implements EntityBlock, IFurnitureWithSound {
 	private final RegistrySupplier<SoundEvent> openSound;
@@ -27,7 +26,7 @@ public class InventoryFurniture extends SimpleFurniture implements EntityBlock, 
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new FurnitureTileEntity(pos, state);
+		return new FurnitureBlockEntity(pos, state);
 	}
 
 //	@Override
@@ -44,7 +43,7 @@ public class InventoryFurniture extends SimpleFurniture implements EntityBlock, 
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof FurnitureTileEntity) {
+			if(tileEntity instanceof FurnitureBlockEntity) {
 				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;
@@ -55,7 +54,7 @@ public class InventoryFurniture extends SimpleFurniture implements EntityBlock, 
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(state.getBlock() != newState.getBlock()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof FurnitureTileEntity) {
+			if(tileEntity instanceof FurnitureBlockEntity) {
 				Containers.dropContents(world, pos, (Container) tileEntity);
 			}
 		}

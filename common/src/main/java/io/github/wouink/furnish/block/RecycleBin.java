@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import dev.architectury.registry.registries.RegistrySupplier;
-import io.github.wouink.furnish.block.tileentity.RecycleBinTileEntity;
+import io.github.wouink.furnish.block.blockentity.RecycleBinBlockEntity;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class RecycleBin extends Block implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new RecycleBinTileEntity(pos, state);
+		return new RecycleBinBlockEntity(pos, state);
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class RecycleBin extends Block implements EntityBlock {
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof RecycleBinTileEntity rb) {
+			if(tileEntity instanceof RecycleBinBlockEntity rb) {
 				if(playerEntity.isCrouching()) rb.empty();
 				else if(!playerEntity.getItemInHand(hand).isEmpty()) {
 					playerEntity.setItemInHand(hand, rb.addItem(playerEntity.getItemInHand(hand)));
@@ -116,8 +115,8 @@ public class RecycleBin extends Block implements EntityBlock {
 	@Override
 	public void tick(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource randomSource) {
 		BlockEntity blockEntity = serverLevel.getBlockEntity(pos);
-		if(blockEntity instanceof RecycleBinTileEntity) {
-			((RecycleBinTileEntity) blockEntity).empty();
+		if(blockEntity instanceof RecycleBinBlockEntity) {
+			((RecycleBinBlockEntity) blockEntity).empty();
 		}
 	}
 

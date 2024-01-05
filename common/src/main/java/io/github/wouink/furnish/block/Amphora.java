@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.AmphoraTileEntity;
+import io.github.wouink.furnish.block.blockentity.AmphoraBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +41,7 @@ public class Amphora extends SimpleFurniture implements EntityBlock {
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new AmphoraTileEntity(pos, state);
+		return new AmphoraBlockEntity(pos, state);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class Amphora extends SimpleFurniture implements EntityBlock {
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof AmphoraTileEntity) {
+			if(tileEntity instanceof AmphoraBlockEntity) {
 				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;

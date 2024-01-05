@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.container;
 
-import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
+import io.github.wouink.furnish.block.blockentity.CrateBlockEntity;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -13,7 +13,7 @@ public class CrateContainer extends ConditionalSlotContainer {
 	}
 
 	public CrateContainer(int syncId, Inventory playerInventory) {
-		this(syncId, playerInventory, new SimpleContainer(CrateTileEntity.SIZE));
+		this(syncId, playerInventory, new SimpleContainer(CrateBlockEntity.SIZE));
 	}
 
 	public CrateContainer(int syncId, Inventory playerInventory, Container inventory) {

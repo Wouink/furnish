@@ -2,6 +2,7 @@ package io.github.wouink.furnish.event;
 
 import dev.architectury.event.EventResult;
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
@@ -24,7 +26,8 @@ public class CyclePainting {
 	public static EventResult onPaintingInteract(Player player, Entity entity, InteractionHand hand) {
 		Level level = player.level();
 		if(level.isClientSide()) return EventResult.pass();
-		if(!player.getItemInHand(hand).getItem().equals(Items.PAINTING)) return EventResult.pass();
+		ItemStack inHand = player.getItemInHand(hand);
+		if(!(inHand.getItem().equals(Items.PAINTING) && inHand.is(FurnishRegistries.CAN_CYCLE))) return EventResult.pass();
 		if(!(entity instanceof Painting painting)) return EventResult.pass();
 
 		List<Holder<PaintingVariant>> similarSizeArts = getSimilarSizeArt(level, painting.getVariant().value());

@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.CrateTileEntity;
+import io.github.wouink.furnish.block.blockentity.CrateBlockEntity;
 import io.github.wouink.furnish.item.util.TooltipHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -37,7 +37,7 @@ public class Crate extends Block implements EntityBlock {
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new CrateTileEntity(pos, state);
+		return new CrateBlockEntity(pos, state);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class Crate extends Block implements EntityBlock {
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof CrateTileEntity) {
+			if(tileEntity instanceof CrateBlockEntity) {
 				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;
@@ -61,8 +61,8 @@ public class Crate extends Block implements EntityBlock {
 	// copied from ShulkerBoxBlock
 	public void playerWillDestroy(Level p_56212_, BlockPos p_56213_, BlockState p_56214_, Player p_56215_) {
 		BlockEntity blockentity = p_56212_.getBlockEntity(p_56213_);
-		if (blockentity instanceof CrateTileEntity) {
-			CrateTileEntity shulkerboxblockentity = (CrateTileEntity) blockentity;
+		if (blockentity instanceof CrateBlockEntity) {
+			CrateBlockEntity shulkerboxblockentity = (CrateBlockEntity) blockentity;
 			if (!p_56212_.isClientSide && p_56215_.isCreative() && !shulkerboxblockentity.isEmpty()) {
 				ItemStack itemstack = new ItemStack(this);
 				blockentity.saveToItem(itemstack);
@@ -86,10 +86,10 @@ public class Crate extends Block implements EntityBlock {
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
 		BlockEntity blockEntity = (BlockEntity)params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-		if (blockEntity instanceof CrateTileEntity crateTileEntity) {
+		if (blockEntity instanceof CrateBlockEntity crateBlockEntity) {
 			params = params.withDynamicDrop(ShulkerBoxBlock.CONTENTS, (consumer) -> {
-				for(int i = 0; i < crateTileEntity.getContainerSize(); ++i) {
-					consumer.accept(crateTileEntity.getItem(i));
+				for(int i = 0; i < crateBlockEntity.getContainerSize(); ++i) {
+					consumer.accept(crateBlockEntity.getItem(i));
 				}
 
 			});
@@ -102,8 +102,8 @@ public class Crate extends Block implements EntityBlock {
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if(stack.hasCustomHoverName()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof CrateTileEntity) {
-				((CrateTileEntity) tileEntity).setCustomName(stack.getHoverName());
+			if(tileEntity instanceof CrateBlockEntity) {
+				((CrateBlockEntity) tileEntity).setCustomName(stack.getHoverName());
 			}
 		}
 	}
@@ -111,7 +111,7 @@ public class Crate extends Block implements EntityBlock {
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
 		ItemStack stack = super.getCloneItemStack(world, pos, state);
-		CrateTileEntity crate = (CrateTileEntity) world.getBlockEntity(pos);
+		CrateBlockEntity crate = (CrateBlockEntity) world.getBlockEntity(pos);
 		CompoundTag nbt = crate.saveToTag(new CompoundTag());
 		if(!nbt.isEmpty()) stack.addTagElement("BlockEntityTag", nbt);
 		return stack;

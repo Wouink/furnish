@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.container;
 
-import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
+import io.github.wouink.furnish.block.blockentity.MailboxBlockEntity;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -12,6 +12,6 @@ public class MailboxContainer extends ConditionalSlotContainer {
 	}
 
 	public MailboxContainer(int syncId, Inventory playerInventory) {
-		this(syncId, playerInventory, new SimpleContainer(MailboxTileEntity.SIZE));
+		this(syncId, playerInventory, new SimpleContainer(MailboxBlockEntity.SIZE));
 	}
 }

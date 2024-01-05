@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.container.MailboxContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
@@ -20,17 +20,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class MailboxTileEntity extends RandomizableContainerBlockEntity {
+public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 	public static final int SIZE = 18;
 	protected NonNullList<ItemStack> inventory;
 	private String owner;
 	private String ownerDisplayName;
 
-	public MailboxTileEntity(BlockPos pos, BlockState state) {
+	public MailboxBlockEntity(BlockPos pos, BlockState state) {
 		super(FurnishRegistries.Mailbox_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}

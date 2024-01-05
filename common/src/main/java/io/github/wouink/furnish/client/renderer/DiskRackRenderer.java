@@ -2,7 +2,7 @@ package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import io.github.wouink.furnish.block.tileentity.DiskRackTileEntity;
+import io.github.wouink.furnish.block.blockentity.DiskRackBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class DiskRackRenderer implements BlockEntityRenderer<DiskRackTileEntity> {
+public class DiskRackRenderer implements BlockEntityRenderer<DiskRackBlockEntity> {
 
 	private final ItemRenderer itemRenderer;
 
@@ -24,7 +24,7 @@ public class DiskRackRenderer implements BlockEntityRenderer<DiskRackTileEntity>
 	}
 
 	@Override
-	public void render(DiskRackTileEntity rack, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+	public void render(DiskRackBlockEntity rack, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 		if(rack.isEmpty()) return;
 
 		Direction dir = rack.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);

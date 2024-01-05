@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import dev.architectury.registry.registries.RegistrySupplier;
-import io.github.wouink.furnish.block.tileentity.LargeFurnitureTileEntity;
+import io.github.wouink.furnish.block.blockentity.LargeFurnitureBlockEntity;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -35,7 +35,7 @@ public class TallInventoryFurniture extends TallFurniture implements EntityBlock
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return state.getValue(TOP).booleanValue() ? null : new LargeFurnitureTileEntity(pos, state);
+		return state.getValue(TOP).booleanValue() ? null : new LargeFurnitureBlockEntity(pos, state);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class TallInventoryFurniture extends TallFurniture implements EntityBlock
 		if(world.isClientSide()) return InteractionResult.SUCCESS;
 		else {
 			BlockEntity tileEntity = state.getValue(TOP).booleanValue() ? world.getBlockEntity(pos.below()) : world.getBlockEntity(pos);
-			if(tileEntity instanceof LargeFurnitureTileEntity) {
+			if(tileEntity instanceof LargeFurnitureBlockEntity) {
 				playerEntity.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;

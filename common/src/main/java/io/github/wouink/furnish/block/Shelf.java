@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.ShelfTileEntity;
+import io.github.wouink.furnish.block.blockentity.ShelfBlockEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
@@ -49,7 +49,7 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new ShelfTileEntity(pos, state);
+		return new ShelfBlockEntity(pos, state);
 	}
 
 	@Override
@@ -57,8 +57,8 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 		InteractionResult resultType = InteractionResult.CONSUME;
 		if(!world.isClientSide()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if (tileEntity instanceof ShelfTileEntity) {
-				playerEntity.setItemInHand(hand, ((ShelfTileEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
+			if (tileEntity instanceof ShelfBlockEntity) {
+				playerEntity.setItemInHand(hand, ((ShelfBlockEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
 				resultType = InteractionResult.SUCCESS;
 			}
 		}
@@ -68,8 +68,8 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
 		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof ShelfTileEntity) {
-			ItemStack stack = ((ShelfTileEntity) tileEntity).getHeldItem().copy();
+		if(tileEntity instanceof ShelfBlockEntity) {
+			ItemStack stack = ((ShelfBlockEntity) tileEntity).getHeldItem().copy();
 			if(!stack.isEmpty()) {
 				stack.setCount(1);
 				return stack;
@@ -84,9 +84,9 @@ public class Shelf extends HorizontalDirectionalBlock implements EntityBlock {
 		if(!state.is(newState.getBlock())) {
 			System.out.println("pas le meme block");
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if (tileEntity instanceof ShelfTileEntity) {
+			if (tileEntity instanceof ShelfBlockEntity) {
 				System.out.println("shelf");
-				ItemStack stack = ((ShelfTileEntity) tileEntity).getHeldItem();
+				ItemStack stack = ((ShelfBlockEntity) tileEntity).getHeldItem();
 				if (!stack.isEmpty()) {
 					System.out.println("stack not empty");
 					world.addFreshEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, stack));

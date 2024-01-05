@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.FlowerPot;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
@@ -16,13 +16,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
-public class FlowerPotTileEntity extends RandomizableContainerBlockEntity {
+public class FlowerPotBlockEntity extends RandomizableContainerBlockEntity {
 
 	protected NonNullList<ItemStack> inventory;
 
-	public FlowerPotTileEntity(BlockPos p_155630_, BlockState p_155631_) {
+	public FlowerPotBlockEntity(BlockPos p_155630_, BlockState p_155631_) {
 		super(FurnishRegistries.Flower_Pot_BlockEntity.get(), p_155630_, p_155631_);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}

@@ -3,7 +3,7 @@ package io.github.wouink.furnish.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.FlowerPot;
-import io.github.wouink.furnish.block.tileentity.FlowerPotTileEntity;
+import io.github.wouink.furnish.block.blockentity.FlowerPotBlockEntity;
 import io.github.wouink.furnish.block.util.VectorHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-public class FlowerPotRenderer implements BlockEntityRenderer<FlowerPotTileEntity> {
+public class FlowerPotRenderer implements BlockEntityRenderer<FlowerPotBlockEntity> {
 	private final ItemRenderer itemRenderer;
 
 	public FlowerPotRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -24,7 +24,7 @@ public class FlowerPotRenderer implements BlockEntityRenderer<FlowerPotTileEntit
 	}
 
 	@Override
-	public void render(FlowerPotTileEntity flowerPot, float partialTicks, PoseStack ps, MultiBufferSource buffers, int combinedLight, int overlay) {
+	public void render(FlowerPotBlockEntity flowerPot, float partialTicks, PoseStack ps, MultiBufferSource buffers, int combinedLight, int overlay) {
 		// System.out.println("rendering");
 		// Direction dir = flowerPot.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 		Direction dir = Direction.EAST;

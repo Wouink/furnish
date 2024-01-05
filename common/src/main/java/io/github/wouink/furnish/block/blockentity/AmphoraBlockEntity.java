@@ -1,6 +1,5 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
-import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -16,15 +15,19 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity {
+public class AmphoraBlockEntity extends RandomizableContainerBlockEntity {
 	protected NonNullList<ItemStack> inventory;
+	protected AmphoraBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
+	}
 
-	public LargeFurnitureTileEntity(BlockPos pos, BlockState state) {
-		super(FurnishRegistries.Large_Furniture_BlockEntity.get(), pos, state);
+	public AmphoraBlockEntity(BlockPos pos, BlockState state) {
+		super(FurnishRegistries.Amphora_BlockEntity.get(), pos, state);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 	}
 
@@ -39,7 +42,7 @@ public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity 
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag nbt) {
+	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
 		if(!this.trySaveLootTable(nbt)) {
 			ContainerHelper.saveAllItems(nbt, inventory);
@@ -62,22 +65,22 @@ public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity 
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory inv) {
-		return new ChestMenu(MenuType.GENERIC_9x6, syncId, inv, this, 6);
+		return new ChestMenu(MenuType.GENERIC_3x3, syncId, inv, this, 1);
 	}
 
 	@Override
 	public int getContainerSize() {
-		return 54;
+		return 9;
 	}
 
 	@Override
 	public void startOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getOpenSound());
+		if(!playerEntity.isSpectator()) playSound(FurnishRegistries.Amphora_Open_Sound.get());
 	}
 
 	@Override
 	public void stopOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getCloseSound());
+		if(!playerEntity.isSpectator()) playSound(FurnishRegistries.Amphora_Close_Sound.get());
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity
@@ -89,4 +92,3 @@ public class LargeFurnitureTileEntity  extends RandomizableContainerBlockEntity 
 		this.level.playSound(null, x, y, z, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
 	}
 }
-

@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.block.tileentity.MailboxTileEntity;
+import io.github.wouink.furnish.block.blockentity.MailboxBlockEntity;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
@@ -66,8 +66,8 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		}
 		if(stack.hasCustomHoverName()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof MailboxTileEntity) {
-				((MailboxTileEntity) tileEntity).setCustomName(stack.getHoverName());
+			if(tileEntity instanceof MailboxBlockEntity) {
+				((MailboxBlockEntity) tileEntity).setCustomName(stack.getHoverName());
 			}
 		}
 	}
@@ -79,8 +79,8 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 
 	private boolean updateMailbox(BlockState state, Level world, BlockPos pos) {
 		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof MailboxTileEntity) {
-			boolean mail = ((MailboxTileEntity) tileEntity).hasMail();
+		if(tileEntity instanceof MailboxBlockEntity) {
+			boolean mail = ((MailboxBlockEntity) tileEntity).hasMail();
 			if(state.getValue(HAS_MAIL).booleanValue() != mail) {
 				world.setBlock(pos, state.setValue(HAS_MAIL, mail), Block.UPDATE_ALL);
 				tileEntity.setChanged();
@@ -96,8 +96,8 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		if(world.isClientSide()) return InteractionResult.sidedSuccess(true);
 		else {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(!(tileEntity instanceof MailboxTileEntity)) return InteractionResult.FAIL;
-			MailboxTileEntity mailbox = (MailboxTileEntity) tileEntity;
+			if(!(tileEntity instanceof MailboxBlockEntity)) return InteractionResult.FAIL;
+			MailboxBlockEntity mailbox = (MailboxBlockEntity) tileEntity;
 
 			if(!mailbox.hasOwner()) {
 				Furnish.LOG.debug("Mailbox does not have an owner -- setting owner and quitting");
@@ -157,15 +157,15 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new MailboxTileEntity(pos, state);
+		return new MailboxBlockEntity(pos, state);
 	}
 
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(state.getBlock() != newState.getBlock()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof MailboxTileEntity) {
-				Containers.dropContents(world, pos, (MailboxTileEntity) tileEntity);
+			if(tileEntity instanceof MailboxBlockEntity) {
+				Containers.dropContents(world, pos, (MailboxBlockEntity) tileEntity);
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);
@@ -175,8 +175,8 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 	public void playerDestroy(Level level, Player player, BlockPos blockPos, BlockState blockState, BlockEntity blockEntity, ItemStack itemStack) {
 		if(!level.isClientSide()) {
 			if(blockEntity != null) {
-				if(blockEntity instanceof MailboxTileEntity mailboxTileEntity) {
-					if(mailboxTileEntity.isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || blockState.is(FurnishRegistries.NON_OP_CREATIVE_CAN_DESTROY_TAG)))) {
+				if(blockEntity instanceof MailboxBlockEntity mailboxBlockEntity) {
+					if(mailboxBlockEntity.isOwner(player) || (player.isCreative() && (player.hasPermissions(1) || blockState.is(FurnishRegistries.NON_OP_CREATIVE_CAN_DESTROY_TAG)))) {
 						super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack);
 					} else {
 						player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);

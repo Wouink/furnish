@@ -6,7 +6,7 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.Crate;
 import io.github.wouink.furnish.block.Mailbox;
 import io.github.wouink.furnish.block.container.*;
-import io.github.wouink.furnish.block.tileentity.*;
+import io.github.wouink.furnish.block.blockentity.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
@@ -53,6 +53,9 @@ public class FurnishRegistries {
 
     // Same thing for popping lectern book
     public static final TagKey CAN_POP_BOOK = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "can_pop_book"));
+
+    // And for painting cycling
+    public static final TagKey CAN_CYCLE = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "can_cycle"));
 
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
@@ -135,17 +138,17 @@ public class FurnishRegistries {
 
     // Block entities
 
-    public static final RegistrySupplier<BlockEntityType<FurnitureTileEntity>> Furniture_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("furniture", () -> BlockEntityType.Builder.of(FurnitureTileEntity::new, FurnishBlocks.Furniture_3x9.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<LargeFurnitureTileEntity>> Large_Furniture_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureTileEntity::new, FurnishBlocks.Furniture_6x9.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<AmphoraTileEntity>> Amphora_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("amphora", () -> BlockEntityType.Builder.of(AmphoraTileEntity::new, FurnishBlocks.Amphorae.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<MailboxTileEntity>> Mailbox_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("mailbox", () -> BlockEntityType.Builder.of(MailboxTileEntity::new, Mailbox.All_Mailboxes.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<CrateTileEntity>> Crate_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("crate", () -> BlockEntityType.Builder.of(CrateTileEntity::new, Crate.All_Crates.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<PlateTileEntity>> Plate_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("plate", () -> BlockEntityType.Builder.of(PlateTileEntity::new, FurnishBlocks.Plates.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<ShelfTileEntity>> Shelf_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("shelf", () -> BlockEntityType.Builder.of(ShelfTileEntity::new, FurnishBlocks.Shelves.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<ShowcaseTileEntity>> Showcase_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseTileEntity::new, FurnishBlocks.Showcases.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<DiskRackTileEntity>> Disk_Rack_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackTileEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
-    public static final RegistrySupplier<BlockEntityType<RecycleBinTileEntity>> Recycle_Bin_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinTileEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<FlowerPotTileEntity>> Flower_Pot_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("flower_pot", () -> BlockEntityType.Builder.of(FlowerPotTileEntity::new, FurnishBlocks.Flower_Pots.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<FurnitureBlockEntity>> Furniture_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("furniture", () -> BlockEntityType.Builder.of(FurnitureBlockEntity::new, FurnishBlocks.Furniture_3x9.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<LargeFurnitureBlockEntity>> Large_Furniture_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureBlockEntity::new, FurnishBlocks.Furniture_6x9.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<AmphoraBlockEntity>> Amphora_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("amphora", () -> BlockEntityType.Builder.of(AmphoraBlockEntity::new, FurnishBlocks.Amphorae.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<MailboxBlockEntity>> Mailbox_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("mailbox", () -> BlockEntityType.Builder.of(MailboxBlockEntity::new, Mailbox.All_Mailboxes.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<CrateBlockEntity>> Crate_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("crate", () -> BlockEntityType.Builder.of(CrateBlockEntity::new, Crate.All_Crates.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<PlateBlockEntity>> Plate_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("plate", () -> BlockEntityType.Builder.of(PlateBlockEntity::new, FurnishBlocks.Plates.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<ShelfBlockEntity>> Shelf_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("shelf", () -> BlockEntityType.Builder.of(ShelfBlockEntity::new, FurnishBlocks.Shelves.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<ShowcaseBlockEntity>> Showcase_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseBlockEntity::new, FurnishBlocks.Showcases.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<DiskRackBlockEntity>> Disk_Rack_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackBlockEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
+    public static final RegistrySupplier<BlockEntityType<RecycleBinBlockEntity>> Recycle_Bin_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinBlockEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<FlowerPotBlockEntity>> Flower_Pot_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("flower_pot", () -> BlockEntityType.Builder.of(FlowerPotBlockEntity::new, FurnishBlocks.Flower_Pots.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<BookshelfChestBlockEntity>> BookshelfChest_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("bookshelf_chest", () -> BlockEntityType.Builder.of(BookshelfChestBlockEntity::new, FurnishBlocks.Bookshelf_Chests.toArray(Block[]::new)).build(null));
 
     // Paintings

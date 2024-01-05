@@ -3,7 +3,7 @@ package io.github.wouink.furnish.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
-import io.github.wouink.furnish.block.tileentity.PlateTileEntity;
+import io.github.wouink.furnish.block.blockentity.PlateBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -14,7 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class PlateRenderer implements BlockEntityRenderer<PlateTileEntity> {
+public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity> {
 	private static final double ITEM_HEIGHT = 1 / 16.0d;
 
 	private final ItemRenderer itemRenderer;
@@ -25,7 +25,7 @@ public class PlateRenderer implements BlockEntityRenderer<PlateTileEntity> {
 	}
 
 	@Override
-	public void render(PlateTileEntity plate, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+	public void render(PlateBlockEntity plate, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
 		ItemStack stack = plate.getHeldItem();
 		if(!stack.isEmpty()) {
 			ms.pushPose();

@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.tileentity.ShowcaseTileEntity;
+import io.github.wouink.furnish.block.blockentity.ShowcaseBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -45,7 +45,7 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new ShowcaseTileEntity(pos, state);
+		return new ShowcaseBlockEntity(pos, state);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 		InteractionResult resultType = InteractionResult.FAIL;
 		if(!world.isClientSide()) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if (tileEntity instanceof ShowcaseTileEntity) {
-				playerEntity.setItemInHand(hand, ((ShowcaseTileEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
+			if (tileEntity instanceof ShowcaseBlockEntity) {
+				playerEntity.setItemInHand(hand, ((ShowcaseBlockEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
 				resultType = InteractionResult.SUCCESS;
 			}
 		}
@@ -64,8 +64,8 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
 		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof ShowcaseTileEntity) {
-			ItemStack stack = ((ShowcaseTileEntity) tileEntity).getHeldItem().copy();
+		if(tileEntity instanceof ShowcaseBlockEntity) {
+			ItemStack stack = ((ShowcaseBlockEntity) tileEntity).getHeldItem().copy();
 			if(!stack.isEmpty()) {
 				stack.setCount(1);
 				return stack;
@@ -78,8 +78,8 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
 		if(!state.is(newState.getBlock())) {
 			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof ShowcaseTileEntity) {
-				ItemStack stack = ((ShowcaseTileEntity) tileEntity).getHeldItem();
+			if(tileEntity instanceof ShowcaseBlockEntity) {
+				ItemStack stack = ((ShowcaseBlockEntity) tileEntity).getHeldItem();
 				if(!stack.isEmpty()) {
 					world.addFreshEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, stack));
 				}

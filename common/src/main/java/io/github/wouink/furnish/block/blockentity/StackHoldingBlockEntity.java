@@ -1,4 +1,4 @@
-package io.github.wouink.furnish.block.tileentity;
+package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import net.minecraft.core.BlockPos;
@@ -11,10 +11,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class StackHoldingTileEntity extends BlockEntity {
+public abstract class StackHoldingBlockEntity extends BlockEntity {
 	private ItemStack holding;
 
-	public StackHoldingTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	public StackHoldingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		holding = ItemStack.EMPTY;
 	}
