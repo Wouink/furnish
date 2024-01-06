@@ -1,6 +1,5 @@
 package io.github.wouink.furnish.setup;
 
-import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.*;
@@ -8,7 +7,6 @@ import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.item.Letter;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -29,21 +27,15 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public class FurnishBlocks {
-	
-	// Registries
-	
-	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Furnish.MODID, Registries.BLOCK);
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Furnish.MODID, Registries.ITEM);
-	
-	// Block related registering methods
+	public static void init() {}
 
 	public static RegistrySupplier<Block> registerBlock(String name, Supplier<? extends Block> sup) {
-		return BLOCKS.register(name, sup);
+		return FurnishRegistries.BLOCKS.register(name, sup);
 	}
 
 	public static RegistrySupplier<Block> registerBlockWithItem(String name, Supplier<? extends Block> sup, Item.Properties itemProps) {
-		RegistrySupplier<Block> registeredBlock = BLOCKS.register(name, sup);
-		ITEMS.register(name, () -> new BlockItem(registeredBlock.get(), itemProps.arch$tab(Furnish.CREATIVE_TAB)));
+		RegistrySupplier<Block> registeredBlock = FurnishRegistries.BLOCKS.register(name, sup);
+		FurnishRegistries.ITEMS.register(name, () -> new BlockItem(registeredBlock.get(), itemProps.arch$tab(Furnish.CREATIVE_TAB)));
 		return registeredBlock;
 	}
 
@@ -53,7 +45,7 @@ public class FurnishBlocks {
 
 	// Registering items
 
-	public static final RegistrySupplier<Item> Letter = ITEMS.register("letter", () -> new Letter(new Item.Properties().arch$tab(Furnish.CREATIVE_TAB).stacksTo(1)));
+	public static final RegistrySupplier<Item> Letter = FurnishRegistries.ITEMS.register("letter", () -> new Letter(new Item.Properties().arch$tab(Furnish.CREATIVE_TAB).stacksTo(1)));
 
 	// Various lists of blocks
 

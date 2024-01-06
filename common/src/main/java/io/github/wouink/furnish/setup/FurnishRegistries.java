@@ -21,6 +21,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FurnishRegistries {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Furnish.MODID, Registries.BLOCK);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Furnish.MODID, Registries.ITEM);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Furnish.MODID, Registries.RECIPE_TYPE);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Furnish.MODID, Registries.RECIPE_SERIALIZER);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Furnish.MODID, Registries.SOUND_EVENT);
@@ -56,6 +59,11 @@ public class FurnishRegistries {
 
     // And for painting cycling
     public static final TagKey CAN_CYCLE = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "can_cycle"));
+
+    // And for placing carpets/snow on stairs/trappdoors/fences
+    public static final TagKey PLACE_ON_STAIRS = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "place_on_stairs"));
+    public static final TagKey PLACE_ON_TRAPDOOR = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "place_on_trapdoor"));
+    public static final TagKey PLACE_ON_FENCE = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "place_on_fence"));
 
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(

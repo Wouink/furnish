@@ -32,9 +32,10 @@ public class Furnish {
 	public static final RegistrySupplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("furnish", () -> CreativeTabRegistry.create(Component.translatable("itemGroup.furnish.furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get())));
 
 	public static void init() {
-		FurnishBlocks.BLOCKS.register();
+		FurnishBlocks.init();
+		FurnishRegistries.BLOCKS.register();
 		LOG.info("Registered Furnish Blocks.");
-		FurnishBlocks.ITEMS.register();
+		FurnishRegistries.ITEMS.register();
 		LOG.info("Registered Furnish Items.");
 		FurnishRegistries.RECIPE_TYPES.register();
 		LOG.info("Registered Furnish Recipe Types.");

@@ -37,3 +37,6 @@ Every configuration of Furnish is done with native Minecraft datapack features.
 * All door blocks are tagged with `#furnish:can_knock_on`. If you wish to disable door knocking on server side, just remove all doors from this block tag. (Furnish v23+)
 * If you wish to disable door knocking sound **on client side**, you can enable the Door Silencer resource pack included with Furnish (no need to download it somewhere, it's packaged in the mod file). (Furnish v23+)
 * Lectern books can be popped out with Left Click (as in Minecraft Bedrock Edition). If you wish to disable that, remove the Lectern from the block tag `#furnish:can_pop_book`. (Furnish v23+)
+* Right-clicking on a Painting with another one cycles the art variant. This can be disabled by configuring the `#furnish:can_cycle` item tag (v26+)
+* Carpets can be placed on stairs and on trapdoors. This can be disabled by configuring `#furnish:place_on_stairs` and `#furnish:place_on_trapdoor` block tags (v26+)
+* Snow layers can be placed on stairs and on Fences. This can be disabled by configuring `#furnish:place_on_stairs` and `#furnish:place_on_fence` block tags (v26+)

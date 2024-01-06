@@ -2,6 +2,7 @@ package io.github.wouink.furnish.event;
 
 import dev.architectury.event.EventResult;
 import io.github.wouink.furnish.setup.FurnishBlocks;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -23,12 +24,12 @@ public class PlaceCarpet {
 			if(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getNamespace().equals("minecraft")) {
 				String color = carpetBlock.getColor().getName();
 				BlockState stateBelow = level.getBlockState(pos.below());
-				if(stateBelow.getBlock() instanceof StairBlock && !placer.isShiftKeyDown()) {
+				if(stateBelow.getBlock() instanceof StairBlock && state.is(FurnishRegistries.PLACE_ON_STAIRS) && !placer.isShiftKeyDown()) {
 					if(stateBelow.getValue(StairBlock.HALF) == Half.BOTTOM && stateBelow.getValue(StairBlock.SHAPE) == StairsShape.STRAIGHT) {
 						level.setBlock(pos, FurnishBlocks.Carpets_On_Stairs.get(color).get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)), Block.UPDATE_ALL);
 						return EventResult.interruptTrue();
 					}
-				} else if(stateBelow.getBlock() instanceof TrapDoorBlock) {
+				} else if(stateBelow.getBlock() instanceof TrapDoorBlock && state.is(FurnishRegistries.PLACE_ON_TRAPDOOR)) {
 					level.setBlock(pos, FurnishBlocks.Carpets_On_Trapdoors.get(color).get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)).setValue(BlockStateProperties.OPEN, stateBelow.getValue(BlockStateProperties.OPEN)), Block.UPDATE_ALL);
 					return EventResult.interruptTrue();
 				}

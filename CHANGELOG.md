@@ -11,6 +11,8 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 ## Furnish v26 (in development)
 
 - Painting cycling can now be disabled by configuring the `#furnish:can_cycle` item tag (#42)
+- Carpets on stairs and on trapdoors can now be disabled with `#furnish:place_on_stairs` and `#furnish:place_on_trapdoor` block tags
+- Snow on stairs and on fences can now be disabled with `#furnish:place_on_stairs` and `#furnish:place_on_fence` block tags
 - Update `it_it.json`. Thanks Zano1999!
 - Update `zh_tw.json`. Thanks Lobster0228!
 
