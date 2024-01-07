@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#furnish:oak_furniture",
+    "#furnish:birch_furniture",
+    "#furnish:acacia_furniture",
+    "#furnish:jungle_furniture",
+    "#furnish:dark_oak_furniture",
+    "#furnish:spruce_furniture",
+    "#furnish:cherry_furniture",
+    "#furnish:mangrove_furniture",
+    "#furnish:bamboo_furniture",
+    "furnish:recycle_bin"
+  ]
+}

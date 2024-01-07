@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:brick_chimney_conduit",
+    "furnish:blackstone_chimney_conduit",
+    "furnish:stone_bricks_chimney_conduit"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_stool",
+    "furnish:birch_stool",
+    "furnish:spruce_stool",
+    "furnish:jungle_stool",
+    "furnish:acacia_stool",
+    "furnish:dark_oak_stool",
+    "furnish:warped_stool",
+    "furnish:crimson_stool",
+    "furnish:cherry_stool",
+    "furnish:mangrove_stool",
+    "furnish:bamboo_stool"
+  ]
+}

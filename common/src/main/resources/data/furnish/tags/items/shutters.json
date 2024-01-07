@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_shutter",
+    "furnish:birch_shutter",
+    "furnish:spruce_shutter",
+    "furnish:jungle_shutter",
+    "furnish:acacia_shutter",
+    "furnish:dark_oak_shutter",
+    "furnish:warped_shutter",
+    "furnish:crimson_shutter",
+    "furnish:cherry_shutter",
+    "furnish:mangrove_shutter",
+    "furnish:bamboo_shutter"
+  ]
+}

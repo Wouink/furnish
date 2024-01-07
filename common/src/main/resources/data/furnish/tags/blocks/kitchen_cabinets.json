@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_kitchen_cabinet",
+    "furnish:birch_kitchen_cabinet",
+    "furnish:spruce_kitchen_cabinet",
+    "furnish:jungle_kitchen_cabinet",
+    "furnish:acacia_kitchen_cabinet",
+    "furnish:dark_oak_kitchen_cabinet",
+    "furnish:cherry_kitchen_cabinet",
+    "furnish:mangrove_kitchen_cabinet",
+    "furnish:bamboo_kitchen_cabinet"
+  ]
+}

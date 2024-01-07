@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_bedside_table",
+    "furnish:birch_bedside_table",
+    "furnish:spruce_bedside_table",
+    "furnish:jungle_bedside_table",
+    "furnish:acacia_bedside_table",
+    "furnish:dark_oak_bedside_table",
+    "furnish:cherry_bedside_table",
+    "furnish:mangrove_bedside_table",
+    "furnish:bamboo_bedside_table"
+  ]
+}

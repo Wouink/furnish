@@ -10,12 +10,37 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 
 ## Furnish v26 (in development)
 
+- Block tags are now usable as item tags as well (except for configuration tags)
+- A bunch of new tags available, both as block tags and item tags. See "New block tags"
 - Fix client initialization on Quilt (which resulted in containers with missing GUIs) (#43)
+- Fix "Add arms to Armor-Stand" and "Cycle paintings" not working on Quilt
 - Painting cycling can now be disabled by configuring the `#furnish:can_cycle` item tag (#42)
 - Carpets on stairs and on trapdoors can now be disabled with `#furnish:place_on_stairs` and `#furnish:place_on_trapdoor` block tags
 - Snow on stairs and on fences can now be disabled with `#furnish:place_on_stairs` and `#furnish:place_on_fence` block tags
 - Update `it_it.json`. Thanks Zano1999!
 - Update `zh_tw.json`. Thanks Lobster0228!
+
+### New block tags
+
+- `#furnish:bedside_tables`
+- `#furnish:benches`
+- `#furnish:cabinets`
+- `#furnish:chairs`
+- `#furnish:chimney_conduits`
+- `#furnish:coffins`
+- `#furnish:crates`
+- `#furnish:kitchen_cabinets`
+- `#furnish:lockers`
+- `#furnish:log_benches`
+- `#furnish:mailboxes`
+- `#furnish:pedestal_tables`
+- `#furnish:recycle_bins`
+- `#furnish:shelves`
+- `#furnish:shutters`
+- `#furnish:square_tables`
+- `#furnish:stools`
+- `#furnish:tables`
+- `#furnish:wardrobes`
 
 ## Furnish v25 for Minecraft 1.20.1
 

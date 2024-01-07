@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_log_bench",
+    "furnish:birch_log_bench",
+    "furnish:spruce_log_bench",
+    "furnish:jungle_log_bench",
+    "furnish:acacia_log_bench",
+    "furnish:dark_oak_log_bench",
+    "furnish:warped_log_bench",
+    "furnish:crimson_log_bench",
+    "furnish:cherry_log_bench",
+    "furnish:mangrove_log_bench",
+    "furnish:bamboo_log_bench"
+  ]
+}

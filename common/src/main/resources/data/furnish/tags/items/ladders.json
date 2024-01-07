@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_ladder",
+    "furnish:birch_ladder",
+    "furnish:jungle_ladder",
+    "furnish:spruce_ladder",
+    "furnish:acacia_ladder",
+    "furnish:dark_oak_ladder",
+    "furnish:crimson_ladder",
+    "furnish:warped_ladder",
+    "furnish:cherry_ladder",
+    "furnish:mangrove_ladder",
+    "furnish:bamboo_ladder"
+  ]
+}

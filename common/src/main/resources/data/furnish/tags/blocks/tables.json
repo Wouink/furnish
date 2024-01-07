@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_table",
+    "furnish:birch_table",
+    "furnish:spruce_table",
+    "furnish:jungle_table",
+    "furnish:acacia_table",
+    "furnish:dark_oak_table",
+    "furnish:warped_table",
+    "furnish:crimson_table",
+    "furnish:cherry_table",
+    "furnish:mangrove_table",
+    "furnish:bamboo_table"
+  ]
+}

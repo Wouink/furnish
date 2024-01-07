@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:acacia_table",
+    "furnish:acacia_square_table",
+    "furnish:acacia_bedside_table",
+    "furnish:acacia_kitchen_cabinet",
+    "furnish:acacia_cabinet",
+    "furnish:acacia_wardrobe",
+    "furnish:acacia_stool",
+    "furnish:acacia_chair",
+    "furnish:acacia_shutter",
+    "furnish:acacia_crate",
+    "furnish:acacia_shelf",
+    "furnish:acacia_pedestal_table",
+    "furnish:acacia_bench",
+    "furnish:acacia_log_bench",
+    "furnish:acacia_coffin",
+    "furnish:acacia_bookshelf_chest"
+  ]
+}

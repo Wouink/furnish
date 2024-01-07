@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "furnish:oak_pedestal_table",
+    "furnish:birch_pedestal_table",
+    "furnish:spruce_pedestal_table",
+    "furnish:jungle_pedestal_table",
+    "furnish:acacia_pedestal_table",
+    "furnish:dark_oak_pedestal_table",
+    "furnish:warped_pedestal_table",
+    "furnish:crimson_pedestal_table",
+    "furnish:cherry_pedestal_table",
+    "furnish:mangrove_pedestal_table",
+    "furnish:bamboo_pedestal_table"
+  ]
+}
