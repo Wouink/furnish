@@ -19,7 +19,8 @@
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "init": "io.github.wouink.furnish.quilt.FurnishQuilt"
+      "init": "io.github.wouink.furnish.quilt.FurnishQuilt",
+      "client": "io.github.wouink.furnish.fabriclike.FurnishFabricLikeClient"
     },
     "depends": [
       {

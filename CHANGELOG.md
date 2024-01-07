@@ -10,6 +10,7 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 
 ## Furnish v26 (in development)
 
+- Fix client initialization on Quilt (which resulted in containers with missing GUIs) (#43)
 - Painting cycling can now be disabled by configuring the `#furnish:can_cycle` item tag (#42)
 - Carpets on stairs and on trapdoors can now be disabled with `#furnish:place_on_stairs` and `#furnish:place_on_trapdoor` block tags
 - Snow on stairs and on fences can now be disabled with `#furnish:place_on_stairs` and `#furnish:place_on_fence` block tags
