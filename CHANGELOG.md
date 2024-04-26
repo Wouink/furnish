@@ -8,7 +8,14 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v26 (in development)
+## Furnish v27 for Minecraft 1.20.4 (in development)
+
+- **TODO** Fix an exploit with `C2S_UpdateItemStack` message
+- **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt
+- **TODO** Allow Endermen to despawn when they spawn with a plate
+- Fix Stone Brick Chimney Conduit recipe (#47)
+
+## Furnish v26 for Minecraft 1.20.1
 
 - Block tags are now usable as item tags as well (except for configuration tags)
 - A bunch of new tags available, both as block tags and item tags. See "New block tags"

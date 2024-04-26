@@ -23,3 +23,7 @@ Build
     Gradle: Furnish/Tasks/build/build
     les jars se trouvent ensuite dans (fabric|forge)/build/libs/furnish-version.jar
     puis Gradle: Furnish/Tasks/build/clean pour nettoyer
+
+Mode debug/patch de code en live
+    Run en mod debug
+    Pour appliquer les changements dans IntelliJ : Run > Debugging Actions > Reload changed classes

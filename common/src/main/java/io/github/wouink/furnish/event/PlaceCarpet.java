@@ -26,10 +26,12 @@ public class PlaceCarpet {
 				BlockState stateBelow = level.getBlockState(pos.below());
 				if(stateBelow.getBlock() instanceof StairBlock && state.is(FurnishRegistries.PLACE_ON_STAIRS) && !placer.isShiftKeyDown()) {
 					if(stateBelow.getValue(StairBlock.HALF) == Half.BOTTOM && stateBelow.getValue(StairBlock.SHAPE) == StairsShape.STRAIGHT) {
+						// todo all checks are ok, but block is not replaced on Fabric/Quilt
 						level.setBlock(pos, FurnishBlocks.Carpets_On_Stairs.get(color).get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)), Block.UPDATE_ALL);
 						return EventResult.interruptTrue();
 					}
 				} else if(stateBelow.getBlock() instanceof TrapDoorBlock && state.is(FurnishRegistries.PLACE_ON_TRAPDOOR)) {
+					// todo all checks are ok, but block is not replaced on Fabric/Quilt
 					level.setBlock(pos, FurnishBlocks.Carpets_On_Trapdoors.get(color).get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, stateBelow.getValue(BlockStateProperties.HORIZONTAL_FACING)).setValue(BlockStateProperties.OPEN, stateBelow.getValue(BlockStateProperties.OPEN)), Block.UPDATE_ALL);
 					return EventResult.interruptTrue();
 				}

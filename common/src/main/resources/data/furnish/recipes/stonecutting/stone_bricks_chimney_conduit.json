@@ -1,7 +1,7 @@
 {
   "type": "minecraft:stonecutting",
   "ingredient": {
-    "item": "minecraft:polished_blackstone_bricks"
+    "item": "minecraft:stone_bricks"
   },
   "result": "furnish:stone_bricks_chimney_conduit",
   "count": 2

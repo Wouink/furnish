@@ -17,6 +17,7 @@ public class GivePlateToEnderman {
 				if(enderman.getCarriedBlock() == null && level.getRandom().nextInt(100) == 10) {
 					enderman.setCarriedBlock(FurnishBlocks.Rare_Plates.get(level.getRandom().nextInt(FurnishBlocks.Rare_Plates.size())).get().defaultBlockState());
 					Furnish.debug("Giving plate to an Enderman");
+					// todo allow enderman to despawn?
 				}
 			}
 		}
