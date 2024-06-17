@@ -4,6 +4,7 @@ import dev.architectury.networking.NetworkManager;
 import dev.architectury.networking.simple.BaseC2SMessage;
 import dev.architectury.networking.simple.MessageType;
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.item.Letter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 
@@ -46,8 +47,13 @@ public class C2S_UpdateItemStack extends BaseC2SMessage {
     @Override
     public void handle(NetworkManager.PacketContext context) {
         context.queue(() -> {
-            context.getPlayer().getInventory().setItem(slot, newStack);
-            context.getPlayer().getInventory().setChanged();
+            /**
+                PATCH: Fixed security vulnerability allowing arbitrary spawning of items in this packet by ensuring proper validation.
+            **/
+            if (newStack.getItem() instanceof Letter) {
+                context.getPlayer().getInventory().setItem(slot, newStack);
+                context.getPlayer().getInventory().setChanged();
+            }
         });
     }
 }
