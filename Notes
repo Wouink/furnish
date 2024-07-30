@@ -1,5 +1,6 @@
 https://docs.architectury.dev/plugin/get_started
 
+# -- OLD --
 Mise a jour des fichiers build.gradle
 	wget https://github.com/architectury/architectury-templates/archive/refs/heads/master.zip
 	unzip
@@ -8,6 +9,12 @@ Mise a jour des fichiers build.gradle
 
 D'après https://github.com/architectury/architectury-templates/releases
 	la version qui nous intéresse dans les fichiers générés par runLocal est Forge-Fabric ou Forge-Fabric-Like (pas Forge-Fabric-Quilt)
+# --
+
+Mise à jour des versions des dépendances = voir les commentaires dans fichier gradle.properties du root project
+https://generate.architectury.dev/
+Version de loom = fichier build.gradle root project
+Version de gradle = gradle/gradle-wrapper.properties
 
 ParchmentMC
 	https://parchmentmc.org/

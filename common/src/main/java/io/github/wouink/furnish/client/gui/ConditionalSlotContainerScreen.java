@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 // copied from net.minecraft.client.gui.screens.inventory.ContainerScreen
 public class ConditionalSlotContainerScreen extends AbstractContainerScreen<ConditionalSlotContainer> {
-	private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation("textures/gui/container/generic_54.png");
+	private static final ResourceLocation CONTAINER_BACKGROUND = ResourceLocation.fromNamespaceAndPath("textures/gui/container/generic_54.png");
 	private final int containerRows;
 
 	public ConditionalSlotContainerScreen(ConditionalSlotContainer menu, Inventory playerInventory, Component title) {

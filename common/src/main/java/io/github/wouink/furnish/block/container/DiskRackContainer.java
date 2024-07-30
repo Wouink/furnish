@@ -2,6 +2,8 @@ package io.github.wouink.furnish.block.container;
 
 import io.github.wouink.furnish.block.blockentity.DiskRackBlockEntity;
 import io.github.wouink.furnish.setup.FurnishRegistries;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -9,13 +11,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.RecordItem;
 
 public class DiskRackContainer extends AbstractContainerMenu {
 	protected final Container inventory;
 
 	public static boolean canPlaceInRack(ItemStack stack) {
-		return stack.getItem() instanceof RecordItem || stack.is(FurnishRegistries.MUSIC_DISCS_TAG);
+		return stack.get(DataComponents.JUKEBOX_PLAYABLE) != null || stack.is(FurnishRegistries.MUSIC_DISCS_TAG);
 	}
 
 	public DiskRackContainer(int syncId, Inventory playerInventory) {

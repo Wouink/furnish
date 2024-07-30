@@ -8,7 +8,6 @@ import io.github.wouink.furnish.block.Mailbox;
 import io.github.wouink.furnish.block.container.*;
 import io.github.wouink.furnish.block.blockentity.*;
 import io.github.wouink.furnish.entity.SeatEntity;
-import io.github.wouink.furnish.recipe.FSingleItemRecipe;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,12 +17,14 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -40,30 +41,30 @@ public class FurnishRegistries {
     public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(Furnish.MODID, Registries.PAINTING_VARIANT);
 
     // Tags
-    public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "crate_blacklist"));
-    public static final TagKey MUSIC_DISCS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "music_discs"));
-    public static final TagKey FOOD_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "food"));
-    public static final TagKey PLANTS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "plants"));
-    public static final TagKey MAIL_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "mail"));
-    public static final TagKey BOOKS_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "books"));
+    public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "crate_blacklist"));
+    public static final TagKey MUSIC_DISCS_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "music_discs"));
+    public static final TagKey FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "food"));
+    public static final TagKey PLANTS_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "plants"));
+    public static final TagKey MAIL_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "mail"));
+    public static final TagKey BOOKS_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "books"));
 
     // Mailbox configuration is done with tags
-    public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "bypasses_mail_tag"));
-    public static final TagKey NON_OP_CREATIVE_CAN_DESTROY_TAG = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "non_op_creative_can_destroy"));
+    public static final TagKey BYPASSES_MAIL_TAG_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "bypasses_mail_tag"));
+    public static final TagKey NON_OP_CREATIVE_CAN_DESTROY_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "non_op_creative_can_destroy"));
 
     // Knock on door configuration also with tag
-    public static final TagKey CAN_KNOCK_ON = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "can_knock_on"));
+    public static final TagKey CAN_KNOCK_ON = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "can_knock_on"));
 
     // Same thing for popping lectern book
-    public static final TagKey CAN_POP_BOOK = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "can_pop_book"));
+    public static final TagKey CAN_POP_BOOK = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "can_pop_book"));
 
     // And for painting cycling
-    public static final TagKey CAN_CYCLE = TagKey.create(Registries.ITEM, new ResourceLocation(Furnish.MODID, "can_cycle"));
+    public static final TagKey CAN_CYCLE = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "can_cycle"));
 
     // And for placing carpets/snow on stairs/trappdoors/fences
-    public static final TagKey PLACE_ON_STAIRS = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "place_on_stairs"));
-    public static final TagKey PLACE_ON_TRAPDOOR = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "place_on_trapdoor"));
-    public static final TagKey PLACE_ON_FENCE = TagKey.create(Registries.BLOCK, new ResourceLocation(Furnish.MODID, "place_on_fence"));
+    public static final TagKey PLACE_ON_STAIRS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_stairs"));
+    public static final TagKey PLACE_ON_TRAPDOOR = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_trapdoor"));
+    public static final TagKey PLACE_ON_FENCE = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_fence"));
 
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
@@ -76,10 +77,8 @@ public class FurnishRegistries {
             }
     );
 
-    public static final RegistrySupplier<RecipeSerializer<FurnitureRecipe>> Furniture_Recipe_Serializer = FurnishRegistries.RECIPE_SERIALIZERS.register(
-            "furniture_making",
-            () -> new FSingleItemRecipe.Serializer<>(FurnitureRecipe::new)
-    );
+    // SingleItemRecipe.Serializer is made public with access wideners
+    public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new));
 
     // Containers
 
@@ -109,7 +108,7 @@ public class FurnishRegistries {
 
     public static RegistrySupplier<SoundEvent> registerSoundEvent(String soundKey) {
         // todo variable range event? fixed range event?
-        return SOUND_EVENTS.register(soundKey, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Furnish.MODID, soundKey)));
+        return SOUND_EVENTS.register(soundKey, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Furnish.MODID, soundKey)));
     }
 
     public static final RegistrySupplier<SoundEvent> Cabinet_Open_Sound = FurnishRegistries.registerSoundEvent("block.furniture.open");
@@ -161,21 +160,25 @@ public class FurnishRegistries {
 
     // Paintings
 
-    public static final RegistrySupplier<PaintingVariant> Steve_Painting = FurnishRegistries.PAINTING_VARIANTS.register("steve", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Alex_Painting = FurnishRegistries.PAINTING_VARIANTS.register("alex", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Oak_Painting = FurnishRegistries.PAINTING_VARIANTS.register("oak", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Birch_Painting = FurnishRegistries.PAINTING_VARIANTS.register("birch", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Spruce_Painting = FurnishRegistries.PAINTING_VARIANTS.register("spruce", () -> new PaintingVariant(16, 32));
-    public static final RegistrySupplier<PaintingVariant> Jungle_Painting = FurnishRegistries.PAINTING_VARIANTS.register("jungle", () -> new PaintingVariant(16, 32));
-    public static final RegistrySupplier<PaintingVariant> Acacia_Painting = FurnishRegistries.PAINTING_VARIANTS.register("acacia", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Dark_Oak_Painting = FurnishRegistries.PAINTING_VARIANTS.register("dark_oak", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Trader_Llama_Painting = FurnishRegistries.PAINTING_VARIANTS.register("trader_llama", () -> new PaintingVariant(16, 16));
-    public static final RegistrySupplier<PaintingVariant> Owl_Painting = FurnishRegistries.PAINTING_VARIANTS.register("owl", () -> new PaintingVariant(32, 16));
-    public static final RegistrySupplier<PaintingVariant> Fox_Painting = FurnishRegistries.PAINTING_VARIANTS.register("fox", () -> new PaintingVariant(32, 32));
-    public static final RegistrySupplier<PaintingVariant> Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("cork_board", () -> new PaintingVariant(32, 16));
-    public static final RegistrySupplier<PaintingVariant> Cork_Board_1 = FurnishRegistries.PAINTING_VARIANTS.register("cork_board_1", () -> new PaintingVariant(32, 16));
-    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("large_cork_board", () -> new PaintingVariant(48, 32));
-    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board_1 = FurnishRegistries.PAINTING_VARIANTS.register("large_cork_board_1", () -> new PaintingVariant(48, 32));
-    public static final RegistrySupplier<PaintingVariant> Investigation_Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("investigation_board", () -> new PaintingVariant(32, 16));
-    public static final RegistrySupplier<PaintingVariant> Large_Investigation_Cork_Board = FurnishRegistries.PAINTING_VARIANTS.register("large_investigation_board", () -> new PaintingVariant(48, 32));
+    private static RegistrySupplier<PaintingVariant> newPainting(int width, int height, String art) {
+        return FurnishRegistries.PAINTING_VARIANTS.register(art, () -> new PaintingVariant(width, height, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, art)));
+    }
+
+    public static final RegistrySupplier<PaintingVariant> Steve_Painting = newPainting(16, 16, "steve");
+    public static final RegistrySupplier<PaintingVariant> Alex_Painting = newPainting(16, 16, "alex");
+    public static final RegistrySupplier<PaintingVariant> Oak_Painting = newPainting(16, 16, "oak");
+    public static final RegistrySupplier<PaintingVariant> Birch_Painting = newPainting(16, 16, "birch");
+    public static final RegistrySupplier<PaintingVariant> Spruce_Painting = newPainting(16, 32, "spruce");
+    public static final RegistrySupplier<PaintingVariant> Jungle_Painting = newPainting(16, 32, "jungle");
+    public static final RegistrySupplier<PaintingVariant> Acacia_Painting = newPainting(16, 16, "acacia");
+    public static final RegistrySupplier<PaintingVariant> Dark_Oak_Painting = newPainting(16, 16, "dark_oak");
+    public static final RegistrySupplier<PaintingVariant> Trader_Llama_Painting = newPainting(16, 16, "trader_llama");
+    public static final RegistrySupplier<PaintingVariant> Owl_Painting = newPainting(32, 16, "owl");
+    public static final RegistrySupplier<PaintingVariant> Fox_Painting = newPainting(32, 32, "fox");
+    public static final RegistrySupplier<PaintingVariant> Cork_Board = newPainting(32, 16, "cork_board");
+    public static final RegistrySupplier<PaintingVariant> Cork_Board_1 = newPainting(32, 16, "cork_board_1");
+    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board = newPainting(48, 32, "large_cork_board");
+    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board_1 = newPainting(48, 32, "large_cork_board_1");
+    public static final RegistrySupplier<PaintingVariant> Investigation_Cork_Board = newPainting(32, 16, "investigation_board");
+    public static final RegistrySupplier<PaintingVariant> Large_Investigation_Cork_Board = newPainting(48, 32, "large_investigation_board");
 }

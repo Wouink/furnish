@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 // copied from net.minecraft.client.gui.screens.inventory.ContainerScreen
 public class DiskRackScreen extends AbstractContainerScreen<DiskRackContainer> {
-	private static final ResourceLocation CONTAINER_BACKGROUND = new ResourceLocation(Furnish.MODID, "textures/gui/disk_rack.png");
+	private static final ResourceLocation CONTAINER_BACKGROUND = ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "textures/gui/disk_rack.png");
 	private final int containerRows = 1;
 
 	public DiskRackScreen(DiskRackContainer menu, Inventory playerInventory, Component title) {

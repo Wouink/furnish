@@ -8,7 +8,7 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v27 for Minecraft 1.20.4 (in development)
+## Furnish v27 for Minecraft 1.21 (in development)
 
 - **TODO** Fix an exploit with `C2S_UpdateItemStack` message
 - **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt

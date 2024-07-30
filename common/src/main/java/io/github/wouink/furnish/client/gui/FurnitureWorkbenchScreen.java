@@ -17,7 +17,7 @@ import java.util.List;
 
 // copied from net.minecraft.client.gui.screens.inventory.StonecutterScreen
 public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureWorkbenchContainer> {
-	private static final ResourceLocation BG_LOCATION = new ResourceLocation(Furnish.MODID, "textures/gui/furniture_workbench.png");
+	private static final ResourceLocation BG_LOCATION = ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "textures/gui/furniture_workbench.png");
 	private static final int SCROLLER_WIDTH = 12;
 	private static final int SCROLLER_HEIGHT = 15;
 	private static final int RECIPES_COLUMNS = 4;

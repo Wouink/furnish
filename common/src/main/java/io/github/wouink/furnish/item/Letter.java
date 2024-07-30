@@ -6,6 +6,7 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -35,17 +36,23 @@ public class Letter extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack letter, Level world, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		if(letter.hasTag()) {
-			CompoundTag letterTag = letter.getTag();
+	public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+		super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
+		if(itemStack.has(DataComponents)) {
+			CompoundTag letterTag = itemStack.getTag();
 			if(letterTag.contains("Author")) {
-				tooltip.add(Component.translatable("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));
 			}
 			if(letterTag.contains("Attachment")) {
 				ItemStack attachment = ItemStack.of(letterTag.getCompound("Attachment"));
-				tooltip.add(Component.translatable("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
+				list.add(Component.translatable("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
 			}
 		}
+	}
+
+	@Override
+	public void appendHoverText(ItemStack letter, Level world, List<Component> tooltip, TooltipFlag tooltipFlag) {
+
 	}
 
 	public static ItemStack addAttachment(ItemStack letter, ItemStack attachment) {

@@ -1,26 +1,22 @@
 {
   "schema_version": 1,
   "quilt_loader": {
-    "group": "io.github.wouink",
+    "group": "${group}",
     "id": "furnish",
     "version": "${version}",
     "metadata": {
       "name": "Furnish",
-      "description": "Adds lovely and useful furniture to Minecraft!",
+      "description": "This is an example description! Tell everyone what your mod is about!",
       "contributors": {
-        "Wouink": "Owner"
-      },
-      "contact": {
-        "homepage": "https://curseforge.com/minecraft/mc-mods/furnish",
-        "issues": "https://github.com/Wouink/furnish/issues",
-        "sources": "https://github.com/Wouink/furnish"
+        "Me!": "Author"
       },
       "icon": "assets/furnish/icon.png"
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "init": "io.github.wouink.furnish.quilt.FurnishQuilt",
-      "client": "io.github.wouink.furnish.fabriclike.FurnishFabricLikeClient"
+      "init": [
+        "io.github.wouink.quilt.ExampleModQuilt"
+      ]
     },
     "depends": [
       {
@@ -33,12 +29,15 @@
       },
       {
         "id": "minecraft",
-        "version": "~${minecraft_version}"
+        "version": ">=1.21"
       },
       {
         "id": "architectury",
-        "version": ">=9.1.12"
+        "version": ">=13.0.2"
       }
     ]
-  }
+  },
+  "mixin": [
+    "furnish.mixins.json"
+  ]
 }

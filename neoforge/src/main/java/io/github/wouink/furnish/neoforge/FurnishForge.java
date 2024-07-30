@@ -1,34 +1,37 @@
-package io.github.wouink.furnish.forge;
+package io.github.wouink.furnish.neoforge;
 
-import dev.architectury.platform.forge.EventBuses;
+import dev.architectury.platform.hooks.EventBusesHooks;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.client.renderer.SeatRenderer;
 import io.github.wouink.furnish.setup.FurnishRegistries;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(Furnish.MODID)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class FurnishForge {
 
     public FurnishForge() {
         Furnish.LOG.info("Initializing Furnish on Forge.");
-        EventBuses.registerModEventBus(Furnish.MODID, FMLJavaModLoadingContext.get().getModEventBus());
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::initClient);
+
+        EventBusesHooks.whenAvailable(Furnish.MODID, iEventBus -> {
+            iEventBus.addListener(this::init);
+            iEventBus.addListener(this::initClient);
+        });
+
         Furnish.init();
 
         // Architectury InteractionEvent.INTERACT_ENTITY does not seem to work with Armor Stands and Paintings...
-        MinecraftForge.EVENT_BUS.register(FurnishForgeEvents.class);
+        NeoForge.EVENT_BUS.register(FurnishForgeEvents.class);
     }
 
     private void init(final FMLCommonSetupEvent event) {
-        // no-op
+        // no op
     }
 
     private void initClient(final FMLClientSetupEvent event) {

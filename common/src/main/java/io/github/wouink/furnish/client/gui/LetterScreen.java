@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 public class LetterScreen extends Screen {
 	private static final Component SCREEN_NAME = Component.translatable("item.furnish.letter");
 	private static final Component SIGN_LETTER = Component.translatable("book.signButton");
-	private static final ResourceLocation LETTER_BACKGROUND = new ResourceLocation(Furnish.MODID, "textures/gui/letter.png");
+	private static final ResourceLocation LETTER_BACKGROUND = ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "textures/gui/letter.png");
 
 	// Max length is 16 lines of 18 characters
 	private static final int LETTER_MAX_LENGTH = 288;

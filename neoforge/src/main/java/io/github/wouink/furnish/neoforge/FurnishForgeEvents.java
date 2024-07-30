@@ -1,9 +1,9 @@
-package io.github.wouink.furnish.forge;
+package io.github.wouink.furnish.neoforge;
 
 import io.github.wouink.furnish.event.AddArmsToArmorStand;
 import io.github.wouink.furnish.event.CyclePainting;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 public class FurnishForgeEvents {
     @SubscribeEvent
