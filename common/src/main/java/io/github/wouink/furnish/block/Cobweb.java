@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -19,9 +20,15 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Cobweb extends HorizontalDirectionalBlock {
+	public static final MapCodec<Cobweb> CODEC = simpleCodec(Cobweb::new);
 	public static final EnumProperty HALF = BlockStateProperties.HALF;
 	public Cobweb(Properties p) {
 		super(p.noOcclusion().noCollission());
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

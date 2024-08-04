@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -12,9 +13,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Display extends HorizontalDirectionalBlock {
+    public static final MapCodec<Display> CODEC = simpleCodec(Display::new);
     private static final VoxelShape[] SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 1, 16, 16));
     public Display(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override

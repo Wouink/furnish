@@ -38,7 +38,7 @@ public class Letter extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
-		if(itemStack.has(DataComponents)) {
+		if(itemStack.has(FurnishRegistries.Letter_Attachment.get())) {
 			CompoundTag letterTag = itemStack.getTag();
 			if(letterTag.contains("Author")) {
 				list.add(Component.translatable("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));

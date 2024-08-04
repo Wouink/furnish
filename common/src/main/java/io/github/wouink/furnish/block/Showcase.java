@@ -1,15 +1,19 @@
 package io.github.wouink.furnish.block;
 
+import io.github.wouink.furnish.block.blockentity.ShelfBlockEntity;
 import io.github.wouink.furnish.block.blockentity.ShowcaseBlockEntity;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -49,29 +53,34 @@ public class Showcase extends HorizontalDirectionalBlock implements EntityBlock 
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		InteractionResult resultType = InteractionResult.FAIL;
-		if(!world.isClientSide()) {
-			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if (tileEntity instanceof ShowcaseBlockEntity) {
-				playerEntity.setItemInHand(hand, ((ShowcaseBlockEntity) tileEntity).swap(playerEntity.getItemInHand(hand)));
-				resultType = InteractionResult.SUCCESS;
-			}
-		}
-		return resultType == InteractionResult.SUCCESS ? InteractionResult.sidedSuccess(world.isClientSide()) : resultType;
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		return InteractionHelper.fromItem(useItemOn(ItemStack.EMPTY, blockState, level, blockPos, player, InteractionHand.MAIN_HAND, blockHitResult));
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
-		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if(tileEntity instanceof ShowcaseBlockEntity) {
-			ItemStack stack = ((ShowcaseBlockEntity) tileEntity).getHeldItem().copy();
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		ItemInteractionResult result = ItemInteractionResult.CONSUME;
+		if(!level.isClientSide()) {
+			BlockEntity blockEntity = level.getBlockEntity(blockPos);
+			if (blockEntity instanceof ShowcaseBlockEntity showcase) {
+				player.setItemInHand(interactionHand, showcase.swap(itemStack));
+				result = ItemInteractionResult.SUCCESS;
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+		BlockEntity blockEntity = levelReader.getBlockEntity(blockPos);
+		if(blockEntity instanceof ShelfBlockEntity shelf) {
+			ItemStack stack = shelf.getHeldItem().copy();
 			if(!stack.isEmpty()) {
 				stack.setCount(1);
 				return stack;
 			}
 		}
-		return super.getCloneItemStack(world, pos, state);
+		return super.getCloneItemStack(levelReader, blockPos, blockState);
 	}
 
 	@Override

@@ -1,8 +1,10 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -13,11 +15,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class Paper extends HorizontalDirectionalBlock {
+	public static final MapCodec<Paper> CODEC = simpleCodec(Paper::new);
 	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 1, 16);
 
 	public Paper(Properties p) {
@@ -25,8 +27,13 @@ public class Paper extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, BlockGetter blockGetter, List<Component> list, TooltipFlag tooltipFlag) {
-		super.appendHoverText(itemStack, blockGetter, list, tooltipFlag);
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+		super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
 		list.add(Component.translatable(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
 	}
 

@@ -1,12 +1,10 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.block.blockentity.BookshelfChestBlockEntity;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -62,7 +60,12 @@ public class BookshelfChest extends Block implements EntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if(!level.isClientSide() && !player.isSpectator() && level.getBlockEntity(blockPos) instanceof BookshelfChestBlockEntity bookshelf) {
             bookshelf.unpackLootTable(player);
             player.openMenu(bookshelf);

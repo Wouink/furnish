@@ -1,6 +1,8 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -9,7 +11,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,6 +32,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class Curtain extends HorizontalDirectionalBlock {
+	public static final MapCodec<Curtain> CODEC = simpleCodec(Curtain::new);
 	private static final VoxelShape[] CURTAIN = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 1, 16, 16));
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -38,6 +43,11 @@ public class Curtain extends HorizontalDirectionalBlock {
 
 	public Curtain(Properties p) {
 		super(p.noOcclusion());
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -92,10 +102,15 @@ public class Curtain extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult result) {
-		if(!world.isClientSide()) setCurtainsInLine(world, pos, !state.getValue(OPEN).booleanValue());
-		world.playSound(null, pos, FurnishRegistries.Curtain_Sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-		return InteractionResult.sidedSuccess(world.isClientSide());
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		if(!level.isClientSide()) setCurtainsInLine(level, blockPos, !blockState.getValue(OPEN).booleanValue());
+		level.playSound(null, blockPos, FurnishRegistries.Curtain_Sound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+		return InteractionResult.sidedSuccess(level.isClientSide());
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
 	}
 
 	private static void setCurtainsInColumn(LevelAccessor level, BlockPos pos, boolean open) {

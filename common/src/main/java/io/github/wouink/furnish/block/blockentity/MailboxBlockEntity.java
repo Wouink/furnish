@@ -5,6 +5,7 @@ import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -50,20 +51,20 @@ public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
-		ContainerHelper.saveAllItems(nbt, inventory);
-		nbt.putString("Owner", owner == null ? "" : owner);
-		nbt.putString("OwnerDisplayName", ownerDisplayName == null ? "" : ownerDisplayName);
+	protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.saveAdditional(compoundTag, provider);
+		ContainerHelper.saveAllItems(compoundTag, inventory, provider);
+		compoundTag.putString("Owner", owner == null ? "" : owner);
+		compoundTag.putString("OwnerDisplayName", ownerDisplayName == null ? "" : ownerDisplayName);
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
+	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.loadAdditional(compoundTag, provider);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(nbt, inventory);
-		owner = nbt.getString("Owner");
-		ownerDisplayName = nbt.getString("OwnerDisplayName");
+		ContainerHelper.loadAllItems(compoundTag, inventory, provider);
+		owner = compoundTag.getString("Owner");
+		ownerDisplayName = compoundTag.getString("OwnerDisplayName");
 	}
 
 	@Override

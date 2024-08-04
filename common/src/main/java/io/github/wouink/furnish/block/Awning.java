@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,6 +18,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class Awning extends HorizontalDirectionalBlock {
+
+	public static final MapCodec<Awning> CODEC = simpleCodec(Awning::new);
 	public static final VoxelShape AWNING_SHAPE = Block.box(0, 0, 0, 16, 2, 16);
 	public static final BooleanProperty LEFT = BooleanProperty.create("left");
 	public static final BooleanProperty RIGHT = BooleanProperty.create("right");
@@ -24,6 +27,11 @@ public class Awning extends HorizontalDirectionalBlock {
 	public Awning(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LEFT, false).setValue(RIGHT, false));
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

@@ -1,21 +1,22 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,11 +24,16 @@ import net.minecraft.world.phys.BlockHitResult;
 
 
 public class FurnitureWorkbench extends HorizontalDirectionalBlock {
+	public static final MapCodec<FurnitureWorkbench> CODEC = simpleCodec(FurnitureWorkbench::new);
 	private static final Component Container_Name = Component.translatable("container.furniture_workbench");
 
 	public FurnitureWorkbench() {
 		super(Properties.of().strength(1.0f).sound(SoundType.WOOD).noOcclusion());
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+	}
+
+	public FurnitureWorkbench(BlockBehaviour.Properties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -42,13 +48,18 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-		if(worldIn.isClientSide()) return InteractionResult.SUCCESS;
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return InteractionResult.SUCCESS;
 		else {
-			player.openMenu(state.getMenuProvider(worldIn, pos));
+			player.openMenu(blockState.getMenuProvider(level, blockPos));
 			player.awardStat(Stats.INTERACT_WITH_STONECUTTER);
 			return InteractionResult.CONSUME;
 		}
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
 	}
 
 	@Override
@@ -56,5 +67,10 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
 		return new SimpleMenuProvider((i, inventory, player) -> {
 			return new FurnitureWorkbenchContainer(i, inventory, ContainerLevelAccess.create(level, pos));
 		}, Container_Name);
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return null;
 	}
 }

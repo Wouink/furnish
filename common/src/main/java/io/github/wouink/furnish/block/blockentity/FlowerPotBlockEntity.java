@@ -4,6 +4,7 @@ import io.github.wouink.furnish.block.FlowerPot;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -53,15 +54,15 @@ public class FlowerPotBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
-		if(!this.trySaveLootTable(tag)) ContainerHelper.saveAllItems(tag, inventory);
+	protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.saveAdditional(compoundTag, provider);
+		if(!this.trySaveLootTable(compoundTag)) ContainerHelper.saveAllItems(compoundTag, inventory, provider);
 	}
 
 	@Override
-	public void load(CompoundTag tag) {
-		super.load(tag);
-		if(!this.tryLoadLootTable(tag)) ContainerHelper.loadAllItems(tag, inventory);
+	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.loadAdditional(compoundTag, provider);
+		if(!this.tryLoadLootTable(compoundTag)) ContainerHelper.loadAllItems(compoundTag, inventory, provider);
 	}
 
 	public ItemStack setPlant(int slot, ItemStack stack) {

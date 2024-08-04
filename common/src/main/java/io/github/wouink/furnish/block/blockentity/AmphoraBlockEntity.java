@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
@@ -42,19 +43,19 @@ public class AmphoraBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
+	protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+		super.saveAdditional(nbt, provider);
 		if(!this.trySaveLootTable(nbt)) {
-			ContainerHelper.saveAllItems(nbt, inventory);
+			ContainerHelper.saveAllItems(nbt, inventory, provider);
 		}
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
+	protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+		super.loadAdditional(nbt, provider);
 		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
 		if(!this.tryLoadLootTable(nbt)) {
-			ContainerHelper.loadAllItems(nbt, inventory);
+			ContainerHelper.loadAllItems(nbt, inventory, provider);
 		}
 	}
 

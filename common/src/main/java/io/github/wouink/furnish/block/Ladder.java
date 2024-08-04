@@ -1,10 +1,11 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -22,10 +23,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class Ladder extends HorizontalDirectionalBlock {
+	public static final MapCodec<Ladder> CODEC = simpleCodec(Ladder::new);
 	private static final VoxelShape[] SHAPES = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 3, 16, 16));
 
 	public Ladder(Properties p) {
 		super(p.noOcclusion());
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -45,30 +52,29 @@ public class Ladder extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if(world.isClientSide()) return InteractionResult.SUCCESS;
-		ItemStack stack = player.getItemInHand(hand);
-		if(!(stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof Ladder)) return InteractionResult.FAIL;
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
+		if(!(itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof Ladder)) return ItemInteractionResult.FAIL;
 
 		// first option = place down
-		BlockPos search = pos.below();
-		while(world.getBlockState(search).getBlock() instanceof Ladder) search = search.below();
-		if(!world.isEmptyBlock(search)) {
+		BlockPos search = blockPos.below();
+		while(level.getBlockState(search).getBlock() instanceof Ladder) search = search.below();
+		if(!level.isEmptyBlock(search)) {
 			// second option = place up
-			search = pos.above();
-			while(world.getBlockState(search).getBlock() instanceof Ladder) search = search.above();
+			search = blockPos.above();
+			while(level.getBlockState(search).getBlock() instanceof Ladder) search = search.above();
 		}
 
-		if(world.isEmptyBlock(search)) {
-			world.setBlockAndUpdate(search, blockItem.getBlock().defaultBlockState().setValue(FACING, state.getValue(FACING)));
-			world.playSound(null, search, this.getSoundType(this.defaultBlockState()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+		if(level.isEmptyBlock(search)) {
+			level.setBlockAndUpdate(search, blockItem.getBlock().defaultBlockState().setValue(FACING, blockState.getValue(FACING)));
+			level.playSound(null, search, this.getSoundType(this.defaultBlockState()).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
 			if(!player.isCreative()) {
-				stack.shrink(1);
-				player.setItemInHand(hand, stack);
+				itemStack.shrink(1);
+				player.setItemInHand(interactionHand, itemStack);
 			}
-			return InteractionResult.SUCCESS;
+			return ItemInteractionResult.SUCCESS;
 		}
 
-		return InteractionResult.FAIL;
+		return ItemInteractionResult.FAIL;
 	}
 }

@@ -4,6 +4,7 @@ import io.github.wouink.furnish.block.container.DiskRackContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -27,16 +28,16 @@ public class DiskRackBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
+	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.loadAdditional(compoundTag, provider);
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(nbt, inventory);
+		ContainerHelper.loadAllItems(nbt, inventory, provider);
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
-		ContainerHelper.saveAllItems(nbt, inventory);
+	protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.saveAdditional(compoundTag, provider);
+		ContainerHelper.saveAllItems(nbt, inventory, provider);
 	}
 
 	@Override

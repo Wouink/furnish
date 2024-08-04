@@ -38,26 +38,21 @@ public class TallInventoryFurniture extends TallFurniture implements EntityBlock
 		return state.getValue(TOP).booleanValue() ? null : new LargeFurnitureBlockEntity(pos, state);
 	}
 
+	public BlockPos getBlockEntity(BlockPos blockPos, Level level, BlockState blockState) {
+		return blockState.getValue(TOP).booleanValue() ? blockPos.below() : blockPos;
+	}
+
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult blockRayTraceResult) {
-		if(world.isClientSide()) return InteractionResult.SUCCESS;
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return InteractionResult.SUCCESS;
 		else {
-			BlockEntity tileEntity = state.getValue(TOP).booleanValue() ? world.getBlockEntity(pos.below()) : world.getBlockEntity(pos);
-			if(tileEntity instanceof LargeFurnitureBlockEntity) {
-				playerEntity.openMenu((MenuProvider) tileEntity);
+			BlockEntity blockEntity = level.getBlockEntity(getBlockEntity(blockPos, level, blockState));
+			if(blockEntity instanceof LargeFurnitureBlockEntity furniture) {
+				player.openMenu(furniture);
 			}
 			return InteractionResult.CONSUME;
 		}
 	}
-
-//	@Override
-//	public ISidedInventory getContainer(BlockState state, IWorld world, BlockPos pos) {
-//		TileEntity tileEntity = state.getValue(TOP).booleanValue() ? world.getBlockEntity(pos.below()) : world.getBlockEntity(pos);
-//		if(tileEntity instanceof ISidedInventoryProvider) {
-//			return (ISidedInventory) tileEntity;
-//		}
-//		return null;
-//	}
 
 	@Override
 	public SoundEvent getOpenSound() {

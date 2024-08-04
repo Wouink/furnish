@@ -5,6 +5,7 @@ import io.github.wouink.furnish.block.container.BookshelfChestContainer;
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -40,16 +41,16 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
     }
 
     @Override
-    public void load(CompoundTag compoundTag) {
-        super.load(compoundTag);
+    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.loadAdditional(compoundTag, provider);
         this.inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-        if(!tryLoadLootTable(compoundTag)) ContainerHelper.loadAllItems(compoundTag, inventory);
+        if(!tryLoadLootTable(compoundTag)) ContainerHelper.loadAllItems(compoundTag, inventory, provider);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
-        if(!trySaveLootTable(compoundTag)) ContainerHelper.saveAllItems(compoundTag, inventory);
+    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+        super.saveAdditional(compoundTag, provider);
+        if(!trySaveLootTable(compoundTag)) ContainerHelper.saveAllItems(compoundTag, inventory, provider);
     }
 
     @Override

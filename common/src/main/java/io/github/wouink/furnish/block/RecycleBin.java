@@ -14,6 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -55,8 +56,8 @@ public class RecycleBin extends Block implements EntityBlock {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, BlockGetter blockGetter, List<Component> list, TooltipFlag tooltipFlag) {
-		super.appendHoverText(itemStack, blockGetter, list, tooltipFlag);
+	public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+		super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
 		list.add(Component.translatable("block.furnish.recycle_bin.tooltip.1").withStyle(ChatFormatting.GRAY));
 		list.add(Component.translatable("block.furnish.recycle_bin.tooltip.2").withStyle(ChatFormatting.GRAY));
 	}
@@ -86,6 +87,34 @@ public class RecycleBin extends Block implements EntityBlock {
 			}
 			return InteractionResult.CONSUME;
 		}
+	}
+
+	@Override
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return InteractionResult.SUCCESS;
+		BlockEntity blockEntity = level.getBlockEntity(blockPos);
+		if(blockEntity instanceof RecycleBinBlockEntity recycleBin) {
+			if(player.isCrouching()) recycleBin.empty();
+			else player.openMenu(recycleBin);
+		}
+		return InteractionResult.CONSUME;
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
+		BlockEntity blockEntity = level.getBlockEntity(blockPos);
+		if(blockEntity instanceof RecycleBinBlockEntity recycleBin) {
+			if(player.isCrouching()) recycleBin.empty();
+			else if(!itemStack.isEmpty()) {
+				player.setItemInHand(interactionHand, recycleBin.addItem(itemStack));
+				// if item was added to recycle bin, player's hand should now be empty
+				if(!player.getItemInHand(interactionHand).isEmpty()) {
+					player.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_full"), true);
+				} else level.playSound(null, blockPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
+			} else player.openMenu(recycleBin);
+		}
+		return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
 	}
 
 	@Override

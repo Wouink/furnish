@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -10,14 +11,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class SimpleFurniture extends HorizontalDirectionalBlock {
+	public static final MapCodec<SimpleFurniture> CODEC = simpleCodec(SimpleFurniture::new);
 	private boolean supportShape = true;
 
 	public SimpleFurniture(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	public SimpleFurniture(Properties p, boolean _supportShape) {

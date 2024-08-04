@@ -1,12 +1,16 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,13 +22,18 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class ChessBoard extends HorizontalDirectionalBlock {
+	public static final MapCodec<ChessBoard> CODEC = simpleCodec(ChessBoard::new);
 	public static final IntegerProperty STATE = FurnishBlocks.CustomProperties.COUNT_3;
 	public static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 1, 14);
 	public ChessBoard(Properties p) {
 		super(p);
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -44,11 +53,16 @@ public class ChessBoard extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
 		if(!level.isClientSide()) {
-			level.setBlock(pos, state.cycle(STATE), Block.UPDATE_ALL);
-			level.playSound(null, pos, SoundEvents.STONE_PLACE, SoundSource.PLAYERS, 1.0f, 1.0f);
+			level.setBlock(blockPos, blockState.cycle(STATE), Block.UPDATE_ALL);
+			level.playSound(null, blockPos, SoundEvents.STONE_PLACE, SoundSource.PLAYERS, 1.0f, 1.0f);
 		}
 		return InteractionResult.sidedSuccess(level.isClientSide());
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
 	}
 }

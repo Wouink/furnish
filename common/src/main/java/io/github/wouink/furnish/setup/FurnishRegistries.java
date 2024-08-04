@@ -9,7 +9,10 @@ import io.github.wouink.furnish.block.container.*;
 import io.github.wouink.furnish.block.blockentity.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -32,6 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public class FurnishRegistries {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Furnish.MODID, Registries.BLOCK);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Furnish.MODID, Registries.ITEM);
+    public static final DeferredRegister<DataComponentType<?>> DATA_ATTACHMENTS = DeferredRegister.create(Furnish.MODID, Registries.DATA_COMPONENT_TYPE);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Furnish.MODID, Registries.RECIPE_TYPE);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Furnish.MODID, Registries.RECIPE_SERIALIZER);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Furnish.MODID, Registries.SOUND_EVENT);
@@ -79,6 +83,9 @@ public class FurnishRegistries {
 
     // SingleItemRecipe.Serializer is made public with access wideners
     public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new));
+
+    // Data attachments
+    public static final RegistrySupplier<DataComponentType<Component>> Letter_Attachment = DATA_ATTACHMENTS.register("attachment", () -> DataComponentType.<Component>builder().build());
 
     // Containers
 

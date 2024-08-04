@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -51,7 +52,13 @@ public class CarpetOnStairs extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter world, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
 		return new ItemStack(clone);
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		// todo this can stay null for now
+		return null;
 	}
 }

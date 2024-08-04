@@ -4,7 +4,7 @@ import io.github.wouink.furnish.setup.FurnishBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -54,22 +54,21 @@ public class Bunting extends Block {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if(level.isClientSide()) return InteractionResult.FAIL;
-		ItemStack stack = player.getItemInHand(hand);
-		if(stack.isEmpty()) return InteractionResult.FAIL;
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return ItemInteractionResult.FAIL;
+		if(itemStack.isEmpty()) return ItemInteractionResult.FAIL;
 
-		Item item = stack.getItem();
+		Item item = itemStack.getItem();
 		Block block;
 		if(item == Items.SOUL_LANTERN) block = FurnishBlocks.Soul_Lantern_Bunting.get();
 		else if(item == Items.LANTERN) block = FurnishBlocks.Lantern_Bunting.get();
-		else return InteractionResult.FAIL;
+		else return ItemInteractionResult.FAIL;
 
-		level.destroyBlock(pos, true);
-		level.setBlock(pos, block.defaultBlockState().setValue(LanternBunting.Z_AXIS, state.getValue(Z_AXIS)), Block.UPDATE_ALL);
-		stack.shrink(1);
-		player.setItemInHand(hand, stack);
+		level.destroyBlock(blockPos, true);
+		level.setBlock(blockPos, block.defaultBlockState().setValue(LanternBunting.Z_AXIS, blockState.getValue(Z_AXIS)), Block.UPDATE_ALL);
+		itemStack.shrink(1);
+		player.setItemInHand(interactionHand, itemStack);
 
-		return InteractionResult.SUCCESS;
+		return ItemInteractionResult.SUCCESS;
 	}
 }

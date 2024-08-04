@@ -1,14 +1,18 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -54,16 +58,27 @@ public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter reader, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
 		return new ItemStack(clone);
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		BlockState below = world.getBlockState(pos.below());
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		BlockState below = level.getBlockState(blockPos.below());
 		if(below.getBlock() instanceof TrapDoorBlock) {
-			return below.use(world, playerEntity, hand, hitResult.withPosition(pos.below()));
+			return below.useWithoutItem(level, player, blockHitResult);
 		}
 		return InteractionResult.FAIL;
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		// todo this can stay null for now
+		return null;
 	}
 }

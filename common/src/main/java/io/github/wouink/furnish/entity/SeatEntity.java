@@ -6,11 +6,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class SeatEntity extends Entity {
 	}
 
 	@Override
-	protected void defineSynchedData() {
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
 	}
 
@@ -62,13 +65,14 @@ public class SeatEntity extends Entity {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkManager.createAddEntityPacket(this);
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
+		return NetworkManager.createAddEntityPacket(this, serverEntity);
 	}
 
 	@Override
-	public double getMyRidingOffset() {
-		return 0.0;
+	public Vec3 getPassengerRidingPosition(Entity entity) {
+		// todo check player is correctly positioned
+		return new Vec3(0, 0, 0);
 	}
 
 	public static InteractionResult create(Level world, BlockPos pos, double yOffset, Player playerEntity) {

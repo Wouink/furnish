@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.util.PlacementHelper;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
@@ -8,8 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -29,6 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.function.Function;
 
 public class Shutter extends HorizontalDirectionalBlock {
+	public static final MapCodec<Shutter> CODEC = simpleCodec(Shutter::new);
 	private static final VoxelShape[] SHUTTER_CLOSED = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 2, 16, 16));
 	private static final VoxelShape[] SHUTTER_HALF_OPENED = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 14, 16, 16, 16));
 	private static final VoxelShape[] SHUTTER_HALF_OPENED_R = VoxelShapeHelper.getRotatedShapes(Block.box(0, 0, 0, 16, 16, 2));
@@ -65,6 +66,11 @@ public class Shutter extends HorizontalDirectionalBlock {
 	}
 
 	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, STATE, RIGHT);
@@ -76,19 +82,20 @@ public class Shutter extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		if(world.setBlock(pos, state.cycle(STATE), Block.UPDATE_ALL)) {
-			world.playSound(playerEntity, pos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0f, 1.0f);
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		if(level.setBlock(blockPos, blockState.cycle(STATE), Block.UPDATE_ALL)) {
+			level.playSound(player, blockPos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0f, 1.0f);
+
 			// update shutters in the same column
-			boolean rightProp = world.getBlockState(pos).getValue(RIGHT).booleanValue();
-			BlockPos scan = pos.below();
-			while(world.getBlockState(scan).getBlock() == this && world.getBlockState(scan).getValue(RIGHT) == rightProp) {
-				world.setBlock(scan, world.getBlockState(pos), Block.UPDATE_ALL);
+			boolean rightProp = level.getBlockState(blockPos).getValue(RIGHT).booleanValue();
+			BlockPos scan = blockPos.below();
+			while(level.getBlockState(scan).getBlock() == this && level.getBlockState(scan).getValue(RIGHT) == rightProp) {
+				level.setBlock(scan, level.getBlockState(blockPos), Block.UPDATE_ALL);
 				scan = scan.below();
 			}
-			scan = pos.above();
-			while(world.getBlockState(scan).getBlock() == this && world.getBlockState(scan).getValue(RIGHT) == rightProp) {
-				world.setBlock(scan, world.getBlockState(pos), Block.UPDATE_ALL);
+			scan = blockPos.above();
+			while(level.getBlockState(scan).getBlock() == this && level.getBlockState(scan).getValue(RIGHT) == rightProp) {
+				level.setBlock(scan, level.getBlockState(blockPos), Block.UPDATE_ALL);
 				scan = scan.above();
 			}
 		}

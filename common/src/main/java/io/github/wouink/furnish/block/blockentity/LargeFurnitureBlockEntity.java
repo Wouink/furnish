@@ -3,6 +3,7 @@ package io.github.wouink.furnish.block.blockentity;
 import io.github.wouink.furnish.block.util.IFurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
@@ -39,19 +40,18 @@ public class LargeFurnitureBlockEntity extends RandomizableContainerBlockEntity 
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
-		if(!this.trySaveLootTable(nbt)) {
-			ContainerHelper.saveAllItems(nbt, inventory);
+	protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.saveAdditional(compoundTag, provider);
+		if(!this.trySaveLootTable(compoundTag)) {
+			ContainerHelper.saveAllItems(compoundTag, inventory, provider);
 		}
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
-		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		if(!this.tryLoadLootTable(nbt)) {
-			ContainerHelper.loadAllItems(nbt, inventory);
+	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.loadAdditional(compoundTag, provider);
+		if(!this.tryLoadLootTable(compoundTag)) {
+			ContainerHelper.loadAllItems(compoundTag, inventory, provider);
 		}
 	}
 

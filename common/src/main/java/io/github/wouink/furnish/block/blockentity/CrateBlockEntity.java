@@ -3,6 +3,7 @@ package io.github.wouink.furnish.block.blockentity;
 import io.github.wouink.furnish.block.container.CrateContainer;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -36,31 +37,27 @@ public class CrateBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
+	public void saveAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+		super.saveAdditional(nbt, provider);
 		if(!this.trySaveLootTable(nbt)) {
-			ContainerHelper.saveAllItems(nbt, inventory, false);
+			ContainerHelper.saveAllItems(nbt, inventory, provider);
 		}
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
-		loadFromTag(nbt);
+	protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+		super.loadAdditional(nbt, provider);
+		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
+		if(!this.tryLoadLootTable(nbt) && nbt.contains("Items", 9)) {
+			ContainerHelper.loadAllItems(nbt, inventory, provider);
+		}
 	}
 
 	public CompoundTag saveToTag(CompoundTag nbt) {
 		if(!this.tryLoadLootTable(nbt)) {
-			ContainerHelper.saveAllItems(nbt, this.inventory, false);
+			ContainerHelper.saveAllItems(nbt, this.inventory, null);
 		}
 		return nbt;
-	}
-
-	public void loadFromTag(CompoundTag nbt) {
-		inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-		if(!this.tryLoadLootTable(nbt) && nbt.contains("Items", 9)) {
-			ContainerHelper.loadAllItems(nbt, inventory);
-		}
 	}
 
 	@Override

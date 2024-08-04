@@ -1,10 +1,13 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.blockentity.DiskRackBlockEntity;
+import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,11 +24,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock {
+	public static final MapCodec<DiskRack> CODEC = simpleCodec(DiskRack::new);
 	private static final VoxelShape RACK_X = Block.box(0, 0, 4, 16, 2, 12);
 	private static final VoxelShape RACK_Z = Block.box(4, 0, 0, 12, 2, 16);
 
 	public DiskRack(Properties p) {
 		super(p.noOcclusion());
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override
@@ -50,15 +59,20 @@ public class DiskRack extends HorizontalDirectionalBlock implements EntityBlock 
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		if(world.isClientSide()) return InteractionResult.SUCCESS;
+	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+		if(level.isClientSide()) return InteractionResult.SUCCESS;
 		else {
-			BlockEntity tileEntity = world.getBlockEntity(pos);
+			BlockEntity tileEntity = level.getBlockEntity(blockPos);
 			if(tileEntity instanceof DiskRackBlockEntity) {
-				playerEntity.openMenu((MenuProvider) tileEntity);
+				player.openMenu((MenuProvider) tileEntity);
 			}
 			return InteractionResult.CONSUME;
 		}
+	}
+
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+		return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
 	}
 
 	@Override

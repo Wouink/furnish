@@ -2,10 +2,12 @@ package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.util.TileEntityHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,15 +22,15 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag nbt) {
-		super.load(nbt);
-		holding = ItemStack.of(nbt.getCompound("Held"));
+	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.loadAdditional(compoundTag, provider);
+		ItemStack.parse(null, compoundTag.getCompound("Held"));
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag nbt) {
-		super.saveAdditional(nbt);
-		nbt.put("Held", holding.save(new CompoundTag()));
+	protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
+		super.saveAdditional(compoundTag, provider);
+		compoundTag.put("Held", holding.save(null, new CompoundTag()));
 	}
 
 	public ItemStack getHeldItem() {

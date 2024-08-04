@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class SnowOnFence extends Block {
 	public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
@@ -85,7 +84,7 @@ public class SnowOnFence extends Block {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState) {
+	public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
 		return new ItemStack(Blocks.SNOW);
 	}
 }
