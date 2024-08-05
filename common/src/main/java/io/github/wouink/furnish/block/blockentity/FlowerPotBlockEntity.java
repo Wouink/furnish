@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.FlowerPot;
-import io.github.wouink.furnish.block.util.TileEntityHelper;
+import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -72,7 +72,7 @@ public class FlowerPotBlockEntity extends RandomizableContainerBlockEntity {
 			inventory.set(slot, stack);
 		}
 		setItems(inventory);
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 		return ret;
 	}
 
@@ -88,19 +88,7 @@ public class FlowerPotBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		CompoundTag tag = this.saveWithoutMetadata();
-		return tag;
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
-
-	/*
-	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		this.load(pkt.getTag());
-	}
-	@Override
-	public void handleUpdateTag(CompoundTag tag) {
-		load(tag);
-	}
-	 */
 }

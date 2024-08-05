@@ -33,7 +33,7 @@ public class InteractWithShutterThroughWindow {
             if (potentiallyShutter.getBlock() instanceof Shutter shutter) {
                 Furnish.debug("-> it has a shutter attached");
                 BlockHitResult blockHitResult = new BlockHitResult(afterWindow.getCenter(), face, afterWindow, true);
-                InteractionResult res = shutter.use(potentiallyShutter, level, afterWindow, player, hand, blockHitResult);
+                InteractionResult res = shutter.useWithoutItem(potentiallyShutter, level, afterWindow, player, blockHitResult);
                 if(res == InteractionResult.SUCCESS || res == InteractionResult.CONSUME) {
                     Furnish.debug("-> interaction with the shutter went ok");
                     return EventResult.interruptTrue();

@@ -6,8 +6,6 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,55 +36,41 @@ public class Letter extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
-		if(itemStack.has(FurnishRegistries.Letter_Attachment.get())) {
-			CompoundTag letterTag = itemStack.getTag();
-			if(letterTag.contains("Author")) {
-				list.add(Component.translatable("tooltip.furnish.letter.author", letterTag.getString("Author")).withStyle(ChatFormatting.GRAY));
-			}
-			if(letterTag.contains("Attachment")) {
-				ItemStack attachment = ItemStack.of(letterTag.getCompound("Attachment"));
-				list.add(Component.translatable("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
-			}
+		if(itemStack.has(FurnishRegistries.Letter_Author.get())) {
+			list.add(Component.translatable("tooltip.furnish.letter.author", itemStack.get(FurnishRegistries.Letter_Author.get())).withStyle(ChatFormatting.GRAY));
 		}
-	}
-
-	@Override
-	public void appendHoverText(ItemStack letter, Level world, List<Component> tooltip, TooltipFlag tooltipFlag) {
-
+		if(itemStack.has(FurnishRegistries.Letter_Attachment.get())) {
+			ItemStack attachment = itemStack.get(FurnishRegistries.Letter_Attachment.get());
+			list.add(Component.translatable("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
+		}
 	}
 
 	public static ItemStack addAttachment(ItemStack letter, ItemStack attachment) {
-		CompoundTag letterTag = letter.getOrCreateTag();
-		if(!letterTag.contains("Attachment")) {
-			CompoundTag attachmentTag = new CompoundTag();
-			letterTag.put("Attachment", attachment.save(attachmentTag));
-			letter.setTag(letterTag);
+		if(letter.has(FurnishRegistries.Letter_Attachment.get())) {
+			return attachment;
+		} else {
+			letter.set(FurnishRegistries.Letter_Attachment.get(), attachment);
 			return ItemStack.EMPTY;
 		}
-		return attachment;
 	}
 
 	public static ItemStack removeAttachment(ItemStack letter) {
-		CompoundTag letterTag = letter.getOrCreateTag();
-		if(letterTag.contains("Attachment")) {
-			ItemStack attachment = ItemStack.of(letterTag.getCompound("Attachment"));
-			letterTag.remove("Attachment");
-			letter.setTag(letterTag);
+		if(letter.has(FurnishRegistries.Letter_Attachment.get())) {
+			ItemStack attachment = letter.get(FurnishRegistries.Letter_Attachment.get());
+			letter.remove(FurnishRegistries.Letter_Attachment.get());
 			return attachment;
 		}
 		return ItemStack.EMPTY;
 	}
 
 	public static void signLetter(ItemStack letter, String author) {
-		CompoundTag letterTag = letter.getOrCreateTag();
-		if(!letterTag.contains("Author")) letterTag.putString("Author", author);
-		letter.setTag(letterTag);
+		if(!letter.has(FurnishRegistries.Letter_Author.get())) {
+			letter.set(FurnishRegistries.Letter_Author.get(), author);
+		}
 	}
 
 	public static boolean canEditLetter(ItemStack letter) {
-		CompoundTag letterTag = letter.getOrCreateTag();
-		if(letterTag.contains("Author")) return false;
-		return true;
+		return letter.has(FurnishRegistries.Letter_Author.get());
 	}
 
 	@Override

@@ -72,24 +72,6 @@ public class RecycleBin extends Block implements EntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player playerEntity, InteractionHand hand, BlockHitResult hitResult) {
-		if(world.isClientSide()) return InteractionResult.SUCCESS;
-		else {
-			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof RecycleBinBlockEntity rb) {
-				if(playerEntity.isCrouching()) rb.empty();
-				else if(!playerEntity.getItemInHand(hand).isEmpty()) {
-					playerEntity.setItemInHand(hand, rb.addItem(playerEntity.getItemInHand(hand)));
-					if(!playerEntity.getItemInHand(hand).isEmpty()) {
-						playerEntity.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_full"), true);
-					} else world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
-				} else playerEntity.openMenu((MenuProvider) tileEntity);
-			}
-			return InteractionResult.CONSUME;
-		}
-	}
-
-	@Override
 	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
 		if(level.isClientSide()) return InteractionResult.SUCCESS;
 		BlockEntity blockEntity = level.getBlockEntity(blockPos);

@@ -8,6 +8,11 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
+## Reworks (todo, maybe)
+
+- `SittingFurniture` interface to avoid duplicating sitting code?
+- Refactor Mailbox block entity code
+
 ## Furnish v27 for Minecraft 1.21 (in development)
 
 - **TODO** Fix an exploit with `C2S_UpdateItemStack` message

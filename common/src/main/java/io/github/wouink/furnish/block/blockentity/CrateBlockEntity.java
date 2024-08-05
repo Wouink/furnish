@@ -53,13 +53,6 @@ public class CrateBlockEntity extends RandomizableContainerBlockEntity {
 		}
 	}
 
-	public CompoundTag saveToTag(CompoundTag nbt) {
-		if(!this.tryLoadLootTable(nbt)) {
-			ContainerHelper.saveAllItems(nbt, this.inventory, null);
-		}
-		return nbt;
-	}
-
 	@Override
 	protected Component getDefaultName() {
 		return this.getBlockState().getBlock().getName();

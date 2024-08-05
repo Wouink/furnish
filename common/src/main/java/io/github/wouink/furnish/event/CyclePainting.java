@@ -56,7 +56,7 @@ public class CyclePainting {
 		Iterable<Holder<PaintingVariant>> allVariants = level.getServer().registryAccess().registryOrThrow(Registries.PAINTING_VARIANT).getTagOrEmpty(PaintingVariantTags.PLACEABLE);
 		for(Holder<PaintingVariant> holder : allVariants) {
 			PaintingVariant art = holder.value();
-			if(art.getWidth() == reference.getWidth() && art.getHeight() == reference.getHeight()) {
+			if(art.width() == reference.width() && art.height() == reference.height()) {
 				similar.add(holder);
 			}
 		}

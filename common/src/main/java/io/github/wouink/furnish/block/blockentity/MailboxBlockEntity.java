@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.container.MailboxContainer;
-import io.github.wouink.furnish.block.util.TileEntityHelper;
+import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
@@ -87,7 +87,7 @@ public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 			String playerName = playerEntity.getGameProfile().getName();
 			if(ownerDisplayName == null || !ownerDisplayName.equals(playerName)) {
 				ownerDisplayName = playerName;
-				TileEntityHelper.broadcastUpdate(this, false);
+				BlockEntityHelper.broadcastUpdate(this, false);
 			}
 		}
 	}
@@ -126,7 +126,7 @@ public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 		int slot = getFreeSlot();
 		if(slot < getContainerSize()) {
 			ItemStack result = inventory.set(slot, stack);
-			TileEntityHelper.broadcastUpdate(this, false);
+			BlockEntityHelper.broadcastUpdate(this, false);
 
 			if(result.isEmpty()) {
 				Player mailboxOwner = level.getPlayerByUUID(getOwner());
@@ -137,7 +137,7 @@ public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 						mailboxOwner.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail"), true);
 					}
 					if(mailboxOwner instanceof ServerPlayer serverPlayer)
-					TileEntityHelper.playSoundToPlayer(serverPlayer, FurnishRegistries.Mail_Received_Sound.get(), SoundSource.MASTER, 1.0f, 1.0f);
+					BlockEntityHelper.playSoundToPlayer(serverPlayer, FurnishRegistries.Mail_Received_Sound.get(), SoundSource.MASTER, 1.0f, 1.0f);
 				}
 			}
 
@@ -178,7 +178,7 @@ public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		return this.saveWithFullMetadata();
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithFullMetadata(provider);
 	}
 }

@@ -1,13 +1,12 @@
 package io.github.wouink.furnish.block.blockentity;
 
-import io.github.wouink.furnish.block.util.TileEntityHelper;
+import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -40,7 +39,7 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 	public ItemStack swap(ItemStack newStack) {
 		ItemStack ret = holding;
 		holding = newStack;
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 		return ret;
 	}
 
@@ -58,9 +57,10 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 	}
 	 */
 
+
 	@Override
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 	/*

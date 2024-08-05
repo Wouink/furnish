@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class TileEntityHelper {
+public class BlockEntityHelper {
 
 	public static void playSoundToPlayer(ServerPlayer player, SoundEvent sound, SoundSource source, float volume, float pitch) {
 		ClientboundSoundPacket pkt = new ClientboundSoundPacket((Holder<SoundEvent>) sound, source, player.getX(), player.getY(), player.getZ(), volume, pitch, player.level().getRandom().nextLong());

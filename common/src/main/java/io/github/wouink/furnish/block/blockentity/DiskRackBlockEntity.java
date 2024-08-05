@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.blockentity;
 
-import io.github.wouink.furnish.block.container.DiskRackContainer;
-import io.github.wouink.furnish.block.util.TileEntityHelper;
+import io.github.wouink.furnish.block.container.DiskRackMenu;
+import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -31,13 +31,13 @@ public class DiskRackBlockEntity extends RandomizableContainerBlockEntity {
 	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
 		super.loadAdditional(compoundTag, provider);
 		inventory = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(nbt, inventory, provider);
+		ContainerHelper.loadAllItems(compoundTag, inventory, provider);
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
 		super.saveAdditional(compoundTag, provider);
-		ContainerHelper.saveAllItems(nbt, inventory, provider);
+		ContainerHelper.saveAllItems(compoundTag, inventory, provider);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class DiskRackBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
-		return new DiskRackContainer(syncId, playerInventory, this);
+		return new DiskRackMenu(syncId, playerInventory, this);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class DiskRackBlockEntity extends RandomizableContainerBlockEntity {
 	public void setItem(int slot, ItemStack stack) {
 		super.setItem(slot, stack);
 		// update for render
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 	}
 
 	@Override
@@ -84,18 +84,7 @@ public class DiskRackBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		return this.saveWithoutMetadata();
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
-
-	/*
-	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		this.load(pkt.getTag());
-	}
-	@Override
-	public void handleUpdateTag(CompoundTag tag) {
-		load(tag);
-	}
-	 */
 }

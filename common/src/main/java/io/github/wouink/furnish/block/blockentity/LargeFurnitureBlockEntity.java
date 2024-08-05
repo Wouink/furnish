@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.blockentity;
 
-import io.github.wouink.furnish.block.util.IFurnitureWithSound;
+import io.github.wouink.furnish.block.util.FurnitureWithSound;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -72,12 +72,12 @@ public class LargeFurnitureBlockEntity extends RandomizableContainerBlockEntity 
 
 	@Override
 	public void startOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getOpenSound());
+		if(!playerEntity.isSpectator()) playSound(((FurnitureWithSound) this.getBlockState().getBlock()).getOpenSound());
 	}
 
 	@Override
 	public void stopOpen(Player playerEntity) {
-		if(!playerEntity.isSpectator()) playSound(((IFurnitureWithSound) this.getBlockState().getBlock()).getCloseSound());
+		if(!playerEntity.isSpectator()) playSound(((FurnitureWithSound) this.getBlockState().getBlock()).getCloseSound());
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity

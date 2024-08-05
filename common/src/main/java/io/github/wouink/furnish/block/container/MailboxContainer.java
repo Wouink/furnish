@@ -6,7 +6,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 
-public class MailboxContainer extends ConditionalSlotContainer {
+public class MailboxContainer extends ConditionalSlotMenu {
 	public MailboxContainer(int syncId, Inventory playerInventory, Container inventory) {
 		super(2, ConditionalSlot::never, FurnishRegistries.Mailbox_Container.get(), syncId, playerInventory, inventory);
 	}

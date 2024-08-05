@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
-import io.github.wouink.furnish.block.container.FurnitureWorkbenchContainer;
+import io.github.wouink.furnish.block.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -64,9 +64,7 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
 
 	@Override
 	public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-		return new SimpleMenuProvider((i, inventory, player) -> {
-			return new FurnitureWorkbenchContainer(i, inventory, ContainerLevelAccess.create(level, pos));
-		}, Container_Name);
+		return new SimpleMenuProvider((i, inventory, player) -> new FurnitureWorkbenchMenu(i, inventory, ContainerLevelAccess.create(level, pos)), Container_Name);
 	}
 
 	@Override

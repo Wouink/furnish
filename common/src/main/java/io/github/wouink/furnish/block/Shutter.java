@@ -82,7 +82,7 @@ public class Shutter extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
+	public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
 		if(level.setBlock(blockPos, blockState.cycle(STATE), Block.UPDATE_ALL)) {
 			level.playSound(player, blockPos, SoundEvents.WOODEN_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0f, 1.0f);
 

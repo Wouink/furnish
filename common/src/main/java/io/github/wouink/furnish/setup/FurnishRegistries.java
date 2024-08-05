@@ -10,9 +10,7 @@ import io.github.wouink.furnish.block.blockentity.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -20,11 +18,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
@@ -85,13 +83,15 @@ public class FurnishRegistries {
     public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new));
 
     // Data attachments
-    public static final RegistrySupplier<DataComponentType<Component>> Letter_Attachment = DATA_ATTACHMENTS.register("attachment", () -> DataComponentType.<Component>builder().build());
+    public static final RegistrySupplier<DataComponentType<ItemStack>> Letter_Attachment = DATA_ATTACHMENTS.register("attachment", () -> DataComponentType.builder().build());
+    public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().build());
+    public static final RegistrySupplier<DataComponentType<String>> Letter_Text = DATA_ATTACHMENTS.register("text", () -> DataComponentType.<String>builder().build());
 
     // Containers
 
-    public static final RegistrySupplier<MenuType<FurnitureWorkbenchContainer>> Furniture_Workbench_Container = FurnishRegistries.CONTAINERS.register(
+    public static final RegistrySupplier<MenuType<FurnitureWorkbenchMenu>> Furniture_Workbench_Container = FurnishRegistries.CONTAINERS.register(
             "furniture_workbench",
-            () -> new MenuType<>(FurnitureWorkbenchContainer::new, FeatureFlagSet.of())
+            () -> new MenuType<>(FurnitureWorkbenchMenu::new, FeatureFlagSet.of())
             // todo FeatureFlagSet.of what?
     );
     public static final RegistrySupplier<MenuType<CrateContainer>> Crate_Container = FurnishRegistries.CONTAINERS.register(
@@ -102,13 +102,13 @@ public class FurnishRegistries {
             "mailbox",
             () -> new MenuType<>(MailboxContainer::new, FeatureFlagSet.of())
     );
-    public static final RegistrySupplier<MenuType<DiskRackContainer>> Disk_Rack_Container = FurnishRegistries.CONTAINERS.register(
+    public static final RegistrySupplier<MenuType<DiskRackMenu>> Disk_Rack_Container = FurnishRegistries.CONTAINERS.register(
             "disk_rack",
-            () -> new MenuType<>(DiskRackContainer::new, FeatureFlagSet.of())
+            () -> new MenuType<>(DiskRackMenu::new, FeatureFlagSet.of())
     );
-    public static final RegistrySupplier<MenuType<BookshelfChestContainer>> Bookshelf_Chest_Container = FurnishRegistries.CONTAINERS.register(
+    public static final RegistrySupplier<MenuType<BookshelfChestMenu>> Bookshelf_Chest_Container = FurnishRegistries.CONTAINERS.register(
             "bookshelf_chest",
-            () -> new MenuType<>(BookshelfChestContainer::new, FeatureFlagSet.of())
+            () -> new MenuType<>(BookshelfChestMenu::new, FeatureFlagSet.of())
     );
 
     // Sounds

@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.RecycleBin;
-import io.github.wouink.furnish.block.util.TileEntityHelper;
+import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -64,7 +64,7 @@ public class RecycleBinBlockEntity extends RandomizableContainerBlockEntity {
 			break;
 		}
 		setItems(NonNullList.withSize(getContainerSize(), ItemStack.EMPTY));
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 	}
 
 	public ItemStack addItem(ItemStack stack) {
@@ -77,7 +77,7 @@ public class RecycleBinBlockEntity extends RandomizableContainerBlockEntity {
 			}
 		}
 		setItems(inventory);
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 		return ret;
 	}
 
@@ -102,12 +102,12 @@ public class RecycleBinBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	public void startOpen(Player playerEntity) {
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 	}
 
 	@Override
 	public void stopOpen(Player playerEntity) {
-		TileEntityHelper.broadcastUpdate(this, true);
+		BlockEntityHelper.broadcastUpdate(this, true);
 	}
 
 	// copied from net.minecraft.tileentity.BarrelTileEntity
@@ -126,9 +126,8 @@ public class RecycleBinBlockEntity extends RandomizableContainerBlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		CompoundTag tag = this.saveWithoutMetadata();
-		return tag;
+	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+		return this.saveWithoutMetadata(provider);
 	}
 
 	/*

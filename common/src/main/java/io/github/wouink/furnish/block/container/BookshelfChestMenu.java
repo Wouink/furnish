@@ -7,14 +7,14 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-public class BookshelfChestContainer extends ConditionalSlotContainer {
+public class BookshelfChestMenu extends ConditionalSlotMenu {
 	public static boolean canPlace(ItemStack stack) {
 		return stack.is(FurnishRegistries.BOOKS_TAG);
 	}
-	public BookshelfChestContainer(int syncId, Inventory playerInventory) {
+	public BookshelfChestMenu(int syncId, Inventory playerInventory) {
 		this(syncId, playerInventory, new SimpleContainer(BookshelfChestBlockEntity.SIZE));
 	}
-	public BookshelfChestContainer(int syncId, Inventory playerInventory, Container inventory) {
-		super(1, BookshelfChestContainer::canPlace, FurnishRegistries.Bookshelf_Chest_Container.get(), syncId, playerInventory, inventory);
+	public BookshelfChestMenu(int syncId, Inventory playerInventory, Container inventory) {
+		super(1, BookshelfChestMenu::canPlace, FurnishRegistries.Bookshelf_Chest_Container.get(), syncId, playerInventory, inventory);
 	}
 }

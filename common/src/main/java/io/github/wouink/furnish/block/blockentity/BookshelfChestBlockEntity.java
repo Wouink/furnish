@@ -1,8 +1,8 @@
 package io.github.wouink.furnish.block.blockentity;
 
 import io.github.wouink.furnish.block.BookshelfChest;
-import io.github.wouink.furnish.block.container.BookshelfChestContainer;
-import io.github.wouink.furnish.block.util.TileEntityHelper;
+import io.github.wouink.furnish.block.container.BookshelfChestMenu;
+import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -37,7 +37,7 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
     protected void setItems(NonNullList<ItemStack> nonNullList) {
         inventory = nonNullList;
         updateCapacity();
-        TileEntityHelper.broadcastUpdate(this, true);
+        BlockEntityHelper.broadcastUpdate(this, true);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
     public void setItem(int i, ItemStack itemStack) {
         super.setItem(i, itemStack);
         updateCapacity();
-        TileEntityHelper.broadcastUpdate(this, true);
+        BlockEntityHelper.broadcastUpdate(this, true);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
 
     @Override
     protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
-        return new BookshelfChestContainer(syncId, playerInventory, this);
+        return new BookshelfChestMenu(syncId, playerInventory, this);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class BookshelfChestBlockEntity extends RandomizableContainerBlockEntity 
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithFullMetadata();
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+        return this.saveWithFullMetadata(provider);
     }
 
     @Override

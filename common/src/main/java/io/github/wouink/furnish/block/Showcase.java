@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.block;
 
+import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.blockentity.ShelfBlockEntity;
 import io.github.wouink.furnish.block.blockentity.ShowcaseBlockEntity;
 import io.github.wouink.furnish.block.util.InteractionHelper;
@@ -29,11 +30,17 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class Showcase extends HorizontalDirectionalBlock implements EntityBlock {
+	public static final MapCodec<Showcase> CODEC = simpleCodec(Showcase::new);
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
 	public Showcase(Properties p) {
 		super(p.noOcclusion());
 		registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false));
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+		return CODEC;
 	}
 
 	@Override

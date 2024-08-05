@@ -1,40 +1,33 @@
 package io.github.wouink.furnish.block.container;
 
-import io.github.wouink.furnish.block.blockentity.DiskRackBlockEntity;
-import io.github.wouink.furnish.setup.FurnishRegistries;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-public class DiskRackContainer extends AbstractContainerMenu {
+import java.util.function.Predicate;
+
+public class ConditionalSlotMenu extends AbstractContainerMenu {
 	protected final Container inventory;
+	private final int rows;
 
-	public static boolean canPlaceInRack(ItemStack stack) {
-		return stack.get(DataComponents.JUKEBOX_PLAYABLE) != null || stack.is(FurnishRegistries.MUSIC_DISCS_TAG);
-	}
-
-	public DiskRackContainer(int syncId, Inventory playerInventory) {
-		this(syncId, playerInventory, new SimpleContainer(DiskRackBlockEntity.SIZE));
-	}
-
-	public DiskRackContainer(int syncId, Inventory playerInventory, Container inventory) {
-		super(FurnishRegistries.Disk_Rack_Container.get(), syncId);
+	public ConditionalSlotMenu(int rows, Predicate<ItemStack> condition, MenuType<?> type, int syncId, Inventory playerInventory, Container inventory) {
+		super(type, syncId);
 		this.inventory = inventory;
-		this.inventory.startOpen(playerInventory.player);
+		this.rows = rows;
+		inventory.startOpen(playerInventory.player);
 
-		// inventory
-		for(int ind = 0; ind < 8; ind++) {
-			this.addSlot(new ConditionalSlot(DiskRackContainer::canPlaceInRack, inventory, ind, 17 + ind * 18, 18));
+		int i = (this.rows - 4) * 18;
+
+		// container's inventory
+		for(int j = 0; j < this.rows; ++j) {
+			for(int k = 0; k < 9; ++k) {
+				this.addSlot(new ConditionalSlot(condition, inventory, k + j * 9, 8 + k * 18, 18 + j * 18));
+			}
 		}
-
-		// i = (#rows - #playersRows) * 18
-		int i = -3 * 18;
 
 		// player's inventory
 		for(int l = 0; l < 3; ++l) {
@@ -52,7 +45,11 @@ public class DiskRackContainer extends AbstractContainerMenu {
 	@Override
 	public void removed(Player playerEntity) {
 		super.removed(playerEntity);
-		this.inventory.stopOpen(playerEntity);
+		inventory.stopOpen(playerEntity);
+	}
+
+	public int getRowCount() {
+		return this.rows;
 	}
 
 	@Override

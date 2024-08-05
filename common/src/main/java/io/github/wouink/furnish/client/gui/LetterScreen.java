@@ -3,16 +3,16 @@ package io.github.wouink.furnish.client.gui;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.C2S_UpdateItemStack;
-import net.minecraft.SharedConstants;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,8 +38,7 @@ public class LetterScreen extends Screen {
 		this.hand = hand;
 		this.letter = letter;
 		this.playerEntity = playerEntity;
-		CompoundTag tag = letter.getOrCreateTag();
-		letterText = tag.getAllKeys().contains("Text") ? tag.getString("Text") : "";
+		letterText = letter.has(FurnishRegistries.Letter_Text.get()) ? letter.get(FurnishRegistries.Letter_Text.get()) : "";
 		editable = Letter.canEditLetter(letter);
 		if(editable) {
 			letterEdit = new TextFieldHelper(this::getText, this::setText, this::getClipboard, this::setClipboard, (s) -> s.length() < LETTER_MAX_LENGTH);
@@ -65,9 +64,7 @@ public class LetterScreen extends Screen {
 	}
 
 	private void save() {
-		CompoundTag tag = letter.getOrCreateTag();
-		tag.putString("Text", getText());
-		letter.setTag(tag);
+		letter.set(FurnishRegistries.Letter_Text.get(), getText());
 	}
 
 	private void sendUpdate() {
@@ -102,7 +99,7 @@ public class LetterScreen extends Screen {
 		if(super.charTyped(c, n)) {
 			return true;
 		}
-		if(editable && SharedConstants.isAllowedChatCharacter(c)) {
+		if(editable && StringUtil.isAllowedChatCharacter(c)) {
 			letterEdit.insertText(Character.toString(c));
 			return true;
 		}
@@ -147,7 +144,8 @@ public class LetterScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		this.renderBackground(guiGraphics);
+		// todo does it still has a background?
+		//this.renderBackground(guiGraphics);
 		this.setFocused((GuiEventListener)null);
 		int startX = (this.width - 192) / 2;
 		guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);

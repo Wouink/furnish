@@ -7,7 +7,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-public class CrateContainer extends ConditionalSlotContainer {
+public class CrateContainer extends ConditionalSlotMenu {
 	public static boolean canPlaceInCrate(ItemStack stack) {
 		return !stack.is(FurnishRegistries.CRATE_BLACKLIST_TAG);
 	}

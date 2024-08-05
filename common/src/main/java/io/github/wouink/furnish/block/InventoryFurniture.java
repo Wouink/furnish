@@ -3,7 +3,7 @@ package io.github.wouink.furnish.block;
 import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.block.blockentity.FurnitureBlockEntity;
-import io.github.wouink.furnish.block.util.IFurnitureWithSound;
+import io.github.wouink.furnish.block.util.FurnitureWithSound;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class InventoryFurniture extends SimpleFurniture implements EntityBlock, IFurnitureWithSound {
+public class InventoryFurniture extends SimpleFurniture implements EntityBlock, FurnitureWithSound {
 	public static final MapCodec CODEC = simpleCodec(InventoryFurniture::new);
 	private final RegistrySupplier<SoundEvent> openSound;
 	private final RegistrySupplier<SoundEvent> closeSound;

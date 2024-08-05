@@ -2,7 +2,7 @@ package io.github.wouink.furnish.block;
 
 import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.block.blockentity.LargeFurnitureBlockEntity;
-import io.github.wouink.furnish.block.util.IFurnitureWithSound;
+import io.github.wouink.furnish.block.util.FurnitureWithSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.*;
@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 
 
-public class TallInventoryFurniture extends TallFurniture implements EntityBlock, IFurnitureWithSound {
+public class TallInventoryFurniture extends TallFurniture implements EntityBlock, FurnitureWithSound {
 	private RegistrySupplier<SoundEvent> openSound;
 	private RegistrySupplier<SoundEvent> closeSound;
 	public TallInventoryFurniture(Properties p, final RegistrySupplier<SoundEvent> openSound, final RegistrySupplier<SoundEvent> closeSound) {
