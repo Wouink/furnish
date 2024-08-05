@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.blockentity;
 
-import io.github.wouink.furnish.block.container.CrateContainer;
+import io.github.wouink.furnish.block.container.CrateMenu;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -60,7 +60,7 @@ public class CrateBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
-		return new CrateContainer(syncId, playerInventory, this);
+		return new CrateMenu(syncId, playerInventory, this);
 	}
 
 	@Override

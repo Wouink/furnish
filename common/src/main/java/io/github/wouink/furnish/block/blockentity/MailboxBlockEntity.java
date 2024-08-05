@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.block.blockentity;
 
-import io.github.wouink.furnish.block.container.MailboxContainer;
+import io.github.wouink.furnish.block.container.MailboxMenu;
 import io.github.wouink.furnish.block.util.BlockEntityHelper;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -69,7 +69,7 @@ public class MailboxBlockEntity extends RandomizableContainerBlockEntity {
 
 	@Override
 	protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
-		return new MailboxContainer(syncId, playerInventory, this);
+		return new MailboxMenu(syncId, playerInventory, this);
 	}
 
 	@Override

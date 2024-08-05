@@ -6,6 +6,7 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -15,8 +16,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Letter extends Item {
@@ -39,25 +42,27 @@ public class Letter extends Item {
 		if(itemStack.has(FurnishRegistries.Letter_Author.get())) {
 			list.add(Component.translatable("tooltip.furnish.letter.author", itemStack.get(FurnishRegistries.Letter_Author.get())).withStyle(ChatFormatting.GRAY));
 		}
-		if(itemStack.has(FurnishRegistries.Letter_Attachment.get())) {
-			ItemStack attachment = itemStack.get(FurnishRegistries.Letter_Attachment.get());
+		if(itemStack.has(DataComponents.CONTAINER)) {
+			ItemStack attachment = itemStack.get(DataComponents.CONTAINER).copyOne();
 			list.add(Component.translatable("tooltip.furnish.letter.attachment", attachment.getItem().getDescription()).withStyle(ChatFormatting.GRAY));
 		}
 	}
 
 	public static ItemStack addAttachment(ItemStack letter, ItemStack attachment) {
-		if(letter.has(FurnishRegistries.Letter_Attachment.get())) {
+		if(letter.has(DataComponents.CONTAINER)) {
 			return attachment;
 		} else {
-			letter.set(FurnishRegistries.Letter_Attachment.get(), attachment);
+			ArrayList<ItemStack> contents = new ArrayList(1);
+			contents.add(attachment);
+			letter.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(contents));
 			return ItemStack.EMPTY;
 		}
 	}
 
 	public static ItemStack removeAttachment(ItemStack letter) {
-		if(letter.has(FurnishRegistries.Letter_Attachment.get())) {
-			ItemStack attachment = letter.get(FurnishRegistries.Letter_Attachment.get());
-			letter.remove(FurnishRegistries.Letter_Attachment.get());
+		if(letter.has(DataComponents.CONTAINER)) {
+			ItemStack attachment = letter.get(DataComponents.CONTAINER).copyOne();
+			letter.remove(DataComponents.CONTAINER);
 			return attachment;
 		}
 		return ItemStack.EMPTY;

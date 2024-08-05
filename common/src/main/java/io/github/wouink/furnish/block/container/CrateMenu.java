@@ -7,16 +7,16 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-public class CrateContainer extends ConditionalSlotMenu {
+public class CrateMenu extends ConditionalSlotMenu {
 	public static boolean canPlaceInCrate(ItemStack stack) {
 		return !stack.is(FurnishRegistries.CRATE_BLACKLIST_TAG);
 	}
 
-	public CrateContainer(int syncId, Inventory playerInventory) {
+	public CrateMenu(int syncId, Inventory playerInventory) {
 		this(syncId, playerInventory, new SimpleContainer(CrateBlockEntity.SIZE));
 	}
 
-	public CrateContainer(int syncId, Inventory playerInventory, Container inventory) {
-		super(1, CrateContainer::canPlaceInCrate, FurnishRegistries.Crate_Container.get(), syncId, playerInventory, inventory);
+	public CrateMenu(int syncId, Inventory playerInventory, Container inventory) {
+		super(1, CrateMenu::canPlaceInCrate, FurnishRegistries.Crate_Container.get(), syncId, playerInventory, inventory);
 	}
 }

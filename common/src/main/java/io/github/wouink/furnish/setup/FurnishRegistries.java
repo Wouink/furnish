@@ -83,7 +83,6 @@ public class FurnishRegistries {
     public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new));
 
     // Data attachments
-    public static final RegistrySupplier<DataComponentType<ItemStack>> Letter_Attachment = DATA_ATTACHMENTS.register("attachment", () -> DataComponentType.builder().build());
     public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().build());
     public static final RegistrySupplier<DataComponentType<String>> Letter_Text = DATA_ATTACHMENTS.register("text", () -> DataComponentType.<String>builder().build());
 
@@ -94,13 +93,13 @@ public class FurnishRegistries {
             () -> new MenuType<>(FurnitureWorkbenchMenu::new, FeatureFlagSet.of())
             // todo FeatureFlagSet.of what?
     );
-    public static final RegistrySupplier<MenuType<CrateContainer>> Crate_Container = FurnishRegistries.CONTAINERS.register(
+    public static final RegistrySupplier<MenuType<CrateMenu>> Crate_Container = FurnishRegistries.CONTAINERS.register(
             "crate",
-            () -> new MenuType<>(CrateContainer::new, FeatureFlagSet.of())
+            () -> new MenuType<>(CrateMenu::new, FeatureFlagSet.of())
     );
-    public static final RegistrySupplier<MenuType<MailboxContainer>> Mailbox_Container = FurnishRegistries.CONTAINERS.register(
+    public static final RegistrySupplier<MenuType<MailboxMenu>> Mailbox_Container = FurnishRegistries.CONTAINERS.register(
             "mailbox",
-            () -> new MenuType<>(MailboxContainer::new, FeatureFlagSet.of())
+            () -> new MenuType<>(MailboxMenu::new, FeatureFlagSet.of())
     );
     public static final RegistrySupplier<MenuType<DiskRackMenu>> Disk_Rack_Container = FurnishRegistries.CONTAINERS.register(
             "disk_rack",
