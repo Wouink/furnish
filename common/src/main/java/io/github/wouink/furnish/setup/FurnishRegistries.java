@@ -5,8 +5,8 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.Crate;
 import io.github.wouink.furnish.block.Mailbox;
-import io.github.wouink.furnish.block.container.*;
 import io.github.wouink.furnish.block.blockentity.*;
+import io.github.wouink.furnish.block.container.*;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.core.component.DataComponentType;
@@ -22,7 +22,6 @@ import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
@@ -63,7 +62,7 @@ public class FurnishRegistries {
     // And for painting cycling
     public static final TagKey CAN_CYCLE = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "can_cycle"));
 
-    // And for placing carpets/snow on stairs/trappdoors/fences
+    // And for placing carpets/snow on stairs/trapdoors/fences
     public static final TagKey PLACE_ON_STAIRS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_stairs"));
     public static final TagKey PLACE_ON_TRAPDOOR = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_trapdoor"));
     public static final TagKey PLACE_ON_FENCE = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_fence"));
@@ -80,7 +79,7 @@ public class FurnishRegistries {
     );
 
     // SingleItemRecipe.Serializer is made public with access wideners
-    public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<FurnitureRecipe>(FurnitureRecipe::new));
+    public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<SingleItemRecipe>(FurnitureRecipe::new));
 
     // Data attachments
     public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().build());

@@ -29,7 +29,7 @@ public class Letter extends Item {
 
 	private void openGui(ItemStack stack, Player playerEntity, InteractionHand hand) {
 		if(Platform.getEnvironment() != Env.CLIENT) {
-			Furnish.LOG.error("Furnish Letter Item - Attempt to call openGui elsewhere than on client.");
+			Furnish.LOG.error("Furnish Letter Item - Attempt to call openGui on a non client environment.");
 			return;
 		}
 		playerEntity.level().playSound(null, playerEntity.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 1.0f, 1.0f);

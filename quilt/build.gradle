@@ -11,6 +11,10 @@ architectury {
     loader('quilt')
 }
 
+loom {
+    accessWidenerPath = file("../common/src/main/resources/furnish.accesswidener")
+}
+
 configurations {
     common {
         canBeResolved = true

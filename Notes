@@ -16,6 +16,18 @@ https://generate.architectury.dev/
 Version de loom = fichier build.gradle root project
 Version de gradle = gradle/gradle-wrapper.properties
 
+Access Wideners
+    https://fabricmc.net/wiki/tutorial:accesswideners
+    permettent de rendre public des variables private
+    ajouter la conf loom dans tous les sous projets (neoforge, fabric, etc)
+    puis executer la tache Gradle Tasks/loom/genSources
+    et charger les changements gradle
+    pour les descriptors : https://docs.oracle.com/javase/specs/jvms/se14/html/jvms-4.html#jvms-4.3.3
+    avec le plugin intellij minecraft mod development, pour extraire la methode souhaitee :
+        clic droit dessus
+        copy/paste special
+        AW entry
+
 ParchmentMC
 	https://parchmentmc.org/
 	permet d'avoir de la javadoc et des noms de paramètres explicites pour le code Minecraft

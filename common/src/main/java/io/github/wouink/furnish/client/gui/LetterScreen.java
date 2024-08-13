@@ -1,8 +1,9 @@
 package io.github.wouink.furnish.client.gui;
 
+import dev.architectury.networking.NetworkManager;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
-import io.github.wouink.furnish.network.C2S_UpdateItemStack;
+import io.github.wouink.furnish.network.C2S_UpdateLetterMessage;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -69,7 +70,8 @@ public class LetterScreen extends Screen {
 
 	private void sendUpdate() {
 		int slot = this.hand == InteractionHand.MAIN_HAND ? this.playerEntity.getInventory().selected : 40;
-		new C2S_UpdateItemStack(slot, letter).sendToServer();
+		NetworkManager.sendToServer(new C2S_UpdateLetterMessage(slot, getText()));
+		//new C2S_UpdateItemStack(slot, letter).sendToServer();
 	}
 
 	@Override

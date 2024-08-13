@@ -43,10 +43,6 @@ public class FurnishBlocks {
 		return registerBlockWithItem(name, sup, new Item.Properties());
 	}
 
-	// Registering items
-
-	public static final RegistrySupplier<Item> Letter = FurnishRegistries.ITEMS.register("letter", () -> new Letter(new Item.Properties().arch$tab(Furnish.CREATIVE_TAB).stacksTo(1)));
-
 	// Various lists of blocks
 
 	public static ArrayList<Block> Furniture_3x9 = new ArrayList<>();
@@ -73,6 +69,10 @@ public class FurnishBlocks {
 		public static final BooleanProperty LEFT = BooleanProperty.create("left");
 		public static final IntegerProperty COUNT_3 = IntegerProperty.create("count", 1, 3);
 	}
+
+	// All items
+
+	public static final RegistrySupplier<Item> Letter = FurnishRegistries.ITEMS.register("letter", () -> new Letter(new Item.Properties().arch$tab(Furnish.CREATIVE_TAB).stacksTo(1)));
 
 	// All blocks
 
