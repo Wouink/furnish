@@ -35,7 +35,7 @@ public class FurnishBlocks {
 
 	public static RegistrySupplier<Block> registerBlockWithItem(String name, Supplier<? extends Block> sup, Item.Properties itemProps) {
 		RegistrySupplier<Block> registeredBlock = FurnishRegistries.BLOCKS.register(name, sup);
-		FurnishRegistries.ITEMS.register(name, () -> new BlockItem(registeredBlock.get(), itemProps.arch$tab(Furnish.CREATIVE_TAB)));
+		FurnishRegistries.ITEMS.register(name, () -> new BlockItem(registeredBlock.get(), itemProps.arch$tab(FurnishRegistries.CREATIVE_TAB)));
 		return registeredBlock;
 	}
 
@@ -72,7 +72,7 @@ public class FurnishBlocks {
 
 	// All items
 
-	public static final RegistrySupplier<Item> Letter = FurnishRegistries.ITEMS.register("letter", () -> new Letter(new Item.Properties().arch$tab(Furnish.CREATIVE_TAB).stacksTo(1)));
+	public static final RegistrySupplier<Item> Letter = FurnishRegistries.ITEMS.register("letter", () -> new Letter(new Item.Properties().arch$tab(FurnishRegistries.CREATIVE_TAB).stacksTo(1)));
 
 	// All blocks
 
@@ -299,14 +299,9 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Wither_Skull_Torch = registerBlockWithItem("wither_skull_torch", () -> new SkullTorch(BlockBehaviour.Properties.ofFullCopy(Blocks.SKELETON_SKULL).lightLevel((state) -> 7), ParticleTypes.SOUL_FIRE_FLAME));
 	public static final RegistrySupplier<Block> Cobweb = registerBlockWithItem("cobweb", () -> new Cobweb(BlockBehaviour.Properties.of().strength(0.0f)));
 
-	public static final RegistrySupplier<Block> Picture_Frame = registerBlockWithItem("picture_frame", () -> new PictureFrame(BlockBehaviour.Properties.of().instabreak().sound(SoundType.SCAFFOLDING).noCollission().noOcclusion()));
-	// public static final RegistrySupplier<Block> Flower_Pot = registerBlockWithItem("flower_pot", () -> new FlowerPot(BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops(), 1));
-
 	// Winter
 	public static final RegistrySupplier<Block> Snow_On_Fence = registerBlock("snow_on_fence", () -> new SnowOnFence(BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW)));
 	public static final RegistrySupplier<Block> Snow_On_Stairs = registerBlock("snow_on_stairs", () -> new CarpetOnStairs(BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW), Blocks.SNOW));
-
-	public static final RegistrySupplier<Block> Chess_Board = registerBlockWithItem("chess_board", () -> new ChessBoard(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f)));
 
 	// Office furniture
 	public static final RegistrySupplier<Block> Paper_Sheet_Empty = registerBlockWithItem("paper_sheet_empty", () -> new Paper(BlockBehaviour.Properties.of().instabreak().sound(FurnishRegistries.Paper_Sound_Type)));
@@ -320,11 +315,14 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Cardboard_Box = registerBlockWithItem("cardboard_box", () -> new Crate(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f)));
 	public static final RegistrySupplier<Block> Paper_Rolls = registerBlockWithItem("paper_rolls", () -> new Paper(BlockBehaviour.Properties.of().instabreak().sound(FurnishRegistries.Paper_Sound_Type)));
 
-	//
-
+	// Misc furniture
 	public static final RegistrySupplier<Block> Telescope = registerBlockWithItem("telescope", () -> new SimpleFurniture(BlockBehaviour.Properties.of().strength(1.0f).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistrySupplier<Block> Dice = registerBlockWithItem("dice", () -> new Dice(BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BLOCK)));
 	public static final RegistrySupplier<Block> Asphalt = registerBlockWithItem("asphalt", () -> new Block(BlockBehaviour.Properties.of().speedFactor(1.2f)));
+	public static final RegistrySupplier<Block> Chess_Board = registerBlockWithItem("chess_board", () -> new ChessBoard(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f)));
+	public static final RegistrySupplier<Block> Picture_Frame = registerBlockWithItem("picture_frame", () -> new PictureFrame(BlockBehaviour.Properties.of().instabreak().sound(SoundType.SCAFFOLDING).noCollission().noOcclusion()));
+	// public static final RegistrySupplier<Block> Flower_Pot = registerBlockWithItem("flower_pot", () -> new FlowerPot(BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops(), 1));
+
 
 	static {
 		Amphorae.add(registerBlockWithItem("amphora", () -> new Amphora(BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA))));
@@ -332,17 +330,17 @@ public class FurnishBlocks {
 
 		for(DyeColor dyeColor : DyeColor.values()) {
 			String color = dyeColor.getName();
-			Block coloredCarpet = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(String.format("minecraft:%s_carpet", color)));
+			Block coloredCarpet = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(String.format("%s_carpet", color)));
 			Carpets_On_Stairs.put(color, registerBlock(String.format("%s_carpet_on_stairs", color), () -> new CarpetOnStairs(BlockBehaviour.Properties.ofFullCopy(coloredCarpet).dropsLike(coloredCarpet), coloredCarpet)));
 			Carpets_On_Trapdoors.put(color, registerBlock(String.format("%s_carpet_on_trapdoor", color), () -> new CarpetOnTrapdoor(BlockBehaviour.Properties.ofFullCopy(coloredCarpet).dropsLike(coloredCarpet), coloredCarpet)));
 			Awnings.add(registerBlockWithItem(String.format("%s_awning", color), () -> new Awning(BlockBehaviour.Properties.ofFullCopy(coloredCarpet))));
 			Curtains.add(registerBlockWithItem(String.format("%s_curtain", color), () -> new Curtain(BlockBehaviour.Properties.ofFullCopy(coloredCarpet))));
 
-			Block coloredWool = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(String.format("minecraft:%s_wool", color)));
+			Block coloredWool = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(String.format("%s_wool", color)));
 			Sofas.add(registerBlockWithItem(String.format("%s_sofa", color), () -> new Sofa(BlockBehaviour.Properties.ofFullCopy(coloredWool))));
 			Showcases.add(registerBlockWithItem(String.format("%s_showcase", color), () -> new Showcase(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS))));
 
-			Block coloredTerracotta = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(String.format("minecraft:%s_terracotta", color)));
+			Block coloredTerracotta = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(String.format("%s_terracotta", color)));
 			Amphorae.add(registerBlockWithItem(String.format("%s_amphora", color), () -> new Amphora(BlockBehaviour.Properties.ofFullCopy(coloredTerracotta))));
 			Plates.add(registerBlockWithItem(String.format("%s_plate", color), () -> new Plate(BlockBehaviour.Properties.ofFullCopy(coloredTerracotta)), new Item.Properties().stacksTo(16)));
 

@@ -2,9 +2,6 @@ package io.github.wouink.furnish.recipe;
 
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
@@ -13,7 +10,7 @@ import net.minecraft.world.level.Level;
 
 public class FurnitureRecipe extends SingleItemRecipe {
 	public FurnitureRecipe(String group, Ingredient ing, ItemStack stack) {
-		super(FurnishRegistries.Furniture_Recipe.get(), FurnishRegistries.Furniture_Recipe_Serializer, group, ing, stack);
+		super(FurnishRegistries.Furniture_Recipe.get(), FurnishRegistries.Furniture_Recipe_Serializer.get(), group, ing, stack);
 	}
 	@Override
 	public ItemStack getToastSymbol() {

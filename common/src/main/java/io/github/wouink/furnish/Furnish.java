@@ -4,27 +4,17 @@ import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.platform.Platform;
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.architectury.utils.Env;
 import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Furnish {
 	public static final String MODID = "furnish";
 	public static final Logger LOG = LogManager.getLogger("Furnish");
-
-	private static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Furnish.MODID, Registries.CREATIVE_MODE_TAB);
-	public static final RegistrySupplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("furnish", () -> CreativeTabRegistry.create(Component.translatable("itemGroup.furnish.furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get())));
 
 	public static void init() {
 		FurnishBlocks.init();
@@ -44,9 +34,11 @@ public class Furnish {
 		LOG.info("Registered Furnish Entities.");
 		FurnishRegistries.BLOCK_ENTITIES.register();
 		LOG.info("Registered Furnish Block Entities.");
-		FurnishRegistries.PAINTING_VARIANTS.register();
-		LOG.info("Registered Furnish Painting Variants.");
-		CREATIVE_TABS.register();
+		//FurnishRegistries.PAINTING_VARIANTS.register();
+		//LOG.info("Registered Furnish Painting Variants.");
+		FurnishRegistries.DATA_ATTACHMENTS.register();
+		LOG.info("Registered Furnish Data Attachments");
+		FurnishRegistries.CREATIVE_TABS.register();
 		LOG.info("Registered Furnish Creative Tab.");
 
 		BlockEvent.PLACE.register(PlaceCarpet::onCarpetPlaced);

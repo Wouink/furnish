@@ -13,7 +13,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -67,12 +66,6 @@ public class SeatEntity extends Entity {
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
 		return NetworkManager.createAddEntityPacket(this, serverEntity);
-	}
-
-	@Override
-	public Vec3 getPassengerRidingPosition(Entity entity) {
-		// todo check player is correctly positioned
-		return new Vec3(0, 0, 0);
 	}
 
 	public static InteractionResult create(Level world, BlockPos pos, double yOffset, Player playerEntity) {

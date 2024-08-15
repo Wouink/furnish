@@ -1,5 +1,7 @@
 package io.github.wouink.furnish.setup;
 
+import com.mojang.serialization.Codec;
+import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.Furnish;
@@ -11,6 +13,8 @@ import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +25,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
@@ -40,6 +46,7 @@ public class FurnishRegistries {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Furnish.MODID, Registries.ENTITY_TYPE);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Furnish.MODID, Registries.BLOCK_ENTITY_TYPE);
     public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(Furnish.MODID, Registries.PAINTING_VARIANT);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Furnish.MODID, Registries.CREATIVE_MODE_TAB);
 
     // Tags
     public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "crate_blacklist"));
@@ -67,6 +74,9 @@ public class FurnishRegistries {
     public static final TagKey PLACE_ON_TRAPDOOR = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_trapdoor"));
     public static final TagKey PLACE_ON_FENCE = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "place_on_fence"));
 
+    // Creative tab
+    public static final RegistrySupplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("furnish", () -> CreativeTabRegistry.create(Component.translatable("itemGroup.furnish.furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get())));
+
     // Recipe related registry objects
     public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
             "furniture_making",
@@ -79,11 +89,11 @@ public class FurnishRegistries {
     );
 
     // SingleItemRecipe.Serializer is made public with access wideners
-    public static final RecipeSerializer<SingleItemRecipe> Furniture_Recipe_Serializer = RecipeSerializer.register("furniture_making", new SingleItemRecipe.Serializer<SingleItemRecipe>(FurnitureRecipe::new));
+    public static final RegistrySupplier<RecipeSerializer> Furniture_Recipe_Serializer = RECIPE_SERIALIZERS.register("furniture_making", () -> new SingleItemRecipe.Serializer<SingleItemRecipe>(FurnitureRecipe::new));
 
     // Data attachments
-    public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().build());
-    public static final RegistrySupplier<DataComponentType<String>> Letter_Text = DATA_ATTACHMENTS.register("text", () -> DataComponentType.<String>builder().build());
+    public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
+    public static final RegistrySupplier<DataComponentType<String>> Letter_Text = DATA_ATTACHMENTS.register("text", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
 
     // Containers
 
