@@ -54,6 +54,7 @@ public class FurnishClient {
 	}
 
 	public static void bindScreensToContainers() {
+		// todo not working on forge anymore
 		MenuRegistry.registerScreenFactory(FurnishRegistries.Furniture_Workbench_Container.get(), FurnitureWorkbenchScreen::new);
 		MenuRegistry.registerScreenFactory(FurnishRegistries.Crate_Container.get(), ConditionalSlotContainerScreen::new);
 		MenuRegistry.registerScreenFactory(FurnishRegistries.Mailbox_Container.get(), ConditionalSlotContainerScreen::new);
@@ -63,6 +64,7 @@ public class FurnishClient {
 	}
 
 	public static void registerEntityRenderers() {
+		// todo none of that works
 		EntityRendererRegistry.register(FurnishRegistries.Seat_Entity::get, SeatRenderer::new);
 		Furnish.LOG.info("Registered Furnish Entities Renderers.");
 
@@ -77,6 +79,7 @@ public class FurnishClient {
 	}
 
 	public static void openLetterGui(ItemStack stack, Player player, InteractionHand hand) {
+		// todo everything is blurred and no text input
 		Minecraft.getInstance().setScreen(new LetterScreen(stack, player, hand));
 	}
 

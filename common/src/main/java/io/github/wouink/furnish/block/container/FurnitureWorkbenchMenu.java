@@ -1,7 +1,9 @@
 package io.github.wouink.furnish.block.container;
 
 import com.google.common.collect.Lists;
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
+import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,9 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 
@@ -122,7 +122,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 	}
 
 	public boolean stillValid(Player player) {
-		return stillValid(this.access, player, Blocks.STONECUTTER);
+		return stillValid(this.access, player, FurnishBlocks.Furniture_Workbench.get());
 	}
 
 	public boolean clickMenuButton(Player player, int i) {
@@ -152,19 +152,21 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 	}
 
 	private void setupRecipeList(Container container, ItemStack itemStack) {
+		Furnish.debug("setupRecipeList call");
 		this.recipes.clear();
 		this.selectedRecipeIndex.set(-1);
 		this.resultSlot.set(ItemStack.EMPTY);
 		if (!itemStack.isEmpty()) {
 			this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishRegistries.Furniture_Recipe.get(), createRecipeInput(container), this.level);
-		}
+			Furnish.debug("Found " + this.recipes.size() + " recipes");
+		} else Furnish.debug("Itemstack is empty");
 
 	}
 
 	void setupResultSlot() {
 		if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-			RecipeHolder<StonecutterRecipe> recipeHolder = (RecipeHolder)this.recipes.get(this.selectedRecipeIndex.get());
-			ItemStack itemStack = ((StonecutterRecipe)recipeHolder.value()).assemble(createRecipeInput(this.container), this.level.registryAccess());
+			RecipeHolder<FurnitureRecipe> recipeHolder = (RecipeHolder)this.recipes.get(this.selectedRecipeIndex.get());
+			ItemStack itemStack = ((FurnitureRecipe)recipeHolder.value()).assemble(createRecipeInput(this.container), this.level.registryAccess());
 			if (itemStack.isItemEnabled(this.level.enabledFeatures())) {
 				this.resultContainer.setRecipeUsed(recipeHolder);
 				this.resultSlot.set(itemStack);

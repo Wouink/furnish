@@ -66,6 +66,6 @@ public class Furnish {
 	}
 	public static void debug(String msg) {
 		// Toggle comment on the following line to enable/disable debug messages
-		//System.out.println(msg);
+		System.out.println(msg);
 	}
 }
