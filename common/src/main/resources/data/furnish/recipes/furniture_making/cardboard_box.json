@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:chest"
-  },
-  "result": "furnish:cardboard_box",
-  "count": 3
-}

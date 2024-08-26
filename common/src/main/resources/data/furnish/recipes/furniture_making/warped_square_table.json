@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:warped_planks"
-  },
-  "result": "furnish:warped_square_table",
-  "count": 1
-}

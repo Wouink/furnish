@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:white_carpet"
+  },
+  "result": {
+    "id": "furnish:white_awning",
+    "count": 1
+  }
+}

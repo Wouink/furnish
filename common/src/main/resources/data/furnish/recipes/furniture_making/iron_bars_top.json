@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:iron_bars"
-  },
-  "result": "furnish:iron_bars_top",
-  "count": 1
-}

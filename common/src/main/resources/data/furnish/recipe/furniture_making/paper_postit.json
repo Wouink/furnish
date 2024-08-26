@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "result": {
+    "id": "furnish:paper_postit",
+    "count": 1
+  }
+}

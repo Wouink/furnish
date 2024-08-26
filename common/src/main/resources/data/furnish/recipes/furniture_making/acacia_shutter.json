@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:acacia_trapdoor"
-  },
-  "result": "furnish:acacia_shutter",
-  "count": 1
-}

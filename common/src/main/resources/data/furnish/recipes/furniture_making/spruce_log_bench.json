@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:spruce_log"
-  },
-  "result": "furnish:spruce_log_bench",
-  "count": 1
-}

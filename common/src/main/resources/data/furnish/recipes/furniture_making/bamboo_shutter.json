@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:bamboo_trapdoor"
-  },
-  "result": "furnish:bamboo_shutter",
-  "count": 1
-}

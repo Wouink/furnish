@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:painting"
-  },
-  "result": "furnish:picture_frame",
-  "count": 3
-}

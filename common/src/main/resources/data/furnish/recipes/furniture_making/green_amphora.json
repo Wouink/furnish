@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:green_terracotta"
-  },
-  "result": "furnish:green_amphora",
-  "count": 1
-}

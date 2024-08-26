@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:iron_bars"
+  },
+  "result": {
+    "id": "furnish:iron_gate",
+    "count": 1
+  }
+}

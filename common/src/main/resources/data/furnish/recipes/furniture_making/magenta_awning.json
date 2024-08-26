@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:magenta_carpet"
-  },
-  "result": "furnish:magenta_awning",
-  "count": 1
-}

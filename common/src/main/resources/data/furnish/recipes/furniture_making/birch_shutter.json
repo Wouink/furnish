@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:birch_trapdoor"
-  },
-  "result": "furnish:birch_shutter",
-  "count": 1
-}

@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "furnish:cobweb"
+  },
+  "result": {
+    "id": "minecraft:cobweb",
+    "count": 1
+  }
+}

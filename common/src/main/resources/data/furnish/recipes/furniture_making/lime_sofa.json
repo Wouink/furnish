@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:lime_wool"
-  },
-  "result": "furnish:lime_sofa",
-  "count": 1
-}

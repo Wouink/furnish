@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:cherry_log"
+  },
+  "result": {
+    "id": "furnish:cherry_log_bench",
+    "count": 1
+  }
+}

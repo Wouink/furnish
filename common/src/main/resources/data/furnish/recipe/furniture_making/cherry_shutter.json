@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:cherry_trapdoor"
+  },
+  "result": {
+    "id": "furnish:cherry_shutter",
+    "count": 1
+  }
+}

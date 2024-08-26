@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:cherry_planks"
-  },
-  "result": "minecraft:cherry_sign",
-  "count": 1
-}

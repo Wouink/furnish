@@ -30,7 +30,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -78,18 +77,13 @@ public class FurnishRegistries {
     public static final RegistrySupplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_TABS.register("furnish", () -> CreativeTabRegistry.create(Component.translatable("itemGroup.furnish.furnish"), () -> new ItemStack(FurnishBlocks.Furniture_Workbench.get())));
 
     // Recipe related registry objects
-    public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register(
-            "furniture_making",
-            () -> new RecipeType<>() {
-                @Override
-                public String toString() {
-                    return "furniture_making";
-                }
-            }
-    );
-
-    // SingleItemRecipe.Serializer is made public with access wideners
-    public static final RegistrySupplier<RecipeSerializer> Furniture_Recipe_Serializer = RECIPE_SERIALIZERS.register("furniture_making", () -> new SingleItemRecipe.Serializer<SingleItemRecipe>(FurnitureRecipe::new));
+    public static final RegistrySupplier<RecipeType<FurnitureRecipe>> Furniture_Recipe = FurnishRegistries.RECIPE_TYPES.register("furniture_making", () -> new RecipeType<>() {
+        @Override
+        public String toString() {
+            return Furnish.MODID + ":furniture_making";
+        }
+    });
+    public static final RegistrySupplier<RecipeSerializer<FurnitureRecipe>> Furniture_Recipe_Serializer = RECIPE_SERIALIZERS.register("furniture_making", () -> FurnitureRecipe.SERIALIZER);
 
     // Data attachments
     public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
@@ -100,7 +94,6 @@ public class FurnishRegistries {
     public static final RegistrySupplier<MenuType<FurnitureWorkbenchMenu>> Furniture_Workbench_Container = FurnishRegistries.CONTAINERS.register(
             "furniture_workbench",
             () -> new MenuType<>(FurnitureWorkbenchMenu::new, FeatureFlagSet.of())
-            // todo FeatureFlagSet.of what?
     );
     public static final RegistrySupplier<MenuType<CrateMenu>> Crate_Container = FurnishRegistries.CONTAINERS.register(
             "crate",
@@ -122,7 +115,6 @@ public class FurnishRegistries {
     // Sounds
 
     public static RegistrySupplier<SoundEvent> registerSoundEvent(String soundKey) {
-        // todo variable range event? fixed range event?
         return SOUND_EVENTS.register(soundKey, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Furnish.MODID, soundKey)));
     }
 

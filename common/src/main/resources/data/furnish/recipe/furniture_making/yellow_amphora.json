@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:yellow_terracotta"
+  },
+  "result": {
+    "id": "furnish:yellow_amphora",
+    "count": 1
+  }
+}

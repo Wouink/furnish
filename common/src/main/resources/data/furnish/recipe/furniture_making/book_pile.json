@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:book"
+  },
+  "result": {
+    "id": "furnish:book_pile",
+    "count": 1
+  }
+}

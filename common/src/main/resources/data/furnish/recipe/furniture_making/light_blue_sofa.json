@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:light_blue_wool"
+  },
+  "result": {
+    "id": "furnish:light_blue_sofa",
+    "count": 1
+  }
+}

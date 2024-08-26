@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:jungle_trapdoor"
-  },
-  "result": "furnish:jungle_shutter",
-  "count": 1
-}

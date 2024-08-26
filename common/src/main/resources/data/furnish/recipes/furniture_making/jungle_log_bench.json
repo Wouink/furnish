@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:jungle_log"
-  },
-  "result": "furnish:jungle_log_bench",
-  "count": 1
-}

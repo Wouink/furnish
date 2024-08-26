@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "result": {
+    "id": "furnish:green_paper_lamp",
+    "count": 1
+  }
+}

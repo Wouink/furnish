@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:bamboo_planks"
-  },
-  "result": "furnish:bamboo_bookshelf_chest",
-  "count": 1
-}

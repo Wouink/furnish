@@ -1,0 +1,10 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": {
+    "item": "minecraft:spyglass"
+  },
+  "result": {
+    "id": "furnish:telescope",
+    "count": 1
+  }
+}

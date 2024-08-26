@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:terracotta"
-  },
-  "result": "furnish:plate",
-  "count": 1
-}

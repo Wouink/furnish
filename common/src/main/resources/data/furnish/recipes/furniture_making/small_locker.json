@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:iron_block"
-  },
-  "result": "furnish:small_locker",
-  "count": 2
-}

@@ -1,8 +1,0 @@
-{
-  "type": "furnish:furniture_making",
-  "ingredient": {
-    "item": "minecraft:crimson_trapdoor"
-  },
-  "result": "furnish:crimson_shutter",
-  "count": 1
-}
