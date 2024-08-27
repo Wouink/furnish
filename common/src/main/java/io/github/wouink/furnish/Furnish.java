@@ -34,8 +34,6 @@ public class Furnish {
 		LOG.info("Registered Furnish Entities.");
 		FurnishRegistries.BLOCK_ENTITIES.register();
 		LOG.info("Registered Furnish Block Entities.");
-		//FurnishRegistries.PAINTING_VARIANTS.register();
-		//LOG.info("Registered Furnish Painting Variants.");
 		FurnishRegistries.DATA_ATTACHMENTS.register();
 		LOG.info("Registered Furnish Data Attachments");
 		FurnishRegistries.CREATIVE_TABS.register();

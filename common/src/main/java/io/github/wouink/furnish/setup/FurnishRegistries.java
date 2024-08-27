@@ -22,7 +22,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -44,7 +43,6 @@ public class FurnishRegistries {
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(Furnish.MODID, Registries.MENU);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Furnish.MODID, Registries.ENTITY_TYPE);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Furnish.MODID, Registries.BLOCK_ENTITY_TYPE);
-    public static final DeferredRegister<PaintingVariant> PAINTING_VARIANTS = DeferredRegister.create(Furnish.MODID, Registries.PAINTING_VARIANT);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Furnish.MODID, Registries.CREATIVE_MODE_TAB);
 
     // Tags
@@ -164,28 +162,4 @@ public class FurnishRegistries {
     public static final RegistrySupplier<BlockEntityType<RecycleBinBlockEntity>> Recycle_Bin_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinBlockEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<FlowerPotBlockEntity>> Flower_Pot_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("flower_pot", () -> BlockEntityType.Builder.of(FlowerPotBlockEntity::new, FurnishBlocks.Flower_Pots.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<BookshelfChestBlockEntity>> BookshelfChest_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("bookshelf_chest", () -> BlockEntityType.Builder.of(BookshelfChestBlockEntity::new, FurnishBlocks.Bookshelf_Chests.toArray(Block[]::new)).build(null));
-
-    // Paintings
-
-    private static RegistrySupplier<PaintingVariant> newPainting(int width, int height, String art) {
-        return FurnishRegistries.PAINTING_VARIANTS.register(art, () -> new PaintingVariant(width, height, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, art)));
-    }
-
-    public static final RegistrySupplier<PaintingVariant> Steve_Painting = newPainting(16, 16, "steve");
-    public static final RegistrySupplier<PaintingVariant> Alex_Painting = newPainting(16, 16, "alex");
-    public static final RegistrySupplier<PaintingVariant> Oak_Painting = newPainting(16, 16, "oak");
-    public static final RegistrySupplier<PaintingVariant> Birch_Painting = newPainting(16, 16, "birch");
-    public static final RegistrySupplier<PaintingVariant> Spruce_Painting = newPainting(16, 32, "spruce");
-    public static final RegistrySupplier<PaintingVariant> Jungle_Painting = newPainting(16, 32, "jungle");
-    public static final RegistrySupplier<PaintingVariant> Acacia_Painting = newPainting(16, 16, "acacia");
-    public static final RegistrySupplier<PaintingVariant> Dark_Oak_Painting = newPainting(16, 16, "dark_oak");
-    public static final RegistrySupplier<PaintingVariant> Trader_Llama_Painting = newPainting(16, 16, "trader_llama");
-    public static final RegistrySupplier<PaintingVariant> Owl_Painting = newPainting(32, 16, "owl");
-    public static final RegistrySupplier<PaintingVariant> Fox_Painting = newPainting(32, 32, "fox");
-    public static final RegistrySupplier<PaintingVariant> Cork_Board = newPainting(32, 16, "cork_board");
-    public static final RegistrySupplier<PaintingVariant> Cork_Board_1 = newPainting(32, 16, "cork_board_1");
-    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board = newPainting(48, 32, "large_cork_board");
-    public static final RegistrySupplier<PaintingVariant> Large_Cork_Board_1 = newPainting(48, 32, "large_cork_board_1");
-    public static final RegistrySupplier<PaintingVariant> Investigation_Cork_Board = newPainting(32, 16, "investigation_board");
-    public static final RegistrySupplier<PaintingVariant> Large_Investigation_Cork_Board = newPainting(48, 32, "large_investigation_board");
 }
