@@ -54,23 +54,8 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
-	/*
-	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		this.load(pkt.getTag());
-	}
-	 */
-
-
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
 		return this.saveWithoutMetadata(provider);
 	}
-
-	/*
-	@Override
-	public void handleUpdateTag(CompoundTag tag) {
-		load(tag);
-	}
-	 */
 }

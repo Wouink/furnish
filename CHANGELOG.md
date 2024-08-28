@@ -12,6 +12,7 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 
 - `SittingFurniture` interface to avoid duplicating sitting code?
 - Refactor Mailbox block entity code
+- Make a base FurnishInventoryBlockEntity (abstract class with `getCapacity` method) for all Furnish block entities. This class should extend `RandomizableContainerBlockEntity` and implement `WorldlyContainer`, `Nameable`?
 
 ## Furnish v27 for Minecraft 1.21 (in development)
 

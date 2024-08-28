@@ -95,21 +95,8 @@ public class Crate extends Block implements EntityBlock {
 
 			});
 		}
-
 		return super.getDrops(state, params);
 	}
-
-	/* todo
-	@Override
-	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-		if(stack.hasCustomHoverName()) {
-			BlockEntity tileEntity = world.getBlockEntity(pos);
-			if(tileEntity instanceof CrateBlockEntity) {
-				((CrateBlockEntity) tileEntity).setCustomName(stack.getHoverName());
-			}
-		}
-	}
-	 */
 
 	@Override
 	public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {

@@ -49,7 +49,6 @@ public class FurnishRegistries {
     public static final TagKey CRATE_BLACKLIST_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "crate_blacklist"));
     public static final TagKey MUSIC_DISCS_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "music_discs"));
     public static final TagKey FOOD_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "food"));
-    public static final TagKey PLANTS_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "plants"));
     public static final TagKey MAIL_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "mail"));
     public static final TagKey BOOKS_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Furnish.MODID, "books"));
 
@@ -160,6 +159,5 @@ public class FurnishRegistries {
     public static final RegistrySupplier<BlockEntityType<ShowcaseBlockEntity>> Showcase_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("showcase", () -> BlockEntityType.Builder.of(ShowcaseBlockEntity::new, FurnishBlocks.Showcases.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<DiskRackBlockEntity>> Disk_Rack_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("disk_rack", () -> BlockEntityType.Builder.of(DiskRackBlockEntity::new, new Block[]{FurnishBlocks.Disk_Rack.get()}).build(null));
     public static final RegistrySupplier<BlockEntityType<RecycleBinBlockEntity>> Recycle_Bin_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("recycle_bin", () -> BlockEntityType.Builder.of(RecycleBinBlockEntity::new, FurnishBlocks.Recycle_Bins.toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<FlowerPotBlockEntity>> Flower_Pot_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("flower_pot", () -> BlockEntityType.Builder.of(FlowerPotBlockEntity::new, FurnishBlocks.Flower_Pots.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<BookshelfChestBlockEntity>> BookshelfChest_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("bookshelf_chest", () -> BlockEntityType.Builder.of(BookshelfChestBlockEntity::new, FurnishBlocks.Bookshelf_Chests.toArray(Block[]::new)).build(null));
 }

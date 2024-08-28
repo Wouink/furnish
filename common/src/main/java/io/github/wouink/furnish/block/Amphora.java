@@ -2,8 +2,11 @@ package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.block.blockentity.AmphoraBlockEntity;
+import io.github.wouink.furnish.block.util.FurnitureWithSound;
 import io.github.wouink.furnish.block.util.InteractionHelper;
+import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,13 +22,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-
-
-public class Amphora extends SimpleFurniture implements EntityBlock {
+public class Amphora extends SimpleFurniture implements EntityBlock, FurnitureWithSound {
 	public static final MapCodec<Amphora> CODEC = simpleCodec(Amphora::new);
 	public static final VoxelShape AMPHORA_BODY = Block.box(2, 0, 2, 14, 13, 14);
 	public static final VoxelShape AMPHORA_TOP = Block.box(4, 13, 4, 12, 16, 12);
 	public static final VoxelShape AMPHORA = Shapes.or(AMPHORA_BODY, AMPHORA_TOP).optimize();
+
 	public Amphora(Properties p) {
 		super(p.requiresCorrectToolForDrops());
 	}
@@ -71,5 +73,15 @@ public class Amphora extends SimpleFurniture implements EntityBlock {
 			}
 		}
 		super.onRemove(state, world, pos, newState, moving);
+	}
+
+	@Override
+	public SoundEvent getOpenSound() {
+		return FurnishRegistries.Amphora_Open_Sound.get();
+	}
+
+	@Override
+	public SoundEvent getCloseSound() {
+		return FurnishRegistries.Amphora_Close_Sound.get();
 	}
 }

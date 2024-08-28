@@ -54,7 +54,7 @@ public class FurnishClient {
 	}
 
 	public static void bindScreensToContainers() {
-		// todo not working on forge anymore
+		// not working on forge since 1.21
 		MenuRegistry.registerScreenFactory(FurnishRegistries.Furniture_Workbench_Container.get(), FurnitureWorkbenchScreen::new);
 		MenuRegistry.registerScreenFactory(FurnishRegistries.Crate_Container.get(), ConditionalSlotContainerScreen::new);
 		MenuRegistry.registerScreenFactory(FurnishRegistries.Mailbox_Container.get(), ConditionalSlotContainerScreen::new);
@@ -64,7 +64,7 @@ public class FurnishClient {
 	}
 
 	public static void registerEntityRenderers() {
-		// todo none of that works
+		// not working on forge since 1.21
 		EntityRendererRegistry.register(FurnishRegistries.Seat_Entity::get, SeatRenderer::new);
 		Furnish.LOG.info("Registered Furnish Entities Renderers.");
 
@@ -74,7 +74,6 @@ public class FurnishClient {
 		BlockEntityRendererRegistry.register(FurnishRegistries.Showcase_BlockEntity.get(), ShowcaseRenderer::new);
 		BlockEntityRendererRegistry.register(FurnishRegistries.Disk_Rack_BlockEntity.get(), DiskRackRenderer::new);
 		BlockEntityRendererRegistry.register(FurnishRegistries.Recycle_Bin_BlockEntity.get(), RecycleBinRenderer::new);
-		BlockEntityRendererRegistry.register(FurnishRegistries.Flower_Pot_BlockEntity.get(), FlowerPotRenderer::new);
 		Furnish.LOG.info("Registered Furnish Blocks Entities Renderers.");
 	}
 
