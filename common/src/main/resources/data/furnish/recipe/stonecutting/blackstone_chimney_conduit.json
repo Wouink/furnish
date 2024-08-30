@@ -3,6 +3,8 @@
   "ingredient": {
     "item": "minecraft:polished_blackstone_bricks"
   },
-  "result": "furnish:blackstone_chimney_conduit",
-  "count": 2
+  "result": {
+    "id": "furnish:blackstone_chimney_conduit",
+    "count": 2
+  }
 }

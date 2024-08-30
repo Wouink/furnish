@@ -3,9 +3,12 @@ package io.github.wouink.furnish.block.blockentity;
 import io.github.wouink.furnish.block.container.DiskRackMenu;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 public class DiskRackBlockEntity extends FurnishInventoryBlockEntity {
 	public static final int SIZE = 8;
@@ -32,5 +35,10 @@ public class DiskRackBlockEntity extends FurnishInventoryBlockEntity {
 	@Override
 	public boolean broadcastInventoryUpdatesToRedstone() {
 		return true;
+	}
+
+	@Override
+	public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+		return DiskRackMenu.canPlaceInRack(itemStack);
 	}
 }

@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "item": "furnish:letter",
+    "id": "furnish:letter",
     "count": 1
   }
 }

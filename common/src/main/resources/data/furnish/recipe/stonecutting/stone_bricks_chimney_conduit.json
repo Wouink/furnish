@@ -3,6 +3,8 @@
   "ingredient": {
     "item": "minecraft:stone_bricks"
   },
-  "result": "furnish:stone_bricks_chimney_conduit",
-  "count": 2
+  "result": {
+    "id": "furnish:stone_bricks_chimney_conduit",
+    "count": 2
+  }
 }

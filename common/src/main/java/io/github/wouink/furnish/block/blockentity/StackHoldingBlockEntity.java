@@ -24,7 +24,7 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 	protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
 		super.loadAdditional(compoundTag, provider);
 		if(compoundTag.contains("Held")) {
-			ItemStack.parse(provider, compoundTag.getCompound("Held"));
+			holding = ItemStack.parseOptional(provider, compoundTag.getCompound("Held"));
 		}
 	}
 
@@ -33,7 +33,7 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 		super.saveAdditional(compoundTag, provider);
 		if(!holding.isEmpty()) {
 			compoundTag.put("Held", holding.save(provider, compoundTag));
-		}
+		} else compoundTag.remove("Held");
 	}
 
 	public ItemStack getHeldItem() {

@@ -3,6 +3,8 @@
   "ingredient": {
     "item": "minecraft:acacia_planks"
   },
-  "result": "furnish:acacia_square_table",
-  "count": 1
+  "result": {
+    "id": "furnish:acacia_square_table",
+    "count": 1
+  }
 }

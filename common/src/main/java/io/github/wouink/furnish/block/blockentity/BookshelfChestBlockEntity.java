@@ -4,10 +4,12 @@ import io.github.wouink.furnish.block.BookshelfChest;
 import io.github.wouink.furnish.block.container.BookshelfChestMenu;
 import io.github.wouink.furnish.setup.FurnishRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 public class BookshelfChestBlockEntity extends FurnishInventoryBlockEntity {
     public static final int SIZE = 9;
@@ -23,6 +25,13 @@ public class BookshelfChestBlockEntity extends FurnishInventoryBlockEntity {
     }
 
     @Override
+    public ItemStack removeItem(int i, int j) {
+        ItemStack ret = super.removeItem(i, j);
+        updateCapacity();
+        return ret;
+    }
+
+    @Override
     public int getCapacity() {
         return SIZE;
     }
@@ -30,6 +39,11 @@ public class BookshelfChestBlockEntity extends FurnishInventoryBlockEntity {
     @Override
     public AbstractContainerMenu getMenu(int syncId, Inventory playerInventory) {
         return new BookshelfChestMenu(syncId, playerInventory, this);
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+        return BookshelfChestMenu.canPlace(itemStack);
     }
 
     public int getFilledSlots() {

@@ -23,7 +23,7 @@
     }
   },
   "result": {
-	"item": "furnish:furniture_workbench",
+	"id": "furnish:furniture_workbench",
 	"count": 1
   }
 }

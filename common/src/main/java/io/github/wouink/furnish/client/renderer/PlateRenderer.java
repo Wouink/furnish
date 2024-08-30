@@ -15,8 +15,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity> {
-	private static final double ITEM_HEIGHT = 1 / 16.0d;
-
 	private final ItemRenderer itemRenderer;
 
 	public PlateRenderer(BlockEntityRendererProvider.Context ctx) {

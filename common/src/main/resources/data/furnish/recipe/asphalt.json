@@ -5,5 +5,7 @@
   "ingredient": {
     "item": "minecraft:gravel"
   },
-  "result": "furnish:asphalt"
+  "result": {
+    "id": "furnish:asphalt"
+  }
 }
