@@ -25,7 +25,7 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 		super.loadAdditional(compoundTag, provider);
 		if(compoundTag.contains("Held")) {
 			holding = ItemStack.parseOptional(provider, compoundTag.getCompound("Held"));
-		}
+		} else holding = ItemStack.EMPTY;
 	}
 
 	@Override
@@ -56,6 +56,6 @@ public abstract class StackHoldingBlockEntity extends BlockEntity {
 
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-		return this.saveWithoutMetadata(provider);
+		return this.saveWithFullMetadata(provider);
 	}
 }
