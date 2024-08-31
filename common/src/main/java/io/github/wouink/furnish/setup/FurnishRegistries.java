@@ -83,8 +83,8 @@ public class FurnishRegistries {
     public static final RegistrySupplier<RecipeSerializer<FurnitureRecipe>> Furniture_Recipe_Serializer = RECIPE_SERIALIZERS.register("furniture_making", () -> FurnitureRecipe.SERIALIZER);
 
     // Data attachments
-    public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("author", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
-    public static final RegistrySupplier<DataComponentType<String>> Letter_Text = DATA_ATTACHMENTS.register("text", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
+    public static final RegistrySupplier<DataComponentType<String>> Letter_Author = DATA_ATTACHMENTS.register("letter_author", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
+    public static final RegistrySupplier<DataComponentType<String>> Letter_Text = DATA_ATTACHMENTS.register("letter_text", () -> DataComponentType.<String>builder().persistent(Codec.STRING).networkSynchronized(ByteBufCodecs.STRING_UTF8).build());
 
     // Containers
 

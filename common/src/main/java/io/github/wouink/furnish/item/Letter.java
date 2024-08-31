@@ -75,7 +75,7 @@ public class Letter extends Item {
 	}
 
 	public static boolean canEditLetter(ItemStack letter) {
-		return letter.has(FurnishRegistries.Letter_Author.get());
+		return !letter.has(FurnishRegistries.Letter_Author.get()) ;
 	}
 
 	@Override

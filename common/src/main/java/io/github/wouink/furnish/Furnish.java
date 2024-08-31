@@ -3,9 +3,11 @@ package io.github.wouink.furnish;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.InteractionEvent;
+import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
 import io.github.wouink.furnish.event.*;
+import io.github.wouink.furnish.network.ServerboundLetterUpdateMessage;
 import io.github.wouink.furnish.setup.FurnishBlocks;
 import io.github.wouink.furnish.setup.FurnishClient;
 import io.github.wouink.furnish.setup.FurnishRegistries;
@@ -38,6 +40,8 @@ public class Furnish {
 		LOG.info("Registered Furnish Data Attachments");
 		FurnishRegistries.CREATIVE_TABS.register();
 		LOG.info("Registered Furnish Creative Tab.");
+
+		NetworkManager.registerReceiver(NetworkManager.Side.C2S, ServerboundLetterUpdateMessage.TYPE, ServerboundLetterUpdateMessage.STREAM_CODEC, new ServerboundLetterUpdateMessage.Receiver());
 
 		BlockEvent.PLACE.register(PlaceCarpet::onCarpetPlaced);
 		InteractionEvent.RIGHT_CLICK_BLOCK.register(PlaceSnow::onSnowLayerUsedOnBlock);

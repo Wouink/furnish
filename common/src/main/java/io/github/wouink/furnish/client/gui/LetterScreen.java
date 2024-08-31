@@ -3,20 +3,24 @@ package io.github.wouink.furnish.client.gui;
 import dev.architectury.networking.NetworkManager;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.item.Letter;
-import io.github.wouink.furnish.network.C2S_UpdateLetterMessage;
+import io.github.wouink.furnish.network.ServerboundLetterUpdateMessage;
 import io.github.wouink.furnish.setup.FurnishRegistries;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Optional;
 
 public class LetterScreen extends Screen {
 	private static final Component SCREEN_NAME = Component.translatable("item.furnish.letter");
@@ -43,7 +47,8 @@ public class LetterScreen extends Screen {
 		editable = Letter.canEditLetter(letter);
 		if(editable) {
 			letterEdit = new TextFieldHelper(this::getText, this::setText, this::getClipboard, this::setClipboard, (s) -> s.length() < LETTER_MAX_LENGTH);
-		}
+			Furnish.debug("Letter is editable");
+		} else Furnish.debug("Letter is not editable");
 	}
 
 	private void setClipboard(String s) {
@@ -64,14 +69,9 @@ public class LetterScreen extends Screen {
 		letterText = s;
 	}
 
-	private void save() {
-		letter.set(FurnishRegistries.Letter_Text.get(), getText());
-	}
-
-	private void sendUpdate() {
-		int slot = this.hand == InteractionHand.MAIN_HAND ? this.playerEntity.getInventory().selected : 40;
-		NetworkManager.sendToServer(new C2S_UpdateLetterMessage(slot, getText()));
-		//new C2S_UpdateItemStack(slot, letter).sendToServer();
+	private void sendUpdate(Optional<String> author) {
+		int slot = this.hand == InteractionHand.MAIN_HAND ? this.playerEntity.getInventory().selected : Inventory.SLOT_OFFHAND;
+		NetworkManager.sendToServer(new ServerboundLetterUpdateMessage(slot, getText(), author));
 	}
 
 	@Override
@@ -79,14 +79,11 @@ public class LetterScreen extends Screen {
 		super.init();
 		if(editable) {
 			this.addRenderableWidget(Button.builder(SIGN_LETTER, (button) -> {
-				save();
-				Letter.signLetter(letter, playerEntity.getGameProfile().getName());
-				sendUpdate();
+				sendUpdate(Optional.of(playerEntity.getGameProfile().getName()));
 				this.minecraft.setScreen(null);
 			}).bounds(this.width / 2 - 102, 196, 100, 20).build());
 			this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-				save();
-				sendUpdate();
+				sendUpdate(Optional.empty());
 				this.minecraft.setScreen(null);
 			}).bounds(this.width / 2 + 2, 196, 100, 20).build());
 		} else {
@@ -99,12 +96,16 @@ public class LetterScreen extends Screen {
 	@Override
 	public boolean charTyped(char c, int n) {
 		if(super.charTyped(c, n)) {
+			Furnish.debug("super.charTyped true");
 			return true;
 		}
 		if(editable && StringUtil.isAllowedChatCharacter(c)) {
+			Furnish.debug("Character allowed: " + c);
 			letterEdit.insertText(Character.toString(c));
+			Furnish.debug("letterText now contains " + getText());
 			return true;
 		}
+		Furnish.debug("Character not allowed");
 		return false;
 	}
 
@@ -146,24 +147,27 @@ public class LetterScreen extends Screen {
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		// todo does it still has a background?
-		//this.renderBackground(guiGraphics);
-		this.setFocused((GuiEventListener)null);
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
+		this.setFocused(null);
 		int startX = (this.width - 192) / 2;
-		guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);
 
 		// text and cursor rendering
 		if(editable) {
 			if(frameTick / 6 % 2 == 0) {
-				guiGraphics.drawWordWrap(font, Component.literal(letterText).append("_"), startX + 36, 20, 108, 0);
+				guiGraphics.drawWordWrap(font, Component.literal(letterText).append("_").setStyle(Style.EMPTY.withColor(ChatFormatting.BLACK)), startX + 36, 20, 108, 0);
 			} else {
-				guiGraphics.drawWordWrap(font, Component.literal(letterText).append(" "), startX + 36, 20, 108, 0);
+				guiGraphics.drawWordWrap(font, Component.literal(letterText).append(" ").setStyle(Style.EMPTY.withColor(ChatFormatting.BLACK)), startX + 36, 20, 108, 0);
 			}
 		} else {
-			guiGraphics.drawWordWrap(font, Component.literal(letterText), startX + 36, 20, 108, 0);
+			guiGraphics.drawWordWrap(font, Component.literal(letterText).setStyle(Style.EMPTY.withColor(ChatFormatting.BLACK)), startX + 36, 20, 108, 0);
 		}
+	}
 
-		super.render(guiGraphics, mouseX, mouseY, partialTick);
+	@Override
+	public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f) {
+		this.renderTransparentBackground(guiGraphics);
+		int startX = (this.width - 192) / 2;
+		guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);
 	}
 
 	@Override
