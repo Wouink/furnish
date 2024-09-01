@@ -66,7 +66,7 @@ public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
 	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
 		BlockState below = level.getBlockState(blockPos.below());
 		if(below.getBlock() instanceof TrapDoorBlock) {
-			return below.useWithoutItem(level, player, blockHitResult);
+			return below.useWithoutItem(level, player, blockHitResult.withPosition(blockPos.below()));
 		}
 		return InteractionResult.FAIL;
 	}

@@ -48,7 +48,7 @@ public class LogBench extends Block {
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-		return SeatEntity.create(level, blockPos, 0.35, player);
+		return SeatEntity.create(level, blockPos, 0.55, player);
 	}
 
 	@Override

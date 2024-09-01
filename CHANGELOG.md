@@ -15,7 +15,7 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 
 ## Furnish v27 for Minecraft 1.21 (in development)
 
-- **TODO** Fix an exploit with `C2S_UpdateItemStack` message
+- Fix an exploit with `C2S_UpdateItemStack` message (#50, #52)
 - **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt
 - **TODO** Allow Endermen to despawn when they spawn with a plate
 - **TODO** Fix pop book on Lectern causing Lectern to be unbreakable (#49)

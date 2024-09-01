@@ -1,7 +1,6 @@
 package io.github.wouink.furnish.setup;
 
 import dev.architectury.registry.registries.RegistrySupplier;
-import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.VoxelShapeHelper;
 import io.github.wouink.furnish.item.Letter;
@@ -12,13 +11,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.IronBarsBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import java.util.ArrayList;
@@ -300,8 +297,11 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Cobweb = registerBlockWithItem("cobweb", () -> new Cobweb(BlockBehaviour.Properties.of().strength(0.0f)));
 
 	// Winter
-	public static final RegistrySupplier<Block> Snow_On_Fence = registerBlock("snow_on_fence", () -> new SnowOnFence(BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW)));
-	public static final RegistrySupplier<Block> Snow_On_Stairs = registerBlock("snow_on_stairs", () -> new CarpetOnStairs(BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW), Blocks.SNOW));
+	private static BlockBehaviour.Properties Snow_Properties = BlockBehaviour.Properties.of().mapColor(MapColor.SNOW)
+				.replaceable().forceSolidOff().randomTicks().strength(0.1F)
+			.requiresCorrectToolForDrops().sound(SoundType.SNOW).pushReaction(PushReaction.DESTROY);
+	public static final RegistrySupplier<Block> Snow_On_Fence = registerBlock("snow_on_fence", () -> new SnowOnFence(Snow_Properties));
+	public static final RegistrySupplier<Block> Snow_On_Stairs = registerBlock("snow_on_stairs", () -> new CarpetOnStairs(Snow_Properties, Blocks.SNOW));
 
 	// Office furniture
 	public static final RegistrySupplier<Block> Paper_Sheet_Empty = registerBlockWithItem("paper_sheet_empty", () -> new Paper(BlockBehaviour.Properties.of().instabreak().sound(FurnishRegistries.Paper_Sound_Type)));

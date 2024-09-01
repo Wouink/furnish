@@ -48,7 +48,7 @@ public class Bench extends Block {
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-		return SeatEntity.create(level, blockPos, 0.3, player);
+		return SeatEntity.create(level, blockPos, 0.5, player);
 	}
 
 	@Override

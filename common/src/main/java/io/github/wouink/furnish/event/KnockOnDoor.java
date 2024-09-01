@@ -18,12 +18,6 @@ public class KnockOnDoor {
 		if(level.isClientSide() || player.isCreative()) return EventResult.pass();
 		if(player.getItemInHand(hand).isEmpty()) {
 			BlockState hitBlock = level.getBlockState(pos);
-
-			// on Forge, the event is fired twice
-			// on Fabric and Quilt platforms, the event only fires once
-			// tried a few workarounds to detect the first instance
-			// but no parameter is accurate enough...
-
 			if(hitBlock.getBlock() instanceof DoorBlock && hitBlock.is(FurnishRegistries.CAN_KNOCK_ON)) {
 				level.playSound(null, pos, hitBlock.is(Blocks.IRON_DOOR) ? FurnishRegistries.Iron_Door_Knock_Sound.get() : FurnishRegistries.Wooden_Door_Knock_Sound.get(), SoundSource.BLOCKS, 1.0f ,1.0f);
 				return EventResult.interruptTrue();
