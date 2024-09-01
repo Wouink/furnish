@@ -96,7 +96,7 @@ public class RecycleBin extends Block implements EntityBlock {
 				} else level.playSound(null, blockPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1.0f, 1.0f);
 			} else player.openMenu(recycleBin);
 		}
-		return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
+		return ItemInteractionResult.CONSUME;
 	}
 
 	@Override

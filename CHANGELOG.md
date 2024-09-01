@@ -8,20 +8,14 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Reworks (todo, maybe)
-
-- `SittingFurniture` interface to avoid duplicating sitting code?
-- Refactor Mailbox block entity code
-
 ## Furnish v27 for Minecraft 1.21 (in development)
 
 - Fix an exploit with `C2S_UpdateItemStack` message (#50, #52)
-- **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt
+- **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt (does not seem fixable as of now...)
 - **TODO** Allow Endermen to despawn when they spawn with a plate
-- **TODO** Fix pop book on Lectern causing Lectern to be unbreakable (#49)
 - **TODO** Fix issue with seats (#46)
 - **TODO** Make sure tables are always a full support shape (#45)
-- Fix Stone Brick Chimney Conduit recipe (#47)
+- Fix Stone Brick Chimney Conduit recipe (#47, #51)
 
 ## Furnish v26 for Minecraft 1.20.1
 

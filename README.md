@@ -8,8 +8,9 @@ Furnish takes away the ton of crafting required by other furniture mods by addin
 
 ## Screenshots
 
-![Kitchen Example](https://media.forgecdn.net/attachments/408/875/kitchen_1280x.png)
-![Dark Meeting Room](https://media.forgecdn.net/attachments/408/874/meeting_1280x.png)
+![Kitchen Example](https://cdn.modrinth.com/data/5cWCtJmf/images/5f080fb962b8f648ece769632c9d2018f26acd73.png)
+
+![Dark Meeting Room](https://cdn.modrinth.com/data/5cWCtJmf/images/9f71c22731b812e10964967874b1ad494f4ba269.png)
 
 ## Compatibility
 
@@ -20,8 +21,10 @@ Here's an example with [Market Crates](https://www.curseforge.com/minecraft/mc-m
 {
 	"type": "furnish:furniture_making",
 	"ingredient": { "item": "minecraft:acacia_planks" },
-	"result": "marketcrates:acacia_crate",
-	"count": 1
+	"result": {
+      "id": "marketcrates:acacia_crate",
+      "count": 1
+    }
 }
 ```
 
