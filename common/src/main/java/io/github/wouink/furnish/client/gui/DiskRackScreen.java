@@ -20,8 +20,6 @@ public class DiskRackScreen extends AbstractContainerScreen<DiskRackMenu> {
 	}
 
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		// todo does it still has a background?
-		// this.renderBackground(guiGraphics);
 		super.render(guiGraphics, mouseX, mouseY, partialTick);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
 	}

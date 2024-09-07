@@ -6,7 +6,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.block.Crate;
-import io.github.wouink.furnish.block.Mailbox;
+import io.github.wouink.furnish.block.NewMailbox;
 import io.github.wouink.furnish.block.blockentity.*;
 import io.github.wouink.furnish.block.container.*;
 import io.github.wouink.furnish.entity.SeatEntity;
@@ -152,7 +152,7 @@ public class FurnishRegistries {
     public static final RegistrySupplier<BlockEntityType<FurnitureBlockEntity>> Furniture_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("furniture", () -> BlockEntityType.Builder.of(FurnitureBlockEntity::new, FurnishBlocks.Furniture_3x9.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<LargeFurnitureBlockEntity>> Large_Furniture_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("large_furniture", () -> BlockEntityType.Builder.of(LargeFurnitureBlockEntity::new, FurnishBlocks.Furniture_6x9.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<AmphoraBlockEntity>> Amphora_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("amphora", () -> BlockEntityType.Builder.of(AmphoraBlockEntity::new, FurnishBlocks.Amphorae.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
-    public static final RegistrySupplier<BlockEntityType<MailboxBlockEntity>> Mailbox_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("mailbox", () -> BlockEntityType.Builder.of(MailboxBlockEntity::new, Mailbox.All_Mailboxes.toArray(Block[]::new)).build(null));
+    public static final RegistrySupplier<BlockEntityType<NewMailboxBlockEntity>> Mailbox_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("mailbox", () -> BlockEntityType.Builder.of(NewMailboxBlockEntity::new, NewMailbox.MAILBOXES.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<CrateBlockEntity>> Crate_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("crate", () -> BlockEntityType.Builder.of(CrateBlockEntity::new, Crate.All_Crates.toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<PlateBlockEntity>> Plate_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("plate", () -> BlockEntityType.Builder.of(PlateBlockEntity::new, FurnishBlocks.Plates.stream().map(RegistrySupplier::get).toArray(Block[]::new)).build(null));
     public static final RegistrySupplier<BlockEntityType<ShelfBlockEntity>> Shelf_BlockEntity = FurnishRegistries.BLOCK_ENTITIES.register("shelf", () -> BlockEntityType.Builder.of(ShelfBlockEntity::new, FurnishBlocks.Shelves.toArray(Block[]::new)).build(null));

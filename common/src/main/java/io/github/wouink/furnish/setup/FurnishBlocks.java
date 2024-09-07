@@ -270,7 +270,7 @@ public class FurnishBlocks {
 	public static final RegistrySupplier<Block> Lantern_Bunting = registerBlock("lantern_bunting", () -> new LanternBunting(BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.LANTERN).lightLevel((state) -> 15)));
 	public static final RegistrySupplier<Block> Soul_Lantern_Bunting = registerBlock("soul_lantern_bunting", () -> new LanternBunting(BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.LANTERN).lightLevel((state) -> 10)));
 
-	public static final RegistrySupplier<Block> Metal_Mailbox = registerBlockWithItem("metal_mailbox", () -> new Mailbox(BlockBehaviour.Properties.of().noOcclusion().strength(2.0f).sound(SoundType.METAL)));
+	public static final RegistrySupplier<Block> Metal_Mailbox = registerBlockWithItem("metal_mailbox", () -> new NewMailbox(BlockBehaviour.Properties.of().noOcclusion().strength(2.0f).sound(SoundType.METAL)));
 
 	public static final RegistrySupplier<Block> Brick_Chimney_Conduit = registerBlockWithItem("brick_chimney_conduit", () -> new ChimneyConduit(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(1.0f, 3.0f)));
 	public static final RegistrySupplier<Block> Blackstone_Chimney_Conduit = registerBlockWithItem("blackstone_chimney_conduit", () -> new ChimneyConduit(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(1.0f, 3.0f)));

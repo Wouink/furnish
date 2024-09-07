@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.wouink.furnish.block.blockentity.MailboxBlockEntity;
+import io.github.wouink.furnish.block.blockentity.NewMailboxBlockEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,7 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.joml.Matrix4f;
 
-public class MailboxRenderer implements BlockEntityRenderer<MailboxBlockEntity> {
+public class MailboxRenderer implements BlockEntityRenderer<NewMailboxBlockEntity> {
 	private final Camera camera;
 	private final Font font;
 
@@ -25,13 +25,13 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxBlockEntity> 
 	}
 
 	@Override
-	public void render(MailboxBlockEntity mailbox, float partialTicks, PoseStack ps, MultiBufferSource buffer, int light, int overlay) {
+	public void render(NewMailboxBlockEntity mailbox, float partialTicks, PoseStack ps, MultiBufferSource buffer, int light, int overlay) {
 		if(shouldShowName(mailbox)) {
 			renderNameTag(mailbox, ps, buffer, light);
 		}
 	}
 
-	private boolean shouldShowName(MailboxBlockEntity mailbox) {
+	private boolean shouldShowName(NewMailboxBlockEntity mailbox) {
 		if(!mailbox.hasOwner()) return false;
 
 		HitResult hitResult = camera.getEntity().pick(20.0d, 0.0f, false);
@@ -44,7 +44,7 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxBlockEntity> 
 	}
 
 	// based on net.minecraft.client.renderer.entity.EntityRenderer#renderNameTag
-	private void renderNameTag(MailboxBlockEntity mailbox, PoseStack ms, MultiBufferSource buffer, int light) {
+	private void renderNameTag(NewMailboxBlockEntity mailbox, PoseStack ms, MultiBufferSource buffer, int light) {
 		if(!Minecraft.renderNames()) return;
 
 		Component content = mailbox.getOwnerDisplayName();

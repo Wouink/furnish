@@ -72,14 +72,6 @@ public class Mailbox extends HorizontalDirectionalBlock implements EntityBlock {
 		if(entity instanceof Player player) {
 			player.displayClientMessage(Component.translatable("msg.furnish.mailbox.ownership_info"), true);
 		}
-		/* todo
-		if(stack.hasCustomHoverName()) {
-			BlockEntity blockEntity = world.getBlockEntity(pos);
-			if(blockEntity instanceof MailboxBlockEntity mailbox) {
-				mailbox.setCustomName(stack.getHoverName());
-			}
-		}
-		 */
 	}
 
 	@Override
