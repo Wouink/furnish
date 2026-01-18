@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "furnish",
+	"version": "${version}",
+	"name": "Furnish",
+	"description": "Fancy furniture for Minecraft!",
+	"authors": [
+		"Wouink"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/furnish-furniture",
+		"sources": "https://github.com/Wouink/furnish"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/furnish/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.wouink.furnish.Furnish"
+		],
+		"client": [
+			"io.github.wouink.furnish.FurnishClient"
+		],
+		"fabric-datagen": [
+			"io.github.wouink.furnish.FurnishDataGenerator"
+		]
+	},
+	"mixins": [
+		"furnish.mixins.json",
+		{
+			"config": "furnish.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

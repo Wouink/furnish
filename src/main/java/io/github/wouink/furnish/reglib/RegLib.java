@@ -1,0 +1,163 @@
+package io.github.wouink.furnish.reglib;
+
+import io.github.wouink.furnish.Furnish;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import java.util.function.Function;
+
+/**
+ * Minecraft's content registration system changes basically every ten minutes.
+ * This is an attempt to simplify all the work required for every update.
+ */
+public class RegLib {
+
+    /**
+     * Registers an item in the game
+     * Example use:
+     * public static final Item TEST_ITEM = RegLib.registerItem("test_item", Item::new, new Item.Properties());
+     * @param id the identifier, without the mod id, example: red_curtain
+     * @param itemFactory a reference to the constructor, example: RedCurtainItem::new
+     * @param properties item properties
+     * @return the item
+     * @param <GenericItem> the item's class
+     */
+    public static <GenericItem extends Item> GenericItem registerItem(
+            String id,
+            Function<Item.Properties, GenericItem> itemFactory,
+            Item.Properties properties
+    ) {
+        ResourceKey<Item> itemKey = ResourceKey.create(
+                Registries.ITEM,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id)
+        );
+        GenericItem item = itemFactory.apply(properties);
+        Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+        return item;
+    }
+
+    /**
+     * Registers a block (and optionally an item) in the game
+     * @param id the identifier, example: red_curtain
+     * @param blockFactory a reference to the block constructor, example RedCurtainBlock::new
+     * @param properties the block properties
+     * @param registerItem should we automatically create an item for this block?
+     * @return the block
+     */
+    public static Block registerBlock(
+            String id,
+            Function<BlockBehaviour.Properties, Block> blockFactory,
+            BlockBehaviour.Properties properties,
+            boolean registerItem
+    ) {
+        ResourceKey<Block> blockKey = ResourceKey.create(
+                Registries.BLOCK,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id)
+        );
+        Block block = blockFactory.apply(properties);
+        Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+
+        if (registerItem) {
+            ResourceKey<Item> itemKey = ResourceKey.create(
+                    Registries.ITEM,
+                    ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id)
+            );
+            BlockItem blockItem = new BlockItem(
+                    block,
+                    new Item.Properties()
+            );
+            Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
+        }
+
+        return block;
+    }
+
+    /**
+     * Registers a block entity type in the game
+     * @param id the block entity's id
+     * @param entityFactory a reference to it's constructor
+     * @param blocks an array of the blocks related to this block entity
+     * @return the block entity type
+     * @param <T> the block entity's class
+     */
+    public static <T extends BlockEntity> BlockEntityType<T> registerBlockEntity(
+            String id,
+            FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
+            Block... blocks
+    ) {
+        return Registry.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id),
+                FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build()
+        );
+    }
+
+    /**
+     * Registers a menu (Screen <-> BlockEntity mapping = slots logic) in the game
+     * @param id the name of the menu (without namespace)
+     * @param menuSupplier the
+     * @return
+     * @param <T>
+     */
+    public static <T extends AbstractContainerMenu> MenuType<T> registerMenuType(
+            String id,
+            MenuType.MenuSupplier<T> menuSupplier
+    ) {
+        return Registry.register(
+                BuiltInRegistries.MENU,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id),
+                new MenuType<>(menuSupplier, FeatureFlagSet.of())
+        );
+    }
+
+    /**
+     * Registers a sound in the game
+     * @param soundKey the name of the sound (without namespace) - the sound needs to be defined in sounds.json
+     * @return a SoundEvent object
+     */
+    public static SoundEvent registerSound(String soundKey) {
+        ResourceLocation soundIdentifier = ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, soundKey);
+        return Registry.register(
+                BuiltInRegistries.SOUND_EVENT,
+                soundIdentifier,
+                SoundEvent.createVariableRangeEvent(soundIdentifier)
+        );
+    }
+
+    /**
+     * Registers a new EntityType in the game
+     * Example use:
+     * @param name the name of the entity (without namespace)
+     * @param builder the builder
+     * @return the EntityType
+     * @param <T> the EntityType
+     */
+    public static <T extends Entity> EntityType<T> registerEntityType(String name, EntityType.Builder builder) {
+        return Registry.register(
+                BuiltInRegistries.ENTITY_TYPE,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name),
+                builder.build(name)
+        );
+    }
+
+    public static TagKey registerTag(ResourceKey tagType, String name) {
+        return TagKey.create(tagType, ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name));
+    }
+}

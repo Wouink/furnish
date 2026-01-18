@@ -1,6 +1,0 @@
-accessWidener   v2  named
-
-# make SingleItemRecipe Serializer accessible to Furnish
-accessible class net/minecraft/world/item/crafting/SingleItemRecipe
-accessible class net/minecraft/world/item/crafting/SingleItemRecipe$Serializer
-accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;)V
