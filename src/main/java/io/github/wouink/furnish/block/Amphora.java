@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
+import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.blockentity.AmphoraBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -67,10 +68,9 @@ public class Amphora extends HorizontalDirectionalBlock implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(blockEntity instanceof AmphoraBlockEntity amphoraBlockEntity) {
-            player.openMenu(amphoraBlockEntity);
-        }
+        level.getBlockEntity(blockPos, FurnishContents.AMPHORA_BLOCK_ENTITY).ifPresent(
+                amphora -> player.openMenu(amphora)
+        );
         return InteractionResult.CONSUME;
     }
 

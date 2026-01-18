@@ -37,11 +37,16 @@ public class FurnishContents {
     public static final List<Block> amphorae = new ArrayList<>();
     public static final List<Block> crates = new ArrayList<>();
     public static final List<Block> shelves = new ArrayList<>();
+    public static final List<Block> showcases = new ArrayList<>();
+    public static final List<Block> plates = new ArrayList<>();
+    public static final List<Block> shutters = new ArrayList<>();
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> SMALL_FURNITURE_BLOCK_ENTITY;
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> LARGE_FURNITURE_BLOCK_ENTITY;
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> AMPHORA_BLOCK_ENTITY;
     public static BlockEntityType<@NotNull CrateBlockEntity> CRATE_BLOCK_ENTITY;
     public static BlockEntityType<@NotNull ShelfBlockEntity> SHELF_BLOCK_ENTITY;
+    public static BlockEntityType<@NotNull ShowcaseBlockEntity> SHOWCASE_BLOCK_ENTITY;
+    public static BlockEntityType<@NotNull PlateBlockEntity> PLATE_BLOCK_ENTITY;
 
     public static SoundEvent CABINET_OPEN = RegLib.registerSound("block.furniture.open");
     public static SoundEvent CABINET_CLOSE = RegLib.registerSound("block.furniture.close");
@@ -53,6 +58,7 @@ public class FurnishContents {
     public static SoundEvent AMPHORA_CLOSE = RegLib.registerSound("block.amphora.close");
 
     public static final TagKey CRATE_BLACKLIST_TAG = RegLib.registerTag(Registries.ITEM, "crate_blacklist");
+    public static final TagKey FOOD_TAG = RegLib.registerTag(Registries.ITEM, "food");
 
     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
             "seat",
@@ -94,7 +100,7 @@ public class FurnishContents {
             shelves.add(RegLib.registerBlock(wood + "_shelf", Shelf::new, props.noOcclusion(), true));
             // TODO add drawers
 
-            RegLib.registerBlock(wood + "_shutter", Shutter::new, props.noOcclusion(), true);
+            shutters.add(RegLib.registerBlock(wood + "_shutter", Shutter::new, props.noOcclusion(), true));
         }
 
         BlockBehaviour.Properties lockerProps = BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops();
@@ -112,6 +118,8 @@ public class FurnishContents {
             amphorae.add(RegLib.registerBlock(color + "_amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(terracotta), true));
             RegLib.registerBlock(color + "_awning", Awning::new, BlockBehaviour.Properties.ofFullCopy(carpet).noOcclusion(), true);
             RegLib.registerBlock(color + "_sofa", Sofa::new, BlockBehaviour.Properties.ofFullCopy(wool).noOcclusion(), true);
+            showcases.add(RegLib.registerBlock(color + "_showcase", Showcase::new, BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS), true));
+            plates.add(RegLib.registerBlock(color + "_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(terracotta), true));
         }
 
         SMALL_FURNITURE_BLOCK_ENTITY = RegLib.registerBlockEntity("furniture", SmallFurnitureBlockEntity::new, smallFurniture.toArray(new Block[]{}));
@@ -119,5 +127,7 @@ public class FurnishContents {
         AMPHORA_BLOCK_ENTITY = RegLib.registerBlockEntity("amphora", AmphoraBlockEntity::new, amphorae.toArray(new Block[]{}));
         CRATE_BLOCK_ENTITY = RegLib.registerBlockEntity("crate", CrateBlockEntity::new, crates.toArray(new Block[]{}));
         SHELF_BLOCK_ENTITY = RegLib.registerBlockEntity("shelf", ShelfBlockEntity::new, shelves.toArray(new Block[]{}));
+        SHOWCASE_BLOCK_ENTITY = RegLib.registerBlockEntity("showcase", ShowcaseBlockEntity::new, showcases.toArray(new Block[]{}));
+        PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
     }
 }

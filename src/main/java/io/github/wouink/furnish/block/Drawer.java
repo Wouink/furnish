@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
+import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.blockentity.AbstractFurnitureBlockEntity;
 import io.github.wouink.furnish.blockentity.SmallFurnitureBlockEntity;
@@ -54,10 +55,9 @@ public class Drawer extends HorizontalDirectionalBlock implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(blockEntity instanceof AbstractFurnitureBlockEntity storageBlockEntity) {
-            player.openMenu(storageBlockEntity);
-        }
+        level.getBlockEntity(blockPos, FurnishContents.SMALL_FURNITURE_BLOCK_ENTITY).ifPresent(
+                furniture -> player.openMenu(furniture)
+        );
         return InteractionResult.CONSUME;
     }
 }

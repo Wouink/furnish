@@ -51,10 +51,9 @@ public class Crate extends Block implements EntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(blockEntity instanceof AbstractFurnitureBlockEntity storageBlockEntity) {
-            player.openMenu(storageBlockEntity);
-        }
+        level.getBlockEntity(blockPos, FurnishContents.CRATE_BLOCK_ENTITY).ifPresent(
+                crate -> player.openMenu(crate)
+        );
         return InteractionResult.CONSUME;
     }
 

@@ -1,12 +1,30 @@
 package io.github.wouink.furnish;
 
+import io.github.wouink.furnish.blockentityrenderer.PlateRenderer;
+import io.github.wouink.furnish.blockentityrenderer.ShelfRenderer;
+import io.github.wouink.furnish.blockentityrenderer.ShowcaseRenderer;
 import io.github.wouink.furnish.entityrenderer.SeatEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.level.block.Block;
 
 public class FurnishClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		EntityRendererRegistry.register(FurnishContents.SEAT_ENTITY, SeatEntityRenderer::new);
+		BlockEntityRenderers.register(FurnishContents.SHELF_BLOCK_ENTITY, ShelfRenderer::new);
+		BlockEntityRenderers.register(FurnishContents.SHOWCASE_BLOCK_ENTITY, ShowcaseRenderer::new);
+		BlockEntityRenderers.register(FurnishContents.PLATE_BLOCK_ENTITY, PlateRenderer::new);
+
+		// https://wiki.fabricmc.net/tutorial:blockappearance
+		// changing after 1.21.6
+		for(Block b : FurnishContents.showcases)
+			BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.translucent());
+
+		for(Block b : FurnishContents.shutters)
+			BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.translucent());
 	}
 }

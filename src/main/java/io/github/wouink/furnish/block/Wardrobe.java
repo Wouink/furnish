@@ -78,9 +78,10 @@ public class Wardrobe extends Cabinet {
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity blockEntity = level.getBlockEntity(blockState.getValue(TOP).booleanValue() ? blockPos.below() : blockPos);
-        if(blockEntity instanceof LargeFurnitureBlockEntity furnitureBlockEntity)
-            player.openMenu(furnitureBlockEntity);
+        BlockPos blockEntityPos = blockState.getValue(TOP).booleanValue() ? blockPos.below() : blockPos;
+        level.getBlockEntity(blockEntityPos, FurnishContents.LARGE_FURNITURE_BLOCK_ENTITY).ifPresent(
+                wardrobe -> player.openMenu(wardrobe)
+        );
         return InteractionResult.CONSUME;
     }
 
