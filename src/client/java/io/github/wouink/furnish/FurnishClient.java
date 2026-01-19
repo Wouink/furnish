@@ -26,5 +26,11 @@ public class FurnishClient implements ClientModInitializer {
 
 		for(Block b : FurnishContents.shutters)
 			BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.translucent());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.RED_BUNTING, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.YELLOW_BUNTING, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.GREEN_BUNTING, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.LANTERN_BUNTING, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, RenderType.translucent());
 	}
 }

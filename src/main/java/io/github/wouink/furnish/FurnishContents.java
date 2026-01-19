@@ -67,11 +67,18 @@ public class FurnishContents {
             EntityType.Builder.of((entityType, level)
                     -> new SeatEntity(level), MobCategory.MISC).sized(0f, 0f)
     );
+    
+    public static CreativeModeTab FURNISH_TAB; // define with workbench icon here instead of at the end
 
-    public static CreativeModeTab FURNISH_TAB;
+    // TODO make a proper item texture for buntings
+    // TODO add texture variation for each bunting
+    private static BlockBehaviour.Properties buntingProps = BlockBehaviour.Properties.ofFullCopy(Blocks.TRIPWIRE).noOcclusion().noCollission();
+    public static final Block LANTERN_BUNTING = RegLib.registerBlock("lantern_bunting", LanternBunting::new, buntingProps, false);
+    public static final Block SOUL_LANTERN_BUNTING = RegLib.registerBlock("soul_lantern_bunting", LanternBunting::new, buntingProps, false);
+    public static final Block RED_BUNTING = RegLib.registerBlock("red_bunting", Bunting::new, buntingProps, true);
+    public static final Block YELLOW_BUNTING = RegLib.registerBlock("yellow_bunting", Bunting::new, buntingProps, true);
+    public static final Block GREEN_BUNTING = RegLib.registerBlock("green_bunting", Bunting::new, buntingProps, true);
 
-    // TODO bunting
-    // TODO lantern bunting
     // TODO book pile
     // TODO carpet on stairs
     // TODO carpet on trapdoor
