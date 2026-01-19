@@ -6,38 +6,20 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * This code is common to all the blocks which purpose is to display an item, e.g. Plate, Showcase or Shelf.
  */
-public abstract class AbstractItemDisplayBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public abstract class AbstractItemDisplayBlock extends AbstractStorageFurnitureBlock {
     protected AbstractItemDisplayBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add(FACING);
-    }
-
-    @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-        return defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection().getOpposite());
     }
 
     // swap the item on right click with an item
@@ -70,25 +52,5 @@ public abstract class AbstractItemDisplayBlock extends HorizontalDirectionalBloc
             }
         }
         return super.getCloneItemStack(levelReader, blockPos, blockState);
-    }
-
-    // drop the item when broken
-    @Override
-    protected void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean pistonMoved) {
-        if(!blockState.is(newState.getBlock())) {
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            if(blockEntity instanceof AbstractStackHoldingBlockEntity stackHoldingBlockEntity) {
-                ItemStack stack = stackHoldingBlockEntity.getHeldItem();
-                if(!stack.isEmpty())
-                    level.addFreshEntity(new ItemEntity(
-                            level,
-                            blockPos.getX() + .5,
-                            blockPos.getY() + .5,
-                            blockPos.getZ() + .5,
-                            stack
-                    ));
-            }
-        }
-        super.onRemove(blockState, level, blockPos, newState, pistonMoved);
     }
 }

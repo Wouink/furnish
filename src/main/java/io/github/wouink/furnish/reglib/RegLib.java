@@ -1,10 +1,14 @@
 package io.github.wouink.furnish.reglib;
 
 import io.github.wouink.furnish.Furnish;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -15,12 +19,16 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -28,6 +36,8 @@ import java.util.function.Function;
  * This is an attempt to simplify all the work required for every update.
  */
 public class RegLib {
+    // holds the items that need to be registered in the creative tab later
+    private static List<Item> itemsInCreativeTab = new ArrayList<>();
 
     /**
      * Registers an item in the game
@@ -50,6 +60,7 @@ public class RegLib {
         );
         GenericItem item = itemFactory.apply(properties);
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+        itemsInCreativeTab.add(item);
         return item;
     }
 
@@ -84,6 +95,7 @@ public class RegLib {
                     new Item.Properties()
             );
             Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
+            itemsInCreativeTab.add(blockItem);
         }
 
         return block;
@@ -144,6 +156,11 @@ public class RegLib {
     /**
      * Registers a new EntityType in the game
      * Example use:
+     *     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
+     *             "seat",
+     *             EntityType.Builder.of((entityType, level)
+     *                     -> new SeatEntity(level), MobCategory.MISC).sized(0f, 0f)
+     *     );
      * @param name the name of the entity (without namespace)
      * @param builder the builder
      * @return the EntityType
@@ -157,7 +174,42 @@ public class RegLib {
         );
     }
 
+    /**
+     * Registers a new tag in the game
+     * @param tagType what kind of tag? block tag? item tag?
+     * @param name the name of the tag (without namespace)
+     * @return the tag
+     */
     public static TagKey registerTag(ResourceKey tagType, String name) {
         return TagKey.create(tagType, ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name));
+    }
+
+    /**
+     * Registers a creative tab in the game
+     * @param name the name of the creative tag
+     * @param icon the item used as an icon for the creative tag
+     * @return a creative tab with the translation key of `itemGroup.MOD_ID.name`
+     */
+    public static CreativeModeTab registerCreativeTab(String name, Item icon) {
+        ResourceKey<CreativeModeTab> key = ResourceKey.create(
+                BuiltInRegistries.CREATIVE_MODE_TAB.key(),
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name)
+        );
+        CreativeModeTab tab = Registry.register(
+                BuiltInRegistries.CREATIVE_MODE_TAB,
+                key,
+                FabricItemGroup.builder()
+                        .icon(() -> new ItemStack(icon))
+                        .title(Component.translatable("itemGroup." + Furnish.MOD_ID + "." + name))
+                        .build()
+        );
+        ItemGroupEvents.modifyEntriesEvent(key).register(RegLib::addItemsToTab);
+        return tab;
+    }
+
+    private static void addItemsToTab(FabricItemGroupEntries itemGroup) {
+        for(Item i : itemsInCreativeTab) itemGroup.accept(i);
+        // free the list, we don't need it anymore
+        itemsInCreativeTab = null;
     }
 }

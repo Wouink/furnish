@@ -12,9 +12,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -66,6 +68,30 @@ public class FurnishContents {
                     -> new SeatEntity(level), MobCategory.MISC).sized(0f, 0f)
     );
 
+    public static CreativeModeTab FURNISH_TAB;
+
+    // TODO bunting
+    // TODO lantern bunting
+    // TODO book pile
+    // TODO carpet on stairs
+    // TODO carpet on trapdoor
+    // TODO chess board
+    // TODO chimney conduit + chimney cap (or a simpler smoke emitting chimney block?)
+    // TODO cobweb variant
+    // TODO curtain
+    // TODO disk rack
+    // TODO dice?
+    // TODO furniture workbench
+    // TODO display??
+    // TODO iron gate
+    // TODO mailbox
+    // TODO paper
+    // TODO paper lamp => ok, add TOP/BOTTOM properties for support?
+    // TODO picture frame
+    // TODO recycle bin
+    // TODO skull torch?
+    // TODO snow on fence?
+
     public static void init() {
         for(WoodType woodType : WoodType.values().toList()) {
             String wood = woodType.name().toLowerCase();
@@ -109,6 +135,7 @@ public class FurnishContents {
 
         amphorae.add(RegLib.registerBlock("amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true));
 
+        BlockBehaviour.Properties paperLampProps = BlockBehaviour.Properties.of().strength(.5f).sound(SoundType.SCAFFOLDING).noOcclusion().lightLevel(state -> 15);
         for(DyeColor dyeColor : DyeColor.values()) {
             String color = dyeColor.name().toLowerCase();
             Block terracotta = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(color + "_terracotta"));
@@ -120,6 +147,8 @@ public class FurnishContents {
             RegLib.registerBlock(color + "_sofa", Sofa::new, BlockBehaviour.Properties.ofFullCopy(wool).noOcclusion(), true);
             showcases.add(RegLib.registerBlock(color + "_showcase", Showcase::new, BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS), true));
             plates.add(RegLib.registerBlock(color + "_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(terracotta), true));
+
+            RegLib.registerBlock(color + "_paper_lamp", PaperLamp::new, paperLampProps, true);
         }
 
         SMALL_FURNITURE_BLOCK_ENTITY = RegLib.registerBlockEntity("furniture", SmallFurnitureBlockEntity::new, smallFurniture.toArray(new Block[]{}));
@@ -129,5 +158,7 @@ public class FurnishContents {
         SHELF_BLOCK_ENTITY = RegLib.registerBlockEntity("shelf", ShelfBlockEntity::new, shelves.toArray(new Block[]{}));
         SHOWCASE_BLOCK_ENTITY = RegLib.registerBlockEntity("showcase", ShowcaseBlockEntity::new, showcases.toArray(new Block[]{}));
         PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
+
+        FURNISH_TAB = RegLib.registerCreativeTab("furnish", smallFurniture.get(0).asItem());
     }
 }

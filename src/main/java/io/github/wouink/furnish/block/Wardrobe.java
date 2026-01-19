@@ -1,16 +1,12 @@
 package io.github.wouink.furnish.block;
 
 import io.github.wouink.furnish.FurnishContents;
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.block.util.PlacementHelper;
 import io.github.wouink.furnish.blockentity.LargeFurnitureBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -83,10 +79,5 @@ public class Wardrobe extends Cabinet {
                 wardrobe -> player.openMenu(wardrobe)
         );
         return InteractionResult.CONSUME;
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
     }
 }
