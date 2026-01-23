@@ -3,7 +3,9 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.blockentity.*;
+import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
+import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -12,8 +14,11 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -67,8 +72,13 @@ public class FurnishContents {
             EntityType.Builder.of((entityType, level)
                     -> new SeatEntity(level), MobCategory.MISC).sized(0f, 0f)
     );
-    
-    public static CreativeModeTab FURNISH_TAB; // define with workbench icon here instead of at the end
+
+    public static MenuType<FurnitureWorkbenchMenu> WORKBENCH_MENU = RegLib.registerMenuType("furniture_workbench", FurnitureWorkbenchMenu::new);
+    public static RecipeType<FurnitureRecipe> FURNITURE_RECIPE = RegLib.registerRecipeType("furniture_making");
+    public static RecipeSerializer<FurnitureRecipe> FURNITURE_RECIPE_SERIALIZER = RegLib.registerRecipeSerializer("furniture_making", FurnitureRecipe.SERIALIZER);
+
+    public static final Block FURNITURE_WORKBENCH = RegLib.registerBlock("furniture_workbench", FurnitureWorkbench::new, BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.WOOD).noOcclusion(), true);
+    public static CreativeModeTab FURNISH_TAB = RegLib.registerCreativeTab("furnish", FURNITURE_WORKBENCH.asItem());
 
     // TODO make a proper item texture for buntings
     // TODO add texture variation for each bunting
@@ -136,7 +146,7 @@ public class FurnishContents {
             shutters.add(RegLib.registerBlock(wood + "_shutter", Shutter::new, props.noOcclusion(), true));
         }
 
-        BlockBehaviour.Properties lockerProps = BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops();
+        BlockBehaviour.Properties lockerProps = BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().noOcclusion();
         largeFurniture.add(RegLib.registerBlock("locker", Wardrobe::new, lockerProps, true));
         smallFurniture.add(RegLib.registerBlock("small_locker", Cabinet::new, lockerProps, true));
 
@@ -165,7 +175,5 @@ public class FurnishContents {
         SHELF_BLOCK_ENTITY = RegLib.registerBlockEntity("shelf", ShelfBlockEntity::new, shelves.toArray(new Block[]{}));
         SHOWCASE_BLOCK_ENTITY = RegLib.registerBlockEntity("showcase", ShowcaseBlockEntity::new, showcases.toArray(new Block[]{}));
         PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
-
-        FURNISH_TAB = RegLib.registerCreativeTab("furnish", smallFurniture.get(0).asItem());
     }
 }

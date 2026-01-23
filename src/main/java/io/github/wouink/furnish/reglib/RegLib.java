@@ -22,6 +22,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -123,6 +126,7 @@ public class RegLib {
 
     /**
      * Registers a menu (Screen <-> BlockEntity mapping = slots logic) in the game
+     * Example use: MenuType<WorkbenchMenu> WORKBENCH_MENU = RegLib.registerMenuType("workbench", WorkbenchMenu::new);
      * @param id the name of the menu (without namespace)
      * @param menuSupplier the
      * @return
@@ -211,5 +215,44 @@ public class RegLib {
         for(Item i : itemsInCreativeTab) itemGroup.accept(i);
         // free the list, we don't need it anymore
         itemsInCreativeTab = null;
+    }
+
+    /**
+     * Registers a new recipe in the game
+     * Example: RecipeType<FurnitureRecipe> FURNITURE_RECIPE = RegLib.registerRecipeType("furniture_making");
+     * @param name the name of the recipe type (without namespace)
+     * @return the recipe type
+     * @param <T> the class for the recipe type
+     */
+    public static <T extends Recipe<?>> RecipeType<T> registerRecipeType(String name) {
+        RecipeType<T> recipeType = new RecipeType<T>() {
+            @Override
+            public String toString() {
+                return Furnish.MOD_ID + ":" + name;
+            }
+        };
+        return Registry.register(
+                BuiltInRegistries.RECIPE_TYPE,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name),
+                recipeType
+        );
+    }
+
+    /**
+     * Registers a new recipe serializer
+     * @param name the name of the recipe serializer (without namespace)
+     * @param serializer the serializer object
+     * @return the serializer
+     * @param <T> the class for the serializer
+     */
+    public static <T extends Recipe<?>> RecipeSerializer<T> registerRecipeSerializer(
+            String name,
+            RecipeSerializer<T> serializer
+    ) {
+        return Registry.register(
+                BuiltInRegistries.RECIPE_SERIALIZER,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "furniture_making"),
+                serializer
+        );
     }
 }

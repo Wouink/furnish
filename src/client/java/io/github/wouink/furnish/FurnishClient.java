@@ -4,9 +4,11 @@ import io.github.wouink.furnish.blockentityrenderer.PlateRenderer;
 import io.github.wouink.furnish.blockentityrenderer.ShelfRenderer;
 import io.github.wouink.furnish.blockentityrenderer.ShowcaseRenderer;
 import io.github.wouink.furnish.entityrenderer.SeatEntityRenderer;
+import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.Block;
@@ -32,5 +34,7 @@ public class FurnishClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.GREEN_BUNTING, RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.LANTERN_BUNTING, RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, RenderType.translucent());
+
+		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
 	}
 }
