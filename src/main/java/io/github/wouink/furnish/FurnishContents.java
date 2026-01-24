@@ -49,6 +49,7 @@ public class FurnishContents {
     public static final List<Block> showcases = new ArrayList<>();
     public static final List<Block> plates = new ArrayList<>();
     public static final List<Block> shutters = new ArrayList<>();
+    public static final List<Block> mailboxes = new ArrayList<>();
 
     public static SoundEvent CABINET_OPEN = RegLib.registerSound("block.furniture.open");
     public static SoundEvent CABINET_CLOSE = RegLib.registerSound("block.furniture.close");
@@ -59,11 +60,16 @@ public class FurnishContents {
     public static SoundEvent AMPHORA_OPEN = RegLib.registerSound("block.amphora.open");
     public static SoundEvent AMPHORA_CLOSE = RegLib.registerSound("block.amphora.close");
     public static SoundEvent CURTAIN_TOGGLE = RegLib.registerSound("block.curtain.interact");
+    public static SoundEvent MAILBOX_FLAG_TOGGLE = RegLib.registerSound("block.mailbox.update");
+    public static SoundEvent NEW_MAIL = RegLib.registerSound("event.mail_received");
 
     public static final TagKey CRATE_BLACKLIST_TAG = RegLib.registerTag(Registries.ITEM, "crate_blacklist");
     public static final TagKey FOOD_TAG = RegLib.registerTag(Registries.ITEM, "food");
     public static final TagKey PLACE_ON_STAIRS = RegLib.registerTag(Registries.BLOCK, "place_on_stairs");
     public static final TagKey PLACE_ON_TRAPDOOR = RegLib.registerTag(Registries.BLOCK, "place_on_trapdoor");
+    public static final TagKey BYPASSES_MAIL = RegLib.registerTag(Registries.BLOCK, "bypasses_mail_tag");
+    public static final TagKey NON_OP_CREATIVE_CAN_DESTROY = RegLib.registerTag(Registries.BLOCK, "non_op_creative_can_destroy");
+    public static final TagKey MAIL = RegLib.registerTag(Registries.ITEM, "mail");
 
     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
             "seat",
@@ -89,6 +95,7 @@ public class FurnishContents {
 
     public static final Map<WoodType, WoodenSet> WOODEN_SETS = new HashMap<>();
 
+    // this is where we register all the wooden furniture (cabinets, wardrobes, tables, chairs...)
     static {
         for(WoodType woodType : WoodType.values().toList()) WOODEN_SETS.put(woodType, new WoodenSet(woodType));
     }
@@ -97,6 +104,8 @@ public class FurnishContents {
     public static final Block LOCKER = RegLib.registerBlock("locker", Wardrobe::new, LOCKER_PROPS, true);
     public static final Block SMALL_LOCKER = RegLib.registerBlock("small_locker", Cabinet::new, LOCKER_PROPS, true);
 
+    public static final Block METAL_MAILBOX = RegLib.registerBlock("metal_mailbox", Mailbox::new, LOCKER_PROPS, true);
+
     static {
         ((Chair) WOODEN_SETS.get(WoodType.ACACIA).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
         ((Chair) WOODEN_SETS.get(WoodType.SPRUCE).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
@@ -104,6 +113,8 @@ public class FurnishContents {
 
         largeFurniture.add(LOCKER);
         smallFurniture.add(SMALL_LOCKER);
+
+        mailboxes.add(METAL_MAILBOX);
     }
 
     public static final Block AMPHORA = RegLib.registerBlock("amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
@@ -114,6 +125,7 @@ public class FurnishContents {
 
     public static final Map<DyeColor, ColoredSet> COLORED_SETS = new HashMap<>();
 
+    // this is where we register all the colored furniture (amphorae, plates, showcases, sofas...)
     static {
         amphorae.add(AMPHORA);
         plates.add(PLATE);
@@ -130,6 +142,7 @@ public class FurnishContents {
     public static BlockEntityType<@NotNull ShelfBlockEntity> SHELF_BLOCK_ENTITY = RegLib.registerBlockEntity("shelf", ShelfBlockEntity::new, shelves.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull ShowcaseBlockEntity> SHOWCASE_BLOCK_ENTITY = RegLib.registerBlockEntity("showcase", ShowcaseBlockEntity::new, showcases.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull PlateBlockEntity> PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
+    public static BlockEntityType<@NotNull MailboxBlockEntity> MAILBOX_BLOCK_ENTITY = RegLib.registerBlockEntity("mailbox", MailboxBlockEntity::new, mailboxes.toArray(new Block[]{}));
 
     // TODO book pile
     // TODO chess board

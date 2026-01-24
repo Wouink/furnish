@@ -28,6 +28,8 @@ import java.util.List;
  * When harvested, the Crate block drops as an item containing all of its contents.
  * This is handled by loot tables rather than by code.
  * The loot table is generated using `createShulkerBoxDrop` in the datagen code.
+ *
+ * The Crate is not a directional block, this is why it is not a subclass of AbstractStorageFurnitureBlock.
  */
 public class Crate extends Block implements EntityBlock {
     public Crate(Properties properties) {

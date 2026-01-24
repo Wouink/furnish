@@ -138,7 +138,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
 
     // client/server sync for visual updates + redstone
 
-    private void broadcastChanges() {
+    protected void broadcastChanges() {
         if(shouldUpdateClient())
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
         if(shouldUpdateRedstone())
