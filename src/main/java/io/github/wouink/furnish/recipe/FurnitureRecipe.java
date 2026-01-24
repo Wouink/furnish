@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class FurnitureRecipe implements Recipe<SingleRecipeInput> {
+public class FurnitureRecipe extends SingleItemRecipe {
     public static final RecipeSerializer<FurnitureRecipe> SERIALIZER = new FurnitureRecipe.Serializer();
 
     private final String group;
@@ -20,6 +20,7 @@ public class FurnitureRecipe implements Recipe<SingleRecipeInput> {
     private final ItemStack result;
 
     public FurnitureRecipe(String group, Ingredient ingredient, ItemStack result) {
+        super(FurnishContents.FURNITURE_RECIPE, SERIALIZER, group, ingredient, result);
         this.group = group;
         this.ingredient = ingredient;
         this.result = result;
@@ -57,12 +58,12 @@ public class FurnitureRecipe implements Recipe<SingleRecipeInput> {
 
     @Override
     public String getGroup() {
-        return Recipe.super.getGroup();
+        return group;
     }
 
     @Override
     public boolean isSpecial() {
-        // for recipe book
+        // hide in recipe book
         return true;
     }
 

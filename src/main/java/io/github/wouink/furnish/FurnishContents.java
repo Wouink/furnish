@@ -89,6 +89,8 @@ public class FurnishContents {
     public static final Block YELLOW_BUNTING = RegLib.registerBlock("yellow_bunting", Bunting::new, buntingProps, true);
     public static final Block GREEN_BUNTING = RegLib.registerBlock("green_bunting", Bunting::new, buntingProps, true);
 
+    public static final Block AMPHORA = RegLib.registerBlock("amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
+
     // TODO book pile
     // TODO carpet on stairs
     // TODO carpet on trapdoor
@@ -98,7 +100,6 @@ public class FurnishContents {
     // TODO curtain
     // TODO disk rack
     // TODO dice?
-    // TODO furniture workbench
     // TODO display??
     // TODO iron gate
     // TODO mailbox
@@ -150,7 +151,7 @@ public class FurnishContents {
         largeFurniture.add(RegLib.registerBlock("locker", Wardrobe::new, lockerProps, true));
         smallFurniture.add(RegLib.registerBlock("small_locker", Cabinet::new, lockerProps, true));
 
-        amphorae.add(RegLib.registerBlock("amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true));
+        amphorae.add(AMPHORA);
 
         BlockBehaviour.Properties paperLampProps = BlockBehaviour.Properties.of().strength(.5f).sound(SoundType.SCAFFOLDING).noOcclusion().lightLevel(state -> 15);
         for(DyeColor dyeColor : DyeColor.values()) {
