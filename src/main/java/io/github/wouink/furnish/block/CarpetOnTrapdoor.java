@@ -1,22 +1,24 @@
 package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
+import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -85,5 +87,29 @@ public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    }
+
+    public static boolean attemptPlacement(LevelAccessor level, BlockPos trapdoorPos, WoolCarpetBlock carpet) {
+        // ensure the feature is enabled
+        if(!carpet.defaultBlockState().is(FurnishContents.PLACE_ON_TRAPDOOR)) return false;
+
+        // ensure we're using a vanilla carpet
+        if(!BuiltInRegistries.BLOCK.getKey(carpet).getNamespace().equals("minecraft")) return false;
+
+        // ensure we can place the carpet on the trapdoor
+        if(!level.isEmptyBlock(trapdoorPos.above())) return false;
+        BlockState target = level.getBlockState(trapdoorPos);
+        if(!(target.getBlock() instanceof TrapDoorBlock)) return false;
+        if(target.getValue(TrapDoorBlock.HALF) != Half.TOP) return false;
+
+        // place the carpet
+        DyeColor color = carpet.getColor();
+        BlockState toPlace = FurnishContents.COLORED_SETS.get(color).carpetOnTrapdoor.defaultBlockState();
+        toPlace = toPlace.setValue(BlockStateProperties.HORIZONTAL_FACING, target.getValue(BlockStateProperties.HORIZONTAL_FACING));
+        toPlace = toPlace.setValue(BlockStateProperties.OPEN, target.getValue(BlockStateProperties.OPEN));
+        level.setBlock(trapdoorPos.above(), toPlace, UPDATE_ALL);
+        level.playSound(null, trapdoorPos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS);
+
+        return true;
     }
 }

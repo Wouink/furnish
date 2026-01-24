@@ -5,10 +5,10 @@ import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.blockentity.*;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
-import io.github.wouink.furnish.event.PlaceBlockCallback;
 import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -132,8 +132,6 @@ public class FurnishContents {
     public static BlockEntityType<@NotNull PlateBlockEntity> PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
 
     // TODO book pile
-    // TODO carpet on stairs => event
-    // TODO carpet on trapdoor => event
     // TODO chess board
     // TODO chimney conduit + chimney cap (or a simpler smoke emitting chimney block?)
     // TODO cobweb variant
@@ -150,6 +148,6 @@ public class FurnishContents {
     // TODO snow on fence?
 
     public static void init() {
-        PlaceBlockCallback.EVENT.register(PlaceCarpet::onCarpetPlaced);
+        UseBlockCallback.EVENT.register(PlaceCarpet::rightClickOnStairs);
     }
 }
