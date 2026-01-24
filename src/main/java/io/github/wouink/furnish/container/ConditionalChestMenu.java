@@ -50,18 +50,21 @@ public class ConditionalChestMenu extends AbstractContainerMenu {
         container.startOpen(inventory.player);
         int k = (this.containerRows - 4) * 18;
 
+        // container
         for(int l = 0; l < this.containerRows; ++l) {
             for(int m = 0; m < 9; ++m) {
-                this.addSlot(new Slot(container, m + l * 9, 8 + m * 18, 18 + l * 18));
+                this.addSlot(new ConditionalSlot(filter, container, m + l * 9, 8 + m * 18, 18 + l * 18));
             }
         }
 
+        // player's inventory
         for(int l = 0; l < 3; ++l) {
             for(int m = 0; m < 9; ++m) {
                 this.addSlot(new Slot(inventory, m + l * 9 + 9, 8 + m * 18, 103 + l * 18 + k));
             }
         }
 
+        // hotbar
         for(int l = 0; l < 9; ++l) {
             this.addSlot(new Slot(inventory, l, 8 + l * 18, 161 + k));
         }
