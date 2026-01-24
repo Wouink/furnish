@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "io.github.wouink.furnish.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [],
+	"mixins": [
+		"MixinBlockItem"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},

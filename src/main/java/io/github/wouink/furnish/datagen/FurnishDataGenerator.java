@@ -11,5 +11,6 @@ public class FurnishDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(FurnishLootTablesGenerator::new);
 		pack.addProvider(FurnishRecipesGenerator::new);
 		pack.addProvider(FurnishItemTagsGenerator::new);
+		pack.addProvider(FurnishBlockTagsGenerator::new);
 	}
 }

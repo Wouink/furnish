@@ -5,6 +5,8 @@ import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.blockentity.*;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
+import io.github.wouink.furnish.event.PlaceBlockCallback;
+import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.minecraft.core.registries.Registries;
@@ -60,6 +62,8 @@ public class FurnishContents {
 
     public static final TagKey CRATE_BLACKLIST_TAG = RegLib.registerTag(Registries.ITEM, "crate_blacklist");
     public static final TagKey FOOD_TAG = RegLib.registerTag(Registries.ITEM, "food");
+    public static final TagKey PLACE_ON_STAIRS = RegLib.registerTag(Registries.BLOCK, "place_on_stairs");
+    public static final TagKey PLACE_ON_TRAPDOOR = RegLib.registerTag(Registries.BLOCK, "place_on_trapdoor");
 
     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
             "seat",
@@ -128,12 +132,11 @@ public class FurnishContents {
     public static BlockEntityType<@NotNull PlateBlockEntity> PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
 
     // TODO book pile
-    // TODO carpet on stairs
-    // TODO carpet on trapdoor
+    // TODO carpet on stairs => event
+    // TODO carpet on trapdoor => event
     // TODO chess board
     // TODO chimney conduit + chimney cap (or a simpler smoke emitting chimney block?)
     // TODO cobweb variant
-    // TODO curtain
     // TODO disk rack
     // TODO dice?
     // TODO display??
@@ -147,6 +150,6 @@ public class FurnishContents {
     // TODO snow on fence?
 
     public static void init() {
-
+        PlaceBlockCallback.EVENT.register(PlaceCarpet::onCarpetPlaced);
     }
 }
