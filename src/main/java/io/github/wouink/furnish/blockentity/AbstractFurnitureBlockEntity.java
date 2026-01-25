@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.blockentity;
 
+import io.github.wouink.furnish.block.SoundProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -75,6 +76,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
      * @return the open sound
      */
     public SoundEvent getOpenSound() {
+        if(getBlockState().getBlock() instanceof SoundProvider provider) return provider.getOpenSound();
         return null;
     }
 
@@ -83,6 +85,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
      * @return the sound event
      */
     public SoundEvent getCloseSound() {
+        if(getBlockState().getBlock() instanceof SoundProvider provider) return provider.getCloseSound();
         return null;
     }
 

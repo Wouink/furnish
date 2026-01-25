@@ -53,10 +53,12 @@ public class FurnishContents {
 
     public static SoundEvent CABINET_OPEN = RegLib.registerSound("block.furniture.open");
     public static SoundEvent CABINET_CLOSE = RegLib.registerSound("block.furniture.close");
-    public static SoundEvent SPRUCE_CABINET_OPEN = RegLib.registerSound("block.spruce_furniture.open");
-    public static SoundEvent SPRUCE_CABINET_CLOSE = RegLib.registerSound("block.spruce_furniture.close");
+    public static SoundEvent SPRUCE_CABINET_OPEN = RegLib.registerSound("block.furniture_spruce.open");
+    public static SoundEvent SPRUCE_CABINET_CLOSE = RegLib.registerSound("block.furniture_spruce.close");
     public static SoundEvent DRAWER_OPEN = RegLib.registerSound("block.furniture_drawers.open");
     public static SoundEvent DRAWER_CLOSE = RegLib.registerSound("block.furniture_drawers.close");
+    public static SoundEvent LOCKER_OPEN = RegLib.registerSound("block.furniture_locker.open");
+    public static SoundEvent LOCKER_CLOSE = RegLib.registerSound("block.furniture_locker.close");
     public static SoundEvent AMPHORA_OPEN = RegLib.registerSound("block.amphora.open");
     public static SoundEvent AMPHORA_CLOSE = RegLib.registerSound("block.amphora.close");
     public static SoundEvent CURTAIN_TOGGLE = RegLib.registerSound("block.curtain.interact");

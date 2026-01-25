@@ -40,7 +40,7 @@ public class ColoredSet {
 
         paperLamp = RegLib.registerBlock(color + "_paper_lamp", PaperLamp::new, PAPER_LAMP_PROPS, true);
 
-        curtain = RegLib.registerBlock(color + "_curtain", Curtain::new, BlockBehaviour.Properties.ofFullCopy(carpet), true);
+        curtain = RegLib.registerBlock(color + "_curtain", Curtain::new, BlockBehaviour.Properties.ofFullCopy(carpet).noOcclusion(), true);
 
         carpetOnStairs = RegLib.registerBlock(color + "_carpet_on_stairs", CarpetOnStairs::new, BlockBehaviour.Properties.ofFullCopy(carpet).dropsLike(carpet), false);
         ((CarpetOnStairs) carpetOnStairs).setClone(carpet);

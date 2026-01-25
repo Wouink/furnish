@@ -35,6 +35,9 @@ public class FurnishClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.LANTERN_BUNTING, RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, RenderType.translucent());
 
+		for(ColoredSet set : FurnishContents.COLORED_SETS.values())
+			BlockRenderLayerMap.INSTANCE.putBlock(set.curtain, RenderType.translucent());
+
 		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
 	}
 }
