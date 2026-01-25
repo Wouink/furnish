@@ -6,9 +6,11 @@ import io.github.wouink.furnish.blockentity.*;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.PlaceCarpet;
+import io.github.wouink.furnish.network.OpenGUIS2C;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -64,6 +66,8 @@ public class FurnishContents {
     public static SoundEvent CURTAIN_TOGGLE = RegLib.registerSound("block.curtain.interact");
     public static SoundEvent MAILBOX_FLAG_TOGGLE = RegLib.registerSound("block.mailbox.update");
     public static SoundEvent NEW_MAIL = RegLib.registerSound("event.mail_received");
+    public static SoundEvent ADD_ATTACHMENT = RegLib.registerSound("item.letter.add_attachment");
+    public static SoundEvent REMOVE_ATTACHMENT = RegLib.registerSound("item.letter.remove_attachment");
 
     public static final TagKey CRATE_BLACKLIST_TAG = RegLib.registerTag(Registries.ITEM, "crate_blacklist");
     public static final TagKey FOOD_TAG = RegLib.registerTag(Registries.ITEM, "food");
@@ -78,6 +82,12 @@ public class FurnishContents {
             EntityType.Builder.of((entityType, level)
                     -> new SeatEntity(level), MobCategory.MISC).sized(0f, 0f)
     );
+
+    public static final DataComponentType<String> LETTER_AUTHOR = RegLib.registerDataComponentType("letter_author");
+    public static final DataComponentType<String> LETTER_TEXT = RegLib.registerDataComponentType("letter_text");
+    static {
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenGUIS2C.TYPE, OpenGUIS2C.CODEC);
+    }
 
     public static MenuType<FurnitureWorkbenchMenu> WORKBENCH_MENU = RegLib.registerMenuType("furniture_workbench", FurnitureWorkbenchMenu::new);
     public static RecipeType<FurnitureRecipe> FURNITURE_RECIPE = RegLib.registerRecipeType("furniture_making");

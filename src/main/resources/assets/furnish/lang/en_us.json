@@ -265,6 +265,7 @@
   "msg.furnish.letter.attachment_added": "Attached %s to Letter",
   "msg.furnish.letter.attachment_removed": "Removed attachment",
   "tooltip.furnish.letter.author": "Sent by %s",
+  "tooltip.furnish.letter.author_anon": "Sent by an Anonymous Player",
   "tooltip.furnish.letter.attachment": "Attachment: %s",
   "subtitle.furnish.attach_to_letter": "Added Item to a Letter",
   "subtitle.furnish.detach_from_letter": "Removed Attachment from Letter",

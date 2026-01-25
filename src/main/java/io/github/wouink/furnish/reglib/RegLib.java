@@ -1,14 +1,20 @@
 package io.github.wouink.furnish.reglib;
 
+import com.mojang.serialization.Codec;
 import io.github.wouink.furnish.Furnish;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -254,5 +260,39 @@ public class RegLib {
                 ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "furniture_making"),
                 serializer
         );
+    }
+
+    /**
+     * Registers a data component type in the game
+     * @param name the name of the data component type (without namespace)
+     * @return the data component type
+     * TODO add support for other types - as of now, only supports String as Furnish doesn't use any other
+     */
+    public static DataComponentType<String> registerDataComponentType(String name) {
+        return Registry.register(
+                BuiltInRegistries.DATA_COMPONENT_TYPE,
+                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name),
+                DataComponentType.<String>builder()
+                        .persistent(Codec.STRING)
+                        .networkSynchronized(ByteBufCodecs.STRING_UTF8)
+                        .build()
+        );
+    }
+
+    /**
+     * Registers a network message
+     * @param dir the direction (either S2C or C2S)
+     * @param type the type of the message
+     * @param codec the codec for the message
+     */
+    public static void registerNetworkMessage(MessageDirection dir, CustomPacketPayload.Type type, StreamCodec codec) {
+        if(dir == MessageDirection.S2C)
+            PayloadTypeRegistry.configurationS2C().register(type, codec);
+        else
+            PayloadTypeRegistry.configurationC2S().register(type, codec);
+    }
+
+    public enum MessageDirection {
+        S2C, C2S
     }
 }

@@ -3,6 +3,7 @@ package io.github.wouink.furnish.blockentity;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.block.Mailbox;
 import io.github.wouink.furnish.container.ConditionalChestMenu;
+import io.github.wouink.furnish.item.Letter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -145,7 +146,7 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
     public ItemStack insertMail(ItemStack itemStack) {
         ItemStack ret = itemStack;
         if(getBlockState().is(FurnishContents.BYPASSES_MAIL) || itemStack.is(FurnishContents.MAIL)) {
-            // if(itemStack.getItem() instanceof Letter) Letter.signLetter(itemStack, "Anonymous Player") TODO this + translate anon player?
+            if(itemStack.getItem() instanceof Letter) Letter.sign(itemStack, Letter.ANON_PLAYER);
             int slot = getNextFreeSlot();
             if(slot < getContainerSize()) {
                 setItem(slot, itemStack); // broadcasts changes
