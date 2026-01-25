@@ -6,6 +6,7 @@ import io.github.wouink.furnish.blockentity.*;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.PlaceCarpet;
+import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.OpenGUIS2C;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -85,9 +87,6 @@ public class FurnishContents {
 
     public static final DataComponentType<String> LETTER_AUTHOR = RegLib.registerDataComponentType("letter_author");
     public static final DataComponentType<String> LETTER_TEXT = RegLib.registerDataComponentType("letter_text");
-    static {
-        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenGUIS2C.TYPE, OpenGUIS2C.CODEC);
-    }
 
     public static MenuType<FurnitureWorkbenchMenu> WORKBENCH_MENU = RegLib.registerMenuType("furniture_workbench", FurnitureWorkbenchMenu::new);
     public static RecipeType<FurnitureRecipe> FURNITURE_RECIPE = RegLib.registerRecipeType("furniture_making");
@@ -117,6 +116,7 @@ public class FurnishContents {
     public static final Block SMALL_LOCKER = RegLib.registerBlock("small_locker", Cabinet::new, LOCKER_PROPS, true);
 
     public static final Block METAL_MAILBOX = RegLib.registerBlock("metal_mailbox", Mailbox::new, LOCKER_PROPS, true);
+    public static final Item LETTER = RegLib.registerItem("letter", Letter::new, new Item.Properties().stacksTo(1));
 
     static {
         ((Chair) WOODEN_SETS.get(WoodType.ACACIA).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
@@ -174,5 +174,6 @@ public class FurnishContents {
 
     public static void init() {
         UseBlockCallback.EVENT.register(PlaceCarpet::rightClickOnStairs);
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenGUIS2C.TYPE, OpenGUIS2C.CODEC);
     }
 }

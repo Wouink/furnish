@@ -1,11 +1,16 @@
 package io.github.wouink.furnish.item;
 
 import io.github.wouink.furnish.FurnishContents;
+import io.github.wouink.furnish.network.OpenGUIS2C;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +24,7 @@ import java.util.List;
 
 public class Letter extends Item {
     public static final String ANON_PLAYER = "?";
+    public static final int GUI_ID = 1;
 
     public Letter(Properties properties) {
         super(properties);
@@ -66,9 +72,10 @@ public class Letter extends Item {
     }
 
     private void openGui(ItemStack letter, Player player, InteractionHand hand) {
+        if(player.level().isClientSide()) return;
         player.level().playSound(null, player.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS);
-        // TODO cannot use client code here (so no way of opening letter screen in the client) - need a network message
-        // https://docs.fabricmc.net/1.21.4/develop/networking
+        OpenGUIS2C request = new OpenGUIS2C(GUI_ID);
+        ServerPlayNetworking.send((ServerPlayer) player, request);
     }
 
     @Override
@@ -82,8 +89,10 @@ public class Letter extends Item {
             // let's first try to remove any attachment
             ItemStack result = removeAttachment(letter);
 
-            // if there was an attachment, display a notification and exit
+            // if there was an attachment, give it back to the player, display a notification and exit
             if(!result.isEmpty()) {
+                if(!player.addItem(result))
+                    Containers.dropContents(level, player.blockPosition(), NonNullList.of(result));
                 player.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_removed"), true);
                 player.playSound(FurnishContents.REMOVE_ATTACHMENT);
                 return InteractionResultHolder.success(letter);
@@ -108,7 +117,7 @@ public class Letter extends Item {
             return InteractionResultHolder.fail(letter);
         }
         // not crouching = open letter
-        if(level.isClientSide()) openGui(letter, player, interactionHand);
+        if(!level.isClientSide()) openGui(letter, player, interactionHand);
         return InteractionResultHolder.sidedSuccess(letter, level.isClientSide());
     }
 }

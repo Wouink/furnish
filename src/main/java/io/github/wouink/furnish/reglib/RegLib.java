@@ -287,9 +287,9 @@ public class RegLib {
      */
     public static void registerNetworkMessage(MessageDirection dir, CustomPacketPayload.Type type, StreamCodec codec) {
         if(dir == MessageDirection.S2C)
-            PayloadTypeRegistry.configurationS2C().register(type, codec);
+            PayloadTypeRegistry.playS2C().register(type, codec);
         else
-            PayloadTypeRegistry.configurationC2S().register(type, codec);
+            PayloadTypeRegistry.playC2S().register(type, codec);
     }
 
     public enum MessageDirection {

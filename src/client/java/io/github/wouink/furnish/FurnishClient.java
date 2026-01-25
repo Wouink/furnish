@@ -4,6 +4,8 @@ import io.github.wouink.furnish.blockentityrenderer.PlateRenderer;
 import io.github.wouink.furnish.blockentityrenderer.ShelfRenderer;
 import io.github.wouink.furnish.blockentityrenderer.ShowcaseRenderer;
 import io.github.wouink.furnish.entityrenderer.SeatEntityRenderer;
+import io.github.wouink.furnish.item.Letter;
+import io.github.wouink.furnish.network.OpenGUIS2C;
 import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -40,5 +42,16 @@ public class FurnishClient implements ClientModInitializer {
 			BlockRenderLayerMap.INSTANCE.putBlock(set.curtain, RenderType.translucent());
 
 		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
+
+		ClientPlayNetworking.registerGlobalReceiver(OpenGUIS2C.TYPE, (message, context) -> {
+			if(message instanceof OpenGUIS2C openGUIS2C) {
+				switch(openGUIS2C.guiId()) {
+					case Letter.GUI_ID -> {
+						// TODO if the player is holding a letter in both its hands, how do we notify which letter's gui should open?
+						System.out.println("Open Letter GUI");
+					}
+                }
+			}
+		});
 	}
 }
