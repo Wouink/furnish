@@ -4,16 +4,18 @@ import io.github.wouink.furnish.blockentityrenderer.PlateRenderer;
 import io.github.wouink.furnish.blockentityrenderer.ShelfRenderer;
 import io.github.wouink.furnish.blockentityrenderer.ShowcaseRenderer;
 import io.github.wouink.furnish.entityrenderer.SeatEntityRenderer;
-import io.github.wouink.furnish.item.Letter;
-import io.github.wouink.furnish.network.OpenGUIS2C;
+import io.github.wouink.furnish.network.OpenItemGUIS2C;
 import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
+import io.github.wouink.furnish.screen.LetterScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 public class FurnishClient implements ClientModInitializer {
@@ -43,15 +45,16 @@ public class FurnishClient implements ClientModInitializer {
 
 		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
 
-		ClientPlayNetworking.registerGlobalReceiver(OpenGUIS2C.TYPE, (message, context) -> {
-			if(message instanceof OpenGUIS2C openGUIS2C) {
-				switch(openGUIS2C.guiId()) {
-					case Letter.GUI_ID -> {
-						// TODO if the player is holding a letter in both its hands, how do we notify which letter's gui should open?
-						System.out.println("Open Letter GUI");
+		ClientPlayNetworking.registerGlobalReceiver(OpenItemGUIS2C.TYPE, (message, context) -> {
+			context.client().execute(() -> {
+				if(message instanceof OpenItemGUIS2C request) {
+					ItemStack requester = request.source();
+					if(requester.is(FurnishContents.LETTER)) {
+						Furnish.LOGGER.debug("Open Letter GUI requested for slot " + request.slot());
+						Minecraft.getInstance().setScreen(new LetterScreen(requester, context.player(), request.slot()));
 					}
-                }
-			}
+				}
+			});
 		});
 	}
 }

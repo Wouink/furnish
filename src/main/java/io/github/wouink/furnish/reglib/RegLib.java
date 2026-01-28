@@ -286,10 +286,14 @@ public class RegLib {
      * @param codec the codec for the message
      */
     public static void registerNetworkMessage(MessageDirection dir, CustomPacketPayload.Type type, StreamCodec codec) {
-        if(dir == MessageDirection.S2C)
-            PayloadTypeRegistry.playS2C().register(type, codec);
-        else
-            PayloadTypeRegistry.playC2S().register(type, codec);
+        try {
+            if(dir == MessageDirection.S2C)
+                PayloadTypeRegistry.playS2C().register(type, codec);
+            else
+                PayloadTypeRegistry.playC2S().register(type, codec);
+        } catch(IllegalArgumentException exception) {
+            Furnish.LOGGER.error("Error registering network message " + type + ": " + exception.getMessage());
+        }
     }
 
     public enum MessageDirection {

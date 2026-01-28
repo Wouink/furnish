@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.item;
 
 import io.github.wouink.furnish.FurnishContents;
-import io.github.wouink.furnish.network.OpenGUIS2C;
+import io.github.wouink.furnish.network.OpenItemGUIS2C;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +25,6 @@ import java.util.List;
 
 public class Letter extends Item {
     public static final String ANON_PLAYER = "?";
-    public static final int GUI_ID = 1;
 
     public Letter(Properties properties) {
         super(properties);
@@ -74,7 +74,8 @@ public class Letter extends Item {
     private void openGui(ItemStack letter, Player player, InteractionHand hand) {
         if(player.level().isClientSide()) return;
         player.level().playSound(null, player.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS);
-        OpenGUIS2C request = new OpenGUIS2C(GUI_ID);
+        int slot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : Inventory.SLOT_OFFHAND;
+        OpenItemGUIS2C request = new OpenItemGUIS2C(slot, letter);
         ServerPlayNetworking.send((ServerPlayer) player, request);
     }
 

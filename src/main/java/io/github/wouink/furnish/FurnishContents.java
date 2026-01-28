@@ -7,16 +7,19 @@ import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.item.Letter;
-import io.github.wouink.furnish.network.OpenGUIS2C;
+import io.github.wouink.furnish.network.OpenItemGUIS2C;
+import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
@@ -172,8 +175,27 @@ public class FurnishContents {
     // TODO skull torch?
     // TODO snow on fence?
 
+    // TODO translate tags
+
     public static void init() {
         UseBlockCallback.EVENT.register(PlaceCarpet::rightClickOnStairs);
-        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenGUIS2C.TYPE, OpenGUIS2C.CODEC);
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(UpdateLetterC2S.TYPE, (message, context) -> {
+            context.server().execute(() -> {
+                if(!(message instanceof UpdateLetterC2S updateLetterC2S)) return;
+
+                Player sender = context.player();
+                int slot = updateLetterC2S.slot();
+                if(!sender.getInventory().getItem(slot).is(LETTER)) return;
+
+                sender.getInventory().getItem(slot).set(LETTER_TEXT, updateLetterC2S.text());
+                updateLetterC2S.author().ifPresent(author -> {
+                    sender.getInventory().getItem(slot).set(LETTER_AUTHOR, author);
+                });
+                sender.getInventory().setChanged();
+            });
+        });
     }
 }
