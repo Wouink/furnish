@@ -3,6 +3,7 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.blockentity.*;
+import io.github.wouink.furnish.container.DiskRackMenu;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.PlaceCarpet;
@@ -73,6 +74,8 @@ public class FurnishContents {
     public static SoundEvent NEW_MAIL = RegLib.registerSound("event.mail_received");
     public static SoundEvent ADD_ATTACHMENT = RegLib.registerSound("item.letter.add_attachment");
     public static SoundEvent REMOVE_ATTACHMENT = RegLib.registerSound("item.letter.remove_attachment");
+    public static SoundEvent RECYCLE_BIN_EMPTY = RegLib.registerSound("block.recycle_bin.empty");
+    public static SoundEvent TRASH_CAN_EMPTY = RegLib.registerSound("block.trash_can.empty");
 
     public static final TagKey CRATE_BLACKLIST_TAG = RegLib.registerTag(Registries.ITEM, "crate_blacklist");
     public static final TagKey FOOD_TAG = RegLib.registerTag(Registries.ITEM, "food");
@@ -81,6 +84,7 @@ public class FurnishContents {
     public static final TagKey BYPASSES_MAIL = RegLib.registerTag(Registries.BLOCK, "bypasses_mail_tag");
     public static final TagKey NON_OP_CREATIVE_CAN_DESTROY = RegLib.registerTag(Registries.BLOCK, "non_op_creative_can_destroy");
     public static final TagKey MAIL = RegLib.registerTag(Registries.ITEM, "mail");
+    public static final TagKey MUSIC_DISKS = RegLib.registerTag(Registries.ITEM, "music_discs");
 
     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
             "seat",
@@ -150,6 +154,14 @@ public class FurnishContents {
         for(DyeColor dyeColor : DyeColor.values()) COLORED_SETS.put(dyeColor, new ColoredSet(dyeColor));
     }
 
+    public static final Block DISK_RACK = RegLib.registerBlock("disk_rack", DiskRack::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion(), true);
+    public static final Block RECYCLE_BIN = RegLib.registerBlock("recycle_bin", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.SCAFFOLDING).strength(.5f).noOcclusion(), true);
+    public static final Block TRASH_CAN = RegLib.registerBlock("trash_can", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.METAL).noOcclusion(), true);
+    static {
+        ((RecycleBin) RECYCLE_BIN).setSound(RECYCLE_BIN_EMPTY);
+        ((RecycleBin) TRASH_CAN).setSound(TRASH_CAN_EMPTY);
+    }
+
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> SMALL_FURNITURE_BLOCK_ENTITY = RegLib.registerBlockEntity("furniture", SmallFurnitureBlockEntity::new, smallFurniture.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> LARGE_FURNITURE_BLOCK_ENTITY = RegLib.registerBlockEntity("large_furniture", LargeFurnitureBlockEntity::new, largeFurniture.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> AMPHORA_BLOCK_ENTITY = RegLib.registerBlockEntity("amphora", AmphoraBlockEntity::new, amphorae.toArray(new Block[]{}));
@@ -158,20 +170,21 @@ public class FurnishContents {
     public static BlockEntityType<@NotNull ShowcaseBlockEntity> SHOWCASE_BLOCK_ENTITY = RegLib.registerBlockEntity("showcase", ShowcaseBlockEntity::new, showcases.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull PlateBlockEntity> PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull MailboxBlockEntity> MAILBOX_BLOCK_ENTITY = RegLib.registerBlockEntity("mailbox", MailboxBlockEntity::new, mailboxes.toArray(new Block[]{}));
+    public static BlockEntityType<@NotNull DiskRackBlockEntity> DISK_RACK_BLOCK_ENTITY = RegLib.registerBlockEntity("disk_rack", DiskRackBlockEntity::new, DISK_RACK);
+    public static BlockEntityType<@NotNull RecycleBinBlockEntity> RECYCLE_BIN_BLOCK_ENTITY = RegLib.registerBlockEntity("recycle_bin", RecycleBinBlockEntity::new, RECYCLE_BIN, TRASH_CAN);
+
+    public static MenuType<DiskRackMenu> DISK_RACK_MENU = RegLib.registerMenuType("disk_rack", DiskRackMenu::new);
 
     // TODO book pile
     // TODO chess board
     // TODO chimney conduit + chimney cap (or a simpler smoke emitting chimney block?)
     // TODO cobweb variant
-    // TODO disk rack
     // TODO dice?
     // TODO display??
     // TODO iron gate
     // TODO mailbox
     // TODO paper
-    // TODO paper lamp => ok, add TOP/BOTTOM properties for support?
     // TODO picture frame
-    // TODO recycle bin
     // TODO skull torch?
     // TODO snow on fence?
 

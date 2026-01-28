@@ -102,6 +102,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
     @Override
     protected void setItems(NonNullList<ItemStack> newInventory) {
         inventory = newInventory;
+        broadcastChanges();
     }
 
     @Override
@@ -142,6 +143,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
     // client/server sync for visual updates + redstone
 
     protected void broadcastChanges() {
+        setChanged();
         if(shouldUpdateClient())
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
         if(shouldUpdateRedstone())

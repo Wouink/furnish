@@ -4,6 +4,7 @@ import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -63,5 +64,19 @@ public abstract class AbstractStorageFurnitureBlock extends HorizontalDirectiona
     @Override
     protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    }
+
+    // get comparator redstone output
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState blockState) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(blockEntity != null)
+            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(blockEntity); // calculates if container, 0 otherwise
+        return super.getAnalogOutputSignal(blockState, level, blockPos);
     }
 }

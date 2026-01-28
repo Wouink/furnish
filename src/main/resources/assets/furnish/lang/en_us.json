@@ -5,6 +5,7 @@
   "furnish.furniture_inventory": "Furniture Inventory",
   "furnish.furniture_making": "Furniture Making",
   "msg.furnish.recycle_bin_full": "It's full! Shift-Right-Click to empty.",
+  "msg.furnish.recycle_bin_empty": "Emptied!",
 
   "subtitle.furnish.furniture_open": "Furniture Opens",
   "subtitle.furnish.furniture_close": "Furniture Closes",

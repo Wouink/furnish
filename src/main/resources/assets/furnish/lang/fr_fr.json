@@ -5,6 +5,7 @@
   "furnish.furniture_inventory": "Inventaire du Meuble",
   "furnish.furniture_making": "Fabrication de Meuble",
   "msg.furnish.recycle_bin_full": "C'est plein ! Maj-Clic-Droit pour vider",
+  "msg.furnish.recycle_bin_empty": "Vidée !",
 
   "subtitle.furnish.furniture_open": "Quelqu'un ouvre un Meuble",
   "subtitle.furnish.furniture_close": "Quelqu'un ferme un Meuble",

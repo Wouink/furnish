@@ -1,10 +1,9 @@
 package io.github.wouink.furnish;
 
-import io.github.wouink.furnish.blockentityrenderer.PlateRenderer;
-import io.github.wouink.furnish.blockentityrenderer.ShelfRenderer;
-import io.github.wouink.furnish.blockentityrenderer.ShowcaseRenderer;
+import io.github.wouink.furnish.blockentityrenderer.*;
 import io.github.wouink.furnish.entityrenderer.SeatEntityRenderer;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
+import io.github.wouink.furnish.screen.DiskRackScreen;
 import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.screen.LetterScreen;
 import net.fabricmc.api.ClientModInitializer;
@@ -25,6 +24,9 @@ public class FurnishClient implements ClientModInitializer {
 		BlockEntityRenderers.register(FurnishContents.SHELF_BLOCK_ENTITY, ShelfRenderer::new);
 		BlockEntityRenderers.register(FurnishContents.SHOWCASE_BLOCK_ENTITY, ShowcaseRenderer::new);
 		BlockEntityRenderers.register(FurnishContents.PLATE_BLOCK_ENTITY, PlateRenderer::new);
+		BlockEntityRenderers.register(FurnishContents.MAILBOX_BLOCK_ENTITY, MailboxRenderer::new);
+		BlockEntityRenderers.register(FurnishContents.DISK_RACK_BLOCK_ENTITY, DiskRackRenderer::new);
+		BlockEntityRenderers.register(FurnishContents.RECYCLE_BIN_BLOCK_ENTITY, RecycleBinRenderer::new);
 
 		// https://wiki.fabricmc.net/tutorial:blockappearance
 		// changing after 1.21.6
@@ -39,11 +41,13 @@ public class FurnishClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.GREEN_BUNTING, RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.LANTERN_BUNTING, RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.RECYCLE_BIN, RenderType.translucent());
 
 		for(ColoredSet set : FurnishContents.COLORED_SETS.values())
 			BlockRenderLayerMap.INSTANCE.putBlock(set.curtain, RenderType.translucent());
 
 		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
+		MenuScreens.register(FurnishContents.DISK_RACK_MENU, DiskRackScreen::new);
 
 		ClientPlayNetworking.registerGlobalReceiver(OpenItemGUIS2C.TYPE, (message, context) -> {
 			context.client().execute(() -> {

@@ -217,10 +217,9 @@ public class RegLib {
         return tab;
     }
 
+    // this method is called every time a world is loaded, therefore we can never free itemsInCreativeTab
     private static void addItemsToTab(FabricItemGroupEntries itemGroup) {
-        for(Item i : itemsInCreativeTab) itemGroup.accept(i);
-        // free the list, we don't need it anymore
-        itemsInCreativeTab = null;
+        if(itemsInCreativeTab != null) for(Item i : itemsInCreativeTab) itemGroup.accept(i);
     }
 
     /**
