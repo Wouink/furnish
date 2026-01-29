@@ -26,7 +26,7 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxBlockEntity> 
 
     @Override
     public void render(MailboxBlockEntity mailbox, float partialTicks, PoseStack ps, MultiBufferSource buffer, int light, int overlay) {
-        if(shouldShowName(mailbox)) {
+        if(Minecraft.renderNames() && shouldShowName(mailbox)) {
             renderNameTag(mailbox, ps, buffer, light);
         }
     }
@@ -44,12 +44,11 @@ public class MailboxRenderer implements BlockEntityRenderer<MailboxBlockEntity> 
     }
 
     // based on net.minecraft.client.renderer.entity.EntityRenderer#renderNameTag
-    // TODO not working
     private void renderNameTag(MailboxBlockEntity mailbox, PoseStack ms, MultiBufferSource buffer, int light) {
-        if(!Minecraft.renderNames()) return;
-
         Component content = mailbox.getOwnerDisplayName();
         if(content == null) content = Component.literal("???");
+
+        // TODO this method is effectively called and contents has the correct value, yet nothing is displayed
 
         ms.pushPose();
         ms.translate(.5, 1, .5);

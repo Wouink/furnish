@@ -6,6 +6,7 @@ import io.github.wouink.furnish.blockentity.*;
 import io.github.wouink.furnish.container.DiskRackMenu;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
+import io.github.wouink.furnish.event.CyclePainting;
 import io.github.wouink.furnish.event.PlaceCarpet;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
@@ -13,6 +14,7 @@ import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,6 +50,7 @@ public class FurnishContents {
         public static final BooleanProperty RIGHT = BooleanProperty.create("right");
         public static final BooleanProperty LEFT = BooleanProperty.create("left");
         public static final BooleanProperty TOP = BooleanProperty.create("top");
+        public static final IntegerProperty COUNT_3 = IntegerProperty.create("count", 1, 3);
     }
 
     public static final List<Block> smallFurniture = new ArrayList<>();
@@ -57,7 +61,6 @@ public class FurnishContents {
     public static final List<Block> showcases = new ArrayList<>();
     public static final List<Block> plates = new ArrayList<>();
     public static final List<Block> shutters = new ArrayList<>();
-    public static final List<Block> mailboxes = new ArrayList<>();
 
     public static SoundEvent CABINET_OPEN = RegLib.registerSound("block.furniture.open");
     public static SoundEvent CABINET_CLOSE = RegLib.registerSound("block.furniture.close");
@@ -85,6 +88,7 @@ public class FurnishContents {
     public static final TagKey NON_OP_CREATIVE_CAN_DESTROY = RegLib.registerTag(Registries.BLOCK, "non_op_creative_can_destroy");
     public static final TagKey MAIL = RegLib.registerTag(Registries.ITEM, "mail");
     public static final TagKey MUSIC_DISKS = RegLib.registerTag(Registries.ITEM, "music_discs");
+    public static final TagKey CAN_CYCLE = RegLib.registerTag(Registries.ITEM, "can_cycle");
 
     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
             "seat",
@@ -132,8 +136,6 @@ public class FurnishContents {
 
         largeFurniture.add(LOCKER);
         smallFurniture.add(SMALL_LOCKER);
-
-        mailboxes.add(METAL_MAILBOX);
     }
 
     public static final Block AMPHORA = RegLib.registerBlock("amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
@@ -155,6 +157,9 @@ public class FurnishContents {
     }
 
     public static final Block DISK_RACK = RegLib.registerBlock("disk_rack", DiskRack::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion(), true);
+    public static final Block BOOK_PILE = RegLib.registerBlock("book_pile", BookPile::new, BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(.2f).noOcclusion(), true);
+    public static final Block PICTURE_FRAME = RegLib.registerBlock("picture_frame", PictureFrame::new, BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING).noCollission(), true);
+    public static final Block CHESS_BOARD = RegLib.registerBlock("chess_board", ChessBoard::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f).noOcclusion(), true);
     public static final Block RECYCLE_BIN = RegLib.registerBlock("recycle_bin", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.SCAFFOLDING).strength(.5f).noOcclusion(), true);
     public static final Block TRASH_CAN = RegLib.registerBlock("trash_can", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.METAL).noOcclusion(), true);
     static {
@@ -169,29 +174,30 @@ public class FurnishContents {
     public static BlockEntityType<@NotNull ShelfBlockEntity> SHELF_BLOCK_ENTITY = RegLib.registerBlockEntity("shelf", ShelfBlockEntity::new, shelves.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull ShowcaseBlockEntity> SHOWCASE_BLOCK_ENTITY = RegLib.registerBlockEntity("showcase", ShowcaseBlockEntity::new, showcases.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull PlateBlockEntity> PLATE_BLOCK_ENTITY = RegLib.registerBlockEntity("plate", PlateBlockEntity::new, plates.toArray(new Block[]{}));
-    public static BlockEntityType<@NotNull MailboxBlockEntity> MAILBOX_BLOCK_ENTITY = RegLib.registerBlockEntity("mailbox", MailboxBlockEntity::new, mailboxes.toArray(new Block[]{}));
+    public static BlockEntityType<@NotNull MailboxBlockEntity> MAILBOX_BLOCK_ENTITY = RegLib.registerBlockEntity("mailbox", MailboxBlockEntity::new, METAL_MAILBOX);
     public static BlockEntityType<@NotNull DiskRackBlockEntity> DISK_RACK_BLOCK_ENTITY = RegLib.registerBlockEntity("disk_rack", DiskRackBlockEntity::new, DISK_RACK);
     public static BlockEntityType<@NotNull RecycleBinBlockEntity> RECYCLE_BIN_BLOCK_ENTITY = RegLib.registerBlockEntity("recycle_bin", RecycleBinBlockEntity::new, RECYCLE_BIN, TRASH_CAN);
 
     public static MenuType<DiskRackMenu> DISK_RACK_MENU = RegLib.registerMenuType("disk_rack", DiskRackMenu::new);
 
-    // TODO book pile
-    // TODO chess board
     // TODO chimney conduit + chimney cap (or a simpler smoke emitting chimney block?)
     // TODO cobweb variant
     // TODO dice?
     // TODO display??
     // TODO iron gate
-    // TODO mailbox
     // TODO paper
-    // TODO picture frame
     // TODO skull torch?
     // TODO snow on fence?
+    // TODO make sure datagen is complete
 
     // TODO translate tags
+    // TODO correct strength for all furniture + tag for correct tools
 
     public static void init() {
+        // https://wiki.fabricmc.net/tutorial:event_index
         UseBlockCallback.EVENT.register(PlaceCarpet::rightClickOnStairs);
+        UseEntityCallback.EVENT.register(CyclePainting::onInteractWithPainting);
+
         RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
         RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
 

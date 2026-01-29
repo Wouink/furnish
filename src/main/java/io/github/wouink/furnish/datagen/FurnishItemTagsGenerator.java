@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +29,7 @@ public class FurnishItemTagsGenerator extends FabricTagProvider<Item> {
 
         getOrCreateTagBuilder(CRATES).add(crates.toArray(new Item[]{}));
         getOrCreateTagBuilder(FurnishContents.CRATE_BLACKLIST_TAG).forceAddTag(CRATES);
+        getOrCreateTagBuilder(FurnishContents.CAN_CYCLE).add(Items.PAINTING);
+        getOrCreateTagBuilder(FurnishContents.MAIL).add(FurnishContents.LETTER).forceAddTag(CRATES);
     }
 }
