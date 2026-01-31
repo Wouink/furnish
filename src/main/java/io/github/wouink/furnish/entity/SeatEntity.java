@@ -66,17 +66,8 @@ public class SeatEntity extends Entity {
                 SeatEntity seat = new SeatEntity(level, pos, yOffset);
                 level.addFreshEntity(seat);
                 user.startRiding(seat);
-                // TODO set user rotation?
             }
         }
         return InteractionResult.SUCCESS;
     }
-
-    /*
-    TODO is it working correctly on server without defining this method?
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
-        return super.getAddEntityPacket(serverEntity);
-    }
-     */
 }

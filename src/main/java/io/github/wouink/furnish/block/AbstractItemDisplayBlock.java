@@ -3,6 +3,8 @@ package io.github.wouink.furnish.block;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.blockentity.AbstractStackHoldingBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -28,8 +30,11 @@ public abstract class AbstractItemDisplayBlock extends AbstractStorageFurnitureB
         if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity != null && blockEntity instanceof AbstractStackHoldingBlockEntity stackHoldingBlockEntity) {
-            // TODO play a sound?
-            player.setItemInHand(interactionHand, stackHoldingBlockEntity.swap(itemStack));
+            ItemStack prev = itemStack;
+            ItemStack ret = stackHoldingBlockEntity.swap(itemStack);
+            player.setItemInHand(interactionHand, ret);
+            if(ret != prev && !(ret == ItemStack.EMPTY && prev == ItemStack.EMPTY))
+                level.playSound(null, blockPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.PLAYERS);
         }
         return ItemInteractionResult.CONSUME;
     }

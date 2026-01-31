@@ -5,9 +5,13 @@ import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
+
+import java.util.Arrays;
 
 public class WoodenSet {
     public Block squareTable, pedestalTable, table, bedsideTable,
@@ -38,11 +42,11 @@ public class WoodenSet {
         wardrobe = RegLib.registerBlock(wood + "_wardrobe", Wardrobe::new, props.noOcclusion(), true);
         FurnishContents.largeFurniture.add(wardrobe);
 
-        stool = RegLib.registerBlock(wood + "_stool", Chair::new, props.noOcclusion(), true);
-        chair = RegLib.registerBlock(wood + "_chair", Chair::new, props.noOcclusion(), true);
+        stool = RegLib.registerBlock(wood + "_stool", Chair::new, props.noOcclusion().strength(.7f), true);
+        chair = RegLib.registerBlock(wood + "_chair", Chair::new, props.noOcclusion().strength(.7f), true);
         ((Chair) chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.SMALL_SEAT));
 
-        bench = RegLib.registerBlock(wood + "_bench", Bench::new, props.noOcclusion(), true);
+        bench = RegLib.registerBlock(wood + "_bench", Bench::new, props.noOcclusion().strength(.7f), true);
         logBench = RegLib.registerBlock(wood + "_log_bench", LogBench::new, props.noOcclusion(), true);
 
         ladder = RegLib.registerBlock(wood + "_ladder", Ladder::new, props.noOcclusion(), true);
@@ -51,7 +55,7 @@ public class WoodenSet {
         crate = RegLib.registerBlock(wood + "_crate", Crate::new, props, true);
         FurnishContents.crates.add(crate);
 
-        shelf = RegLib.registerBlock(wood + "_shelf", Shelf::new, props.noOcclusion(), true);
+        shelf = RegLib.registerBlock(wood + "_shelf", Shelf::new, props.noOcclusion().strength(.7f), true);
         FurnishContents.shelves.add(shelf);
 
         shutter = RegLib.registerBlock(wood + "_shutter", Shutter::new, props.noOcclusion(), true);
@@ -61,8 +65,18 @@ public class WoodenSet {
     }
 
     public Block[] getAllBlocks() {
-        return new Block[]{squareTable, pedestalTable, table, bedsideTable,
-                kitchenCabinet, cabinet, wardrobe, stool, chair, bench,
-                logBench, ladder, crate, shelf, shutter};
+        if(woodType == WoodType.CRIMSON || woodType == WoodType.WARPED)
+            return new Block[]{squareTable, pedestalTable, table, cabinet,
+                    wardrobe, stool, chair, bench, logBench, ladder, crate, shelf, shutter};
+        else
+            return new Block[]{squareTable, pedestalTable, table, bedsideTable,
+                    kitchenCabinet, cabinet, wardrobe, stool, chair, bench,
+                    logBench, ladder, crate, shelf, shutter};
+    }
+
+    public Item[] getAllItems() {
+        return Arrays.stream(getAllBlocks())
+                .filter(block -> block.asItem() != Items.AIR)
+                .map(block -> block.asItem()).toList().toArray(new Item[]{});
     }
 }

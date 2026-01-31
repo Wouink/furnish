@@ -79,13 +79,15 @@ public class RegLib {
      * @param blockFactory a reference to the block constructor, example RedCurtainBlock::new
      * @param properties the block properties
      * @param registerItem should we automatically create an item for this block?
+     * @param itemProps item properties
      * @return the block
      */
     public static Block registerBlock(
             String id,
             Function<BlockBehaviour.Properties, Block> blockFactory,
             BlockBehaviour.Properties properties,
-            boolean registerItem
+            boolean registerItem,
+            Item.Properties itemProps
     ) {
         ResourceKey<Block> blockKey = ResourceKey.create(
                 Registries.BLOCK,
@@ -101,13 +103,30 @@ public class RegLib {
             );
             BlockItem blockItem = new BlockItem(
                     block,
-                    new Item.Properties()
+                    itemProps != null ? itemProps : new Item.Properties()
             );
             Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
             itemsInCreativeTab.add(blockItem);
         }
 
         return block;
+    }
+
+    /**
+     * Registers a block (and optionally an item) in the game
+     * @param id the identifier, example: red_curtain
+     * @param blockFactory a reference to the block constructor, example RedCurtainBlock::new
+     * @param properties the block properties
+     * @param registerItem should we automatically create an item for this block?
+     * @return the block
+     */
+    public static Block registerBlock(
+            String id,
+            Function<BlockBehaviour.Properties, Block> blockFactory,
+            BlockBehaviour.Properties properties,
+            boolean registerItem
+    ) {
+        return registerBlock(id, blockFactory, properties, registerItem, null);
     }
 
     /**

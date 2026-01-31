@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.datagen;
 
+import io.github.wouink.furnish.FurnishContents;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 

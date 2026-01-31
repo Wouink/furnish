@@ -5,10 +5,14 @@ import io.github.wouink.furnish.reglib.RegLib;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
+import java.util.Arrays;
 
 public class ColoredSet {
     private static final BlockBehaviour.Properties PAPER_LAMP_PROPS = BlockBehaviour.Properties.of().strength(.5f).sound(SoundType.SCAFFOLDING).noOcclusion().lightLevel(state -> 15);
@@ -28,24 +32,34 @@ public class ColoredSet {
         amphora = RegLib.registerBlock(color + "_amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(terracotta), true);
         FurnishContents.amphorae.add(amphora);
 
-        awning = RegLib.registerBlock(color + "_awning", Awning::new, BlockBehaviour.Properties.ofFullCopy(carpet).noOcclusion(), true);
+        awning = RegLib.registerBlock(color + "_awning", Awning::new, BlockBehaviour.Properties.ofFullCopy(carpet).noOcclusion().strength(.7f), true);
         sofa = RegLib.registerBlock(color + "_sofa", Sofa::new, BlockBehaviour.Properties.ofFullCopy(wool).noOcclusion(), true);
 
         showcase = RegLib.registerBlock(color + "_showcase", Showcase::new, BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS), true);
         FurnishContents.showcases.add(showcase);
 
-        // TODO item properties: stacksTo 16
-        plate = RegLib.registerBlock(color + "_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(terracotta), true);
+        plate = RegLib.registerBlock(color + "_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(terracotta).strength(.5f), true, new Item.Properties().stacksTo(16));
         FurnishContents.plates.add(plate);
 
         paperLamp = RegLib.registerBlock(color + "_paper_lamp", PaperLamp::new, PAPER_LAMP_PROPS, true);
 
-        curtain = RegLib.registerBlock(color + "_curtain", Curtain::new, BlockBehaviour.Properties.ofFullCopy(carpet).noOcclusion(), true);
+        curtain = RegLib.registerBlock(color + "_curtain", Curtain::new, BlockBehaviour.Properties.ofFullCopy(carpet).noOcclusion().strength(.4f), true);
 
         carpetOnStairs = RegLib.registerBlock(color + "_carpet_on_stairs", CarpetOnStairs::new, BlockBehaviour.Properties.ofFullCopy(carpet).dropsLike(carpet), false);
         ((CarpetOnStairs) carpetOnStairs).setClone(carpet);
 
         carpetOnTrapdoor = RegLib.registerBlock(color + "_carpet_on_trapdoor", CarpetOnTrapdoor::new, BlockBehaviour.Properties.ofFullCopy(carpet).dropsLike(carpet), false);
         ((CarpetOnTrapdoor) carpetOnTrapdoor).setClone(carpet);
+    }
+
+    public Block[] getAllBlocks() {
+        return new Block[]{amphora, awning, sofa, showcase, plate, paperLamp,
+                curtain, carpetOnStairs, carpetOnTrapdoor};
+    }
+
+    public Item[] getAllItems() {
+        return Arrays.stream(getAllBlocks())
+                .filter(block -> block.asItem() != Items.AIR)
+                .map(block -> block.asItem()).toList().toArray(new Item[]{});
     }
 }

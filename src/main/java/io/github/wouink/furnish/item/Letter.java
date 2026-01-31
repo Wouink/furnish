@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.item;
 
 import io.github.wouink.furnish.FurnishContents;
+import io.github.wouink.furnish.blockentity.MailboxBlockEntity;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
@@ -41,7 +42,7 @@ public class Letter extends Item {
                 list.add(Component.translatable("tooltip.furnish.letter.author", author).withStyle(ChatFormatting.GRAY));
         }
         if(itemStack.has(DataComponents.CONTAINER)) {
-            String attached = itemStack.get(DataComponents.CONTAINER).copyOne().getDescriptionId();
+            Component attached = itemStack.get(DataComponents.CONTAINER).copyOne().getHoverName();
             list.add(Component.translatable("tooltip.furnish.letter.attachment", attached).withStyle(ChatFormatting.GRAY));
         }
     }
@@ -95,7 +96,7 @@ public class Letter extends Item {
                 if(!player.addItem(result))
                     Containers.dropContents(level, player.blockPosition(), NonNullList.of(result));
                 player.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_removed"), true);
-                player.playSound(FurnishContents.REMOVE_ATTACHMENT);
+                MailboxBlockEntity.playSoundToClient((ServerPlayer) player, FurnishContents.REMOVE_ATTACHMENT, SoundSource.MASTER, 1.0f, 1.0f);
                 return InteractionResultHolder.success(letter);
             }
 
@@ -108,9 +109,9 @@ public class Letter extends Item {
 
             // success, let's display a notification and exit
             if(result.isEmpty()) {
-                String attachment = inOffhand.getDescriptionId();
+                Component attachment = inOffhand.getHoverName();
                 player.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_added", attachment), true);
-                player.playSound(FurnishContents.ADD_ATTACHMENT);
+                MailboxBlockEntity.playSoundToClient((ServerPlayer) player, FurnishContents.ADD_ATTACHMENT, SoundSource.MASTER, 1.0f, 1.0f);
                 return InteractionResultHolder.success(letter);
             }
 

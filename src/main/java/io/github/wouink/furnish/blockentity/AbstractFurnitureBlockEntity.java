@@ -37,7 +37,7 @@ import java.util.stream.IntStream;
     This class is a subclass of the following classes:
 
     RandomizableContainerBlockEntity
-        - can be renamed and placed in the world, keeping the custom name // TODO test
+        - can be renamed and placed in the world, keeping the custom name
         - can be locked
         - handles loot table logic
 

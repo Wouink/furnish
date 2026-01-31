@@ -27,6 +27,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -139,10 +140,9 @@ public class FurnishContents {
     }
 
     public static final Block AMPHORA = RegLib.registerBlock("amphora", Amphora::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
-    // TODO item properties: stacksTo 16 + rarity
-    public static final Block PLATE = RegLib.registerBlock("plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
-    public static final Block CHINESE_PLATE = RegLib.registerBlock("rare_chinese_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
-    public static final Block ENGLISH_PLATE = RegLib.registerBlock("rare_english_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true);
+    public static final Block PLATE = RegLib.registerBlock("plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true, new Item.Properties().stacksTo(16));
+    public static final Block CHINESE_PLATE = RegLib.registerBlock("rare_chinese_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true, new Item.Properties().stacksTo(16).rarity(Rarity.RARE));
+    public static final Block ENGLISH_PLATE = RegLib.registerBlock("rare_english_plate", Plate::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA), true, new Item.Properties().stacksTo(16).rarity(Rarity.RARE));
 
     public static final Map<DyeColor, ColoredSet> COLORED_SETS = new HashMap<>();
 
@@ -191,7 +191,7 @@ public class FurnishContents {
     // TODO make sure datagen is complete
 
     // TODO translate tags
-    // TODO correct strength for all furniture + tag for correct tools
+    // TODO jei plugin
 
     public static void init() {
         // https://wiki.fabricmc.net/tutorial:event_index

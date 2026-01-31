@@ -85,10 +85,20 @@ public class FurnishRecipesGenerator extends FabricRecipeProvider {
         furnitureRecipe(recipeOutput, Ingredient.of(Items.TERRACOTTA), FurnishContents.AMPHORA, 1);
         furnitureRecipe(recipeOutput, Ingredient.of(Items.IRON_BLOCK), FurnishContents.LOCKER, 1);
         furnitureRecipe(recipeOutput, Ingredient.of(Items.IRON_BLOCK), FurnishContents.SMALL_LOCKER, 2);
+        furnitureRecipe(recipeOutput, Ingredient.of(Items.IRON_BLOCK), FurnishContents.METAL_MAILBOX, 1);
+        furnitureRecipe(recipeOutput, Ingredient.of(Items.IRON_BLOCK), FurnishContents.TRASH_CAN, 1);
 
         furnitureRecipe(recipeOutput, Ingredient.of(Items.STRING), FurnishContents.RED_BUNTING, 1);
         furnitureRecipe(recipeOutput, Ingredient.of(Items.STRING), FurnishContents.YELLOW_BUNTING, 1);
         furnitureRecipe(recipeOutput, Ingredient.of(Items.STRING), FurnishContents.GREEN_BUNTING, 1);
+
+        furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.DISK_RACK, 1);
+        furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.CHESS_BOARD, 1);
+        furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.PICTURE_FRAME, 1);
+        furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.RECYCLE_BIN, 1);
+        furnitureRecipe(recipeOutput, Ingredient.of(Items.BOOK), FurnishContents.BOOK_PILE, 1);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FurnishContents.LETTER, 3).requires(Items.PAPER, 3).requires(Items.HONEYCOMB);
     }
 
     private static void furnitureRecipe(RecipeOutput recipeOutput, Ingredient ingredient, ItemLike result, int resultCount) {

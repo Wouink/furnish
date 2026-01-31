@@ -18,7 +18,6 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        FurnishContents.init();
         dropSelf(FurnishContents.FURNITURE_WORKBENCH);
         dropSelf(FurnishContents.AMPHORA);
         dropSelf(FurnishContents.PLATE);
@@ -31,6 +30,13 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
         dropOther(FurnishContents.SOUL_LANTERN_BUNTING, Items.SOUL_LANTERN);
         dropSelf(FurnishContents.LOCKER);
         dropSelf(FurnishContents.SMALL_LOCKER);
+        dropSelf(FurnishContents.METAL_MAILBOX);
+        dropSelf(FurnishContents.RECYCLE_BIN);
+        dropSelf(FurnishContents.TRASH_CAN);
+        dropOther(FurnishContents.BOOK_PILE, Items.BOOK);
+        dropSelf(FurnishContents.CHESS_BOARD);
+        dropSelf(FurnishContents.PICTURE_FRAME); // TODO add the correct amount - see createCandleDrop
+        dropSelf(FurnishContents.DISK_RACK);
 
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             for(Block b : set.getAllBlocks()) {

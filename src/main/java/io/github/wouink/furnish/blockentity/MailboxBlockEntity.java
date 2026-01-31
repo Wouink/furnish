@@ -126,8 +126,8 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
         level.playSound(null, getBlockPos(), FurnishContents.MAILBOX_FLAG_TOGGLE, SoundSource.BLOCKS);
     }
 
-    private static void playSoundToClient(ServerPlayer player, SoundEvent sound, SoundSource source, float volume, float pitch) {
-        ClientboundSoundPacket pkt = new ClientboundSoundPacket((Holder<SoundEvent>) sound, source,
+    public static void playSoundToClient(ServerPlayer player, SoundEvent sound, SoundSource source, float volume, float pitch) {
+        ClientboundSoundPacket pkt = new ClientboundSoundPacket(Holder.direct(sound), source,
                 player.getX(), player.getY(), player.getZ(), volume, pitch, player.level().getRandom().nextLong());
         player.connection.send(pkt);
     }
@@ -135,9 +135,10 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
     private void notifyOwner() {
         Player target = level.getPlayerByUUID(getOwner());
         if(target != null) {
-            String message = "msg.furnish.mailbox.new_mail";
-            if(hasCustomName()) message += "_loc";
-            target.displayClientMessage(Component.translatable(message), true);
+            if(hasCustomName())
+                target.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail_loc", getCustomName()), true);
+            else
+                target.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail"), true);
             if(target instanceof ServerPlayer serverPlayer)
                 playSoundToClient(serverPlayer, FurnishContents.NEW_MAIL, SoundSource.MASTER, 1.0f, 1.0f);
         }
