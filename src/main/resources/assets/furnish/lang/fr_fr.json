@@ -29,6 +29,8 @@
   "advancement.furnish.a_fine_gourmet.name": "Mais quel Gourmet !",
   "advancement.furnish.a_fine_gourmet.description": "Obtenez la collection complète de toutes les Assiettes",
 
+  "emi.category.furnish.furniture_making": "Fabrication de meubles",
+
   "block.furnish.furniture_workbench": "Atelier de Menuiserie",
   "container.furniture_workbench": "Fabrication de Meuble",
 

@@ -35,7 +35,9 @@ public class FurnishRecipesGenerator extends FabricRecipeProvider {
                 .define('s', Items.SHEARS)
                 .define('p', ItemTags.PLANKS)
                 .define('l', ItemTags.LOGS)
-                .define('c', Items.CRAFTING_TABLE);
+                .define('c', Items.CRAFTING_TABLE)
+                .unlockedBy(getHasName(FurnishContents.FURNITURE_WORKBENCH), has(FurnishContents.FURNITURE_WORKBENCH))
+                .save(recipeOutput);
 
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             Item plank = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(set.woodType.name() + "_planks"));
@@ -64,6 +66,7 @@ public class FurnishRecipesGenerator extends FabricRecipeProvider {
             furnitureRecipe(recipeOutput, Ingredient.of(plank), set.crate, 1);
             furnitureRecipe(recipeOutput, Ingredient.of(plank), set.shelf, 2);
             furnitureRecipe(recipeOutput, Ingredient.of(trapdoor), set.shutter, 1);
+            furnitureRecipe(recipeOutput, Ingredient.of(plank), set.wardrobe, 1);
         }
 
         for(ColoredSet set : FurnishContents.COLORED_SETS.values()) {
@@ -98,13 +101,17 @@ public class FurnishRecipesGenerator extends FabricRecipeProvider {
         furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.RECYCLE_BIN, 1);
         furnitureRecipe(recipeOutput, Ingredient.of(Items.BOOK), FurnishContents.BOOK_PILE, 1);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FurnishContents.LETTER, 3).requires(Items.PAPER, 3).requires(Items.HONEYCOMB);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FurnishContents.LETTER, 1)
+                .requires(Items.PAPER)
+                .requires(Items.HONEYCOMB)
+                .unlockedBy(getHasName(FurnishContents.LETTER), has(FurnishContents.LETTER))
+                .save(recipeOutput);
     }
 
     private static void furnitureRecipe(RecipeOutput recipeOutput, Ingredient ingredient, ItemLike result, int resultCount) {
         SingleItemRecipeBuilder builder = new SingleItemRecipeBuilder(
                 RecipeCategory.DECORATIONS, FurnitureRecipe::new, ingredient, result, resultCount
-        ).unlockedBy(RecipeProvider.getHasName(result), has(result));
+        ).unlockedBy(getHasName(result), has(result));
         builder.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "furniture_making/" + RecipeProvider.getItemName(result)));
     }
 }
