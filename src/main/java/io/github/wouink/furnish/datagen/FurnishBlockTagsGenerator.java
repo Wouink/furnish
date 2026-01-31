@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.concurrent.CompletableFuture;
@@ -119,5 +120,8 @@ public class FurnishBlockTagsGenerator extends FabricTagProvider<Block> {
         getOrCreateTagBuilder(WOODEN_FURNITURE).add(FurnishContents.CHESS_BOARD, FurnishContents.PICTURE_FRAME);
         getOrCreateTagBuilder(WOODEN_FURNITURE).add(FurnishContents.DISK_RACK, FurnishContents.FURNITURE_WORKBENCH);
         getOrCreateTagBuilder(WOODEN_FURNITURE).forceAddTag(PAPER_LAMPS).forceAddTag(SOFAS).forceAddTag(AWNINGS);
+
+        getOrCreateTagBuilder(FurnishContents.CAN_KNOCK_ON).forceAddTag(BlockTags.DOORS);
+        getOrCreateTagBuilder(FurnishContents.CAN_POP_BOOK).add(Blocks.LECTERN);
     }
 }

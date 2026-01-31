@@ -16,6 +16,7 @@ public class PlaceCarpet {
 
     public static InteractionResult rightClickOnStairs(Player player, Level level, InteractionHand hand, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.PASS;
+        if(player.isSpectator()) return InteractionResult.PASS;
         ItemStack inHand = player.getItemInHand(hand);
         if(inHand.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof WoolCarpetBlock carpet) {
             BlockPos pos = blockHitResult.getBlockPos();

@@ -6,15 +6,16 @@ import io.github.wouink.furnish.blockentity.*;
 import io.github.wouink.furnish.container.DiskRackMenu;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
-import io.github.wouink.furnish.event.CyclePainting;
-import io.github.wouink.furnish.event.PlaceCarpet;
+import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
 import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -38,6 +39,12 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -80,6 +87,8 @@ public class FurnishContents {
     public static SoundEvent REMOVE_ATTACHMENT = RegLib.registerSound("item.letter.remove_attachment");
     public static SoundEvent RECYCLE_BIN_EMPTY = RegLib.registerSound("block.recycle_bin.empty");
     public static SoundEvent TRASH_CAN_EMPTY = RegLib.registerSound("block.trash_can.empty");
+    public static SoundEvent KNOCK_WOODEN_DOOR = RegLib.registerSound("event.knock_on_door.wood");
+    public static SoundEvent KNOCK_IRON_DOOR = RegLib.registerSound("event.knock_on_door.iron");
 
     public static final TagKey CRATE_BLACKLIST_TAG = RegLib.registerTag(Registries.ITEM, "crate_blacklist");
     public static final TagKey FOOD_TAG = RegLib.registerTag(Registries.ITEM, "food");
@@ -90,6 +99,8 @@ public class FurnishContents {
     public static final TagKey MAIL = RegLib.registerTag(Registries.ITEM, "mail");
     public static final TagKey MUSIC_DISKS = RegLib.registerTag(Registries.ITEM, "music_discs");
     public static final TagKey CAN_CYCLE = RegLib.registerTag(Registries.ITEM, "can_cycle");
+    public static final TagKey CAN_KNOCK_ON = RegLib.registerTag(Registries.BLOCK, "can_knock_on");
+    public static final TagKey CAN_POP_BOOK = RegLib.registerTag(Registries.BLOCK, "can_pop_book");
 
     public static EntityType<SeatEntity> SEAT_ENTITY = RegLib.registerEntityType(
             "seat",
@@ -188,15 +199,17 @@ public class FurnishContents {
     // TODO paper
     // TODO skull torch?
     // TODO snow on fence?
-    // TODO make sure datagen is complete
 
     // TODO translate tags
-    // TODO jei plugin
 
     public static void init() {
         // https://wiki.fabricmc.net/tutorial:event_index
         UseBlockCallback.EVENT.register(PlaceCarpet::rightClickOnStairs);
         UseEntityCallback.EVENT.register(CyclePainting::onInteractWithPainting);
+        UseEntityCallback.EVENT.register(AddArmsToArmorStand::onInteractWithArmorStand);
+        AttackBlockCallback.EVENT.register(KnockDoor::onDoorAttacked);
+        AttackBlockCallback.EVENT.register(PopLecternBook::onLecternAttacked);
+        UseBlockCallback.EVENT.register(OpenShutter::rightClickOnWindow);
 
         RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
         RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
@@ -215,6 +228,18 @@ public class FurnishContents {
                 });
                 sender.getInventory().setChanged();
             });
+        });
+
+        // add rare plates as dungeon drop (if my understanding is correct: 50% change of getting exactly 1 plate)
+        LootTableEvents.MODIFY.register((resourceKey, builder, lootTableSource, provider) -> {
+            if(resourceKey.equals(BuiltInLootTables.SIMPLE_DUNGEON)) {
+                LootPool.Builder lootBuilder = LootPool.lootPool()
+                        .setRolls(UniformGenerator.between(0.0f, 1.0f))
+                        .with(LootItem.lootTableItem(ENGLISH_PLATE).build())
+                        .with(LootItem.lootTableItem(CHINESE_PLATE).build())
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)));
+                builder.pool(lootBuilder.build());
+            }
         });
     }
 }

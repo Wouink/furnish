@@ -8,6 +8,12 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
+## Furnish v29
+
+- **TODO** Make Awnings bouncy!
+- **TODO** Fix issue with seats (#46) (note for myself: probably client/server issues upon dismounting seat entity)
+- **TODO?** Make AbstractFurnitureBlockEntity implements Clearable?
+
 ## Furnish v28 for Minecraft 1.21.1 (in development)
 
 Furnish v28 is a complete rewrite of the mod.
@@ -22,15 +28,14 @@ With this cleaner code, I hope to be able to update faster and with less pain in
 - Removed Coffins for now (need to be reworked)
 - Reworked Plate/Shelf/Showcase logic: items are stored differently.
   **You will lose the contents of these furniture when updating your world.**
-
+- Removed Paper furniture, Telescope, Halloween furniture, Dice, Asphalt, snow on fences and Chimney Conduits for now.
+  I'm not happy with these features, they need to be reworked.
+  
 ### Other changes
 
-- **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt (does not seem fixable as of now...)
-- **TODO** Allow Endermen to despawn when they spawn with a plate
-- **TODO** Fix issue with seats (#46)
 - Always allow placing Cake on Tables (make tables always solid) (#45)
-- **TODO** Make Awnings bouncy!
 - All furniture that hold items (Cabinets, Plates, Shelves etc.) can now be used with hoppers and have a loot table
+- Rare Plates now spawn in Dungeon Chests rather than in Endermen's hands
 
 ## Furnish v27 for Minecraft 1.21
 
