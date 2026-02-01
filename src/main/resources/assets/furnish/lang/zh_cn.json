@@ -1,5 +1,5 @@
 {
-  "itemGroup.furnish": "Furnish",
+  "itemGroup.furnish.furnish": "Furnish",
   "msg.furnish.furniture_too_big": "大小不适合这",
   "msg.furnish.cycle_no_painting": "没有别的画",
   "furnish.furniture_inventory": "家具库存",
@@ -177,7 +177,6 @@
   "block.furnish.lantern_bunting": "灯笼彩旗",
   "block.furnish.soul_lantern_bunting": "灵魂灯龙彩旗",
 
-  "block.furnish.paper_lamp": "纸灯笼",
   "block.furnish.red_paper_lamp": "红色纸灯笼",
 
   "block.furnish.metal_mailbox": "金属邮箱",
@@ -205,10 +204,6 @@
   "block.furnish.acacia_crate": "相思木板条箱",
   "block.furnish.dark_oak_crate": "黑橡木板条箱",
 
-  "block.furnish.brick_chimney_conduit": "砖烟囱管",
-  "block.furnish.chimney_cap": "烟囱帽",
-
-  "block.furnish.cooking_pot": "烹饪锅",
   "block.furnish.plate": "盘",
   "block.furnish.white_plate": "白色盘",
   "block.furnish.black_plate": "黑色盘",
@@ -293,14 +288,8 @@
   "block.furnish.warped_table": "诡异桌",
   "block.furnish.warped_wardrobe": "诡异立柜",
 
-
   "block.furnish.disk_rack": "唱片架",
-  "block.furnish.heavy_metal": "重金属",
 
   "block.furnish.small_locker": "小储物柜",
-  "block.furnish.locker": "储物柜",
-
-  "block.furnish.white_animal_basket": "白色动物篮",
-
-  "block.furnish.paper_sheet": "纸张"
+  "block.furnish.locker": "储物柜"
 }

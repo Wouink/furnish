@@ -1,5 +1,5 @@
 {
-  "itemGroup.furnish": "Furnish",
+  "itemGroup.furnish.furnish": "Furnish",
   "msg.furnish.furniture_too_big": "大小不適合這",
   "msg.furnish.cycle_no_painting": "沒有別的畫",
   "furnish.furniture_inventory": "家具庫存",
@@ -223,10 +223,6 @@
   "block.furnish.acacia_crate": "相思木板條箱",
   "block.furnish.dark_oak_crate": "黑橡木板條箱",
 
-  "block.furnish.brick_chimney_conduit": "磚煙囪管",
-  "block.furnish.chimney_cap": "煙囪帽",
-
-  "block.furnish.cooking_pot": "烹飪鍋",
   "block.furnish.plate": "盤子",
   "block.furnish.white_plate": "白色盤子",
   "block.furnish.black_plate": "黑色盤子",
@@ -315,12 +311,7 @@
   "block.furnish.trash_can": "垃圾桶",
 
   "block.furnish.disk_rack": "磁盤子架",
-  "block.furnish.heavy_metal": "重金屬",
 
   "block.furnish.small_locker": "小型鎖頭",
-  "block.furnish.locker": "鎖頭",
-
-  "block.furnish.white_animal_basket": "白色動物籃",
-
-  "block.furnish.paper_sheet": "紙片"
+  "block.furnish.locker": "鎖頭"
 }

@@ -1,7 +1,0 @@
-{
-  "parent": "furnish:item/parent/coffin",
-  "textures": {
-    "0": "furnish:block/acacia_coffin_sides_15",
-    "1": "furnish:block/acacia_coffin_sides"
-  }
-}

@@ -1,10 +1,10 @@
 {
-  "itemGroup.furnish": "Furnish",
+  "itemGroup.furnish.furnish": "Furnish",
   "msg.furnish.furniture_too_big": "Troppo grande per stare qui",
   "msg.furnish.cycle_no_painting": "Nessun altro quadro",
   "furnish.furniture_inventory": "Inventario mobile",
   "furnish.furniture_making": "Costruzione mobili",
-  "msg.furnish.recycle_bin_full": "Cestino pieno! Shift + Tasto destro per svuotare.",  
+  "msg.furnish.recycle_bin_full": "Cestino pieno! Shift + Tasto destro per svuotare.",
 
   "subtitle.furnish.furniture_open": "Apertura mobile",
   "subtitle.furnish.furniture_close": "Chiusura mobile",
@@ -136,7 +136,6 @@
   "block.furnish.cherry_log_bench": "Panca di tronco di ciliegio",
   "block.furnish.cherry_ladder": "Scale di ciliegio",
   "block.furnish.cherry_crate": "Cassa di ciliegio",
-  "block.furnish.cherry_bookshelf_chest": "Baule per libreria di ciliegio",
 
   "block.furnish.bamboo_square_table": "Tavolo quadrato di bambù",
   "block.furnish.bamboo_table": "Tavolo di bambù",
@@ -153,7 +152,6 @@
   "block.furnish.bamboo_log_bench": "Panca di tronco di bambù",
   "block.furnish.bamboo_ladder": "Scale di bambù",
   "block.furnish.bamboo_crate": "Cassa di bambù",
-  "block.furnish.bamboo_bookshelf_chest": "Baule per libreria di bambù",
 
   "block.furnish.mangrove_square_table": "Tavolo quadrato di mangrovia",
   "block.furnish.mangrove_table": "Tavolo di mangrovia",
@@ -170,8 +168,7 @@
   "block.furnish.mangrove_log_bench": "Panca di tronco di mangrovia",
   "block.furnish.mangrove_ladder": "Scale di mangrovia",
   "block.furnish.mangrove_crate": "Cassa di mangrovia",
-  "block.furnish.mangrove_bookshelf_chest": "Baule per libreria di mangrovia",
-  
+
   "block.furnish.white_sofa": "Divano bianco",
   "block.furnish.black_sofa": "Divano nero",
   "block.furnish.blue_sofa": "Divano blu",
@@ -275,12 +272,6 @@
   "block.furnish.acacia_crate": "Cassa di acacia",
   "block.furnish.dark_oak_crate": "Cassa di quercia scura",
 
-  "block.furnish.brick_chimney_conduit": "Canna del comignolo",
-  "block.furnish.blackstone_chimney_conduit": "Canna del comignolo di pietranera",
-  "block.furnish.stone_bricks_chimney_conduit": "Canna del comignolo di mattoni di pietra",  
-  "block.furnish.chimney_cap": "Estremità del comignolo",
-
-  "block.furnish.cooking_pot": "Pentola",
   "block.furnish.plate": "Piatto",
   "block.furnish.white_plate": "Piatto bianco",
   "block.furnish.black_plate": "Piatto nero",
@@ -371,60 +362,10 @@
   "block.furnish.recycle_bin.tooltip.2": "Quando pieno, Shift + tasto destro per svuotare",
   
   "block.furnish.disk_rack": "Rastrelliera per dischi",
-  "block.furnish.heavy_metal": "Metallo pesante",
 
   "block.furnish.small_locker": "Piccolo armadietto",
   "block.furnish.locker": "Armadietto",
 
-  "block.furnish.white_animal_basket": "Cesto di animali bianco",
-
-  "block.furnish.paper_poster": "Poster di carta",
-  "block.furnish.paper_postit": "Post-it di carta",
-  "block.furnish.paper_sheet_empty": "Foglio di carta",
-  "block.furnish.paper_sheet_empty.tooltip": "Vuoto",
-  "block.furnish.paper_sheet_filled": "Foglio di carta",
-  "block.furnish.paper_sheet_filled.tooltip": "Contiene del testo",
-  "block.furnish.paper_sheet_empty_ink": "Foglio di carta",
-  "block.furnish.paper_sheet_empty_ink.tooltip": "Vuoto con inchiostro",
-  "block.furnish.paper_sheet_filled_ink": "Foglio di carta",
-  "block.furnish.paper_sheet_filled_ink.tooltip": "Contiene del testo con inchiostro",
-  "block.furnish.paper_sheet_side": "Foglio di carta",
-  "block.furnish.paper_sheet_side.tooltip": "Foglio vuoto riposto su un tavolo",
-  "block.furnish.paper_sheet_side_filled": "Foglio di carta",
-  "block.furnish.paper_sheet_side_filled.tooltip": "Contiene del testo, riposto su un tavolo",
-  "block.furnish.cardboard_box": "Scatola di cartone",
-  "block.furnish.paper_rolls": "Rotoli di carta",
-  "block.furnish.paper_rolls.tooltip": "Sono un sacco di fogli",
-
-  "block.furnish.telescope": "Telescopio",
-  "block.furnish.dice": "Dado",
-  "block.furnish.asphalt": "Asfalto",
-
-  "block.furnish.oak_bookshelf_chest": "Baule per libreria di quercia",
-  "block.furnish.birch_bookshelf_chest": "Baule per libreria di betulla",
-  "block.furnish.spruce_bookshelf_chest": "Baule per libreria di abete",
-  "block.furnish.jungle_bookshelf_chest": "Baule per libreria della giungla",
-  "block.furnish.acacia_bookshelf_chest": "Baule per libreria di acacia",
-  "block.furnish.dark_oak_bookshelf_chest": "Baule per libreria di quercia scura",
-  "block.furnish.crimson_bookshelf_chest": "Baule per libreria cremisi",
-  "block.furnish.warped_bookshelf_chest": "Baule per libreria distorto",
-
-  "block.furnish.gravestone": "Lapide",
-  "block.furnish.oak_coffin": "Bara di quercia",
-  "block.furnish.birch_coffin": "Bara di betulla",
-  "block.furnish.spruce_coffin": "Bara di abete",
-  "block.furnish.jungle_coffin": "Bara della giungla",
-  "block.furnish.acacia_coffin": "Bara di acacia",
-  "block.furnish.dark_oak_coffin": "Bara di quercia scura",
-  "block.furnish.iron_bars_top": "Estremità sbarre di ferro",
-  "block.furnish.iron_gate": "Cancelletto di ferro",
-  "subtitle.furnish.iron_gate_open": "Cancelletto di ferro si apre",
-  "subtitle.furnish.iron_gate_close": "Cancelletto di ferro si chiude",
-  "block.furnish.skull_torch": "Torcia con teschio",
-  "block.furnish.wither_skull_torch": "Torcia con teschio di wither",
-  "block.furnish.cobweb": "Ragnatela",
-
   "block.furnish.picture_frame": "Cornice",
-  "block.furnish.flower_pot": "Vaso per fiori",
   "block.furnish.chess_board": "Scacchiera"
 }

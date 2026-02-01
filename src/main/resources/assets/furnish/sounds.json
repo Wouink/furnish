@@ -145,20 +145,6 @@
       "furnish:block/trash_can_empty"
     ]
   },
-  "block.iron_gate.open": {
-    "category": "blocks",
-    "subtitle": "subtitle.furnish.iron_gate_open",
-    "sounds": [
-      "furnish:block/locker_open"
-    ]
-  },
-  "block.iron_gate.close": {
-    "category": "blocks",
-    "subtitle": "subtitle.furnish.iron_gate_close",
-    "sounds": [
-      "furnish:block/locker_close"
-    ]
-  },
   "event.mail_received": {
     "category": "players",
     "subtitle": "subtitle.furnish.mail_received",

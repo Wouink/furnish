@@ -1,5 +1,5 @@
 {
-  "itemGroup.furnish": "Furnish",
+  "itemGroup.furnish.furnish": "Furnish",
   "msg.furnish.furniture_too_big": "Grande demais para caber aqui!",
   "msg.furnish.cycle_no_painting": "Nenhuma outra pintura",
   "furnish.furniture_inventory": "Inventário do móvel",
@@ -148,6 +148,4 @@
   "block.furnish.jungle_crate": "Caixote da selva",
   "block.furnish.acacia_crate": "Caixote de acácia",
   "block.furnish.dark_oak_crate": "Caixote de carvalho escuro",
-  "block.furnish.brick_chimney_conduit": "Chaminé de tijolos",
-  "block.furnish.chimney_cap": "Tampa de chaminé"
 }

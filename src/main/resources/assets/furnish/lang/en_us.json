@@ -139,7 +139,6 @@
   "block.furnish.cherry_log_bench": "Cherry Log Bench",
   "block.furnish.cherry_ladder": "Cherry Ladder",
   "block.furnish.cherry_crate": "Cherry Crate",
-  "block.furnish.cherry_bookshelf_chest": "Cherry Bookshelf Chest",
 
   "block.furnish.bamboo_square_table": "Bamboo Square Table",
   "block.furnish.bamboo_table": "Bamboo Table",
@@ -156,7 +155,6 @@
   "block.furnish.bamboo_log_bench": "Bamboo Log Bench",
   "block.furnish.bamboo_ladder": "Bamboo Ladder",
   "block.furnish.bamboo_crate": "Bamboo Crate",
-  "block.furnish.bamboo_bookshelf_chest": "Bamboo Bookshelf Chest",
 
   "block.furnish.mangrove_square_table": "Mangrove Square Table",
   "block.furnish.mangrove_table": "Mangrove Table",
@@ -173,7 +171,6 @@
   "block.furnish.mangrove_log_bench": "Mangrove Log Bench",
   "block.furnish.mangrove_ladder": "Mangrove Ladder",
   "block.furnish.mangrove_crate": "Mangrove Crate",
-  "block.furnish.mangrove_bookshelf_chest": "Mangrove Bookshelf Chest",
 
   "block.furnish.white_sofa": "White Sofa",
   "block.furnish.black_sofa": "Black Sofa",
@@ -279,12 +276,6 @@
   "block.furnish.acacia_crate": "Acacia Crate",
   "block.furnish.dark_oak_crate": "Dark Oak Crate",
 
-  "block.furnish.brick_chimney_conduit": "Brick Chimney Conduit",
-  "block.furnish.blackstone_chimney_conduit": "Blackstone Chimney Conduit",
-  "block.furnish.stone_bricks_chimney_conduit": "Stone Bricks Chimney Conduit",
-  "block.furnish.chimney_cap": "Chimney Cap",
-
-  "block.furnish.cooking_pot": "Cooking Pot",
   "block.furnish.plate": "Plate",
   "block.furnish.white_plate": "White Plate",
   "block.furnish.black_plate": "Black Plate",
@@ -375,61 +366,11 @@
   "block.furnish.recycle_bin.tooltip.2": "When it's full, Shift-Right-Click to empty",
 
   "block.furnish.disk_rack": "Disk Rack",
-  "block.furnish.heavy_metal": "Heavy Metal",
 
   "block.furnish.small_locker": "Small Locker",
   "block.furnish.locker": "Locker",
 
-  "block.furnish.white_animal_basket": "White Animal Basket",
-
-  "block.furnish.paper_poster": "Paper Poster",
-  "block.furnish.paper_postit": "Paper Post-it",
-  "block.furnish.paper_sheet_empty": "Paper Sheet",
-  "block.furnish.paper_sheet_empty.tooltip": "Empty Sheet",
-  "block.furnish.paper_sheet_filled": "Paper Sheet",
-  "block.furnish.paper_sheet_filled.tooltip": "Filled with some text",
-  "block.furnish.paper_sheet_empty_ink": "Paper Sheet",
-  "block.furnish.paper_sheet_empty_ink.tooltip": "Empty Sheet with an Inkwell",
-  "block.furnish.paper_sheet_filled_ink": "Paper Sheet",
-  "block.furnish.paper_sheet_filled_ink.tooltip": "Filled with some text, Inkwell",
-  "block.furnish.paper_sheet_side": "Paper Sheet",
-  "block.furnish.paper_sheet_side.tooltip": "Empty Sheet laying off a Table",
-  "block.furnish.paper_sheet_side_filled": "Paper Sheet",
-  "block.furnish.paper_sheet_side_filled.tooltip": "Filled with some text, laying off a Table",
-  "block.furnish.cardboard_box": "Cardboard Box",
-  "block.furnish.paper_rolls": "Paper Rolls",
-  "block.furnish.paper_rolls.tooltip": "That's a lot of Paper Sheets",
-
-  "block.furnish.telescope": "Telescope",
-  "block.furnish.dice": "Dice",
-  "block.furnish.asphalt": "Asphalt",
-
-  "block.furnish.oak_bookshelf_chest": "Oak Bookshelf Chest",
-  "block.furnish.birch_bookshelf_chest": "Birch Bookshelf Chest",
-  "block.furnish.spruce_bookshelf_chest": "Spruce Bookshelf Chest",
-  "block.furnish.jungle_bookshelf_chest": "Jungle Bookshelf Chest",
-  "block.furnish.acacia_bookshelf_chest": "Acacia Bookshelf Chest",
-  "block.furnish.dark_oak_bookshelf_chest": "Dark Oak Bookshelf Chest",
-  "block.furnish.crimson_bookshelf_chest": "Crimson Bookshelf Chest",
-  "block.furnish.warped_bookshelf_chest": "Warped Bookshelf Chest",
-
-  "block.furnish.gravestone": "Gravestone",
-  "block.furnish.oak_coffin": "Oak Coffin",
-  "block.furnish.birch_coffin": "Birch Coffin",
-  "block.furnish.spruce_coffin": "Spruce Coffin",
-  "block.furnish.jungle_coffin": "Jungle Coffin",
-  "block.furnish.acacia_coffin": "Acacia Coffin",
-  "block.furnish.dark_oak_coffin": "Dark Oak Coffin",
-  "block.furnish.iron_bars_top": "Iron Bars Top",
-  "block.furnish.iron_gate": "Iron Gate",
-  "subtitle.furnish.iron_gate_open": "Iron Gate Opens",
-  "subtitle.furnish.iron_gate_close": "Iron Gate Closes",
-  "block.furnish.skull_torch": "Skull Torch",
-  "block.furnish.wither_skull_torch": "Wither Skull Torch",
-  "block.furnish.cobweb": "Cobweb",
-
   "block.furnish.picture_frame": "Picture Frame",
-  "block.furnish.flower_pot": "Flower Pot",
   "block.furnish.chess_board": "Chess Board",
 
   "painting.furnish.acacia.title": "Acacia",
