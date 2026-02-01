@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "minecraft:block/mangrove_planks",
-    "side": "furnish:block/bookshelf/mangrove_bookshelf_chest_sparse"
-  }
-}

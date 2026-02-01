@@ -1,0 +1,37 @@
+{
+  "parent": "furnish:root",
+  "display": {
+    "icon": {
+      "id": "furnish:metal_mailbox",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.furnish.in_the_mail.name"
+    },
+    "description": {
+      "translate": "advancement.furnish.in_the_mail.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "place_mailbox": {
+      "conditions": {
+        "location": [
+          {
+            "block": "furnish:metal_mailbox",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "requirements": [
+    [
+      "place_mailbox"
+    ]
+  ]
+}

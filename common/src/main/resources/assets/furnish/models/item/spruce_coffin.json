@@ -1,7 +1,0 @@
-{
-  "parent": "furnish:item/parent/coffin",
-  "textures": {
-    "0": "furnish:block/spruce_coffin_sides_15",
-    "1": "furnish:block/spruce_coffin_sides"
-  }
-}
