@@ -26,3 +26,6 @@ forge*changelog.txt
 
 # wink
 pending
+
+# datagen
+src/main/generated

@@ -1,6 +1,0 @@
-{
-  "parent": "furnish:block/halloween/cross",
-  "textures": {
-    "1": "furnish:block/cobweb_bottom"
-  }
-}

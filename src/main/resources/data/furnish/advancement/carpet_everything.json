@@ -1,0 +1,36 @@
+{
+  "parent": "furnish:root",
+  "display": {
+    "icon": {
+      "id": "minecraft:red_carpet",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancement.furnish.carpet_everything.name"
+    },
+    "description": {
+      "translate": "advancement.furnish.carpet_everything.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "craft_carpet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:wool_carpets"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "craft_carpet"
+    ]
+  ]
+}

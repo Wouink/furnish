@@ -8,13 +8,39 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v27 for Minecraft 1.21 (in development)
+## Furnish v29
+
+- **TODO** Make Awnings bouncy!
+- **TODO?** Make AbstractFurnitureBlockEntity implements Clearable?
+- **TODO?** Make most furniture implements SimpleWaterloggedBlock?
+
+## Furnish v28 for Minecraft 1.21.1 (in development)
+
+Furnish v28 is a complete rewrite of the mod.
+It is no longer an Architectury mod, but rather a Fabric only mod.
+Don't worry tho, you can still run Furnish on (Neo)Forge using [Sinytra Connector](https://modrinth.com/mod/connector)!
+
+With this cleaner code, I hope to be able to update faster and with less pain in the future!
+
+### Breaking changes
+
+- Removed Bookshelf Chests as we now have Chiseled Bookshelves in vanilla
+- Removed Coffins for now (need to be reworked)
+- Reworked Plate/Shelf/Showcase logic: items are stored differently.
+  **You will lose the contents of these furniture when updating your world.**
+- Removed Paper furniture, Telescope, Halloween furniture, Dice, Asphalt, snow on fences and Chimney Conduits for now.
+  I'm not happy with these features, they need to be reworked.
+  
+### Other changes
+
+- Always allow placing Cake on Tables (make tables always solid) (#45)
+- All furniture that hold items (Cabinets, Plates, Shelves etc.) can now be used with hoppers and have a loot table
+- Rare Plates now spawn in Dungeon Chests rather than in Endermen's hands
+- Fix Seats making players glitch in the world (#46)
+
+## Furnish v27 for Minecraft 1.21
 
 - Fix an exploit with `C2S_UpdateItemStack` message (#50, #52)
-- **TODO** Fix carpet on stairs/trapdoors placement on Fabric and Quilt (does not seem fixable as of now...)
-- **TODO** Allow Endermen to despawn when they spawn with a plate
-- **TODO** Fix issue with seats (#46)
-- **TODO** Make sure tables are always a full support shape (#45)
 - Fix Stone Brick Chimney Conduit recipe (#47, #51)
 
 ## Furnish v26 for Minecraft 1.20.1

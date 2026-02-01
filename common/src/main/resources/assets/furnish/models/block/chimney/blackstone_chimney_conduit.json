@@ -1,8 +1,0 @@
-{
-	"credit": "Made with Blockbench",
-	"parent": "furnish:block/chimney/brick_chimney_conduit",
-	"textures": {
-		"0": "minecraft:block/polished_blackstone_bricks",
-		"particle": "#0"
-	}
-}
