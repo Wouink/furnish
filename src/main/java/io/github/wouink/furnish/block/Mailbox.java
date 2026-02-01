@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.block.util.ShapeHelper;
@@ -28,6 +29,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * IMPORTANT - on server, spawn protection prevents interaction with the mailbox (no message is ever displayed)
+ */
 public class Mailbox extends AbstractStorageFurnitureBlock {
     public static final VoxelShape[] MAILBOX_SHAPE = ShapeHelper.getRotatedShapes(Block.box(2, 0, 3, 14, 12, 13));
     public static final BooleanProperty ON_FENCE = BooleanProperty.create("on_fence");
@@ -70,16 +74,21 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
     }
 
     // refuse destruction if not owner/not creative op player
-    @Override
-    public void playerDestroy(Level level, Player player, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity, ItemStack itemStack) {
-        if(level.isClientSide()) return;
-        if(blockEntity != null && blockEntity instanceof MailboxBlockEntity mailbox) {
-            boolean adminDestroy = player.isCreative() && (player.hasPermissions(1) || blockState.is(FurnishContents.NON_OP_CREATIVE_CAN_DESTROY));
-            if(mailbox.isOwner(player) || adminDestroy)
-                super.playerDestroy(level, player, blockPos, blockState, blockEntity, itemStack);
-            else
-                player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
-        }
+    // this could, in theory, be handled by playerWillDestroy, but the mailbox is always destroyed... no matter what
+    // so let's use events instead (see FurnishContents.init for registration)
+    public static boolean beforeBreakingMailbox(Level level, Player player, BlockPos blockPos, BlockState blockState, BlockEntity blockEntity) {
+        // level.isClientSide() is always false here, this code only runs on server (this is what we want!)
+
+        if(!(blockState.getBlock() instanceof Mailbox)) return true; // pass to other event listeners
+        if(!(blockEntity != null && blockEntity instanceof MailboxBlockEntity mailbox)) return true;
+
+        boolean adminDestroy = player.isCreative() && (player.hasPermissions(1) || blockState.is(FurnishContents.NON_OP_CREATIVE_CAN_DESTROY));
+        if(adminDestroy) Furnish.LOGGER.info("Mailbox at {} destroyed by admin {}", blockPos, player.getName().getString());
+
+        if(mailbox.isOwner(player) || adminDestroy) return true;
+
+        player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
+        return false; // stop there and refuse to destroy the mailbox
     }
 
     // notify about ownership upon placing

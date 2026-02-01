@@ -13,6 +13,7 @@ import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
@@ -210,6 +211,7 @@ public class FurnishContents {
         AttackBlockCallback.EVENT.register(KnockDoor::onDoorAttacked);
         AttackBlockCallback.EVENT.register(PopLecternBook::onLecternAttacked);
         UseBlockCallback.EVENT.register(OpenShutter::rightClickOnWindow);
+        PlayerBlockBreakEvents.BEFORE.register(Mailbox::beforeBreakingMailbox);
 
         RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
         RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);

@@ -254,7 +254,7 @@
 
   "block.furnish.metal_mailbox": "Metal Mailbox",
   "msg.furnish.mailbox.ownership_info": "Right-Click again to claim ownership",
-  "msg.furnish.mailbox.set_owner": "You are the Owner of this Mailbox",
+  "msg.furnish.mailbox.set_owner": "You are now the Owner of this Mailbox",
   "msg.furnish.mailbox.no_permission": "This Mailbox is not yours",
   "msg.furnish.mailbox.mail_delivered": "Mail delivered",
   "msg.furnish.mailbox.mail_delivered_to": "Mail delivered to %s",
@@ -262,7 +262,7 @@
   "msg.furnish.mailbox.new_mail": "Received mail",
   "msg.furnish.mailbox.new_mail_loc": "Received mail at %s",
   "msg.furnish.mailbox.invalid_mail": "You cannot mail that",
-  "subtitle.furnish.mailbox_update": "Mailbox toggles",
+  "subtitle.furnish.mailbox_update": "Mailbox indicator was toggled",
   "subtitle.furnish.mail_received": "Mail received",
   "item.furnish.letter": "Letter",
   "msg.furnish.letter.attachment_added": "Attached %s to Letter",

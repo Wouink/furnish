@@ -11,8 +11,8 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 ## Furnish v29
 
 - **TODO** Make Awnings bouncy!
-- **TODO** Fix issue with seats (#46) (note for myself: probably client/server issues upon dismounting seat entity)
 - **TODO?** Make AbstractFurnitureBlockEntity implements Clearable?
+- **TODO?** Make most furniture implements SimpleWaterloggedBlock?
 
 ## Furnish v28 for Minecraft 1.21.1 (in development)
 
@@ -36,6 +36,7 @@ With this cleaner code, I hope to be able to update faster and with less pain in
 - Always allow placing Cake on Tables (make tables always solid) (#45)
 - All furniture that hold items (Cabinets, Plates, Shelves etc.) can now be used with hoppers and have a loot table
 - Rare Plates now spawn in Dungeon Chests rather than in Endermen's hands
+- Fix Seats making players glitch in the world (#46)
 
 ## Furnish v27 for Minecraft 1.21
 

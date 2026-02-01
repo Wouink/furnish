@@ -254,7 +254,7 @@
 
   "block.furnish.metal_mailbox": "Boîte aux Lettres métalique",
   "msg.furnish.mailbox.ownership_info": "Faites Clic-Droit à nouveau pour en devenir propriétaire",
-  "msg.furnish.mailbox.set_owner": "Vous êtes le propriétaire de cette Boîte aux Lettres",
+  "msg.furnish.mailbox.set_owner": "Vous êtes devenu le propriétaire de cette Boîte aux Lettres",
   "msg.furnish.mailbox.no_permission": "Cette Boîte aux Lettres ne vous appartient pas !",
   "msg.furnish.mailbox.mail_delivered": "Courier remis",
   "msg.furnish.mailbox.mail_delivered_to": "Courier remis à %s",
@@ -262,7 +262,7 @@
   "msg.furnish.mailbox.new_mail": "Vous avez reçu du Courier",
   "msg.furnish.mailbox.new_mail_loc": "Vous avez reçu du Courier à %s",
   "msg.furnish.mailbox.invalid_mail": "Vous ne pouvez pas envoyer ça !",
-  "subtitle.furnish.mailbox_update": "Quelqu'un change l'état du Drapeau d'une Bôite aux Lettres",
+  "subtitle.furnish.mailbox_update": "Quelqu'un change l'état du Drapeau d'une Boîte aux Lettres",
   "subtitle.furnish.mail_received": "Vous recevez du Courier",
   "item.furnish.letter": "Lettre",
   "msg.furnish.letter.attachment_added": "%s attaché à la Lettre",
