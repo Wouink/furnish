@@ -11,7 +11,7 @@
 		"homepage": "https://modrinth.com/mod/furnish-furniture",
 		"sources": "https://github.com/Wouink/furnish"
 	},
-	"license": "CC0-1.0",
+	"license": "ARR",
 	"icon": "assets/furnish/icon.png",
 	"environment": "*",
 	"entrypoints": {

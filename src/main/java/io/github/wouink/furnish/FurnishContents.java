@@ -202,6 +202,7 @@ public class FurnishContents {
     // TODO snow on fence?
 
     // TODO translate tags
+    // TODO copy door knock silencer pack
 
     public static void init() {
         // https://wiki.fabricmc.net/tutorial:event_index
