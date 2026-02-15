@@ -54,8 +54,8 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
             dropSelf(set.plate);
             dropSelf(set.paperLamp);
             dropSelf(set.curtain);
-            // carpetOnStairs dropsLike carpet (in block properties)
-            // carpetOnTrapdoor dropsLike carpet (in block properties)
+            dropOther(set.carpetOnTrapdoor, set.vanillaCarpet);
+            dropOther(set.carpetOnStairs, set.vanillaCarpet);
         }
     }
 }

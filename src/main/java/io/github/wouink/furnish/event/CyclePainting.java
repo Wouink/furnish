@@ -10,8 +10,8 @@ import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.decoration.Painting;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.decoration.painting.Painting;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -46,7 +46,8 @@ public class CyclePainting {
 
         System.out.println("Found " + similarSizedArts.size() + " variants, will set to number " + newVariantIndex);
 
-        painting.setVariant(newVariant);
+        // TODO now setVariant is private
+        // painting.setVariant(newVariant);
 
         level.playSound(null, painting.blockPosition(), SoundEvents.PAINTING_PLACE, SoundSource.BLOCKS);
         player.swing(hand);
@@ -56,7 +57,7 @@ public class CyclePainting {
 
     private static List<Holder<PaintingVariant>> getSimilarSizeArt(Level level, PaintingVariant reference) {
         List<Holder<PaintingVariant>> similar = new ArrayList<>();
-        Iterable<Holder<PaintingVariant>> allVariants = level.getServer().registryAccess().registryOrThrow(Registries.PAINTING_VARIANT).getTagOrEmpty(PaintingVariantTags.PLACEABLE);
+        Iterable<Holder<PaintingVariant>> allVariants = level.getServer().registryAccess().get(Registries.PAINTING_VARIANT).get().value().getTagOrEmpty(PaintingVariantTags.PLACEABLE);
         for(Holder<PaintingVariant> variantHolder : allVariants) {
             PaintingVariant art = variantHolder.value();
             if(art.width() == reference.width() && art.height() == reference.height())

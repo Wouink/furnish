@@ -1,23 +1,20 @@
 package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -83,7 +80,7 @@ public class Sofa extends HorizontalDirectionalBlock {
         builder.add(FACING, SOFA_TYPE);
     }
 
-    private BlockState calculateState(BlockState state, Direction dir, BlockPos pos, LevelAccessor level) {
+    private BlockState calculateState(BlockState state, Direction dir, BlockPos pos, LevelReader level) {
         BlockState leftState = level.getBlockState(pos.relative(dir.getCounterClockWise()));
         BlockState rightState = level.getBlockState(pos.relative(dir.getClockWise()));
         boolean left = (leftState.getBlock() instanceof Sofa) &&
@@ -116,8 +113,8 @@ public class Sofa extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState fromState, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos fromPos) {
-        return calculateState(blockState, blockState.getValue(FACING).getOpposite(), blockPos, levelAccessor);
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos fromPos, BlockState fromState, RandomSource randomSource) {
+        return calculateState(blockState, blockState.getValue(FACING).getOpposite(), blockPos, levelReader);
     }
 
     @Override
@@ -152,19 +149,19 @@ public class Sofa extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        return useWithoutItem(blockState, level, blockPos, player, blockHitResult);
     }
 
     @Override
-    public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float dist) {
-        super.fallOn(level, blockState, blockPos, entity, dist * .5f);
+    public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, double dist) {
+        super.fallOn(level, blockState, blockPos, entity, dist * .5);
     }
 
     @Override
-    public void updateEntityAfterFallOn(BlockGetter blockGetter, Entity entity) {
+    public void updateEntityMovementAfterFallOn(BlockGetter blockGetter, Entity entity) {
         if(entity.isSuppressingBounce())
-            super.updateEntityAfterFallOn(blockGetter, entity);
+            super.updateEntityMovementAfterFallOn(blockGetter, entity);
         else
             bounceUp(entity);
     }

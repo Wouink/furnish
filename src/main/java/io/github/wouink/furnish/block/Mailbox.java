@@ -2,15 +2,12 @@ package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.Furnish;
-import io.github.wouink.furnish.FurnishContents;
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.blockentity.MailboxBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -82,7 +79,7 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
         if(!(blockState.getBlock() instanceof Mailbox)) return true; // pass to other event listeners
         if(!(blockEntity != null && blockEntity instanceof MailboxBlockEntity mailbox)) return true;
 
-        boolean adminDestroy = player.isCreative() && (player.hasPermissions(1) || blockState.is(FurnishContents.NON_OP_CREATIVE_CAN_DESTROY));
+        boolean adminDestroy = player.canUseGameMasterBlocks(); // = creative + op
         if(adminDestroy) Furnish.LOGGER.info("Mailbox at {} destroyed by admin {}", blockPos, player.getName().getString());
 
         if(mailbox.isOwner(player) || adminDestroy) return true;
@@ -103,31 +100,31 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
     // process the mailbox login on right-click
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        return InteractionHelper.toResult(useItemOn(ItemStack.EMPTY, blockState, level, blockPos, player, InteractionHand.MAIN_HAND, blockHitResult));
+        return useItemOn(ItemStack.EMPTY, blockState, level, blockPos, player, InteractionHand.MAIN_HAND, blockHitResult);
     }
 
     // process the mailbox login on right-click
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if(level.isClientSide()) return InteractionResult.SUCCESS;
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity instanceof MailboxBlockEntity mailbox) {
             if(!mailbox.hasOwner()) {
                 mailbox.setOwner(player);
                 player.displayClientMessage(Component.translatable("msg.furnish.mailbox.set_owner"), true);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
             if(mailbox.isOwner(player)) {
                 player.openMenu(mailbox);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
             if(itemStack.isEmpty()) {
                 player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
-                return ItemInteractionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
             if(mailbox.isFull()) {
                 player.displayClientMessage(Component.translatable("msg.furnish.mailbox.full"), true);
-                return ItemInteractionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
             ItemStack result = mailbox.insertMail(itemStack);
             player.setItemInHand(interactionHand, result);
@@ -139,12 +136,12 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
                 if(ownerDisplayName != null) message = Component.translatable(translationKey + "_to", ownerDisplayName);
                 else message = Component.translatable(translationKey);
                 player.displayClientMessage(message, true);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
             // invalid mail
             player.displayClientMessage(Component.translatable("msg.furnish.mailbox.invalid_mail"), true);
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 }

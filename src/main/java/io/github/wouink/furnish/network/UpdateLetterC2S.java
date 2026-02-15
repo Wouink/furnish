@@ -5,12 +5,12 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Optional;
 
 public record UpdateLetterC2S(int slot, String text, Optional<String> author) implements CustomPacketPayload {
-    private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "update_letter");
+    private static final Identifier ID = Identifier.fromNamespaceAndPath(Furnish.MOD_ID, "update_letter");
     public static final Type TYPE = new Type(ID);
     public static final StreamCodec<ByteBuf, UpdateLetterC2S> CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, UpdateLetterC2S::slot,

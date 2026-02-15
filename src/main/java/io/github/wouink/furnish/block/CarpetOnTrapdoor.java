@@ -2,22 +2,18 @@ package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.FurnishContents;
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -43,7 +39,7 @@ public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
         if(clone != null) return new ItemStack(clone);
         return ItemStack.EMPTY;
     }
@@ -60,12 +56,12 @@ public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState fromState, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos fromPos) {
-        BlockState below = levelAccessor.getBlockState(blockPos.below());
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos fromPos, BlockState fromState, RandomSource randomSource) {
+        BlockState below = levelReader.getBlockState(blockPos.below());
         if(below.getBlock() instanceof TrapDoorBlock) {
             if(below.getValue(TrapDoorBlock.HALF) == Half.TOP)
                 return blockState.setValue(OPEN, below.getValue(TrapDoorBlock.OPEN));
-        } else if(levelAccessor.isEmptyBlock(blockPos.below()))
+        } else if(levelReader.isEmptyBlock(blockPos.below()))
             return Blocks.AIR.defaultBlockState();
         return blockState;
     }
@@ -85,8 +81,8 @@ public class CarpetOnTrapdoor extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        return useWithoutItem(blockState, level, blockPos, player, blockHitResult);
     }
 
     public static boolean attemptPlacement(LevelAccessor level, BlockPos trapdoorPos, WoolCarpetBlock carpet) {

@@ -121,7 +121,7 @@ public class FurnishContents {
 
     // TODO make a proper item texture for buntings
     // TODO add texture variation for each bunting
-    private static final BlockBehaviour.Properties BUNTING_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.TRIPWIRE).noOcclusion().noCollission();
+    private static final BlockBehaviour.Properties BUNTING_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.TRIPWIRE).noOcclusion().noCollision();
     public static final Block LANTERN_BUNTING = RegLib.registerBlock("lantern_bunting", LanternBunting::new, BUNTING_PROPS, false);
     public static final Block SOUL_LANTERN_BUNTING = RegLib.registerBlock("soul_lantern_bunting", LanternBunting::new, BUNTING_PROPS, false);
     public static final Block RED_BUNTING = RegLib.registerBlock("red_bunting", Bunting::new, BUNTING_PROPS, true);
@@ -170,7 +170,7 @@ public class FurnishContents {
 
     public static final Block DISK_RACK = RegLib.registerBlock("disk_rack", DiskRack::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).noOcclusion(), true);
     public static final Block BOOK_PILE = RegLib.registerBlock("book_pile", BookPile::new, BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(.2f).noOcclusion(), true);
-    public static final Block PICTURE_FRAME = RegLib.registerBlock("picture_frame", PictureFrame::new, BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING).noCollission(), true);
+    public static final Block PICTURE_FRAME = RegLib.registerBlock("picture_frame", PictureFrame::new, BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING).noCollision(), true);
     public static final Block CHESS_BOARD = RegLib.registerBlock("chess_board", ChessBoard::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f).noOcclusion(), true);
     public static final Block RECYCLE_BIN = RegLib.registerBlock("recycle_bin", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.SCAFFOLDING).strength(.5f).noOcclusion(), true);
     public static final Block TRASH_CAN = RegLib.registerBlock("trash_can", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.METAL).noOcclusion(), true);

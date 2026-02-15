@@ -16,11 +16,8 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.concurrent.CompletableFuture;
 
-public class FurnishBlockTagsGenerator extends FabricTagProvider<Block> {
-    public FurnishBlockTagsGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, Registries.BLOCK, registriesFuture);
-    }
-
+public class FurnishBlockTagsGenerator extends FabricTagProvider.BlockTagProvider {
+    
     public static final TagKey<Block> WOODEN_FURNITURE = RegLib.registerTag(Registries.BLOCK, "wooden_furniture");
     public static final TagKey<Block> AMPHORAE = RegLib.registerTag(Registries.BLOCK, "amphorae");
     public static final TagKey<Block> AWNINGS = RegLib.registerTag(Registries.BLOCK, "awnings");
@@ -50,78 +47,82 @@ public class FurnishBlockTagsGenerator extends FabricTagProvider<Block> {
     public static final TagKey<Block> CARPETS_ON_STAIRS = RegLib.registerTag(Registries.BLOCK, "carpets_on_stairs");
     public static final TagKey<Block> CARPETS_ON_TRAPDOORS = RegLib.registerTag(Registries.BLOCK, "carpets_on_trapdoors");
 
+    public FurnishBlockTagsGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture);
+    }
+
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        getOrCreateTagBuilder(FurnishContents.PLACE_ON_STAIRS).forceAddTag(BlockTags.WOOL_CARPETS);
-        getOrCreateTagBuilder(FurnishContents.PLACE_ON_TRAPDOOR).forceAddTag(BlockTags.WOOL_CARPETS);
+        valueLookupBuilder(FurnishContents.PLACE_ON_STAIRS).forceAddTag(BlockTags.WOOL_CARPETS);
+        valueLookupBuilder(FurnishContents.PLACE_ON_TRAPDOOR).forceAddTag(BlockTags.WOOL_CARPETS);
 
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             String wood = set.woodType.name().toLowerCase();
             TagKey<Block> setTag = RegLib.registerTag(Registries.BLOCK, wood + "_furniture");
 
-            getOrCreateTagBuilder(setTag).add(set.getAllBlocks());
-            getOrCreateTagBuilder(WOODEN_FURNITURE).forceAddTag(setTag);
+            valueLookupBuilder(setTag).add(set.getAllBlocks());
+            valueLookupBuilder(WOODEN_FURNITURE).forceAddTag(setTag);
 
             if(set.woodType != WoodType.CRIMSON && set.woodType != WoodType.WARPED) {
-                getOrCreateTagBuilder(BEDSIDE_TABLES).add(set.bedsideTable);
-                getOrCreateTagBuilder(KITCHEN_CABINETS).add(set.kitchenCabinet);
+                valueLookupBuilder(BEDSIDE_TABLES).add(set.bedsideTable);
+                valueLookupBuilder(KITCHEN_CABINETS).add(set.kitchenCabinet);
             }
 
-            getOrCreateTagBuilder(BENCHES).add(set.bench);
-            getOrCreateTagBuilder(CABINETS).add(set.cabinet);
-            getOrCreateTagBuilder(CHAIRS).add(set.chair);
-            getOrCreateTagBuilder(CRATES).add(set.crate);
-            getOrCreateTagBuilder(LADDERS).add(set.ladder);
-            getOrCreateTagBuilder(LOG_BENCHES).add(set.logBench);
-            getOrCreateTagBuilder(PEDESTAL_TABLES).add(set.pedestalTable);
-            getOrCreateTagBuilder(SHELVES).add(set.shelf);
-            getOrCreateTagBuilder(SHUTTERS).add(set.shutter);
-            getOrCreateTagBuilder(SQUARE_TABLES).add(set.squareTable);
-            getOrCreateTagBuilder(STOOLS).add(set.stool);
-            getOrCreateTagBuilder(TABLES).add(set.table);
-            getOrCreateTagBuilder(WARDROBES).add(set.wardrobe);
+            valueLookupBuilder(BENCHES).add(set.bench);
+            valueLookupBuilder(CABINETS).add(set.cabinet);
+            valueLookupBuilder(CHAIRS).add(set.chair);
+            valueLookupBuilder(CRATES).add(set.crate);
+            valueLookupBuilder(LADDERS).add(set.ladder);
+            valueLookupBuilder(LOG_BENCHES).add(set.logBench);
+            valueLookupBuilder(PEDESTAL_TABLES).add(set.pedestalTable);
+            valueLookupBuilder(SHELVES).add(set.shelf);
+            valueLookupBuilder(SHUTTERS).add(set.shutter);
+            valueLookupBuilder(SQUARE_TABLES).add(set.squareTable);
+            valueLookupBuilder(STOOLS).add(set.stool);
+            valueLookupBuilder(TABLES).add(set.table);
+            valueLookupBuilder(WARDROBES).add(set.wardrobe);
         }
 
-        getOrCreateTagBuilder(AMPHORAE).add(FurnishContents.AMPHORA);
-        getOrCreateTagBuilder(PLATES).add(FurnishContents.PLATE, FurnishContents.CHINESE_PLATE, FurnishContents.ENGLISH_PLATE);
+        valueLookupBuilder(AMPHORAE).add(FurnishContents.AMPHORA);
+        valueLookupBuilder(PLATES).add(FurnishContents.PLATE, FurnishContents.CHINESE_PLATE, FurnishContents.ENGLISH_PLATE);
 
         for(ColoredSet set : FurnishContents.COLORED_SETS.values()) {
             String color = set.dyeColor.name().toLowerCase();
             TagKey<Block> setTag = RegLib.registerTag(Registries.BLOCK, color + "_furniture");
-            getOrCreateTagBuilder(setTag).add(set.getAllBlocks());
+            valueLookupBuilder(setTag).add(set.getAllBlocks());
 
-            getOrCreateTagBuilder(AMPHORAE).add(set.amphora);
-            getOrCreateTagBuilder(AWNINGS).add(set.awning);
-            getOrCreateTagBuilder(SOFAS).add(set.sofa);
-            getOrCreateTagBuilder(SHOWCASES).add(set.showcase);
-            getOrCreateTagBuilder(PLATES).add(set.plate);
-            getOrCreateTagBuilder(PAPER_LAMPS).add(set.paperLamp);
-            getOrCreateTagBuilder(CURTAINS).add(set.curtain);
-            getOrCreateTagBuilder(CARPETS_ON_STAIRS).add(set.carpetOnStairs);
-            getOrCreateTagBuilder(CARPETS_ON_TRAPDOORS).add(set.carpetOnTrapdoor);
+            valueLookupBuilder(AMPHORAE).add(set.amphora);
+            valueLookupBuilder(AWNINGS).add(set.awning);
+            valueLookupBuilder(SOFAS).add(set.sofa);
+            valueLookupBuilder(SHOWCASES).add(set.showcase);
+            valueLookupBuilder(PLATES).add(set.plate);
+            valueLookupBuilder(PAPER_LAMPS).add(set.paperLamp);
+            valueLookupBuilder(CURTAINS).add(set.curtain);
+            valueLookupBuilder(CARPETS_ON_STAIRS).add(set.carpetOnStairs);
+            valueLookupBuilder(CARPETS_ON_TRAPDOORS).add(set.carpetOnTrapdoor);
         }
 
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE).forceAddTag(WOODEN_FURNITURE).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.CLIMBABLE).forceAddTag(LADDERS).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(FurnishContents.BOOK_PILE).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FurnishContents.METAL_MAILBOX).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FurnishContents.TRASH_CAN).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FurnishContents.LOCKER, FurnishContents.SMALL_LOCKER).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).forceAddTag(PLATES).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).forceAddTag(AMPHORAE).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).forceAddTag(SHOWCASES).setReplace(false);
-        getOrCreateTagBuilder(BlockTags.WOOL).setReplace(false).forceAddTag(SOFAS).forceAddTag(AWNINGS).forceAddTag(CURTAINS);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE).forceAddTag(WOODEN_FURNITURE).setReplace(false);
+        valueLookupBuilder(BlockTags.CLIMBABLE).forceAddTag(LADDERS).setReplace(false);
+        valueLookupBuilder(BlockTags.ENCHANTMENT_POWER_PROVIDER).add(FurnishContents.BOOK_PILE).setReplace(false);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FurnishContents.METAL_MAILBOX).setReplace(false);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FurnishContents.TRASH_CAN).setReplace(false);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FurnishContents.LOCKER, FurnishContents.SMALL_LOCKER).setReplace(false);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).forceAddTag(PLATES).setReplace(false);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).forceAddTag(AMPHORAE).setReplace(false);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).forceAddTag(SHOWCASES).setReplace(false);
+        valueLookupBuilder(BlockTags.WOOL).setReplace(false).forceAddTag(SOFAS).forceAddTag(AWNINGS).forceAddTag(CURTAINS);
 
-        getOrCreateTagBuilder(MAILBOXES).add(FurnishContents.METAL_MAILBOX);
-        getOrCreateTagBuilder(RECYCLE_BINS).add(FurnishContents.RECYCLE_BIN, FurnishContents.TRASH_CAN);
-        getOrCreateTagBuilder(BUNTINGS).add(FurnishContents.GREEN_BUNTING, FurnishContents.RED_BUNTING, FurnishContents.YELLOW_BUNTING, FurnishContents.SOUL_LANTERN_BUNTING, FurnishContents.LANTERN_BUNTING);
-        getOrCreateTagBuilder(WARDROBES).add(FurnishContents.LOCKER);
-        getOrCreateTagBuilder(CABINETS).add(FurnishContents.SMALL_LOCKER);
-        getOrCreateTagBuilder(WOODEN_FURNITURE).add(FurnishContents.CHESS_BOARD, FurnishContents.PICTURE_FRAME);
-        getOrCreateTagBuilder(WOODEN_FURNITURE).add(FurnishContents.DISK_RACK, FurnishContents.FURNITURE_WORKBENCH);
-        getOrCreateTagBuilder(WOODEN_FURNITURE).forceAddTag(PAPER_LAMPS).forceAddTag(SOFAS).forceAddTag(AWNINGS);
+        valueLookupBuilder(MAILBOXES).add(FurnishContents.METAL_MAILBOX);
+        valueLookupBuilder(RECYCLE_BINS).add(FurnishContents.RECYCLE_BIN, FurnishContents.TRASH_CAN);
+        valueLookupBuilder(BUNTINGS).add(FurnishContents.GREEN_BUNTING, FurnishContents.RED_BUNTING, FurnishContents.YELLOW_BUNTING, FurnishContents.SOUL_LANTERN_BUNTING, FurnishContents.LANTERN_BUNTING);
+        valueLookupBuilder(WARDROBES).add(FurnishContents.LOCKER);
+        valueLookupBuilder(CABINETS).add(FurnishContents.SMALL_LOCKER);
+        valueLookupBuilder(WOODEN_FURNITURE).add(FurnishContents.CHESS_BOARD, FurnishContents.PICTURE_FRAME);
+        valueLookupBuilder(WOODEN_FURNITURE).add(FurnishContents.DISK_RACK, FurnishContents.FURNITURE_WORKBENCH);
+        valueLookupBuilder(WOODEN_FURNITURE).forceAddTag(PAPER_LAMPS).forceAddTag(SOFAS).forceAddTag(AWNINGS);
 
-        getOrCreateTagBuilder(FurnishContents.CAN_KNOCK_ON).forceAddTag(BlockTags.DOORS);
-        getOrCreateTagBuilder(FurnishContents.CAN_POP_BOOK).add(Blocks.LECTERN);
+        valueLookupBuilder(FurnishContents.CAN_KNOCK_ON).forceAddTag(BlockTags.DOORS);
+        valueLookupBuilder(FurnishContents.CAN_POP_BOOK).add(Blocks.LECTERN);
     }
 }

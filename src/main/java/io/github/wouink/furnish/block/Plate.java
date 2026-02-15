@@ -6,7 +6,7 @@ import io.github.wouink.furnish.blockentity.PlateBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -38,11 +38,11 @@ public class Plate extends AbstractItemDisplayBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if(level.isClientSide()) return InteractionResult.SUCCESS;
         if(itemStack.isEmpty() || itemStack.has(DataComponents.FOOD) || itemStack.is(FurnishContents.FOOD_TAG))
             return super.useItemOn(itemStack, blockState, level, blockPos, player, interactionHand, blockHitResult);
-        return ItemInteractionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
     @Override

@@ -5,12 +5,11 @@ import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishContents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,14 +58,14 @@ public class Awning extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState fromState, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos fromPos) {
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos fromPos, BlockState fromState, RandomSource randomSource) {
         if(!direction.getAxis().isVertical()) {
             // left awning check
-            BlockState scan = levelAccessor.getBlockState(blockPos.relative(blockState.getValue(FACING).getClockWise()));
+            BlockState scan = levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getClockWise()));
             blockState = blockState.setValue(LEFT, (scan.is(this) && scan.getValue(FACING) == blockState.getValue(FACING)));
 
             // right awning check
-            scan = levelAccessor.getBlockState(blockPos.relative(blockState.getValue(FACING).getCounterClockWise()));
+            scan = levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getCounterClockWise()));
             blockState = blockState.setValue(RIGHT, (scan.is(this) && scan.getValue(FACING) == blockState.getValue(FACING)));
         }
         return blockState;
@@ -87,18 +86,16 @@ public class Awning extends HorizontalDirectionalBlock {
         return simpleCodec(Awning::new);
     }
 
-    // TODO bounce doesn't work why?
+    // TODO bouncing ok?
     @Override
-    public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, float dist) {
-        Furnish.LOGGER.debug("Awning fallOn");
-        super.fallOn(level, blockState, blockPos, entity, dist * .5f);
+    public void fallOn(Level level, BlockState blockState, BlockPos blockPos, Entity entity, double dist) {
+        super.fallOn(level, blockState, blockPos, entity, dist * .5);
     }
 
     @Override
-    public void updateEntityAfterFallOn(BlockGetter blockGetter, Entity entity) {
-        Furnish.LOGGER.debug("Awning updateEntityAfterFallOn");
+    public void updateEntityMovementAfterFallOn(BlockGetter blockGetter, Entity entity) {
         if(entity.isSuppressingBounce())
-            super.updateEntityAfterFallOn(blockGetter, entity);
+            super.updateEntityMovementAfterFallOn(blockGetter, entity);
         else
             bounceUp(entity);
     }

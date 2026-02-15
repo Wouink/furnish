@@ -1,12 +1,10 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.entity.SeatEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -53,7 +51,7 @@ public class Bench extends Block {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        return useWithoutItem(blockState, level, blockPos, player, blockHitResult);
     }
 }

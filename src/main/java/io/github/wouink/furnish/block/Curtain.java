@@ -3,26 +3,24 @@ package io.github.wouink.furnish.block;
 import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishContents;
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -67,7 +65,7 @@ public class Curtain extends HorizontalDirectionalBlock {
         return state;
     }
 
-    private static BlockState calculateState(BlockState initialState, LevelAccessor level, BlockPos pos) {
+    private static BlockState calculateState(BlockState initialState, LevelReader level, BlockPos pos) {
         BlockState state = initialState;
         Direction facing = initialState.getValue(FACING);
 
@@ -84,8 +82,8 @@ public class Curtain extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        return calculateState(blockState, levelAccessor, blockPos);
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
+        return calculateState(blockState, levelReader, blockPos);
     }
 
     @Override
@@ -142,16 +140,16 @@ public class Curtain extends HorizontalDirectionalBlock {
             setCurtainsInLine(level, blockPos, !blockState.getValue(OPEN));
             level.playSound(null, blockPos, FurnishContents.CURTAIN_TOGGLE, SoundSource.BLOCKS, 1.0f, 1.0f);
         }
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        return useWithoutItem(blockState, level, blockPos, player, blockHitResult);
     }
 
     @Override
-    protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, BlockPos blockPos2, boolean bl) {
+    protected void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, Orientation orientation, boolean bl) {
         if(!level.isClientSide()) {
             boolean powered = level.hasNeighborSignal(blockPos);
             if (blockState.getValue(POWERED) != powered) {

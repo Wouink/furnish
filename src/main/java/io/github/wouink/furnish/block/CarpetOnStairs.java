@@ -8,11 +8,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -39,7 +41,7 @@ public class CarpetOnStairs extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+    public ItemStack getCloneItemStack(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
         if(clone != null) return new ItemStack(clone);
         else return ItemStack.EMPTY;
     }
@@ -66,8 +68,8 @@ public class CarpetOnStairs extends HorizontalDirectionalBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState fromState, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos fromPos) {
-        return blockState.canSurvive(levelAccessor, blockPos) ? super.updateShape(blockState, direction, fromState, levelAccessor, blockPos, fromPos) : Blocks.AIR.defaultBlockState();
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos fromPos, BlockState fromState, RandomSource randomSource) {
+        return blockState.canSurvive(levelReader, blockPos) ? super.updateShape(blockState, levelReader, scheduledTickAccess, blockPos, direction, fromPos, fromState, randomSource) : Blocks.AIR.defaultBlockState();
     }
 
     public static boolean attemptPlacement(LevelAccessor level, BlockPos stairsPos, WoolCarpetBlock carpet) {

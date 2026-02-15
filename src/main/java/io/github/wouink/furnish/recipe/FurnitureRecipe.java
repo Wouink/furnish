@@ -20,10 +20,20 @@ public class FurnitureRecipe extends SingleItemRecipe {
     private final ItemStack result;
 
     public FurnitureRecipe(String group, Ingredient ingredient, ItemStack result) {
-        super(FurnishContents.FURNITURE_RECIPE, SERIALIZER, group, ingredient, result);
+        super(group, ingredient, result);
         this.group = group;
         this.ingredient = ingredient;
         this.result = result;
+    }
+
+    @Override
+    public RecipeSerializer<? extends SingleItemRecipe> getSerializer() {
+        return SERIALIZER;
+    }
+
+    @Override
+    public RecipeType<? extends SingleItemRecipe> getType() {
+        return FurnishContents.FURNITURE_RECIPE;
     }
 
     @Override
@@ -37,39 +47,14 @@ public class FurnitureRecipe extends SingleItemRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int i, int j) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return result;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return SERIALIZER;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return FurnishContents.FURNITURE_RECIPE;
-    }
-
-    @Override
-    public String getGroup() {
-        return group;
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
     }
 
     @Override
     public boolean isSpecial() {
         // hide in recipe book
         return true;
-    }
-
-    @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(FurnishContents.FURNITURE_WORKBENCH.asItem());
     }
 
     // with help from https://github.com/MehVahdJukaar/sawmill
@@ -81,7 +66,7 @@ public class FurnitureRecipe extends SingleItemRecipe {
             this.codec = RecordCodecBuilder.mapCodec(
                     furnitureRecipeInstance -> furnitureRecipeInstance.group(
                             Codec.STRING.optionalFieldOf("group", "").forGetter(arg -> arg.group),
-                            Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(arg -> arg.ingredient),
+                            Ingredient.CODEC.fieldOf("ingredient").forGetter(arg -> arg.ingredient),
                             ItemStack.STRICT_CODEC.fieldOf("result").forGetter(arg -> arg.result)
                     ).apply(furnitureRecipeInstance, FurnitureRecipe::new)
             );

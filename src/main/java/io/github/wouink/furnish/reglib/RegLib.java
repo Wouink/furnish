@@ -16,7 +16,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -65,7 +65,7 @@ public class RegLib {
     ) {
         ResourceKey<Item> itemKey = ResourceKey.create(
                 Registries.ITEM,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id)
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id)
         );
         GenericItem item = itemFactory.apply(properties);
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
@@ -91,15 +91,15 @@ public class RegLib {
     ) {
         ResourceKey<Block> blockKey = ResourceKey.create(
                 Registries.BLOCK,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id)
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id)
         );
-        Block block = blockFactory.apply(properties);
+        Block block = blockFactory.apply(properties.setId(blockKey));
         Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
 
         if (registerItem) {
             ResourceKey<Item> itemKey = ResourceKey.create(
                     Registries.ITEM,
-                    ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id)
+                    Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id)
             );
             BlockItem blockItem = new BlockItem(
                     block,
@@ -144,7 +144,7 @@ public class RegLib {
     ) {
         return Registry.register(
                 BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id),
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id),
                 FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build()
         );
     }
@@ -163,7 +163,7 @@ public class RegLib {
     ) {
         return Registry.register(
                 BuiltInRegistries.MENU,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, id),
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id),
                 new MenuType<>(menuSupplier, FeatureFlagSet.of())
         );
     }
@@ -174,7 +174,7 @@ public class RegLib {
      * @return a SoundEvent object
      */
     public static SoundEvent registerSound(String soundKey) {
-        ResourceLocation soundIdentifier = ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, soundKey);
+        Identifier soundIdentifier = Identifier.fromNamespaceAndPath(Furnish.MOD_ID, soundKey);
         return Registry.register(
                 BuiltInRegistries.SOUND_EVENT,
                 soundIdentifier,
@@ -196,10 +196,11 @@ public class RegLib {
      * @param <T> the EntityType
      */
     public static <T extends Entity> EntityType<T> registerEntityType(String name, EntityType.Builder builder) {
+        Identifier entityId = Identifier.fromNamespaceAndPath(Furnish.MOD_ID, name);
         return Registry.register(
                 BuiltInRegistries.ENTITY_TYPE,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name),
-                builder.build(name)
+                entityId,
+                builder.build(ResourceKey.create(Registries.ENTITY_TYPE, entityId))
         );
     }
 
@@ -210,7 +211,7 @@ public class RegLib {
      * @return the tag
      */
     public static TagKey registerTag(ResourceKey tagType, String name) {
-        return TagKey.create(tagType, ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name));
+        return TagKey.create(tagType, Identifier.fromNamespaceAndPath(Furnish.MOD_ID, name));
     }
 
     /**
@@ -222,7 +223,7 @@ public class RegLib {
     public static CreativeModeTab registerCreativeTab(String name, Item icon) {
         ResourceKey<CreativeModeTab> key = ResourceKey.create(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name)
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, name)
         );
         CreativeModeTab tab = Registry.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB,
@@ -257,7 +258,7 @@ public class RegLib {
         };
         return Registry.register(
                 BuiltInRegistries.RECIPE_TYPE,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name),
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, name),
                 recipeType
         );
     }
@@ -275,7 +276,7 @@ public class RegLib {
     ) {
         return Registry.register(
                 BuiltInRegistries.RECIPE_SERIALIZER,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "furniture_making"),
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, "furniture_making"),
                 serializer
         );
     }
@@ -289,7 +290,7 @@ public class RegLib {
     public static DataComponentType<String> registerDataComponentType(String name) {
         return Registry.register(
                 BuiltInRegistries.DATA_COMPONENT_TYPE,
-                ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, name),
+                Identifier.fromNamespaceAndPath(Furnish.MOD_ID, name),
                 DataComponentType.<String>builder()
                         .persistent(Codec.STRING)
                         .networkSynchronized(ByteBufCodecs.STRING_UTF8)

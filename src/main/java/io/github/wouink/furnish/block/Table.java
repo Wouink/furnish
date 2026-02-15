@@ -2,9 +2,11 @@ package io.github.wouink.furnish.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,7 +38,7 @@ public class Table extends Block {
         builder.add(NW, NE, SW, SE);
     }
 
-    private BlockState calculateState(LevelAccessor level, BlockPos pos) {
+    private BlockState calculateState(LevelReader level, BlockPos pos) {
         BlockState N = level.getBlockState(pos.north());
         BlockState W = level.getBlockState(pos.west());
         BlockState S = level.getBlockState(pos.south());
@@ -69,7 +71,7 @@ public class Table extends Block {
     }
 
     @Override
-    protected BlockState updateShape(BlockState blockState, Direction direction, BlockState fromState, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos fromPos) {
-        return calculateState(levelAccessor, blockPos);
+    protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos fromPos, BlockState fromState, RandomSource randomSource) {
+        return calculateState(levelReader, blockPos);
     }
 }

@@ -18,7 +18,7 @@ public class AddArmsToArmorStand {
         if(level.isClientSide()) return InteractionResult.PASS;
         if(player.isSpectator()) return InteractionResult.PASS;
         if(!(entity instanceof ArmorStand armorStand)) return InteractionResult.PASS;
-        if(armorStand.isShowArms()) return InteractionResult.PASS; // already has arms
+        if(armorStand.showArms()) return InteractionResult.PASS; // already has arms
         ItemStack inHand = player.getItemInHand(hand);
         if(!inHand.is(Items.STICK)) return InteractionResult.PASS;
         armorStand.setShowArms(true);

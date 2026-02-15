@@ -1,7 +1,7 @@
 package io.github.wouink.furnish.block;
 
-import io.github.wouink.furnish.block.util.InteractionHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -40,6 +40,7 @@ public abstract class AbstractStorageFurnitureBlock extends HorizontalDirectiona
     }
 
     // drop items upon destruction
+    /* TODO
     @Override
     protected void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean movedByPiston) {
         if(!level.isClientSide() && blockState.getBlock() != newState.getBlock()) {
@@ -49,6 +50,7 @@ public abstract class AbstractStorageFurnitureBlock extends HorizontalDirectiona
         }
         super.onRemove(blockState, level, blockPos, newState, movedByPiston);
     }
+    */
 
     // open menu on right click
     @Override
@@ -62,8 +64,8 @@ public abstract class AbstractStorageFurnitureBlock extends HorizontalDirectiona
 
     // open menu on right click
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        return InteractionHelper.toItem(useWithoutItem(blockState, level, blockPos, player, blockHitResult));
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        return useWithoutItem(blockState, level, blockPos, player, blockHitResult);
     }
 
     // get comparator redstone output
@@ -73,10 +75,10 @@ public abstract class AbstractStorageFurnitureBlock extends HorizontalDirectiona
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos blockPos) {
+    protected int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity != null)
             return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(blockEntity); // calculates if container, 0 otherwise
-        return super.getAnalogOutputSignal(blockState, level, blockPos);
+        return super.getAnalogOutputSignal(blockState, level, blockPos, direction);
     }
 }

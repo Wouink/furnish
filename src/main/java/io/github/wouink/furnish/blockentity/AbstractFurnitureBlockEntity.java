@@ -14,12 +14,14 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.stream.IntStream;
 
@@ -122,21 +124,20 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
 
     // save/load
 
-
     @Override
-    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.saveAdditional(compoundTag, provider);
-        if(!tryLoadLootTable(compoundTag)) {
-            ContainerHelper.saveAllItems(compoundTag, inventory, provider);
+    protected void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
+        if(!trySaveLootTable(valueOutput)) {
+            ContainerHelper.saveAllItems(valueOutput, inventory);
         }
     }
 
     @Override
-    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.loadAdditional(compoundTag, provider);
+    protected void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
         inventory = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-        if(!tryLoadLootTable(compoundTag)) {
-            ContainerHelper.loadAllItems(compoundTag, inventory, provider);
+        if(!tryLoadLootTable(valueInput)) {
+            ContainerHelper.loadAllItems(valueInput, inventory);
         }
     }
 
@@ -183,7 +184,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
     // open/close sound
 
     @Override
-    public void startOpen(Player containerUser) {
+    public void startOpen(ContainerUser containerUser) {
         super.startOpen(containerUser);
         if(users == 0 && getOpenSound() != null)
             level.playSound(null, getBlockPos(), getOpenSound(), SoundSource.PLAYERS, 0.5f, level.random.nextFloat() * 0.1f + 0.9f);
@@ -191,7 +192,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
     }
 
     @Override
-    public void stopOpen(Player containerUser) {
+    public void stopOpen(ContainerUser containerUser) {
         super.stopOpen(containerUser);
         if(users == 1 && getCloseSound() != null)
             level.playSound(null, getBlockPos(), getCloseSound(), SoundSource.PLAYERS, 0.5f, level.random.nextFloat() * 0.1f + 0.9f);

@@ -5,11 +5,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 
 public record OpenItemGUIS2C(int slot, ItemStack source) implements CustomPacketPayload {
-    private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "open_gui");
+    private static final Identifier ID = Identifier.fromNamespaceAndPath(Furnish.MOD_ID, "open_gui");
     public static final Type TYPE = new Type(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, OpenItemGUIS2C> CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, OpenItemGUIS2C::slot,

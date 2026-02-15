@@ -7,13 +7,12 @@ import io.github.wouink.furnish.item.Letter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +20,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -61,17 +62,17 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.loadAdditional(compoundTag, provider);
-        if(compoundTag.contains("Owner")) owner = compoundTag.getUUID("Owner");
-        if(compoundTag.contains("OwnerDisplayName")) ownerDisplayName = compoundTag.getString("OwnerDisplayName");
+    protected void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
+        if(valueInput.contains("Owner")) owner = UUID.fromString(valueInput.getString("Owner").get());
+        if(valueInput.contains("OwnerDisplayName")) ownerDisplayName = valueInput.getString("OwnerDisplayName").get();
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.saveAdditional(compoundTag, provider);
-        if(owner != null) compoundTag.putUUID("Owner", owner);
-        if(ownerDisplayName != null) compoundTag.putString("OwnerDisplayName", ownerDisplayName);
+    protected void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
+        if(owner != null) valueOutput.putString("Owner", owner.toString());
+        if(ownerDisplayName != null) valueOutput.putString("OwnerDisplayName", ownerDisplayName);
     }
 
     // ownership handling
@@ -92,7 +93,7 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
         owner = entity.getUUID();
         if(entity.hasCustomName()) ownerDisplayName = entity.getCustomName().getString();
         else if(entity instanceof ServerPlayer player)
-            ownerDisplayName = player.getGameProfile().getName();
+            ownerDisplayName = player.getGameProfile().name();
         else ownerDisplayName = null;
         broadcastChanges();
     }
@@ -160,7 +161,7 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
     }
 
     @Override
-    public void stopOpen(Player containerUser) {
+    public void stopOpen(ContainerUser containerUser) {
         super.stopOpen(containerUser);
         updateMyMailboxFlag();
     }

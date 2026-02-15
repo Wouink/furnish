@@ -3,10 +3,12 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.reglib.RegLib;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -23,7 +25,7 @@ public class WoodenSet {
         this.woodType = woodType;
 
         String wood = woodType.name().toLowerCase();
-        Block planks = BuiltInRegistries.BLOCK.get(ResourceLocation.withDefaultNamespace(wood + "_planks"));
+        Block planks = BuiltInRegistries.BLOCK.get(Identifier.withDefaultNamespace(wood + "_planks")).get().value();
         BlockBehaviour.Properties props = BlockBehaviour.Properties.ofFullCopy(planks);
 
         squareTable = RegLib.registerBlock(wood + "_square_table", Block::new, props.noOcclusion(), true);
@@ -52,7 +54,7 @@ public class WoodenSet {
         ladder = RegLib.registerBlock(wood + "_ladder", Ladder::new, props.noOcclusion(), true);
         table = RegLib.registerBlock(wood + "_table", Table::new, props.noOcclusion().forceSolidOn(), true);
 
-        crate = RegLib.registerBlock(wood + "_crate", Crate::new, props, true);
+        crate = RegLib.registerBlock(wood + "_crate", Crate::new, props, true, new Item.Properties().component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
         FurnishContents.crates.add(crate);
 
         shelf = RegLib.registerBlock(wood + "_shelf", Shelf::new, props.noOcclusion().strength(.7f), true);

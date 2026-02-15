@@ -1,25 +1,27 @@
 package io.github.wouink.furnish.container;
 
-import com.google.common.collect.Lists;
-import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SelectableRecipe;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Literally a copy of StonecutterMenu but using FurnitureRecipe instead of StonecutterRecipe
+ * Literally a copy of StonecutterMenu but using FurnitureRecipe instead of FurnitureRecipe
  */
 public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     public static final int INPUT_SLOT = 0;
@@ -29,9 +31,9 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     private static final int USE_ROW_SLOT_START = 29;
     private static final int USE_ROW_SLOT_END = 38;
     private final ContainerLevelAccess access;
-    private final DataSlot selectedRecipeIndex;
+    final DataSlot selectedRecipeIndex;
     private final Level level;
-    private List<RecipeHolder<FurnitureRecipe>> recipes;
+    private SelectableRecipe.SingleInputSet<FurnitureRecipe> recipesForInput;
     private ItemStack input;
     long lastSoundTime;
     final Slot inputSlot;
@@ -45,9 +47,9 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     }
 
     public FurnitureWorkbenchMenu(int i, Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
-        super(FurnishContents.WORKBENCH_MENU, i);
+        super(MenuType.STONECUTTER, i);
         this.selectedRecipeIndex = DataSlot.standalone();
-        this.recipes = Lists.newArrayList();
+        this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         this.input = ItemStack.EMPTY;
         this.slotUpdateListener = () -> {
         };
@@ -68,17 +70,17 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
             }
 
             public void onTake(Player player, ItemStack itemStack) {
-                itemStack.onCraftedBy(player.level(), player, itemStack.getCount());
+                itemStack.onCraftedBy(player, itemStack.getCount());
                 FurnitureWorkbenchMenu.this.resultContainer.awardUsedRecipes(player, this.getRelevantItems());
                 ItemStack itemStack2 = FurnitureWorkbenchMenu.this.inputSlot.remove(1);
                 if (!itemStack2.isEmpty()) {
-                    FurnitureWorkbenchMenu.this.setupResultSlot();
+                    FurnitureWorkbenchMenu.this.setupResultSlot(FurnitureWorkbenchMenu.this.selectedRecipeIndex.get());
                 }
 
                 containerLevelAccess.execute((level, blockPos) -> {
                     long l = level.getGameTime();
                     if (FurnitureWorkbenchMenu.this.lastSoundTime != l) {
-                        level.playSound((Player)null, blockPos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.playSound((Entity)null, blockPos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         FurnitureWorkbenchMenu.this.lastSoundTime = l;
                     }
 
@@ -90,17 +92,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
                 return List.of(FurnitureWorkbenchMenu.this.inputSlot.getItem());
             }
         });
-
-        for(int j = 0; j < 3; ++j) {
-            for(int k = 0; k < 9; ++k) {
-                this.addSlot(new Slot(inventory, k + j * 9 + 9, 8 + k * 18, 84 + j * 18));
-            }
-        }
-
-        for(int j = 0; j < 9; ++j) {
-            this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
-        }
-
+        this.addStandardInventorySlots(inventory, 8, 84);
         this.addDataSlot(this.selectedRecipeIndex);
     }
 
@@ -108,75 +100,80 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<RecipeHolder<FurnitureRecipe>> getRecipes() {
-        return this.recipes;
+    public SelectableRecipe.SingleInputSet<FurnitureRecipe> getVisibleRecipes() {
+        return this.recipesForInput;
     }
 
-    public int getNumRecipes() {
-        return this.recipes.size();
+    public int getNumberOfVisibleRecipes() {
+        return this.recipesForInput.size();
     }
 
     public boolean hasInputItem() {
-        return this.inputSlot.hasItem() && !this.recipes.isEmpty();
+        return this.inputSlot.hasItem() && !this.recipesForInput.isEmpty();
     }
 
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, FurnishContents.FURNITURE_WORKBENCH);
+        return stillValid(this.access, player, Blocks.STONECUTTER);
     }
 
     public boolean clickMenuButton(Player player, int i) {
-        if (this.isValidRecipeIndex(i)) {
-            this.selectedRecipeIndex.set(i);
-            this.setupResultSlot();
-        }
+        if (this.selectedRecipeIndex.get() == i) {
+            return false;
+        } else {
+            if (this.isValidRecipeIndex(i)) {
+                this.selectedRecipeIndex.set(i);
+                this.setupResultSlot(i);
+            }
 
-        return true;
+            return true;
+        }
     }
 
     private boolean isValidRecipeIndex(int i) {
-        return i >= 0 && i < this.recipes.size();
+        return i >= 0 && i < this.recipesForInput.size();
     }
 
     public void slotsChanged(Container container) {
         ItemStack itemStack = this.inputSlot.getItem();
         if (!itemStack.is(this.input.getItem())) {
             this.input = itemStack.copy();
-            this.setupRecipeList(container, itemStack);
+            this.setupRecipeList(itemStack);
         }
+
     }
 
-    private static SingleRecipeInput createRecipeInput(Container container) {
-        return new SingleRecipeInput(container.getItem(0));
-    }
-
-    private void setupRecipeList(Container container, ItemStack itemStack) {
-        this.recipes.clear();
+    private void setupRecipeList(ItemStack itemStack) {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!itemStack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(FurnishContents.FURNITURE_RECIPE, createRecipeInput(container), this.level);
+            // TODO this.recipesForInput = this.level.recipeAccess().stonecutterRecipes();
+        } else {
+            this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         }
+
     }
 
-    void setupResultSlot() {
-        if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            RecipeHolder<FurnitureRecipe> recipeHolder = this.recipes.get(this.selectedRecipeIndex.get());
-            ItemStack itemStack = recipeHolder.value().assemble(createRecipeInput(this.container), this.level.registryAccess());
-            if (itemStack.isItemEnabled(this.level.enabledFeatures())) {
-                this.resultContainer.setRecipeUsed(recipeHolder);
-                this.resultSlot.set(itemStack);
-            } else {
-                this.resultSlot.set(ItemStack.EMPTY);
-            }
+    void setupResultSlot(int i) {
+        Optional<RecipeHolder<FurnitureRecipe>> optional;
+        if (!this.recipesForInput.isEmpty() && this.isValidRecipeIndex(i)) {
+            SelectableRecipe.SingleInputEntry<FurnitureRecipe> singleInputEntry = (SelectableRecipe.SingleInputEntry)this.recipesForInput.entries().get(i);
+            optional = singleInputEntry.recipe().recipe();
         } else {
-            this.resultSlot.set(ItemStack.EMPTY);
+            optional = Optional.empty();
         }
 
+        optional.ifPresentOrElse((recipeHolder) -> {
+            this.resultContainer.setRecipeUsed(recipeHolder);
+            this.resultSlot.set(((FurnitureRecipe)recipeHolder.value()).assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
+        }, () -> {
+            this.resultSlot.set(ItemStack.EMPTY);
+            this.resultContainer.setRecipeUsed((RecipeHolder)null);
+        });
         this.broadcastChanges();
     }
 
     public MenuType<?> getType() {
-        return FurnishContents.WORKBENCH_MENU;
+        return MenuType.STONECUTTER;
     }
 
     public void registerUpdateListener(Runnable runnable) {
@@ -195,7 +192,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
             Item item = itemStack2.getItem();
             itemStack = itemStack2.copy();
             if (i == 1) {
-                item.onCraftedBy(itemStack2, player.level(), player);
+                item.onCraftedBy(itemStack2, player);
                 if (!this.moveItemStackTo(itemStack2, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -205,11 +202,11 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(itemStack2, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.level.getRecipeManager().getRecipeFor(FurnishContents.FURNITURE_RECIPE, new SingleRecipeInput(itemStack2), this.level).isPresent()) {
+            } /* TODO else if (this.level.recipeAccess().FurnitureRecipes().acceptsInput(itemStack2)) {
                 if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (i >= 2 && i < 29) {
+            } */ else if (i >= 2 && i < 29) {
                 if (!this.moveItemStackTo(itemStack2, 29, 38, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -227,6 +224,10 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
             }
 
             slot.onTake(player, itemStack2);
+            if (i == 1) {
+                player.drop(itemStack2, false);
+            }
+
             this.broadcastChanges();
         }
 

@@ -4,7 +4,7 @@ import io.github.wouink.furnish.FurnishContents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -58,21 +58,21 @@ public class Bunting extends Block {
 
     // transform bunting into a lantern bunting on right click with a lantern
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
-        if(itemStack.isEmpty()) return ItemInteractionResult.FAIL;
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if(level.isClientSide()) return InteractionResult.SUCCESS;
+        if(itemStack.isEmpty()) return InteractionResult.FAIL;
 
         Item item = itemStack.getItem();
         Block block;
         if(item == Items.SOUL_LANTERN) block = FurnishContents.SOUL_LANTERN_BUNTING;
         else if(item == Items.LANTERN) block = FurnishContents.LANTERN_BUNTING;
-        else return ItemInteractionResult.FAIL;
+        else return InteractionResult.FAIL;
 
         level.destroyBlock(blockPos, true);
         level.setBlock(blockPos, block.defaultBlockState().setValue(Bunting.Z_AXIS, blockState.getValue(Z_AXIS)), Block.UPDATE_ALL);
         if(!player.isCreative()) itemStack.shrink(1);
         player.setItemInHand(interactionHand, itemStack);
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

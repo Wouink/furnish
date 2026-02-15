@@ -5,7 +5,7 @@ import io.github.wouink.furnish.block.util.ShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -51,11 +51,11 @@ public class Ladder extends HorizontalDirectionalBlock {
 
     // extend the ladder when right-clicked with another ladder
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if(level.isClientSide()) return ItemInteractionResult.SUCCESS;
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if(level.isClientSide()) return InteractionResult.SUCCESS;
 
         if(!(itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof Ladder))
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
 
         // first option = place down
         BlockPos search = blockPos.below();
@@ -79,9 +79,9 @@ public class Ladder extends HorizontalDirectionalBlock {
                 itemStack.shrink(1);
                 player.setItemInHand(interactionHand, itemStack);
             }
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 }

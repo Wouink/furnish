@@ -10,11 +10,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.StringUtil;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class LetterScreen extends Screen {
     private static final Component SCREEN_NAME = Component.translatable("item.furnish.letter");
     private static final Component SIGN_LETTER = Component.translatable("book.signButton");
-    private static final ResourceLocation LETTER_BACKGROUND = ResourceLocation.fromNamespaceAndPath(Furnish.MOD_ID, "textures/gui/letter.png");
+    private static final Identifier LETTER_BACKGROUND = Identifier.fromNamespaceAndPath(Furnish.MOD_ID, "textures/gui/letter.png");
 
     // Max length is 16 lines of 18 characters
     private static final int LETTER_MAX_LENGTH = 288;
@@ -75,7 +76,7 @@ public class LetterScreen extends Screen {
         super.init();
         if(editable) {
             this.addRenderableWidget(Button.builder(SIGN_LETTER, (button) -> {
-                sendUpdate(Optional.of(playerEntity.getGameProfile().getName()));
+                sendUpdate(Optional.of(playerEntity.getGameProfile().name()));
                 this.minecraft.setScreen(null);
             }).bounds(this.width / 2 - 102, 196, 100, 20).build());
             this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
@@ -90,21 +91,15 @@ public class LetterScreen extends Screen {
     }
 
     @Override
-    public boolean charTyped(char c, int n) {
-        if(super.charTyped(c, n)) {
-            Furnish.LOGGER.debug("super.charTyped true");
+    public boolean charTyped(CharacterEvent characterEvent) {
+        if(editable && characterEvent.isAllowedChatCharacter()) {
+            letterEdit.insertText(Character.toString(characterEvent.codepoint()));
             return true;
         }
-        if(editable && StringUtil.isAllowedChatCharacter(c)) {
-            Furnish.LOGGER.debug("Character allowed: " + c);
-            letterEdit.insertText(Character.toString(c));
-            Furnish.LOGGER.debug("letterText now contains " + getText());
-            return true;
-        }
-        Furnish.LOGGER.debug("Character not allowed: " + c);
         return false;
     }
 
+    /* TODO
     @Override
     public boolean keyPressed(int key, int m, int n) {
         if(key == 256 && shouldCloseOnEsc()) {
@@ -140,6 +135,7 @@ public class LetterScreen extends Screen {
         }
         return false;
     }
+     */
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
@@ -163,7 +159,8 @@ public class LetterScreen extends Screen {
     public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f) {
         this.renderTransparentBackground(guiGraphics);
         int startX = (this.width - 192) / 2;
-        guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LETTER_BACKGROUND, startX, 2, 0f, 0f, 192, 192, 0, 0, 0); // TODO
+        // guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);
     }
 
     @Override
