@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.compat.emi;
 
+/*
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -34,3 +35,4 @@ public class FurnishEMIPlugin implements EmiPlugin {
         }
     }
 }
+ */

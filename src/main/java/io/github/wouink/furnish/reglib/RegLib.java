@@ -67,7 +67,7 @@ public class RegLib {
                 Registries.ITEM,
                 Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id)
         );
-        GenericItem item = itemFactory.apply(properties);
+        GenericItem item = itemFactory.apply(properties.setId(itemKey));
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
         itemsInCreativeTab.add(item);
         return item;
@@ -101,10 +101,10 @@ public class RegLib {
                     Registries.ITEM,
                     Identifier.fromNamespaceAndPath(Furnish.MOD_ID, id)
             );
-            BlockItem blockItem = new BlockItem(
-                    block,
-                    itemProps != null ? itemProps : new Item.Properties()
-            );
+            Item.Properties props = itemProps;
+            if(props == null) props = new Item.Properties();
+            props.setId(itemKey);
+            BlockItem blockItem = new BlockItem(block, props);
             Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
             itemsInCreativeTab.add(blockItem);
         }

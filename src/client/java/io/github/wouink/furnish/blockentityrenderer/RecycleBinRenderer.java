@@ -1,43 +1,20 @@
 package io.github.wouink.furnish.blockentityrenderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.blockentity.RecycleBinBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
-public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinBlockEntity> {
-
-    private final ItemRenderer itemRenderer;
+public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinBlockEntity, RecycleBinRenderState> {
     private static final float startHeight = 3.0f/16.0f;
     private static final float increment = 5.0f/16.0f;
 
-    public RecycleBinRenderer(BlockEntityRendererProvider.Context ctx) {
-        itemRenderer = Minecraft.getInstance().getItemRenderer();
-    }
-
-    @Override
-    public void render(final RecycleBinBlockEntity recycleBin, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if(recycleBin.getBlockState().getBlock() == FurnishContents.TRASH_CAN) return;
-        int itemIndex = 0;
-        for(int slot = 0; slot < recycleBin.getContainerSize(); slot++) {
-            ItemStack stack = recycleBin.getItem(slot);
-            if(!stack.isEmpty()) {
-                ms.pushPose();
-                BakedModel model = itemRenderer.getModel(stack, recycleBin.getLevel(), null, 0);
-                prepareRenderItem(itemIndex, ms);
-                itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
-                ms.popPose();
-                itemIndex++;
-            }
-        }
-    }
+    public RecycleBinRenderer(BlockEntityRendererProvider.Context ctx) {}
 
     private void prepareRenderItem(int index, PoseStack ms) {
         switch(index) {
@@ -72,6 +49,36 @@ public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinBlockEn
                 break;
         }
         ms.scale(.6f, .6f, .6f);
+    }
+
+    @Override
+    public RecycleBinRenderState createRenderState() {
+        return new RecycleBinRenderState();
+    }
+
+    @Override
+    public void extractRenderState(RecycleBinBlockEntity blockEntity, RecycleBinRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
+        int arrInd = 0;
+        for(int i = 0; i < blockEntity.getContainerSize(); i++) {
+            ItemStack disk = blockEntity.getItem(i);
+            if(!disk.isEmpty()) {
+                blockEntityRenderState.items[arrInd] = disk;
+                arrInd++;
+            }
+        }
+        for(int i = arrInd; i < blockEntityRenderState.items.length; i++)
+            blockEntityRenderState.items[i] = ItemStack.EMPTY;
+    }
+
+    @Override
+    public void submit(RecycleBinRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        for(int i = 0; i < blockEntityRenderState.items.length; i++) {
+            if(blockEntityRenderState.items[i] != ItemStack.EMPTY) {
+                prepareRenderItem(i, poseStack);
+                // TODO submit item render
+            }
+        }
     }
 }
 

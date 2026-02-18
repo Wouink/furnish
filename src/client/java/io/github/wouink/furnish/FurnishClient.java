@@ -7,13 +7,13 @@ import io.github.wouink.furnish.screen.DiskRackScreen;
 import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.screen.LetterScreen;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
@@ -29,22 +29,21 @@ public class FurnishClient implements ClientModInitializer {
 		BlockEntityRenderers.register(FurnishContents.RECYCLE_BIN_BLOCK_ENTITY, RecycleBinRenderer::new);
 
 		// https://wiki.fabricmc.net/tutorial:blockappearance
-		// changing after 1.21.6
 		for(Block b : FurnishContents.showcases)
-			BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.translucent());
+			BlockRenderLayerMap.putBlock(b, ChunkSectionLayer.TRANSLUCENT);
 
 		for(Block b : FurnishContents.shutters)
-			BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.translucent());
+			BlockRenderLayerMap.putBlock(b, ChunkSectionLayer.TRANSLUCENT);
 
-		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.RED_BUNTING, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.YELLOW_BUNTING, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.GREEN_BUNTING, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.LANTERN_BUNTING, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, RenderType.translucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(FurnishContents.RECYCLE_BIN, RenderType.translucent());
+		BlockRenderLayerMap.putBlock(FurnishContents.RED_BUNTING, ChunkSectionLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putBlock(FurnishContents.YELLOW_BUNTING, ChunkSectionLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putBlock(FurnishContents.GREEN_BUNTING, ChunkSectionLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putBlock(FurnishContents.LANTERN_BUNTING, ChunkSectionLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, ChunkSectionLayer.TRANSLUCENT);
+		BlockRenderLayerMap.putBlock(FurnishContents.RECYCLE_BIN, ChunkSectionLayer.TRANSLUCENT);
 
 		for(ColoredSet set : FurnishContents.COLORED_SETS.values())
-			BlockRenderLayerMap.INSTANCE.putBlock(set.curtain, RenderType.translucent());
+			BlockRenderLayerMap.putBlock(set.curtain, ChunkSectionLayer.TRANSLUCENT);
 
 		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
 		MenuScreens.register(FurnishContents.DISK_RACK_MENU, DiskRackScreen::new);

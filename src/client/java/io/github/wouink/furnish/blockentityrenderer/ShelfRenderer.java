@@ -3,43 +3,21 @@ package io.github.wouink.furnish.blockentityrenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import io.github.wouink.furnish.block.Plate;
+import io.github.wouink.furnish.block.Shelf;
 import io.github.wouink.furnish.blockentity.ShelfBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
-public class ShelfRenderer implements BlockEntityRenderer<ShelfBlockEntity> {
-    private final ItemRenderer itemRenderer;
+public class ShelfRenderer implements BlockEntityRenderer<ShelfBlockEntity, StackHoldingRenderState> {
 
-    public ShelfRenderer(BlockEntityRendererProvider.Context ctx) {
-        itemRenderer = Minecraft.getInstance().getItemRenderer();
-    }
-
-    @Override
-    public void render(ShelfBlockEntity shelf, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        ItemStack stack = shelf.getHeldItem();
-        if(!stack.isEmpty()) {
-            ms.pushPose();
-
-            BakedModel model = itemRenderer.getModel(stack, shelf.getLevel(), null, 0);
-            Direction dir = shelf.getBlockState().getValue(Plate.FACING).getOpposite();
-
-            if(stack.getItem() instanceof BlockItem && (((BlockItem) stack.getItem()).getBlock() instanceof Plate)) prepareRenderPlate(ms, dir);
-            else if(model.isGui3d()) prepareRenderBlock(ms, dir);
-            else prepareRenderItem(ms, dir);
-
-            itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
-
-            ms.popPose();
-        }
-    }
+    public ShelfRenderer(BlockEntityRendererProvider.Context ctx) {}
 
     public void prepareRenderItem(PoseStack ms, Direction dir) {
         // center the anchor point
@@ -114,4 +92,35 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfBlockEntity> {
         ms.scale(1f, 1f, 1f);
     }
 
+    @Override
+    public void extractRenderState(ShelfBlockEntity blockEntity, StackHoldingRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
+        blockEntityRenderState.heldItem = blockEntity.getHeldItem();
+        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(Shelf.FACING);
+    }
+
+    @Override
+    public StackHoldingRenderState createRenderState() {
+        return new StackHoldingRenderState();
+    }
+
+    @Override
+    public void submit(StackHoldingRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        if(!blockEntityRenderState.heldItem.isEmpty()) {
+            poseStack.pushPose();
+
+            // model.isGui3D was better
+            if(blockEntityRenderState.heldItem.getItem() instanceof BlockItem blockItem) {
+                if(blockItem.getBlock() instanceof Plate) prepareRenderPlate(poseStack, blockEntityRenderState.facing);
+                else prepareRenderBlock(poseStack, blockEntityRenderState.facing);
+            }
+            else prepareRenderItem(poseStack, blockEntityRenderState.facing);
+
+            int light = 15728880;
+            int outlineColor = 0;
+            blockEntityRenderState.item.submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
+
+            poseStack.popPose();
+        }
+    }
 }

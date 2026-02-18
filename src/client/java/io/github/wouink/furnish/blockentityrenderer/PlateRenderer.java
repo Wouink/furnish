@@ -2,43 +2,21 @@ package io.github.wouink.furnish.blockentityrenderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import io.github.wouink.furnish.block.Plate;
+import io.github.wouink.furnish.block.Shelf;
 import io.github.wouink.furnish.blockentity.PlateBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.phys.Vec3;
 
-public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity> {
-    private final ItemRenderer itemRenderer;
+public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity, StackHoldingRenderState> {
 
-    public PlateRenderer(BlockEntityRendererProvider.Context ctx) {
-        Minecraft minecraft = Minecraft.getInstance();
-        itemRenderer = minecraft.getItemRenderer();
-    }
-
-    @Override
-    public void render(PlateBlockEntity plate, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        ItemStack stack = plate.getHeldItem();
-        if(!stack.isEmpty()) {
-            ms.pushPose();
-
-            BakedModel model = itemRenderer.getModel(stack, plate.getLevel(), null, 0);
-            Direction dir = plate.getBlockState().getValue(Plate.FACING).getOpposite();
-
-            if(model.isGui3d()) prepareRenderBlock(ms, dir);
-            else prepareRenderItem(ms, dir);
-
-            itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
-
-            ms.popPose();
-        }
-    }
+    public PlateRenderer(BlockEntityRendererProvider.Context ctx) {}
 
     public void prepareRenderItem(PoseStack ms, Direction dir) {
         // center the anchor point
@@ -67,4 +45,33 @@ public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity> {
         ms.scale(.8f, .8f, .8f);
     }
 
+    @Override
+    public void extractRenderState(PlateBlockEntity blockEntity, StackHoldingRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
+        blockEntityRenderState.heldItem = blockEntity.getHeldItem();
+        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(Shelf.FACING);
+    }
+
+    @Override
+    public StackHoldingRenderState createRenderState() {
+        return new StackHoldingRenderState();
+    }
+
+    @Override
+    public void submit(StackHoldingRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        if(!blockEntityRenderState.heldItem.isEmpty()) {
+            poseStack.pushPose();
+
+            // model.isGui3D was better
+            if(blockEntityRenderState.heldItem.getItem() instanceof BlockItem)
+                prepareRenderBlock(poseStack, blockEntityRenderState.facing);
+            else prepareRenderItem(poseStack, blockEntityRenderState.facing);
+
+            int light = 15728880;
+            int outlineColor = 0;
+            blockEntityRenderState.item.submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
+
+            poseStack.popPose();
+        }
+    }
 }

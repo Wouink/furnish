@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.compat.emi;
 
+/*
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
@@ -64,3 +65,4 @@ public class EMIFurnitureRecipe implements EmiRecipe {
         widgetHolder.addSlot(output.get(0), 58, 0).recipeContext(this);
     }
 }
+ */

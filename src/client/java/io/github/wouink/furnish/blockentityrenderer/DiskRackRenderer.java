@@ -2,43 +2,26 @@ package io.github.wouink.furnish.blockentityrenderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import io.github.wouink.furnish.block.DiskRack;
 import io.github.wouink.furnish.blockentity.DiskRackBlockEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
-public class DiskRackRenderer implements BlockEntityRenderer<DiskRackBlockEntity> {
+public class DiskRackRenderer implements BlockEntityRenderer<DiskRackBlockEntity, DiskRackRenderState> {
 
     private final ItemRenderer itemRenderer;
 
     public DiskRackRenderer(BlockEntityRendererProvider.Context ctx) {
         Minecraft minecraft = Minecraft.getInstance();
         itemRenderer = minecraft.getItemRenderer();
-    }
-
-    @Override
-    public void render(DiskRackBlockEntity rack, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        if(rack.isEmpty()) return;
-
-        Direction dir = rack.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
-
-        for(int i = 0; i < rack.getContainerSize(); i++) {
-            ItemStack stack = rack.getItem(i);
-            if(!stack.isEmpty()) {
-                ms.pushPose();
-                prepareRenderItem(i, dir, ms);
-                BakedModel model = itemRenderer.getModel(stack, rack.getLevel(), null, 0);
-                itemRenderer.render(stack, ItemDisplayContext.FIXED, true, ms, buffer, light, overlay, model);
-                ms.popPose();
-            }
-        }
     }
 
     // TODO disks are not exactly centered
@@ -61,5 +44,36 @@ public class DiskRackRenderer implements BlockEntityRenderer<DiskRackBlockEntity
                 break;
         }
         ms.scale(.6f, .6f, .6f);
+    }
+
+    @Override
+    public DiskRackRenderState createRenderState() {
+        return new DiskRackRenderState();
+    }
+
+    @Override
+    public void extractRenderState(DiskRackBlockEntity blockEntity, DiskRackRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
+        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(DiskRack.FACING);
+        int arrInd = 0;
+        for(int i = 0; i < blockEntity.getContainerSize(); i++) {
+            ItemStack disk = blockEntity.getItem(i);
+            if(!disk.isEmpty()) {
+                blockEntityRenderState.disks[arrInd] = disk;
+                arrInd++;
+            }
+        }
+        for(int i = arrInd; i < blockEntityRenderState.disks.length; i++)
+            blockEntityRenderState.disks[i] = ItemStack.EMPTY;
+    }
+
+    @Override
+    public void submit(DiskRackRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        for(int i = 0; i < blockEntityRenderState.disks.length; i++) {
+            if(blockEntityRenderState.disks[i] != ItemStack.EMPTY) {
+                prepareRenderItem(i, blockEntityRenderState.facing, poseStack);
+                // TODO submit item renderers
+            }
+        }
     }
 }
