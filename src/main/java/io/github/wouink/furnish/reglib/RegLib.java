@@ -103,7 +103,7 @@ public class RegLib {
             );
             Item.Properties props = itemProps;
             if(props == null) props = new Item.Properties();
-            props.setId(itemKey);
+            props.setId(itemKey).useBlockDescriptionPrefix();
             BlockItem blockItem = new BlockItem(block, props);
             Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
             itemsInCreativeTab.add(blockItem);

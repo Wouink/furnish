@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "furnish:block/misc/chess_board/chess_board"
+  }
+}

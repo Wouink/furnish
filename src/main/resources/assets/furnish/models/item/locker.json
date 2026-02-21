@@ -3,7 +3,8 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "furnish:block/metal",
-		"1": "furnish:block/locker_door_top_left"
+		"1": "furnish:block/locker_door_top_left",
+		"particle": "#0"
 	},
 	"elements": [
 		{
