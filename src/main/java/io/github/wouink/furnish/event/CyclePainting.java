@@ -25,12 +25,13 @@ import java.util.List;
 public class CyclePainting {
 
     public static InteractionResult onInteractWithPainting(Player player, Level level, InteractionHand hand, Entity entity, EntityHitResult entityHitResult) {
-        if(level.isClientSide()) return InteractionResult.SUCCESS;
         if(player.isSpectator()) return InteractionResult.PASS;
         if(!(entity instanceof Painting painting)) return InteractionResult.PASS;
         ItemStack inHand = player.getItemInHand(hand);
         if(!inHand.getItem().equals(Items.PAINTING) || !inHand.is(FurnishContents.CAN_CYCLE))
             return InteractionResult.PASS;
+
+        if(level.isClientSide()) return InteractionResult.SUCCESS;
 
         List<Holder<PaintingVariant>> similarSizedArts = getSimilarSizeArt(level, painting.getVariant().value());
         if(similarSizedArts.size() < 2) {
