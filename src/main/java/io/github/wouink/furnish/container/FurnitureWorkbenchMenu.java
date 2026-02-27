@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.container;
 
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -11,12 +12,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.SelectableRecipe;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +48,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 
     public FurnitureWorkbenchMenu(int i, Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
         super(MenuType.STONECUTTER, i);
+        System.out.println("menu");
         this.selectedRecipeIndex = DataSlot.standalone();
         this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         this.input = ItemStack.EMPTY;
@@ -142,11 +143,24 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 
     }
 
+    private void getRecipes(RecipeAccess recipeAccess, ItemStack input) {
+        List<SelectableRecipe.SingleInputEntry<FurnitureRecipe>> furnitureRecipes = new ArrayList();
+        if(recipeAccess instanceof RecipeManager recipeManager) {
+            for(RecipeHolder<?> recipeHolder : recipeManager.getRecipes()) {
+                if(recipeHolder.value() instanceof FurnitureRecipe furnitureRecipe) {
+                    if(furnitureRecipe.getIngredient().test(input))
+                        furnitureRecipes.add(new SelectableRecipe.SingleInputEntry(furnitureRecipe.input(), new SelectableRecipe(furnitureRecipe.resultDisplay(), Optional.of(recipeHolder))));
+                }
+            }
+            this.recipesForInput = new SelectableRecipe.SingleInputSet<>(furnitureRecipes);
+        } else Furnish.LOGGER.error("Could not setup recipes list as level.recipeAccess is not RecipeManager");
+    }
+
     private void setupRecipeList(ItemStack itemStack) {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!itemStack.isEmpty()) {
-            // TODO this.recipesForInput = this.level.recipeAccess().stonecutterRecipes();
+            getRecipes(level.recipeAccess(), itemStack);
         } else {
             this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         }

@@ -55,6 +55,7 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
         super(menu, inventory, component);
         menu.registerUpdateListener(this::containerChanged);
         --this.titleLabelY;
+        System.out.println("screen");
     }
 
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {

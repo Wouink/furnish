@@ -10,6 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 
 public class FurnitureRecipe extends SingleItemRecipe {
@@ -24,6 +25,14 @@ public class FurnitureRecipe extends SingleItemRecipe {
         this.group = group;
         this.ingredient = ingredient;
         this.result = result;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public SlotDisplay resultDisplay() {
+        return new SlotDisplay.ItemStackSlotDisplay(this.result());
     }
 
     @Override

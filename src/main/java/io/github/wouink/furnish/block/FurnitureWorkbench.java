@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -45,9 +46,11 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        if(level.isClientSide()) return InteractionResult.SUCCESS;
-        player.openMenu(blockState.getMenuProvider(level, blockPos));
-        return InteractionResult.CONSUME;
+        if (!level.isClientSide()) {
+            System.out.println("use");
+            player.openMenu(blockState.getMenuProvider(level, blockPos));
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override
