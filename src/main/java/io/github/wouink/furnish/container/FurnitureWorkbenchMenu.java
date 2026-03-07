@@ -1,6 +1,7 @@
 package io.github.wouink.furnish.container;
 
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -47,8 +48,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     }
 
     public FurnitureWorkbenchMenu(int i, Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
-        super(MenuType.STONECUTTER, i);
-        System.out.println("menu");
+        super(FurnishContents.WORKBENCH_MENU, i);
         this.selectedRecipeIndex = DataSlot.standalone();
         this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         this.input = ItemStack.EMPTY;
@@ -114,7 +114,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     }
 
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, Blocks.STONECUTTER);
+        return stillValid(this.access, player, FurnishContents.FURNITURE_WORKBENCH);
     }
 
     public boolean clickMenuButton(Player player, int i) {
@@ -143,34 +143,35 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 
     }
 
-    private void getRecipes(RecipeAccess recipeAccess, ItemStack input) {
+    // TODO maybe reprogram an entire menu from scratch... no way to actually get the recipes on the client side here
+    private SelectableRecipe.SingleInputSet<FurnitureRecipe> getRecipes(RecipeAccess recipeAccess, ItemStack input) {
+        // recipeAccess is RecipeManager on server and ClientRecipeContainer on client. Both are FabricRecipeManager
         List<SelectableRecipe.SingleInputEntry<FurnitureRecipe>> furnitureRecipes = new ArrayList();
-        if(recipeAccess instanceof RecipeManager recipeManager) {
-            for(RecipeHolder<?> recipeHolder : recipeManager.getRecipes()) {
-                if(recipeHolder.value() instanceof FurnitureRecipe furnitureRecipe) {
-                    if(furnitureRecipe.getIngredient().test(input))
-                        furnitureRecipes.add(new SelectableRecipe.SingleInputEntry(furnitureRecipe.input(), new SelectableRecipe(furnitureRecipe.resultDisplay(), Optional.of(recipeHolder))));
-                }
+        for(RecipeHolder holder : recipeAccess.getSynchronizedRecipes().getAllOfType(FurnishContents.FURNITURE_RECIPE)) {
+            if(holder.value() instanceof FurnitureRecipe furnitureRecipe) {
+                if(furnitureRecipe.getIngredient().test(input))
+                    furnitureRecipes.add(new SelectableRecipe.SingleInputEntry(furnitureRecipe.input(), new SelectableRecipe(furnitureRecipe.resultDisplay(), Optional.empty())));
             }
-            this.recipesForInput = new SelectableRecipe.SingleInputSet<>(furnitureRecipes);
-        } else Furnish.LOGGER.error("Could not setup recipes list as level.recipeAccess is not RecipeManager");
+        }
+        return new SelectableRecipe.SingleInputSet<>(furnitureRecipes);
+        // returns nothing clientside...
     }
 
     private void setupRecipeList(ItemStack itemStack) {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!itemStack.isEmpty()) {
-            getRecipes(level.recipeAccess(), itemStack);
+            this.recipesForInput = getRecipes(level.recipeAccess(), itemStack);
+            System.out.println("Found " + this.recipesForInput.size() + " recipes for " + itemStack.getItem().getDescriptionId());
         } else {
             this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         }
-
     }
 
     void setupResultSlot(int i) {
         Optional<RecipeHolder<FurnitureRecipe>> optional;
         if (!this.recipesForInput.isEmpty() && this.isValidRecipeIndex(i)) {
-            SelectableRecipe.SingleInputEntry<FurnitureRecipe> singleInputEntry = (SelectableRecipe.SingleInputEntry)this.recipesForInput.entries().get(i);
+            SelectableRecipe.SingleInputEntry<FurnitureRecipe> singleInputEntry = this.recipesForInput.entries().get(i);
             optional = singleInputEntry.recipe().recipe();
         } else {
             optional = Optional.empty();
@@ -178,7 +179,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 
         optional.ifPresentOrElse((recipeHolder) -> {
             this.resultContainer.setRecipeUsed(recipeHolder);
-            this.resultSlot.set(((FurnitureRecipe)recipeHolder.value()).assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
+            this.resultSlot.set(recipeHolder.value().assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
         }, () -> {
             this.resultSlot.set(ItemStack.EMPTY);
             this.resultContainer.setRecipeUsed((RecipeHolder)null);
@@ -187,7 +188,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     }
 
     public MenuType<?> getType() {
-        return MenuType.STONECUTTER;
+        return FurnishContents.WORKBENCH_MENU;
     }
 
     public void registerUpdateListener(Runnable runnable) {
@@ -200,7 +201,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 
     public ItemStack quickMoveStack(Player player, int i) {
         ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = (Slot)this.slots.get(i);
+        Slot slot = this.slots.get(i);
         if (slot != null && slot.hasItem()) {
             ItemStack itemStack2 = slot.getItem();
             Item item = itemStack2.getItem();
@@ -216,11 +217,11 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(itemStack2, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } /* TODO else if (this.level.recipeAccess().FurnitureRecipes().acceptsInput(itemStack2)) {
+            } else if (getRecipes(level.recipeAccess(), itemStack2).size() > 0) {
                 if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } */ else if (i >= 2 && i < 29) {
+            } else if (i >= 2 && i < 29) {
                 if (!this.moveItemStackTo(itemStack2, 29, 38, false)) {
                     return ItemStack.EMPTY;
                 }
