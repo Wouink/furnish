@@ -2,6 +2,7 @@ package io.github.wouink.furnish.block;
 
 import com.mojang.serialization.MapCodec;
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.blockentity.MailboxBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -79,7 +80,8 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
         if(!(blockState.getBlock() instanceof Mailbox)) return true; // pass to other event listeners
         if(!(blockEntity != null && blockEntity instanceof MailboxBlockEntity mailbox)) return true;
 
-        boolean adminDestroy = player.canUseGameMasterBlocks(); // = creative + op
+        // player.canUseGameMasterBlocks() = creative + op
+        boolean adminDestroy = player.canUseGameMasterBlocks() || (player.isCreative() && blockState.is(FurnishContents.NON_OP_CREATIVE_CAN_DESTROY));
         if(adminDestroy) Furnish.LOGGER.info("Mailbox at {} destroyed by admin {}", blockPos, player.getName().getString());
 
         if(mailbox.isOwner(player) || adminDestroy) return true;

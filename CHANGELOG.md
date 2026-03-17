@@ -8,13 +8,15 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v29
+## Furnish v29 for Minecraft 1.21.11 (in development)
+
+- Fix Mailbox ignoring `#furnish:non_op_creative_can_destroy` block tag.
 
 - **TODO** Make Awnings bouncy!
 - **TODO?** Make AbstractFurnitureBlockEntity implements Clearable?
 - **TODO?** Make most furniture implements SimpleWaterloggedBlock?
 
-## Furnish v28 for Minecraft 1.21.1 (in development)
+## Furnish v28 for Minecraft 1.21.1
 
 Furnish v28 is a complete rewrite of the mod.
 It is no longer an Architectury mod, but rather a Fabric only mod.

@@ -15,14 +15,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
- * Literally a copy of StonecutterMenu but using FurnitureRecipe instead of FurnitureRecipe
+ * Literally a copy of StonecutterMenu but using FurnitureRecipe instead of StonecutterRecipe
+ * The only difference is in `setupRecipeList`, which uses my own `getRecipes` method
  */
 public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     public static final int INPUT_SLOT = 0;
@@ -143,18 +141,26 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
 
     }
 
-    // TODO maybe reprogram an entire menu from scratch... no way to actually get the recipes on the client side here
     private SelectableRecipe.SingleInputSet<FurnitureRecipe> getRecipes(RecipeAccess recipeAccess, ItemStack input) {
         // recipeAccess is RecipeManager on server and ClientRecipeContainer on client. Both are FabricRecipeManager
         List<SelectableRecipe.SingleInputEntry<FurnitureRecipe>> furnitureRecipes = new ArrayList();
-        for(RecipeHolder holder : recipeAccess.getSynchronizedRecipes().getAllOfType(FurnishContents.FURNITURE_RECIPE)) {
+
+        Collection<RecipeHolder<FurnitureRecipe>> recipes;
+        if(level.isClientSide()) {
+            // FurnishClient can't be accessed here... let's store that in common code for now (will never be used on server)
+            recipes = FurnishContents.clientRecipes;
+        } else {
+            recipes = recipeAccess.getSynchronizedRecipes().getAllOfType(FurnishContents.FURNITURE_RECIPE);
+        }
+
+        for(RecipeHolder holder : recipes) {
             if(holder.value() instanceof FurnitureRecipe furnitureRecipe) {
                 if(furnitureRecipe.getIngredient().test(input))
-                    furnitureRecipes.add(new SelectableRecipe.SingleInputEntry(furnitureRecipe.input(), new SelectableRecipe(furnitureRecipe.resultDisplay(), Optional.empty())));
+                    furnitureRecipes.add(new SelectableRecipe.SingleInputEntry(furnitureRecipe.input(), new SelectableRecipe(furnitureRecipe.resultDisplay(), Optional.of(holder))));
             }
         }
+
         return new SelectableRecipe.SingleInputSet<>(furnitureRecipes);
-        // returns nothing clientside...
     }
 
     private void setupRecipeList(ItemStack itemStack) {
@@ -162,7 +168,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
         this.resultSlot.set(ItemStack.EMPTY);
         if (!itemStack.isEmpty()) {
             this.recipesForInput = getRecipes(level.recipeAccess(), itemStack);
-            System.out.println("Found " + this.recipesForInput.size() + " recipes for " + itemStack.getItem().getDescriptionId());
+            Furnish.LOGGER.debug("Found " + this.recipesForInput.size() + " recipes for " + itemStack.getItem().getDescriptionId());
         } else {
             this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         }

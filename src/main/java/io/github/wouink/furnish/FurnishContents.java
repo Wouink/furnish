@@ -8,18 +8,23 @@ import io.github.wouink.furnish.container.FurnitureWorkbenchMenu;
 import io.github.wouink.furnish.entity.SeatEntity;
 import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.item.Letter;
+import io.github.wouink.furnish.item.RecycleBinBlockItem;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
+import io.github.wouink.furnish.network.SendRecipesS2C;
 import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -30,6 +35,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -48,10 +54,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FurnishContents {
 
@@ -172,8 +175,10 @@ public class FurnishContents {
     public static final Block BOOK_PILE = RegLib.registerBlock("book_pile", BookPile::new, BlockBehaviour.Properties.of().sound(SoundType.WOOL).strength(.2f).noOcclusion(), true);
     public static final Block PICTURE_FRAME = RegLib.registerBlock("picture_frame", PictureFrame::new, BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING).noCollision(), true);
     public static final Block CHESS_BOARD = RegLib.registerBlock("chess_board", ChessBoard::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f).noOcclusion(), true);
-    public static final Block RECYCLE_BIN = RegLib.registerBlock("recycle_bin", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.SCAFFOLDING).strength(.5f).noOcclusion(), true);
-    public static final Block TRASH_CAN = RegLib.registerBlock("trash_can", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.METAL).noOcclusion(), true);
+    public static final Block RECYCLE_BIN = RegLib.registerBlock("recycle_bin", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.SCAFFOLDING).strength(.5f).noOcclusion(), false);
+    public static final Item RECYCLE_BIN_ITEM = RegLib.registerItem("recycle_bin", x -> new RecycleBinBlockItem(RECYCLE_BIN, new Item.Properties()), new Item.Properties()); // TODO
+    public static final Block TRASH_CAN = RegLib.registerBlock("trash_can", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.METAL).noOcclusion(), false);
+    public static final Item TRASH_CAN_ITEM = RegLib.registerItem("trash_can", x -> new RecycleBinBlockItem(RECYCLE_BIN, new Item.Properties()), new Item.Properties()); // TODO
     static {
         ((RecycleBin) RECYCLE_BIN).setSound(RECYCLE_BIN_EMPTY);
         ((RecycleBin) TRASH_CAN).setSound(TRASH_CAN_EMPTY);
@@ -204,6 +209,8 @@ public class FurnishContents {
     // TODO translate tags
     // TODO copy door knock silencer pack
 
+    public static List<RecipeHolder<FurnitureRecipe>> clientRecipes = Collections.emptyList();
+
     public static void init() {
         // https://wiki.fabricmc.net/tutorial:event_index
         UseBlockCallback.EVENT.register(PlaceCarpet::rightClickOnStairs);
@@ -216,6 +223,7 @@ public class FurnishContents {
 
         RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
         RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, SendRecipesS2C.TYPE, SendRecipesS2C.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(UpdateLetterC2S.TYPE, (message, context) -> {
             context.server().execute(() -> {
@@ -242,6 +250,22 @@ public class FurnishContents {
                         .with(LootItem.lootTableItem(CHINESE_PLATE).build())
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)));
                 builder.pool(lootBuilder.build());
+            }
+        });
+
+        // send furniture recipes to a new client upon login
+        ServerPlayConnectionEvents.JOIN.register((serverGamePacketListener, packetSender, minecraftServer) -> {
+            List<RecipeHolder<FurnitureRecipe>> recipes = (List<RecipeHolder<FurnitureRecipe>>) minecraftServer.getRecipeManager().getAllOfType(FurnishContents.FURNITURE_RECIPE);
+            SendRecipesS2C message = new SendRecipesS2C(recipes);
+            ServerPlayNetworking.send(serverGamePacketListener.player, message);
+        });
+
+        // send furniture recipes to all clients after `/reload`
+        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((minecraftServer, closeableResourceManager, b) -> {
+            List<RecipeHolder<FurnitureRecipe>> recipes = (List<RecipeHolder<FurnitureRecipe>>) minecraftServer.getRecipeManager().getAllOfType(FurnishContents.FURNITURE_RECIPE);
+            SendRecipesS2C message = new SendRecipesS2C(recipes);
+            for(ServerPlayer player : minecraftServer.getPlayerList().getPlayers()) {
+                ServerPlayNetworking.send(player, message);
             }
         });
     }

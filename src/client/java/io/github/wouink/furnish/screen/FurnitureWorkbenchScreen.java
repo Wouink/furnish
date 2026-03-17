@@ -138,7 +138,6 @@ public class FurnitureWorkbenchScreen extends AbstractContainerScreen<FurnitureW
             int o = m / 4;
             int p = j + o * 18 + 2;
             SlotDisplay slotDisplay = ((SelectableRecipe.SingleInputEntry)singleInputSet.entries().get(l)).recipe().optionDisplay();
-            System.out.println("Rendering slotdisplay " + slotDisplay);
             guiGraphics.renderItem(slotDisplay.resolveForFirstStack(contextMap), n, p);
         }
 

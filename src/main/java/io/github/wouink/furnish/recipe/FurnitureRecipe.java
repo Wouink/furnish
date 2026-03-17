@@ -27,6 +27,10 @@ public class FurnitureRecipe extends SingleItemRecipe {
         this.result = result;
     }
 
+    public String toString() {
+        return this.result.getItem() + " from " + this.ingredient.toString();
+    }
+
     public Ingredient getIngredient() {
         return ingredient;
     }
