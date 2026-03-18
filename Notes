@@ -1,5 +1,10 @@
 https://docs.architectury.dev/plugin/get_started
 
+Notes de migration :
+
+- https://fabricmc.net/blog/
+- https://github.com/neoforged/.github/blob/main/primers - excellente référence des changements par version
+
 # -- OLD --
 Mise a jour des fichiers build.gradle
 	wget https://github.com/architectury/architectury-templates/archive/refs/heads/master.zip

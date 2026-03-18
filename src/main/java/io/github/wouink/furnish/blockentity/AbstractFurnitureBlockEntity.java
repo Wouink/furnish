@@ -45,6 +45,9 @@ import java.util.stream.IntStream;
 
     WorldlyContainer
         - defines the ability to put/take items with hoppers
+
+    Since 1.21.11, `Container` handles dropping inventory contents when the block is broken.
+    See https://github.com/neoforged/.github/blob/main/primers/1.21.5/index.md#handling-the-removal-of-block-entities-properly
 */
 
 public abstract class AbstractFurnitureBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {

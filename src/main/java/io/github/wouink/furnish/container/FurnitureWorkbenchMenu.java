@@ -142,17 +142,10 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     }
 
     private SelectableRecipe.SingleInputSet<FurnitureRecipe> getRecipes(RecipeAccess recipeAccess, ItemStack input) {
-        // recipeAccess is RecipeManager on server and ClientRecipeContainer on client. Both are FabricRecipeManager
         List<SelectableRecipe.SingleInputEntry<FurnitureRecipe>> furnitureRecipes = new ArrayList();
 
-        Collection<RecipeHolder<FurnitureRecipe>> recipes;
-        if(level.isClientSide()) {
-            // FurnishClient can't be accessed here... let's store that in common code for now (will never be used on server)
-            recipes = FurnishContents.clientRecipes;
-        } else {
-            recipes = recipeAccess.getSynchronizedRecipes().getAllOfType(FurnishContents.FURNITURE_RECIPE);
-        }
-
+        // to get recipes on client, we need to synchronizeRecipeSerializer (see FurnishContents init)
+        Collection<RecipeHolder<FurnitureRecipe>> recipes = recipeAccess.getSynchronizedRecipes().getAllOfType(FurnishContents.FURNITURE_RECIPE);
         for(RecipeHolder holder : recipes) {
             if(holder.value() instanceof FurnitureRecipe furnitureRecipe) {
                 if(furnitureRecipe.getIngredient().test(input))

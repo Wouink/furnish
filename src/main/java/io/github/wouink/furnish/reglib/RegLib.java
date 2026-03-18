@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -71,6 +72,30 @@ public class RegLib {
         Registry.register(BuiltInRegistries.ITEM, itemKey, item);
         itemsInCreativeTab.add(item);
         return item;
+    }
+
+    /**
+     * Registers a custom item for a block in the game, e.g. to add a tooltip
+     * Example use:
+     * RegLib.registerCustomBlockItem(crate, CrateBlockItem::new, new Item.Properties().component(...));
+     * @param block the block bound to this item (to be placed when using the item)
+     * @param factory a reference to the BlockItem's constructor
+     * @param properties item properties
+     * @return the item
+     */
+    public static BlockItem registerCustomBlockItem(
+            Block block,
+            BiFunction<Block, Item.Properties, BlockItem> factory,
+            Item.Properties properties
+    ) {
+        ResourceKey<Item> itemKey = ResourceKey.create(
+                Registries.ITEM,
+                block.builtInRegistryHolder().key().identifier()
+        );
+        BlockItem blockItem = factory.apply(block, properties.setId(itemKey).useBlockDescriptionPrefix());
+        Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
+        itemsInCreativeTab.add(blockItem);
+        return blockItem;
     }
 
     /**

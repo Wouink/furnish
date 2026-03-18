@@ -4,6 +4,7 @@ import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.blockentity.MailboxBlockEntity;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -17,10 +18,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Letter extends Item {
     public static final String ANON_PLAYER = "?";
@@ -29,23 +33,21 @@ public class Letter extends Item {
         super(properties);
     }
 
-    /* TODO
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
+    public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
         if(itemStack.has(FurnishContents.LETTER_AUTHOR)) {
             String author = itemStack.get(FurnishContents.LETTER_AUTHOR);
             if(author == ANON_PLAYER)
-                list.add(Component.translatable("tooltip.furnish.letter.author_anon").withStyle(ChatFormatting.GRAY));
+                consumer.accept(Component.translatable("tooltip.furnish.letter.author_anon").withStyle(ChatFormatting.GRAY));
             else
-                list.add(Component.translatable("tooltip.furnish.letter.author", author).withStyle(ChatFormatting.GRAY));
+                consumer.accept(Component.translatable("tooltip.furnish.letter.author", author).withStyle(ChatFormatting.GRAY));
         }
         if(itemStack.has(DataComponents.CONTAINER)) {
             Component attached = itemStack.get(DataComponents.CONTAINER).copyOne().getHoverName();
-            list.add(Component.translatable("tooltip.furnish.letter.attachment", attached).withStyle(ChatFormatting.GRAY));
+            consumer.accept(Component.translatable("tooltip.furnish.letter.attachment", attached).withStyle(ChatFormatting.GRAY));
         }
     }
-     */
 
     public static ItemStack addAttachment(ItemStack letter, ItemStack item) {
         if(letter.has(DataComponents.CONTAINER)) return item;

@@ -3,7 +3,6 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.blockentityrenderer.*;
 import io.github.wouink.furnish.entityrenderer.SeatEntityRenderer;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
-import io.github.wouink.furnish.network.SendRecipesS2C;
 import io.github.wouink.furnish.screen.DiskRackScreen;
 import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.screen.LetterScreen;
@@ -58,15 +57,6 @@ public class FurnishClient implements ClientModInitializer {
 						Minecraft.getInstance().setScreen(new LetterScreen(requester, context.player(), request.slot()));
 					}
 				}
-			});
-		});
-
-		ClientPlayNetworking.registerGlobalReceiver(SendRecipesS2C.TYPE, (message, context) -> {
-			context.client().execute(() -> {
-				if(message instanceof SendRecipesS2C request)
-					FurnishContents.clientRecipes = request.recipes();
-					Furnish.LOGGER.debug("Server sent " + FurnishContents.clientRecipes.size() + " recipes to client");
-					Furnish.LOGGER.debug("Here's the first one: " + FurnishContents.clientRecipes.getFirst().value());
 			});
 		});
 	}

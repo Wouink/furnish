@@ -10,21 +10,18 @@ import io.github.wouink.furnish.event.*;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.item.RecycleBinBlockItem;
 import io.github.wouink.furnish.network.OpenItemGUIS2C;
-import io.github.wouink.furnish.network.SendRecipesS2C;
 import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -176,13 +173,15 @@ public class FurnishContents {
     public static final Block PICTURE_FRAME = RegLib.registerBlock("picture_frame", PictureFrame::new, BlockBehaviour.Properties.of().noOcclusion().instabreak().sound(SoundType.SCAFFOLDING).noCollision(), true);
     public static final Block CHESS_BOARD = RegLib.registerBlock("chess_board", ChessBoard::new, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(.5f).noOcclusion(), true);
     public static final Block RECYCLE_BIN = RegLib.registerBlock("recycle_bin", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.SCAFFOLDING).strength(.5f).noOcclusion(), false);
-    public static final Item RECYCLE_BIN_ITEM = RegLib.registerItem("recycle_bin", x -> new RecycleBinBlockItem(RECYCLE_BIN, new Item.Properties()), new Item.Properties()); // TODO
     public static final Block TRASH_CAN = RegLib.registerBlock("trash_can", RecycleBin::new, BlockBehaviour.Properties.of().sound(SoundType.METAL).noOcclusion(), false);
-    public static final Item TRASH_CAN_ITEM = RegLib.registerItem("trash_can", x -> new RecycleBinBlockItem(RECYCLE_BIN, new Item.Properties()), new Item.Properties()); // TODO
     static {
         ((RecycleBin) RECYCLE_BIN).setSound(RECYCLE_BIN_EMPTY);
         ((RecycleBin) TRASH_CAN).setSound(TRASH_CAN_EMPTY);
     }
+
+    // using custom BlockItems for Recycle Bin and Trash Can as we need custom tooltips
+    public static final Item RECYCLE_BIN_ITEM = RegLib.registerCustomBlockItem(RECYCLE_BIN, RecycleBinBlockItem::new, new Item.Properties());
+    public static final Item TRASH_CAN_ITEM = RegLib.registerCustomBlockItem(TRASH_CAN, RecycleBinBlockItem::new, new Item.Properties());
 
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> SMALL_FURNITURE_BLOCK_ENTITY = RegLib.registerBlockEntity("furniture", SmallFurnitureBlockEntity::new, smallFurniture.toArray(new Block[]{}));
     public static BlockEntityType<@NotNull AbstractFurnitureBlockEntity> LARGE_FURNITURE_BLOCK_ENTITY = RegLib.registerBlockEntity("large_furniture", LargeFurnitureBlockEntity::new, largeFurniture.toArray(new Block[]{}));
@@ -223,7 +222,6 @@ public class FurnishContents {
 
         RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
         RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
-        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, SendRecipesS2C.TYPE, SendRecipesS2C.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(UpdateLetterC2S.TYPE, (message, context) -> {
             context.server().execute(() -> {
@@ -253,20 +251,7 @@ public class FurnishContents {
             }
         });
 
-        // send furniture recipes to a new client upon login
-        ServerPlayConnectionEvents.JOIN.register((serverGamePacketListener, packetSender, minecraftServer) -> {
-            List<RecipeHolder<FurnitureRecipe>> recipes = (List<RecipeHolder<FurnitureRecipe>>) minecraftServer.getRecipeManager().getAllOfType(FurnishContents.FURNITURE_RECIPE);
-            SendRecipesS2C message = new SendRecipesS2C(recipes);
-            ServerPlayNetworking.send(serverGamePacketListener.player, message);
-        });
-
-        // send furniture recipes to all clients after `/reload`
-        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((minecraftServer, closeableResourceManager, b) -> {
-            List<RecipeHolder<FurnitureRecipe>> recipes = (List<RecipeHolder<FurnitureRecipe>>) minecraftServer.getRecipeManager().getAllOfType(FurnishContents.FURNITURE_RECIPE);
-            SendRecipesS2C message = new SendRecipesS2C(recipes);
-            for(ServerPlayer player : minecraftServer.getPlayerList().getPlayers()) {
-                ServerPlayNetworking.send(player, message);
-            }
-        });
+        // automatically synchronizes recipes from server to clients
+        RecipeSynchronization.synchronizeRecipeSerializer(FURNITURE_RECIPE_SERIALIZER);
     }
 }

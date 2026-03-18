@@ -1,6 +1,6 @@
 package io.github.wouink.furnish.item;
 
-import net.minecraft.ChatFormatting;
+import io.github.wouink.furnish.block.util.TooltipHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -10,15 +10,14 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.function.Consumer;
 
-public class RecycleBinBlockItem extends BlockItem {
-    public RecycleBinBlockItem(Block block, Properties properties) {
+public class CrateBlockItem extends BlockItem {
+    public CrateBlockItem(Block block, Properties properties) {
         super(block, properties);
     }
 
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
-        consumer.accept(Component.translatable("block.furnish.recycle_bin.tooltip.1").withStyle(ChatFormatting.GRAY));
-        consumer.accept(Component.translatable("block.furnish.recycle_bin.tooltip.2").withStyle(ChatFormatting.GRAY));
+        TooltipHelper.appendInventoryContents(itemStack, consumer);
     }
 }

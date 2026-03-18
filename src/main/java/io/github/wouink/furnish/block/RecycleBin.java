@@ -60,15 +60,6 @@ public class RecycleBin extends AbstractStorageFurnitureBlock {
         return SHAPE;
     }
 
-    /* TODO
-    @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
-        list.add(Component.translatable("block.furnish.recycle_bin.tooltip.1").withStyle(ChatFormatting.GRAY));
-        list.add(Component.translatable("block.furnish.recycle_bin.tooltip.2").withStyle(ChatFormatting.GRAY));
-    }
-    */
-
     @Override
     protected InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.SUCCESS;

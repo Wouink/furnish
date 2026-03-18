@@ -41,7 +41,7 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             for(Block b : set.getAllBlocks()) {
                 if(b == null) continue;
-                else if(b == set.crate) add(b, createShulkerBoxDrop(b));
+                else if(b == set.crate) add(b, createShulkerBoxDrop(b)); // TODO not working
                 else dropSelf(b);
             }
         }

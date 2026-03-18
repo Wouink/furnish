@@ -33,14 +33,6 @@ public class Crate extends Block implements EntityBlock {
         return new CrateBlockEntity(blockPos, blockState);
     }
 
-    /* TODO ensure tooltip is still here
-    @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
-        TooltipHelper.appendInventoryContents(itemStack, list);
-    }
-     */
-
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if(level.isClientSide()) return InteractionResult.SUCCESS;
