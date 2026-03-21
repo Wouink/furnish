@@ -6,7 +6,11 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
@@ -14,7 +18,11 @@ public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinBlockEn
     private static final float startHeight = 3.0f/16.0f;
     private static final float increment = 5.0f/16.0f;
 
-    public RecycleBinRenderer(BlockEntityRendererProvider.Context ctx) {}
+    private ItemModelResolver itemModelResolver;
+
+    public RecycleBinRenderer(BlockEntityRendererProvider.Context ctx) {
+        itemModelResolver = ctx.itemModelResolver();
+    }
 
     private void prepareRenderItem(int index, PoseStack ms) {
         switch(index) {
@@ -59,25 +67,25 @@ public class RecycleBinRenderer implements BlockEntityRenderer<RecycleBinBlockEn
     @Override
     public void extractRenderState(RecycleBinBlockEntity blockEntity, RecycleBinRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
-        int arrInd = 0;
+        int j = 0;
         for(int i = 0; i < blockEntity.getContainerSize(); i++) {
-            ItemStack disk = blockEntity.getItem(i);
-            if(!disk.isEmpty()) {
-                blockEntityRenderState.items[arrInd] = disk;
-                arrInd++;
-            }
+            ItemStack itemStack = blockEntity.getItem(i);
+            if(itemStack.isEmpty()) continue;
+            itemModelResolver.updateForTopItem(blockEntityRenderState.items[j], itemStack, ItemDisplayContext.FIXED, blockEntity.getLevel(), null, j);
+            j++;
         }
-        for(int i = arrInd; i < blockEntityRenderState.items.length; i++)
-            blockEntityRenderState.items[i] = ItemStack.EMPTY;
     }
 
     @Override
     public void submit(RecycleBinRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        int light = 15728880;
+        int outlineColor = 0;
+
         for(int i = 0; i < blockEntityRenderState.items.length; i++) {
-            if(blockEntityRenderState.items[i] != ItemStack.EMPTY) {
-                prepareRenderItem(i, poseStack);
-                // TODO submit item render
-            }
+            poseStack.pushPose();
+            prepareRenderItem(i, poseStack);
+            blockEntityRenderState.items[i].submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
+            poseStack.popPose();
         }
     }
 }

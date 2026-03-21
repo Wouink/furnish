@@ -28,6 +28,6 @@ public class DiskRackScreen extends AbstractContainerScreen<DiskRackMenu> {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_BACKGROUND, i, j, 0.0f, 0.0f, this.imageWidth, this.containerRows * 18 + 17, 256, 256);
-        // TODO guiGraphics.blit(CONTAINER_BACKGROUND, i, j + this.containerRows * 18 + 17, 0, 126, this.imageWidth, 96);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONTAINER_BACKGROUND, i, j + this.containerRows * 18 + 17, 0.0f, 126.0f, this.imageWidth, 96, 256, 256);
     }
 }

@@ -26,7 +26,6 @@ public class DiskRackRenderer implements BlockEntityRenderer<DiskRackBlockEntity
         itemModelResolver = ctx.itemModelResolver();
     }
 
-    // TODO disks are not exactly centered
     private void prepareRenderItem(int index, Direction dir, PoseStack ms) {
         ms.mulPose(Axis.YP.rotationDegrees(dir.toYRot()));
         // offset = index * 2/16b + (.5*1/16bl for centering)

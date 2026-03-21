@@ -51,6 +51,7 @@ public class RecycleBinBlockEntity extends AbstractFurnitureBlockEntity {
         return false;
     }
 
+    // TODO attempt to stack items to items already in the inventory
     public ItemStack addItem(ItemStack itemStack) {
         ItemStack ret = itemStack;
         for(int slot = 0; slot < getContainerSize(); slot++) {
