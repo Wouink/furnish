@@ -6,19 +6,22 @@ import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.UpdateLetterC2S;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.ActiveTextCollector;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class LetterScreen extends Screen {
@@ -92,57 +95,54 @@ public class LetterScreen extends Screen {
 
     @Override
     public boolean charTyped(CharacterEvent characterEvent) {
-        if(editable && characterEvent.isAllowedChatCharacter()) {
+        if(editable && characterEvent.isAllowedChatCharacter() && letterText.length() < LETTER_MAX_LENGTH) {
             letterEdit.insertText(Character.toString(characterEvent.codepoint()));
             return true;
         }
         return false;
     }
 
-    /* TODO
     @Override
-    public boolean keyPressed(int key, int m, int n) {
-        if(key == 256 && shouldCloseOnEsc()) {
+    public boolean keyPressed(KeyEvent keyEvent) {
+        int key = keyEvent.key();
+        if(keyEvent.isEscape() && shouldCloseOnEsc()) {
             onClose();
             return true;
         }
         if(editable) {
-            if(Screen.isSelectAll(key)) {
+            if(keyEvent.isSelectAll()) {
                 letterEdit.selectAll();
                 return true;
-            } else if(Screen.isCopy(key)) {
+            } else if(keyEvent.isCopy()) {
                 letterEdit.copy();
                 return true;
-            } else if(Screen.isCut(key)) {
+            } else if(keyEvent.isCut()) {
                 letterEdit.cut();
                 return true;
-            } else if(Screen.isPaste(key)) {
+            } else if(keyEvent.isPaste()) {
                 letterEdit.paste();
                 return true;
-            } else {
-                switch(key) {
-                    case 257:
-                    case 335:
-                        letterEdit.insertText("\n");
-                        return true;
-                    case 259:
-                        letterEdit.removeCharsFromCursor(-1);
-                        return true;
-                    default:
-                        return false;
-                }
+            } else if(keyEvent.isConfirmation()) { // return key (both keyboard and numpad)
+                letterEdit.insertText("\n");
+                return true;
+            } else if(key == 259) { // backspace
+                letterEdit.removeCharsFromCursor(-1);
+                return true;
             }
+            return true;
         }
         return false;
     }
-     */
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.setFocused(null);
-        int startX = (this.width - 192) / 2;
+        // int startX = (this.width - 192) / 2;
 
+        visitText(guiGraphics.textRenderer(GuiGraphics.HoveredTextEffects.TOOLTIP_AND_CURSOR));
+
+        /*
         // text and cursor rendering
         if(editable) {
             if(frameTick / 6 % 2 == 0) {
@@ -153,14 +153,42 @@ public class LetterScreen extends Screen {
         } else {
             guiGraphics.drawWordWrap(font, Component.literal(letterText).setStyle(Style.EMPTY.withColor(ChatFormatting.BLACK)), startX + 36, 20, 108, 0);
         }
+         */
+    }
+
+    private static final Style TEXT_STYLE = Style.EMPTY.withColor(ChatFormatting.BLACK).withoutShadow();
+    private List<FormattedCharSequence> cachedPageComponents;
+
+    private void visitText(ActiveTextCollector activeTextCollector) {
+        Component displayedText = Component.literal(letterText);
+        if(editable) {
+            if(frameTick / 6 % 2 == 0) displayedText = Component.literal(letterText).append("_");
+            else displayedText = Component.literal(letterText).append(" ");
+        }
+
+        FormattedText formattedText = ComponentUtils.mergeStyles(displayedText, TEXT_STYLE);
+        this.cachedPageComponents = this.font.split(formattedText, 114);
+
+        int startX = (this.width - 192) / 2 - 4;
+        int startY = -4;
+
+        Objects.requireNonNull(this.font);
+        int k = Math.min(128 / 9, this.cachedPageComponents.size());
+
+        for(int l = 0; l < k; ++l) {
+            FormattedCharSequence formattedCharSequence = this.cachedPageComponents.get(l);
+            int x = startX + 36;
+            int y = startY + 30;
+            Objects.requireNonNull(this.font);
+            activeTextCollector.accept(x, y + l * 9, formattedCharSequence);
+        }
     }
 
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f) {
         this.renderTransparentBackground(guiGraphics);
         int startX = (this.width - 192) / 2;
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LETTER_BACKGROUND, startX, 2, 0f, 0f, 192, 192, 0, 0, 0); // TODO
-        // guiGraphics.blit(LETTER_BACKGROUND, startX, 2, 0, 0, 192, 192);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, LETTER_BACKGROUND, startX, 2, 0f, 0f, 192, 192, 256, 256);
     }
 
     @Override

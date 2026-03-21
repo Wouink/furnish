@@ -1,5 +1,6 @@
 package io.github.wouink.furnish.event;
 
+import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishContents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -45,10 +46,10 @@ public class CyclePainting {
         int newVariantIndex = (index + 1) % similarSizedArts.size();
         Holder<PaintingVariant> newVariant = similarSizedArts.get(newVariantIndex);
 
-        System.out.println("Found " + similarSizedArts.size() + " variants, will set to number " + newVariantIndex);
+        Furnish.LOGGER.debug("Found " + similarSizedArts.size() + " variants, will set to number " + newVariantIndex);
 
-        // TODO now setVariant is private
-        // painting.setVariant(newVariant);
+        // setVariant is made accessible with an access widener
+        painting.setVariant(newVariant);
 
         level.playSound(null, painting.blockPosition(), SoundEvents.PAINTING_PLACE, SoundSource.BLOCKS);
         player.swing(hand);

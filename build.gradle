@@ -27,6 +27,8 @@ repositories {
 loom {
 	splitEnvironmentSourceSets()
 
+	accessWidenerPath = file("src/main/resources/furnish.accesswidener")
+
 	mods {
 		"furnish" {
 			sourceSet sourceSets.main
@@ -35,6 +37,8 @@ loom {
 	}
 
 }
+
+loom.log4jConfigs.from "log4j-dev.xml"
 
 fabricApi {
 	configureDataGeneration {
