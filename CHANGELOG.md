@@ -11,6 +11,7 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 ## Furnish v29 for Minecraft 1.21.11 (in development)
 
 - Fix Mailbox ignoring `#furnish:non_op_creative_can_destroy` block tag.
+- Fix Picture Frame always dropping only one.
 
 - **TODO** Make Awnings bouncy!
 - **TODO?** Make AbstractFurnitureBlockEntity implements Clearable?

@@ -32,4 +32,8 @@ public class CrateBlockEntity extends AbstractFurnitureBlockEntity {
     public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, Direction direction) {
         return FILTER.test(itemStack);
     }
+
+    // required to prevent emptying the container (and dropping items) before playerWillDestroy in block class
+    @Override
+    public void preRemoveSideEffects(BlockPos blockPos, BlockState blockState) {}
 }
