@@ -8,15 +8,21 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
 
 public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity, StackHoldingRenderState> {
 
-    public PlateRenderer(BlockEntityRendererProvider.Context ctx) {}
+    private ItemModelResolver itemModelResolver;
+
+    public PlateRenderer(BlockEntityRendererProvider.Context ctx) {
+        itemModelResolver = ctx.itemModelResolver();
+    }
 
     public void prepareRenderItem(PoseStack ms, Direction dir) {
         // center the anchor point
@@ -48,8 +54,14 @@ public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity, Stac
     @Override
     public void extractRenderState(PlateBlockEntity blockEntity, StackHoldingRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
-        blockEntityRenderState.heldItem = blockEntity.getHeldItem();
-        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(Shelf.FACING);
+        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(Shelf.FACING).getOpposite();
+
+        itemModelResolver.updateForTopItem(blockEntityRenderState.item, blockEntity.getHeldItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
+
+        if(!blockEntity.getHeldItem().isEmpty() && blockEntity.getHeldItem().getItem() instanceof BlockItem)
+            blockEntityRenderState.renderingMode = StackHoldingRenderState.RenderingMode.BLOCK;
+        else
+            blockEntityRenderState.renderingMode = StackHoldingRenderState.RenderingMode.ITEM;
     }
 
     @Override
@@ -59,19 +71,17 @@ public class PlateRenderer implements BlockEntityRenderer<PlateBlockEntity, Stac
 
     @Override
     public void submit(StackHoldingRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
-        if(!blockEntityRenderState.heldItem.isEmpty()) {
-            poseStack.pushPose();
+        poseStack.pushPose();
 
-            // model.isGui3D was better
-            if(blockEntityRenderState.heldItem.getItem() instanceof BlockItem)
-                prepareRenderBlock(poseStack, blockEntityRenderState.facing);
-            else prepareRenderItem(poseStack, blockEntityRenderState.facing);
+        if(blockEntityRenderState.renderingMode == StackHoldingRenderState.RenderingMode.BLOCK)
+            prepareRenderBlock(poseStack, blockEntityRenderState.facing);
+        else
+            prepareRenderItem(poseStack, blockEntityRenderState.facing);
 
-            int light = 15728880;
-            int outlineColor = 0;
-            blockEntityRenderState.item.submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
+        int light = 15728880;
+        int outlineColor = 0;
+        blockEntityRenderState.item.submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
 
-            poseStack.popPose();
-        }
+        poseStack.popPose();
     }
 }

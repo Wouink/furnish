@@ -6,7 +6,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
 public class StackHoldingRenderState extends BlockEntityRenderState {
-    public ItemStack heldItem = ItemStack.EMPTY;
     public Direction facing = Direction.NORTH;
     public final ItemStackRenderState item = new ItemStackRenderState();
+    public RenderingMode renderingMode = RenderingMode.ITEM;
+
+    public enum RenderingMode {
+        BLOCK, ITEM, PLATE
+    }
 }

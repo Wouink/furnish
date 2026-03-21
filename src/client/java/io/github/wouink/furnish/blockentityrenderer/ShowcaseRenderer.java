@@ -2,6 +2,8 @@ package io.github.wouink.furnish.blockentityrenderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import io.github.wouink.furnish.block.Plate;
+import io.github.wouink.furnish.block.Shelf;
 import io.github.wouink.furnish.block.Showcase;
 import io.github.wouink.furnish.blockentity.ShowcaseBlockEntity;
 import net.minecraft.client.Minecraft;
@@ -80,10 +82,14 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseBlockEntity
     public void extractRenderState(ShowcaseBlockEntity blockEntity, ShowcaseRenderState blockEntityRenderState, float f, Vec3 vec3, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, blockEntityRenderState, f, vec3, crumblingOverlay);
 
-        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(Showcase.FACING);
-        blockEntityRenderState.heldItem = blockEntity.getHeldItem();
-        // not sure
-        itemModelResolver.updateForTopItem(blockEntityRenderState.item, blockEntity.getHeldItem(), ItemDisplayContext.FIXED, null, null, 0);
+        blockEntityRenderState.facing = blockEntity.getBlockState().getValue(Showcase.FACING).getOpposite();
+
+        itemModelResolver.updateForTopItem(blockEntityRenderState.item, blockEntity.getHeldItem(), ItemDisplayContext.FIXED, blockEntity.getLevel(), null, 0);
+
+        if(!blockEntity.getHeldItem().isEmpty() && blockEntity.getHeldItem().getItem() instanceof BlockItem)
+                blockEntityRenderState.renderingMode = StackHoldingRenderState.RenderingMode.BLOCK;
+        else
+            blockEntityRenderState.renderingMode = StackHoldingRenderState.RenderingMode.ITEM;
 
         boolean powered = blockEntity.getBlockState().getValue(Showcase.POWERED);
         // rotate the item if the showcase is powered
@@ -97,19 +103,17 @@ public class ShowcaseRenderer implements BlockEntityRenderer<ShowcaseBlockEntity
 
     @Override
     public void submit(ShowcaseRenderState blockEntityRenderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
-        if(!blockEntityRenderState.heldItem.isEmpty()) {
-            poseStack.pushPose();
+        poseStack.pushPose();
 
-            // model.isGui3D was better
-            if(blockEntityRenderState.heldItem.getItem() instanceof BlockItem)
-                prepareRenderBlock(poseStack, blockEntityRenderState.facing, blockEntityRenderState.angle);
-            else prepareRenderItem(poseStack, blockEntityRenderState.facing, blockEntityRenderState.angle);
+        if(blockEntityRenderState.renderingMode == StackHoldingRenderState.RenderingMode.BLOCK)
+            prepareRenderBlock(poseStack, blockEntityRenderState.facing, blockEntityRenderState.angle);
+        else
+            prepareRenderItem(poseStack, blockEntityRenderState.facing, blockEntityRenderState.angle);
 
-            int light = 15728880;
-            int outlineColor = 0;
-            blockEntityRenderState.item.submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
+        int light = 15728880;
+        int outlineColor = 0;
+        blockEntityRenderState.item.submit(poseStack, submitNodeCollector, light, OverlayTexture.NO_OVERLAY, outlineColor);
 
-            poseStack.popPose();
-        }
+        poseStack.popPose();
     }
 }
