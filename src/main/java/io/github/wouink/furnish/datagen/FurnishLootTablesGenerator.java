@@ -3,12 +3,22 @@ package io.github.wouink.furnish.datagen;
 import io.github.wouink.furnish.ColoredSet;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.WoodenSet;
+import io.github.wouink.furnish.block.PictureFrame;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
@@ -35,7 +45,7 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
         dropSelf(FurnishContents.TRASH_CAN);
         dropOther(FurnishContents.BOOK_PILE, Items.BOOK);
         dropSelf(FurnishContents.CHESS_BOARD);
-        dropSelf(FurnishContents.PICTURE_FRAME); // TODO add the correct amount - see createCandleDrop
+        pictureFrameDrop(FurnishContents.PICTURE_FRAME);
         dropSelf(FurnishContents.DISK_RACK);
 
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
@@ -57,5 +67,10 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
             dropOther(set.carpetOnTrapdoor, set.vanillaCarpet);
             dropOther(set.carpetOnStairs, set.vanillaCarpet);
         }
+    }
+
+    // adapted from createCandleDrop
+    public void pictureFrameDrop(Block block) {
+        add(block, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(applyExplosionDecay(block, LootItem.lootTableItem(block).apply(List.of(2, 3), (integer) -> SetItemCountFunction.setCount(ConstantValue.exactly((float)integer)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties().hasProperty(PictureFrame.COUNT, integer))))))));
     }
 }

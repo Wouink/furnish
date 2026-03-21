@@ -34,7 +34,7 @@ public class CyclePainting {
 
         if(level.isClientSide()) return InteractionResult.SUCCESS;
 
-        List<Holder<PaintingVariant>> similarSizedArts = getSimilarSizeArt(level, painting.getVariant().value());
+        List<Holder<PaintingVariant>> similarSizedArts = getSimilarSizeArt(level, painting.getVariant().value()); // TODO fails
         if(similarSizedArts.size() < 2) {
             player.displayClientMessage(Component.translatable("msg.furnish.cycle_no_painting"), true);
             return InteractionResult.PASS;

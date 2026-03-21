@@ -6,14 +6,17 @@ import io.github.wouink.furnish.WoodenSet;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -23,6 +26,8 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import java.util.concurrent.CompletableFuture;
 
 public class FurnishRecipesGenerator extends FabricRecipeProvider {
+
+
     public FurnishRecipesGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
@@ -100,12 +105,11 @@ public class FurnishRecipesGenerator extends FabricRecipeProvider {
                 furnitureRecipe(recipeOutput, Ingredient.of(Items.STRING), FurnishContents.YELLOW_BUNTING, 1);
                 furnitureRecipe(recipeOutput, Ingredient.of(Items.STRING), FurnishContents.GREEN_BUNTING, 1);
 
-                /* TODO
-                furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.DISK_RACK, 1);
-                furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.CHESS_BOARD, 1);
-                furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.PICTURE_FRAME, 1);
-                furnitureRecipe(recipeOutput, Ingredient.of(ItemTags.PLANKS), FurnishContents.RECYCLE_BIN, 1);
-                 */
+                furnitureRecipe(recipeOutput, ItemTags.PLANKS, FurnishContents.DISK_RACK, 1);
+                furnitureRecipe(recipeOutput, ItemTags.PLANKS, FurnishContents.CHESS_BOARD, 1);
+                furnitureRecipe(recipeOutput, ItemTags.PLANKS, FurnishContents.PICTURE_FRAME, 1);
+                furnitureRecipe(recipeOutput, ItemTags.PLANKS, FurnishContents.RECYCLE_BIN, 1);
+
                 furnitureRecipe(recipeOutput, Ingredient.of(Items.BOOK), FurnishContents.BOOK_PILE, 1);
 
                 shapeless(RecipeCategory.MISC, FurnishContents.LETTER, 1)
@@ -118,6 +122,14 @@ public class FurnishRecipesGenerator extends FabricRecipeProvider {
             private void furnitureRecipe(RecipeOutput recipeOutput, Ingredient ingredient, ItemLike result, int resultCount) {
                 SingleItemRecipeBuilder builder = new SingleItemRecipeBuilder(
                         RecipeCategory.DECORATIONS, FurnitureRecipe::new, ingredient, result, resultCount
+                ).unlockedBy(RecipeProvider.getHasName(result), has(result));
+                builder.save(recipeOutput, "furnish:furniture_making/" + RecipeProvider.getItemName(result));
+            }
+
+            private void furnitureRecipe(RecipeOutput recipeOutput, TagKey<Item> tagKey, ItemLike result, int resultCount) {
+                HolderGetter<Item> items = provider.lookupOrThrow(Registries.ITEM);
+                SingleItemRecipeBuilder builder = new SingleItemRecipeBuilder(
+                        RecipeCategory.DECORATIONS, FurnitureRecipe::new, Ingredient.of(items.getOrThrow(tagKey)), result, resultCount
                 ).unlockedBy(RecipeProvider.getHasName(result), has(result));
                 builder.save(recipeOutput, "furnish:furniture_making/" + RecipeProvider.getItemName(result));
             }
