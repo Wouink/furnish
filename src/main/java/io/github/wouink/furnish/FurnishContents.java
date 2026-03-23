@@ -13,6 +13,7 @@ import io.github.wouink.furnish.network.OpenItemGUIS2C;
 import io.github.wouink.furnish.network.UpdateLetterC2S;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
 import io.github.wouink.furnish.reglib.RegLib;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -119,7 +120,6 @@ public class FurnishContents {
     public static final Block FURNITURE_WORKBENCH = RegLib.registerBlock("furniture_workbench", FurnitureWorkbench::new, BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.WOOD).noOcclusion(), true);
     public static final CreativeModeTab FURNISH_TAB = RegLib.registerCreativeTab("furnish", FURNITURE_WORKBENCH.asItem());
 
-    // TODO make a proper item texture for buntings
     // TODO add texture variation for each bunting
     private static final BlockBehaviour.Properties BUNTING_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.TRIPWIRE).noOcclusion().noCollision();
     public static final Block LANTERN_BUNTING = RegLib.registerBlock("lantern_bunting", LanternBunting::new, BUNTING_PROPS, false);
@@ -239,7 +239,7 @@ public class FurnishContents {
             });
         });
 
-        // add rare plates as dungeon drop (if my understanding is correct: 50% change of getting exactly 1 plate)
+        // add rare plates as dungeon drop (50% change of getting exactly 1 plate)
         LootTableEvents.MODIFY.register((resourceKey, builder, lootTableSource, provider) -> {
             if(resourceKey.equals(BuiltInLootTables.SIMPLE_DUNGEON)) {
                 LootPool.Builder lootBuilder = LootPool.lootPool()
@@ -253,5 +253,14 @@ public class FurnishContents {
 
         // automatically synchronizes recipes from server to clients
         RecipeSynchronization.synchronizeRecipeSerializer(FURNITURE_RECIPE_SERIALIZER);
+
+        ServerLifecycleEvents.SERVER_STARTING.register(minecraftServer -> {
+            try {
+                CyclePainting.setVariants(minecraftServer.registryAccess().lookupOrThrow(Registries.PAINTING_VARIANT));
+            } catch(Exception e) {
+                Furnish.LOGGER.error("Failed to load painting variants. Painting cycling will not work.");
+                e.printStackTrace();
+            }
+        });
     }
 }

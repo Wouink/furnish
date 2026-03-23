@@ -3,7 +3,7 @@ package io.github.wouink.furnish.event;
 import io.github.wouink.furnish.Furnish;
 import io.github.wouink.furnish.FurnishContents;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CyclePainting {
+    private static List<Holder<PaintingVariant>> allVariants = new ArrayList<>();
 
     public static InteractionResult onInteractWithPainting(Player player, Level level, InteractionHand hand, Entity entity, EntityHitResult entityHitResult) {
         if(player.isSpectator()) return InteractionResult.PASS;
@@ -34,7 +35,7 @@ public class CyclePainting {
 
         if(level.isClientSide()) return InteractionResult.SUCCESS;
 
-        List<Holder<PaintingVariant>> similarSizedArts = getSimilarSizeArt(level, painting.getVariant().value()); // TODO fails
+        List<Holder<PaintingVariant>> similarSizedArts = getSimilarSizeArt(level, painting.getVariant().value());
         if(similarSizedArts.size() < 2) {
             player.displayClientMessage(Component.translatable("msg.furnish.cycle_no_painting"), true);
             return InteractionResult.PASS;
@@ -59,12 +60,19 @@ public class CyclePainting {
 
     private static List<Holder<PaintingVariant>> getSimilarSizeArt(Level level, PaintingVariant reference) {
         List<Holder<PaintingVariant>> similar = new ArrayList<>();
-        Iterable<Holder<PaintingVariant>> allVariants = level.getServer().registryAccess().get(Registries.PAINTING_VARIANT).get().value().getTagOrEmpty(PaintingVariantTags.PLACEABLE);
         for(Holder<PaintingVariant> variantHolder : allVariants) {
             PaintingVariant art = variantHolder.value();
             if(art.width() == reference.width() && art.height() == reference.height())
                 similar.add(variantHolder);
         }
         return similar;
+    }
+
+    // initialized by ServerLifecycleEvents.SERVER_STARTING in FurnishContents.init
+    public static void setVariants(Registry<PaintingVariant> registry) {
+        if(!allVariants.isEmpty()) return;
+        for(Holder<PaintingVariant> holder : registry.getTagOrEmpty(PaintingVariantTags.PLACEABLE)) {
+            allVariants.add(holder);
+        }
     }
 }

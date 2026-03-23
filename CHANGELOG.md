@@ -12,9 +12,10 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 
 - Fix Mailbox ignoring `#furnish:non_op_creative_can_destroy` block tag.
 - Fix Picture Frame always dropping only one.
+- Rework the Buntings item textures.
 
 - **TODO** Make Awnings bouncy!
-- **TODO?** Make AbstractFurnitureBlockEntity implements Clearable?
+- **TODO?** Make AbstractFurnitureBlockEntity implements Clearable? - already in Container
 - **TODO?** Make most furniture implements SimpleWaterloggedBlock?
 
 ## Furnish v28 for Minecraft 1.21.1

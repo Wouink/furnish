@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "furnish:block/bunting/green_bunting"
+    "model": "furnish:item/green_bunting"
   }
 }
