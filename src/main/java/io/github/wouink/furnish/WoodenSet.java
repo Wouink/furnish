@@ -3,15 +3,18 @@ package io.github.wouink.furnish;
 import io.github.wouink.furnish.block.*;
 import io.github.wouink.furnish.block.util.ShapeHelper;
 import io.github.wouink.furnish.reglib.RegLib;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class WoodenSet {
     public Block squareTable, pedestalTable, table, bedsideTable,
@@ -23,7 +26,11 @@ public class WoodenSet {
         this.woodType = woodType;
 
         String wood = woodType.name().toLowerCase();
-        Block planks = BuiltInRegistries.BLOCK.get(Identifier.withDefaultNamespace(wood + "_planks")).get().value();
+
+        Block planks = Blocks.OAK_PLANKS;
+        Optional<Holder.Reference<Block>> planksInRegistry = BuiltInRegistries.BLOCK.get(Identifier.withDefaultNamespace(wood + "_planks"));
+        if(planksInRegistry.isPresent()) planks = planksInRegistry.get().value();
+
         BlockBehaviour.Properties props = BlockBehaviour.Properties.ofFullCopy(planks);
 
         squareTable = RegLib.registerBlock(wood + "_square_table", Block::new, props.noOcclusion(), true);
