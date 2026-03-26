@@ -8,15 +8,22 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v29 for Minecraft 1.21.11 (in development)
+## Furnish v31 for Minecraft 1.21.11 (in development)
+
+- Fix #63 - failing to support modded wood types (planks block not found in the registry).
+
+- **TODO** Make Awnings bouncy!
+- **TODO?** Make most furniture implements SimpleWaterloggedBlock?
+
+## Furnish v30 for Minecraft 1.21.11
 
 - Fix Mailbox ignoring `#furnish:non_op_creative_can_destroy` block tag.
 - Fix Picture Frame always dropping only one.
 - Rework the Buntings item textures.
 
-- **TODO** Make Awnings bouncy!
-- **TODO?** Make AbstractFurnitureBlockEntity implements Clearable? - already in Container
-- **TODO?** Make most furniture implements SimpleWaterloggedBlock?
+## Furnish v29 for Minecraft 1.21.11
+
+- Fix #62 - Interacting with Entities does not work.
 
 ## Furnish v28 for Minecraft 1.21.1
 
