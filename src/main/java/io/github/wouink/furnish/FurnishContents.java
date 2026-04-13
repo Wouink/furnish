@@ -129,10 +129,24 @@ public class FurnishContents {
     public static final Block GREEN_BUNTING = RegLib.registerBlock("green_bunting", Bunting::new, BUNTING_PROPS, true);
 
     public static final Map<WoodType, WoodenSet> WOODEN_SETS = new HashMap<>();
+    private static final List<WoodType> SUPPORTED_WOOD_TYPES = List.of(
+            WoodType.OAK,
+            WoodType.SPRUCE,
+            WoodType.BIRCH,
+            WoodType.JUNGLE,
+            WoodType.ACACIA,
+            WoodType.DARK_OAK,
+            WoodType.MANGROVE,
+            WoodType.CHERRY,
+            WoodType.BAMBOO,
+            WoodType.CRIMSON,
+            WoodType.WARPED,
+            WoodType.PALE_OAK
+    );
 
     // this is where we register all the wooden furniture (cabinets, wardrobes, tables, chairs...)
     static {
-        for(WoodType woodType : WoodType.values().toList()) WOODEN_SETS.put(woodType, new WoodenSet(woodType));
+        for(WoodType woodType : SUPPORTED_WOOD_TYPES) WOODEN_SETS.put(woodType, new WoodenSet(woodType));
     }
 
     private static final BlockBehaviour.Properties LOCKER_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().noOcclusion();
@@ -143,9 +157,12 @@ public class FurnishContents {
     public static final Item LETTER = RegLib.registerItem("letter", Letter::new, new Item.Properties().stacksTo(1));
 
     static {
-        ((Chair) WOODEN_SETS.get(WoodType.ACACIA).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
-        ((Chair) WOODEN_SETS.get(WoodType.SPRUCE).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
-        ((Chair) WOODEN_SETS.get(WoodType.DARK_OAK).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.THRONE_SEAT));;
+        if(WOODEN_SETS.containsKey(WoodType.ACACIA))
+            ((Chair) WOODEN_SETS.get(WoodType.ACACIA).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
+        if(WOODEN_SETS.containsKey(WoodType.SPRUCE))
+            ((Chair) WOODEN_SETS.get(WoodType.SPRUCE).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.TALL_SEAT));
+        if(WOODEN_SETS.containsKey(WoodType.DARK_OAK))
+            ((Chair) WOODEN_SETS.get(WoodType.DARK_OAK).chair).setShape(ShapeHelper.getMergedShapes(Chair.STOOL, Chair.THRONE_SEAT));
 
         largeFurniture.add(LOCKER);
         smallFurniture.add(SMALL_LOCKER);
