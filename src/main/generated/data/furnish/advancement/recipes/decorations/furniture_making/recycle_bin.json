@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_recycle_bin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:recycle_bin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/recycle_bin"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_recycle_bin"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/recycle_bin"
+    ]
+  }
+}

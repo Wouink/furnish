@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/trash_can"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_trash_can": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:trash_can"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_trash_can"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/trash_can"
+    ]
+  }
+}

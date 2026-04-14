@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": "minecraft:crimson_stem",
+  "result": {
+    "count": 1,
+    "id": "furnish:crimson_log_bench"
+  }
+}

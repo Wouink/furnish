@@ -1,0 +1,11 @@
+{
+  "values": [
+    "furnish:metal_mailbox",
+    "furnish:trash_can",
+    "furnish:locker",
+    "furnish:small_locker",
+    "#furnish:plates",
+    "#furnish:amphorae",
+    "#furnish:showcases"
+  ]
+}

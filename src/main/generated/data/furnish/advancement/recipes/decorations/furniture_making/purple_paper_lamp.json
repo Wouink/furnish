@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_purple_paper_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:purple_paper_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/purple_paper_lamp"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_purple_paper_lamp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/purple_paper_lamp"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "values": [
+    "#furnish:acacia_furniture",
+    "#furnish:oak_furniture",
+    "#furnish:cherry_furniture",
+    "#furnish:spruce_furniture",
+    "#furnish:mangrove_furniture",
+    "#furnish:bamboo_furniture",
+    "#furnish:jungle_furniture",
+    "#furnish:warped_furniture",
+    "#furnish:pale_oak_furniture",
+    "#furnish:dark_oak_furniture",
+    "#furnish:crimson_furniture",
+    "#furnish:birch_furniture",
+    "furnish:chess_board",
+    "furnish:picture_frame",
+    "furnish:disk_rack",
+    "furnish:furniture_workbench",
+    "#furnish:paper_lamps",
+    "#furnish:sofas",
+    "#furnish:awnings"
+  ]
+}

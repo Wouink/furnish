@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/yellow_awning"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_awning": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:yellow_awning"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_awning"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/yellow_awning"
+    ]
+  }
+}

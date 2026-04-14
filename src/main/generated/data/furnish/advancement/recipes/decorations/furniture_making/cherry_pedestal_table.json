@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cherry_pedestal_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:cherry_pedestal_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/cherry_pedestal_table"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cherry_pedestal_table"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/cherry_pedestal_table"
+    ]
+  }
+}

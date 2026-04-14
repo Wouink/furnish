@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_disk_rack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:disk_rack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/disk_rack"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_disk_rack"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/disk_rack"
+    ]
+  }
+}

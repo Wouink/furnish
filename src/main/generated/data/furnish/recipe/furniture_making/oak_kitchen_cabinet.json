@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": "minecraft:oak_planks",
+  "result": {
+    "count": 1,
+    "id": "furnish:oak_kitchen_cabinet"
+  }
+}

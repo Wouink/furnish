@@ -47,7 +47,6 @@ public class FurnitureWorkbench extends HorizontalDirectionalBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {
-            System.out.println("use");
             player.openMenu(blockState.getMenuProvider(level, blockPos));
         }
         return InteractionResult.SUCCESS;

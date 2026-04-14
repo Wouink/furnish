@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_birch_wardrobe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:birch_wardrobe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/birch_wardrobe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_birch_wardrobe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/birch_wardrobe"
+    ]
+  }
+}

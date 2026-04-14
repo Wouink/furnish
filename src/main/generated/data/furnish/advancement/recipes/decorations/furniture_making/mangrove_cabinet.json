@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mangrove_cabinet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:mangrove_cabinet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/mangrove_cabinet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mangrove_cabinet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/mangrove_cabinet"
+    ]
+  }
+}

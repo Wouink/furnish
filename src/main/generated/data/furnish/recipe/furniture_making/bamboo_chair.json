@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": "minecraft:bamboo_planks",
+  "result": {
+    "count": 1,
+    "id": "furnish:bamboo_chair"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_picture_frame": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:picture_frame"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/picture_frame"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_picture_frame"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/picture_frame"
+    ]
+  }
+}

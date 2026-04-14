@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": "minecraft:cherry_planks",
+  "result": {
+    "count": 2,
+    "id": "furnish:cherry_ladder"
+  }
+}

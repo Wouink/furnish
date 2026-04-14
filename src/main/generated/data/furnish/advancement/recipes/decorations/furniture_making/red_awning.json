@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_red_awning": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:red_awning"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/red_awning"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_red_awning"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/red_awning"
+    ]
+  }
+}

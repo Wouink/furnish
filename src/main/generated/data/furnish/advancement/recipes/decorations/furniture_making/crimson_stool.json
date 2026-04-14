@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crimson_stool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:crimson_stool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/crimson_stool"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_crimson_stool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/crimson_stool"
+    ]
+  }
+}

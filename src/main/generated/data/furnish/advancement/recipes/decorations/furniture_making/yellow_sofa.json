@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/yellow_sofa"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_yellow_sofa": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:yellow_sofa"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_sofa"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/yellow_sofa"
+    ]
+  }
+}

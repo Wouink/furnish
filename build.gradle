@@ -10,6 +10,14 @@ base {
 	archivesName = project.archives_base_name
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDir "src/main/generated"
+		}
+	}
+}
+
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because

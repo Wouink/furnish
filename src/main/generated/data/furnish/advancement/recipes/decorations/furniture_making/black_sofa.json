@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_black_sofa": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:black_sofa"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/black_sofa"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_black_sofa"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/black_sofa"
+    ]
+  }
+}

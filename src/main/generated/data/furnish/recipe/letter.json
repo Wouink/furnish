@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "furnish:letter"
+  }
+}

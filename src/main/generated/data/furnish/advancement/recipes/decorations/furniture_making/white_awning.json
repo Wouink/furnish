@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/white_awning"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_awning": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:white_awning"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_white_awning"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/white_awning"
+    ]
+  }
+}

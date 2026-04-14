@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_magenta_showcase": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:magenta_showcase"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/magenta_showcase"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_magenta_showcase"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/magenta_showcase"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "furnish:furniture_making",
+  "ingredient": "minecraft:orange_carpet",
+  "result": {
+    "count": 1,
+    "id": "furnish:orange_awning"
+  }
+}

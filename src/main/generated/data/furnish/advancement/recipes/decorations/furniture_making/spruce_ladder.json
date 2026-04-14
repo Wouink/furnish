@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_spruce_ladder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "furnish:spruce_ladder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "furnish:furniture_making/spruce_ladder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spruce_ladder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "furnish:furniture_making/spruce_ladder"
+    ]
+  }
+}
