@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "furnish:block/pale_oak/pale_oak_log_bench"
+    },
+    "axis=z": {
+      "model": "furnish:block/pale_oak/pale_oak_log_bench",
+      "y": 90
+    }
+  }
+}

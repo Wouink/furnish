@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "furnish:block/pale_oak_crate_top",
+    "side": "furnish:block/pale_oak_crate_side"
+  }
+}
