@@ -2,7 +2,7 @@
   "parent": "furnish:block/parent/wardrobe_top_right",
   "textures": {
     "0": "minecraft:block/stripped_pale_oak_log",
-    "1": "furnish:block/jute_wardrobe_top_right",
+    "1": "furnish:block/pale_oak_wardrobe_door_top_right",
     "2": "minecraft:block/quartz_block_bottom",
     "particle": "minecraft:block/stripped_pale_oak_log"
   }

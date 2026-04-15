@@ -8,9 +8,11 @@
 
 This set of rules is the only way I can work on Furnish efficiently on my limited time, thanks for your understanding!
 
-## Furnish v31 for Minecraft 1.21.11 (in development)
+## Furnish v31 for Minecraft 1.21.11
 
 - Fix #63 - failing to support modded wood types (planks block not found in the registry).
+- Merge #67 - Restrict wooden furniture registration to supported wood types + pale oak set.
+- Pale oak furniture set
 
 - **TODO** Make Awnings bouncy!
 - **TODO?** Make most furniture implements SimpleWaterloggedBlock?

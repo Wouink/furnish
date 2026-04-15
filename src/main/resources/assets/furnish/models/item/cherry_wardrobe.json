@@ -2,7 +2,7 @@
   "parent": "furnish:item/parent/wardrobe",
   "textures": {
     "0": "minecraft:block/stripped_cherry_log",
-    "1": "furnish:block/jute",
+    "1": "furnish:block/cherry_wardrobe_door_top",
     "2": "minecraft:block/quartz_block_bottom"
   }
 }

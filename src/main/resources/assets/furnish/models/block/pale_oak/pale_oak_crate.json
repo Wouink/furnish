@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "furnish:block/pale_oak_crate_top",
+    "end": "furnish:block/pale_oak_crate_side",
     "side": "furnish:block/pale_oak_crate_side"
   }
 }
