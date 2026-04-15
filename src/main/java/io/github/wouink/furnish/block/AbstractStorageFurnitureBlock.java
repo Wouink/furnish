@@ -42,12 +42,6 @@ public abstract class AbstractStorageFurnitureBlock extends HorizontalDirectiona
         return defaultBlockState().setValue(FACING, blockPlaceContext.getHorizontalDirection().getOpposite());
     }
 
-    @Override
-    public void destroy(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState) {
-        super.destroy(levelAccessor, blockPos, blockState);
-        System.out.println("block destroyed");
-    }
-
     // drop items upon destruction => handled automatically when block entity is a `Container` since 1.21.11
 
     // open menu on right click

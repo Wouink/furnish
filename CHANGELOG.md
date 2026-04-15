@@ -13,6 +13,7 @@ This set of rules is the only way I can work on Furnish efficiently on my limite
 - Fix #63 - failing to support modded wood types (planks block not found in the registry).
 - Merge #67 - Restrict wooden furniture registration to supported wood types + pale oak set.
 - Pale oak furniture set
+- Remove forgotten debug logs
 
 - **TODO** Make Awnings bouncy!
 - **TODO?** Make most furniture implements SimpleWaterloggedBlock?
