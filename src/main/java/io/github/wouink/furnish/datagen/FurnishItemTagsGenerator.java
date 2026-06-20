@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class FurnishItemTagsGenerator extends FabricTagsProvider.ItemTagsProvider {
@@ -51,63 +52,62 @@ public class FurnishItemTagsGenerator extends FabricTagsProvider.ItemTagsProvide
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        /*
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             String wood = set.woodType.name().toLowerCase();
             TagKey<Item> setTag = RegLib.registerTag(Registries.ITEM, wood + "_furniture");
 
-            valueLookupBuilder(setTag).add(set.getAllItems());
-            valueLookupBuilder(WOODEN_FURNITURE).forceAddTag(setTag);
+            builder(setTag).addAll(Arrays.stream(set.getAllItems()).map(item -> item.builtInRegistryHolder().key()).toList());
+            builder(WOODEN_FURNITURE).forceAddTag(setTag);
 
             if(set.woodType != WoodType.CRIMSON && set.woodType != WoodType.WARPED) {
-                valueLookupBuilder(BEDSIDE_TABLES).add(set.bedsideTable.asItem());
-                valueLookupBuilder(KITCHEN_CABINETS).add(set.kitchenCabinet.asItem());
+                // Item.Properties#itemIdOrThrow
+                builder(BEDSIDE_TABLES).add(set.bedsideTable.asItem().builtInRegistryHolder().key());
+                builder(KITCHEN_CABINETS).add(set.kitchenCabinet.asItem().builtInRegistryHolder().key());
             }
 
-            valueLookupBuilder(BENCHES).add(set.bench.asItem());
-            valueLookupBuilder(CABINETS).add(set.cabinet.asItem());
-            valueLookupBuilder(CHAIRS).add(set.chair.asItem());
-            valueLookupBuilder(CRATES).add(set.crate.asItem());
-            valueLookupBuilder(LADDERS).add(set.ladder.asItem());
-            valueLookupBuilder(LOG_BENCHES).add(set.logBench.asItem());
-            valueLookupBuilder(PEDESTAL_TABLES).add(set.pedestalTable.asItem());
-            valueLookupBuilder(SHELVES).add(set.shelf.asItem());
-            valueLookupBuilder(SHUTTERS).add(set.shutter.asItem());
-            valueLookupBuilder(SQUARE_TABLES).add(set.squareTable.asItem());
-            valueLookupBuilder(STOOLS).add(set.stool.asItem());
-            valueLookupBuilder(TABLES).add(set.table.asItem());
-            valueLookupBuilder(WARDROBES).add(set.wardrobe.asItem());
+            builder(BENCHES).add(set.bench.asItem().builtInRegistryHolder().key());
+            builder(CABINETS).add(set.cabinet.asItem().builtInRegistryHolder().key());
+            builder(CHAIRS).add(set.chair.asItem().builtInRegistryHolder().key());
+            builder(CRATES).add(set.crate.asItem().builtInRegistryHolder().key());
+            builder(LADDERS).add(set.ladder.asItem().builtInRegistryHolder().key());
+            builder(LOG_BENCHES).add(set.logBench.asItem().builtInRegistryHolder().key());
+            builder(PEDESTAL_TABLES).add(set.pedestalTable.asItem().builtInRegistryHolder().key());
+            builder(SHELVES).add(set.shelf.asItem().builtInRegistryHolder().key());
+            builder(SHUTTERS).add(set.shutter.asItem().builtInRegistryHolder().key());
+            builder(SQUARE_TABLES).add(set.squareTable.asItem().builtInRegistryHolder().key());
+            builder(STOOLS).add(set.stool.asItem().builtInRegistryHolder().key());
+            builder(TABLES).add(set.table.asItem().builtInRegistryHolder().key());
+            builder(WARDROBES).add(set.wardrobe.asItem().builtInRegistryHolder().key());
         }
 
-        valueLookupBuilder(AMPHORAE).add(FurnishContents.AMPHORA.asItem());
-        valueLookupBuilder(PLATES).add(FurnishContents.PLATE.asItem(), FurnishContents.CHINESE_PLATE.asItem(), FurnishContents.ENGLISH_PLATE.asItem());
+        builder(AMPHORAE).add(FurnishContents.AMPHORA.asItem().builtInRegistryHolder().key());
+        builder(PLATES).add(FurnishContents.PLATE.asItem().builtInRegistryHolder().key(), FurnishContents.CHINESE_PLATE.asItem().builtInRegistryHolder().key(), FurnishContents.ENGLISH_PLATE.asItem().builtInRegistryHolder().key());
 
         for(ColoredSet set : FurnishContents.COLORED_SETS.values()) {
             String color = set.dyeColor.name().toLowerCase();
             TagKey<Item> setTag = RegLib.registerTag(Registries.ITEM, color + "_furniture");
-            valueLookupBuilder(setTag).add(set.getAllItems());
+            builder(setTag).addAll(Arrays.stream(set.getAllItems()).map(item -> item.builtInRegistryHolder().key()).toList());
 
-            valueLookupBuilder(AMPHORAE).add(set.amphora.asItem());
-            valueLookupBuilder(AWNINGS).add(set.awning.asItem());
-            valueLookupBuilder(SOFAS).add(set.sofa.asItem());
-            valueLookupBuilder(SHOWCASES).add(set.showcase.asItem());
-            valueLookupBuilder(PLATES).add(set.plate.asItem());
-            valueLookupBuilder(PAPER_LAMPS).add(set.paperLamp.asItem());
-            valueLookupBuilder(CURTAINS).add(set.curtain.asItem());
+            builder(AMPHORAE).add(set.amphora.asItem().builtInRegistryHolder().key());
+            builder(AWNINGS).add(set.awning.asItem().builtInRegistryHolder().key());
+            builder(SOFAS).add(set.sofa.asItem().builtInRegistryHolder().key());
+            builder(SHOWCASES).add(set.showcase.asItem().builtInRegistryHolder().key());
+            builder(PLATES).add(set.plate.asItem().builtInRegistryHolder().key());
+            builder(PAPER_LAMPS).add(set.paperLamp.asItem().builtInRegistryHolder().key());
+            builder(CURTAINS).add(set.curtain.asItem().builtInRegistryHolder().key());
         }
 
-        valueLookupBuilder(FurnishContents.CRATE_BLACKLIST_TAG).forceAddTag(CRATES);
-        valueLookupBuilder(FurnishContents.CAN_CYCLE).add(Items.PAINTING);
-        valueLookupBuilder(FurnishContents.MAIL).add(FurnishContents.LETTER).forceAddTag(CRATES);
+        builder(FurnishContents.CRATE_BLACKLIST_TAG).forceAddTag(CRATES);
+        builder(FurnishContents.CAN_CYCLE).add(Items.PAINTING.builtInRegistryHolder().key());
+        builder(FurnishContents.MAIL).add(FurnishContents.LETTER.builtInRegistryHolder().key()).forceAddTag(CRATES);
 
-        valueLookupBuilder(MAILBOXES).add(FurnishContents.METAL_MAILBOX.asItem());
-        valueLookupBuilder(RECYCLE_BINS).add(FurnishContents.RECYCLE_BIN.asItem(), FurnishContents.TRASH_CAN.asItem());
-        valueLookupBuilder(BUNTINGS).add(FurnishContents.GREEN_BUNTING.asItem(), FurnishContents.RED_BUNTING.asItem(), FurnishContents.YELLOW_BUNTING.asItem(), FurnishContents.SOUL_LANTERN_BUNTING.asItem(), FurnishContents.LANTERN_BUNTING.asItem());
-        valueLookupBuilder(WARDROBES).add(FurnishContents.LOCKER.asItem());
-        valueLookupBuilder(CABINETS).add(FurnishContents.SMALL_LOCKER.asItem());
-        valueLookupBuilder(WOODEN_FURNITURE).add(FurnishContents.CHESS_BOARD.asItem(), FurnishContents.PICTURE_FRAME.asItem());
-        valueLookupBuilder(WOODEN_FURNITURE).add(FurnishContents.DISK_RACK.asItem(), FurnishContents.FURNITURE_WORKBENCH.asItem());
-        valueLookupBuilder(WOODEN_FURNITURE).forceAddTag(PAPER_LAMPS).forceAddTag(SOFAS).forceAddTag(AWNINGS);
-         */
+        builder(MAILBOXES).add(FurnishContents.METAL_MAILBOX.asItem().builtInRegistryHolder().key());
+        builder(RECYCLE_BINS).add(FurnishContents.RECYCLE_BIN.asItem().builtInRegistryHolder().key(), FurnishContents.TRASH_CAN.asItem().builtInRegistryHolder().key());
+        builder(BUNTINGS).add(FurnishContents.GREEN_BUNTING.asItem().builtInRegistryHolder().key(), FurnishContents.RED_BUNTING.asItem().builtInRegistryHolder().key(), FurnishContents.YELLOW_BUNTING.asItem().builtInRegistryHolder().key(), FurnishContents.SOUL_LANTERN_BUNTING.asItem().builtInRegistryHolder().key(), FurnishContents.LANTERN_BUNTING.asItem().builtInRegistryHolder().key());
+        builder(WARDROBES).add(FurnishContents.LOCKER.asItem().builtInRegistryHolder().key());
+        builder(CABINETS).add(FurnishContents.SMALL_LOCKER.asItem().builtInRegistryHolder().key());
+        builder(WOODEN_FURNITURE).add(FurnishContents.CHESS_BOARD.asItem().builtInRegistryHolder().key(), FurnishContents.PICTURE_FRAME.asItem().builtInRegistryHolder().key());
+        builder(WOODEN_FURNITURE).add(FurnishContents.DISK_RACK.asItem().builtInRegistryHolder().key(), FurnishContents.FURNITURE_WORKBENCH.asItem().builtInRegistryHolder().key());
+        builder(WOODEN_FURNITURE).forceAddTag(PAPER_LAMPS).forceAddTag(SOFAS).forceAddTag(AWNINGS);
     }
 }
