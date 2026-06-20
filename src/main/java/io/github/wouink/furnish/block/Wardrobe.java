@@ -39,7 +39,7 @@ public class Wardrobe extends Cabinet {
                     .setValue(RIGHT, PlacementHelper.shouldPlaceRight(blockPlaceContext));
         } else {
             if(blockPlaceContext.getLevel().isClientSide()) {
-                blockPlaceContext.getPlayer().displayClientMessage(Component.translatable("msg.furnish.furniture_too_big"), true);
+                blockPlaceContext.getPlayer().sendOverlayMessage(Component.translatable("msg.furnish.furniture_too_big"));
             }
             return null;
         }

@@ -115,10 +115,10 @@ public class FurnishContents {
 
     public static MenuType<FurnitureWorkbenchMenu> WORKBENCH_MENU = RegLib.registerMenuType("furniture_workbench", FurnitureWorkbenchMenu::new);
     public static RecipeType<FurnitureRecipe> FURNITURE_RECIPE = RegLib.registerRecipeType("furniture_making");
+    // TODO required?
     public static RecipeSerializer<FurnitureRecipe> FURNITURE_RECIPE_SERIALIZER = RegLib.registerRecipeSerializer("furniture_making", FurnitureRecipe.SERIALIZER);
 
     public static final Block FURNITURE_WORKBENCH = RegLib.registerBlock("furniture_workbench", FurnitureWorkbench::new, BlockBehaviour.Properties.of().strength(1.0f).sound(SoundType.WOOD).noOcclusion(), true);
-    public static final CreativeModeTab FURNISH_TAB = RegLib.registerCreativeTab("furnish", FURNITURE_WORKBENCH.asItem());
 
     // TODO add texture variation for each bunting
     private static final BlockBehaviour.Properties BUNTING_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.TRIPWIRE).noOcclusion().noCollision();
@@ -225,7 +225,8 @@ public class FurnishContents {
     // TODO translate tags
     // TODO copy door knock silencer pack
 
-    public static List<RecipeHolder<FurnitureRecipe>> clientRecipes = Collections.emptyList();
+    // register creative tab at the very end bc it will iterate through the mod items and add them
+    public static final CreativeModeTab FURNISH_TAB = RegLib.registerCreativeTab("furnish", FURNITURE_WORKBENCH.asItem());
 
     public static void init() {
         // https://wiki.fabricmc.net/tutorial:event_index
@@ -261,15 +262,15 @@ public class FurnishContents {
             if(resourceKey.equals(BuiltInLootTables.SIMPLE_DUNGEON)) {
                 LootPool.Builder lootBuilder = LootPool.lootPool()
                         .setRolls(UniformGenerator.between(0.0f, 1.0f))
-                        .with(LootItem.lootTableItem(ENGLISH_PLATE).build())
-                        .with(LootItem.lootTableItem(CHINESE_PLATE).build())
+                        .add(LootItem.lootTableItem(ENGLISH_PLATE).build())
+                        .add(LootItem.lootTableItem(CHINESE_PLATE).build())
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)));
                 builder.pool(lootBuilder.build());
             }
         });
 
         // automatically synchronizes recipes from server to clients
-        RecipeSynchronization.synchronizeRecipeSerializer(FURNITURE_RECIPE_SERIALIZER);
+        RecipeSynchronization.synchronizeRecipeSerializer(FurnitureRecipe.SERIALIZER);
 
         ServerLifecycleEvents.SERVER_STARTING.register(minecraftServer -> {
             try {

@@ -137,9 +137,9 @@ public class MailboxBlockEntity extends AbstractFurnitureBlockEntity {
         Player target = level.getPlayerByUUID(getOwner());
         if(target != null) {
             if(hasCustomName())
-                target.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail_loc", getCustomName()), true);
+                target.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.new_mail_loc", getCustomName()));
             else
-                target.displayClientMessage(Component.translatable("msg.furnish.mailbox.new_mail"), true);
+                target.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.new_mail"));
             if(target instanceof ServerPlayer serverPlayer)
                 playSoundToClient(serverPlayer, FurnishContents.NEW_MAIL, SoundSource.MASTER, 1.0f, 1.0f);
         }

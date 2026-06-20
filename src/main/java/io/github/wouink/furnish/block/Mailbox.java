@@ -86,7 +86,7 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
 
         if(mailbox.isOwner(player) || adminDestroy) return true;
 
-        player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
+        player.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.no_permission"));
         return false; // stop there and refuse to destroy the mailbox
     }
 
@@ -95,7 +95,7 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState blockState, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
         super.setPlacedBy(level, blockPos, blockState, livingEntity, itemStack);
         if(livingEntity instanceof Player player) {
-            player.displayClientMessage(Component.translatable("msg.furnish.mailbox.ownership_info"), true);
+            player.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.ownership_info"));
         }
     }
 
@@ -113,7 +113,7 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
         if(blockEntity instanceof MailboxBlockEntity mailbox) {
             if(!mailbox.hasOwner()) {
                 mailbox.setOwner(player);
-                player.displayClientMessage(Component.translatable("msg.furnish.mailbox.set_owner"), true);
+                player.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.set_owner"));
                 return InteractionResult.SUCCESS;
             }
             if(mailbox.isOwner(player)) {
@@ -121,11 +121,11 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
                 return InteractionResult.SUCCESS;
             }
             if(itemStack.isEmpty()) {
-                player.displayClientMessage(Component.translatable("msg.furnish.mailbox.no_permission"), true);
+                player.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.no_permission"));
                 return InteractionResult.CONSUME;
             }
             if(mailbox.isFull()) {
-                player.displayClientMessage(Component.translatable("msg.furnish.mailbox.full"), true);
+                player.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.full"));
                 return InteractionResult.CONSUME;
             }
             ItemStack result = mailbox.insertMail(itemStack);
@@ -137,11 +137,11 @@ public class Mailbox extends AbstractStorageFurnitureBlock {
                 Component message;
                 if(ownerDisplayName != null) message = Component.translatable(translationKey + "_to", ownerDisplayName);
                 else message = Component.translatable(translationKey);
-                player.displayClientMessage(message, true);
+                player.sendOverlayMessage(message);
                 return InteractionResult.SUCCESS;
             }
             // invalid mail
-            player.displayClientMessage(Component.translatable("msg.furnish.mailbox.invalid_mail"), true);
+            player.sendOverlayMessage(Component.translatable("msg.furnish.mailbox.invalid_mail"));
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;

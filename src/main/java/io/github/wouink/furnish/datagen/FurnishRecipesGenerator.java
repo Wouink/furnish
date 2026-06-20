@@ -4,7 +4,7 @@ import io.github.wouink.furnish.ColoredSet;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.WoodenSet;
 import io.github.wouink.furnish.recipe.FurnitureRecipe;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -27,8 +27,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class FurnishRecipesGenerator extends FabricRecipeProvider {
 
-
-    public FurnishRecipesGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public FurnishRecipesGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 

@@ -4,8 +4,8 @@ import io.github.wouink.furnish.ColoredSet;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.WoodenSet;
 import io.github.wouink.furnish.block.PictureFrame;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -21,9 +21,10 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
-    public FurnishLootTablesGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(dataOutput, registryLookup);
+public class FurnishLootTablesGenerator extends FabricBlockLootSubProvider {
+
+    protected FurnishLootTablesGenerator(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(packOutput, registriesFuture);
     }
 
     @Override
@@ -71,6 +72,6 @@ public class FurnishLootTablesGenerator extends FabricBlockLootTableProvider {
 
     // adapted from createCandleDrop
     public void pictureFrameDrop(Block block) {
-        add(block, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(applyExplosionDecay(block, LootItem.lootTableItem(block).apply(List.of(2, 3), (integer) -> SetItemCountFunction.setCount(ConstantValue.exactly((float)integer)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties().hasProperty(PictureFrame.COUNT, integer))))))));
+        add(block, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add((LootPoolEntryContainer.Builder)this.applyExplosionDecay(block, LootItem.lootTableItem(block).apply(List.of(2, 3, 4), (count) -> SetItemCountFunction.setCount(ConstantValue.exactly((float)count)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(net.minecraft.advancements.predicates.StatePropertiesPredicate.Builder.properties().hasProperty(PictureFrame.COUNT, count))))))));
     }
 }

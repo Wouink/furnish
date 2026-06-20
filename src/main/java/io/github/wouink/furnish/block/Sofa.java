@@ -159,19 +159,7 @@ public class Sofa extends HorizontalDirectionalBlock {
     }
 
     @Override
-    public void updateEntityMovementAfterFallOn(BlockGetter blockGetter, Entity entity) {
-        if(entity.isSuppressingBounce())
-            super.updateEntityMovementAfterFallOn(blockGetter, entity);
-        else
-            bounceUp(entity);
-    }
-
-    // copied from bed
-    private static void bounceUp(Entity entity) {
-        Vec3 vector3d = entity.getDeltaMovement();
-        if (vector3d.y < 0.0D) {
-            double d0 = entity instanceof LivingEntity ? 1.0D : 0.8D;
-            entity.setDeltaMovement(vector3d.x, -vector3d.y * (double) 0.66F * d0, vector3d.z);
-        }
+    public float getBounceRestitution() {
+        return .66f;
     }
 }

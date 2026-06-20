@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.StainedGlassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 public class OpenShutter {
 
@@ -27,7 +28,7 @@ public class OpenShutter {
         BlockPos shutterPos = blockHitResult.getBlockPos().relative(dir.getOpposite());
         BlockState maybeShutter = level.getBlockState(shutterPos);
         if(!(maybeShutter.getBlock() instanceof Shutter)) return InteractionResult.PASS;
-        BlockHitResult hitShutter = new BlockHitResult(shutterPos.getCenter(), dir, shutterPos, true);
+        BlockHitResult hitShutter = new BlockHitResult(new Vec3(shutterPos), dir, shutterPos, true);
         return maybeShutter.useWithoutItem(level, player, hitShutter);
     }
 }

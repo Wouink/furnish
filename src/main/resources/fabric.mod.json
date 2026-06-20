@@ -35,10 +35,10 @@
 			"environment": "client"
 		}
 	],
-	"accessWidener": "furnish.accesswidener",
+	"accessWidener": "furnish.classtweaker",
 	"depends": {
 		"fabricloader": ">=0.18.4",
-		"minecraft": "~1.21.11",
+		"minecraft": "~26.2",
 		"java": ">=21",
 		"fabric-api": "*"
 	}

@@ -4,8 +4,9 @@ import io.github.wouink.furnish.ColoredSet;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.WoodenSet;
 import io.github.wouink.furnish.reglib.RegLib;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagAppender;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 
 import java.util.concurrent.CompletableFuture;
 
-public class FurnishBlockTagsGenerator extends FabricTagProvider.BlockTagProvider {
+public class FurnishBlockTagsGenerator extends FabricTagsProvider.BlockTagsProvider {
     
     public static final TagKey<Block> WOODEN_FURNITURE = RegLib.registerTag(Registries.BLOCK, "wooden_furniture");
     public static final TagKey<Block> AMPHORAE = RegLib.registerTag(Registries.BLOCK, "amphorae");
@@ -47,15 +48,18 @@ public class FurnishBlockTagsGenerator extends FabricTagProvider.BlockTagProvide
     public static final TagKey<Block> CARPETS_ON_STAIRS = RegLib.registerTag(Registries.BLOCK, "carpets_on_stairs");
     public static final TagKey<Block> CARPETS_ON_TRAPDOORS = RegLib.registerTag(Registries.BLOCK, "carpets_on_trapdoors");
 
-    public FurnishBlockTagsGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public FurnishBlockTagsGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
-        valueLookupBuilder(FurnishContents.PLACE_ON_STAIRS).forceAddTag(BlockTags.WOOL_CARPETS);
-        valueLookupBuilder(FurnishContents.PLACE_ON_TRAPDOOR).forceAddTag(BlockTags.WOOL_CARPETS);
+    protected void addTags(HolderLookup.Provider registries) {
+        //valueLookupBuilder(FurnishContents.PLACE_ON_STAIRS).forceAddTag(BlockTags.WOOL_CARPETS);
+        //valueLookupBuilder(FurnishContents.PLACE_ON_TRAPDOOR).forceAddTag(BlockTags.WOOL_CARPETS);
 
+        getOrCreateRawBuilder(FurnishContents.PLACE_ON_STAIRS).addTag(BlockTags.WOOL_CARPETS.location());
+
+        /*
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             String wood = set.woodType.name().toLowerCase();
             TagKey<Block> setTag = RegLib.registerTag(Registries.BLOCK, wood + "_furniture");
@@ -124,5 +128,6 @@ public class FurnishBlockTagsGenerator extends FabricTagProvider.BlockTagProvide
 
         valueLookupBuilder(FurnishContents.CAN_KNOCK_ON).forceAddTag(BlockTags.DOORS);
         valueLookupBuilder(FurnishContents.CAN_POP_BOOK).add(Blocks.LECTERN);
+         */
     }
 }

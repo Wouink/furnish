@@ -66,13 +66,13 @@ public class RecycleBin extends AbstractStorageFurnitureBlock {
         level.getBlockEntity(blockPos, FurnishContents.RECYCLE_BIN_BLOCK_ENTITY).ifPresent(recycleBin -> {
             if(player.isCrouching()) {
                 if(recycleBin.empty())
-                    player.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_empty"), true);
+                    player.sendOverlayMessage(Component.translatable("msg.furnish.recycle_bin_empty"));
             } else if(itemStack.isEmpty()) player.openMenu(recycleBin);
             else {
                 ItemStack ret = recycleBin.addItem(itemStack);
                 player.setItemInHand(interactionHand, ret);
                 if(!ret.isEmpty())
-                    player.displayClientMessage(Component.translatable("msg.furnish.recycle_bin_full"), true);
+                    player.sendOverlayMessage(Component.translatable("msg.furnish.recycle_bin_full"));
                 else
                     level.playSound(null, blockPos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
             }

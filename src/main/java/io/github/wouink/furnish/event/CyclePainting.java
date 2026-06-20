@@ -37,7 +37,7 @@ public class CyclePainting {
 
         List<Holder<PaintingVariant>> similarSizedArts = getSimilarSizeArt(level, painting.getVariant().value());
         if(similarSizedArts.size() < 2) {
-            player.displayClientMessage(Component.translatable("msg.furnish.cycle_no_painting"), true);
+            player.sendOverlayMessage(Component.translatable("msg.furnish.cycle_no_painting"));
             return InteractionResult.PASS;
         }
 

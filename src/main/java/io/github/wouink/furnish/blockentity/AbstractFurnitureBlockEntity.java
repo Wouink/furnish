@@ -190,7 +190,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
     public void startOpen(ContainerUser containerUser) {
         super.startOpen(containerUser);
         if(users == 0 && getOpenSound() != null)
-            level.playSound(null, getBlockPos(), getOpenSound(), SoundSource.PLAYERS, 0.5f, level.random.nextFloat() * 0.1f + 0.9f);
+            level.playSound(null, getBlockPos(), getOpenSound(), SoundSource.PLAYERS, 0.5f, level.getRandom().nextFloat() * 0.1f + 0.9f);
         users++;
     }
 
@@ -198,7 +198,7 @@ public abstract class AbstractFurnitureBlockEntity extends RandomizableContainer
     public void stopOpen(ContainerUser containerUser) {
         super.stopOpen(containerUser);
         if(users == 1 && getCloseSound() != null)
-            level.playSound(null, getBlockPos(), getCloseSound(), SoundSource.PLAYERS, 0.5f, level.random.nextFloat() * 0.1f + 0.9f);
+            level.playSound(null, getBlockPos(), getCloseSound(), SoundSource.PLAYERS, 0.5f, level.getRandom().nextFloat() * 0.1f + 0.9f);
         users--;
     }
 }

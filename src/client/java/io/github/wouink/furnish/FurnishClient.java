@@ -8,7 +8,6 @@ import io.github.wouink.furnish.screen.FurnitureWorkbenchScreen;
 import io.github.wouink.furnish.screen.LetterScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -28,22 +27,8 @@ public class FurnishClient implements ClientModInitializer {
 		BlockEntityRenderers.register(FurnishContents.DISK_RACK_BLOCK_ENTITY, DiskRackRenderer::new);
 		BlockEntityRenderers.register(FurnishContents.RECYCLE_BIN_BLOCK_ENTITY, RecycleBinRenderer::new);
 
-		// https://wiki.fabricmc.net/tutorial:blockappearance
-		for(Block b : FurnishContents.showcases)
-			BlockRenderLayerMap.putBlock(b, ChunkSectionLayer.TRANSLUCENT);
-
-		for(Block b : FurnishContents.shutters)
-			BlockRenderLayerMap.putBlock(b, ChunkSectionLayer.TRANSLUCENT);
-
-		BlockRenderLayerMap.putBlock(FurnishContents.RED_BUNTING, ChunkSectionLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putBlock(FurnishContents.YELLOW_BUNTING, ChunkSectionLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putBlock(FurnishContents.GREEN_BUNTING, ChunkSectionLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putBlock(FurnishContents.LANTERN_BUNTING, ChunkSectionLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putBlock(FurnishContents.SOUL_LANTERN_BUNTING, ChunkSectionLayer.TRANSLUCENT);
-		BlockRenderLayerMap.putBlock(FurnishContents.RECYCLE_BIN, ChunkSectionLayer.TRANSLUCENT);
-
-		for(ColoredSet set : FurnishContents.COLORED_SETS.values())
-			BlockRenderLayerMap.putBlock(set.curtain, ChunkSectionLayer.TRANSLUCENT);
+		// making blocks translucent no longer needed in 26.1+, it is handled automatically
+		// https://github.com/neoforged/.github/blob/main/primers/26.1/index.md#materials-and-dynamic-layer-selection
 
 		MenuScreens.register(FurnishContents.WORKBENCH_MENU, FurnitureWorkbenchScreen::new);
 		MenuScreens.register(FurnishContents.DISK_RACK_MENU, DiskRackScreen::new);
@@ -54,7 +39,7 @@ public class FurnishClient implements ClientModInitializer {
 					ItemStack requester = request.source();
 					if(requester.is(FurnishContents.LETTER)) {
 						Furnish.LOGGER.debug("Open Letter GUI requested for slot " + request.slot());
-						Minecraft.getInstance().setScreen(new LetterScreen(requester, context.player(), request.slot()));
+						Minecraft.getInstance().gui.setScreen(new LetterScreen(requester, context.player(), request.slot()));
 					}
 				}
 			});

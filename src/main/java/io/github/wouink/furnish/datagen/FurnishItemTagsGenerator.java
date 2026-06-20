@@ -4,18 +4,19 @@ import io.github.wouink.furnish.ColoredSet;
 import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.WoodenSet;
 import io.github.wouink.furnish.reglib.RegLib;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import org.jspecify.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class FurnishItemTagsGenerator extends FabricTagProvider.ItemTagProvider {
+public class FurnishItemTagsGenerator extends FabricTagsProvider.ItemTagsProvider {
 
     public static final TagKey<Item> WOODEN_FURNITURE = RegLib.registerTag(Registries.ITEM, "wooden_furniture");
     public static final TagKey<Item> AMPHORAE = RegLib.registerTag(Registries.ITEM, "amphorae");
@@ -44,12 +45,13 @@ public class FurnishItemTagsGenerator extends FabricTagProvider.ItemTagProvider 
     public static final TagKey<Item> TABLES = RegLib.registerTag(Registries.ITEM, "tables");
     public static final TagKey<Item> WARDROBES = RegLib.registerTag(Registries.ITEM, "wardrobes");
 
-    public FurnishItemTagsGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public FurnishItemTagsGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        /*
         for(WoodenSet set : FurnishContents.WOODEN_SETS.values()) {
             String wood = set.woodType.name().toLowerCase();
             TagKey<Item> setTag = RegLib.registerTag(Registries.ITEM, wood + "_furniture");
@@ -106,5 +108,6 @@ public class FurnishItemTagsGenerator extends FabricTagProvider.ItemTagProvider 
         valueLookupBuilder(WOODEN_FURNITURE).add(FurnishContents.CHESS_BOARD.asItem(), FurnishContents.PICTURE_FRAME.asItem());
         valueLookupBuilder(WOODEN_FURNITURE).add(FurnishContents.DISK_RACK.asItem(), FurnishContents.FURNITURE_WORKBENCH.asItem());
         valueLookupBuilder(WOODEN_FURNITURE).forceAddTag(PAPER_LAMPS).forceAddTag(SOFAS).forceAddTag(AWNINGS);
+         */
     }
 }

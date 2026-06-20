@@ -5,23 +5,16 @@ import io.github.wouink.furnish.FurnishContents;
 import io.github.wouink.furnish.item.Letter;
 import io.github.wouink.furnish.network.UpdateLetterC2S;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.ActiveTextCollector;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class LetterScreen extends Screen {
@@ -80,15 +73,15 @@ public class LetterScreen extends Screen {
         if(editable) {
             this.addRenderableWidget(Button.builder(SIGN_LETTER, (button) -> {
                 sendUpdate(Optional.of(playerEntity.getGameProfile().name()));
-                this.minecraft.setScreen(null);
+                this.minecraft.gui.setScreen(null);
             }).bounds(this.width / 2 - 102, 196, 100, 20).build());
             this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
                 sendUpdate(Optional.empty());
-                this.minecraft.setScreen(null);
+                this.minecraft.gui.setScreen(null);
             }).bounds(this.width / 2 + 2, 196, 100, 20).build());
         } else {
             this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-                this.minecraft.setScreen(null);
+                this.minecraft.gui.setScreen(null);
             }).bounds(this.width / 2 - 50, 196, 100, 20).build());
         }
     }
@@ -134,6 +127,9 @@ public class LetterScreen extends Screen {
         return false;
     }
 
+    // TODO use MultiLineEditBox as in BookEditScreen
+
+    /*
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
@@ -153,7 +149,6 @@ public class LetterScreen extends Screen {
         } else {
             guiGraphics.drawWordWrap(font, Component.literal(letterText).setStyle(Style.EMPTY.withColor(ChatFormatting.BLACK)), startX + 36, 20, 108, 0);
         }
-         */
     }
 
     private static final Style TEXT_STYLE = Style.EMPTY.withColor(ChatFormatting.BLACK).withoutShadow();
@@ -206,4 +201,5 @@ public class LetterScreen extends Screen {
     public void onClose() {
         super.onClose();
     }
+    */
 }

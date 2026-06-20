@@ -97,7 +97,7 @@ public class Letter extends Item {
             if(!result.isEmpty()) {
                 if(!player.addItem(result))
                     Containers.dropContents(level, player.blockPosition(), NonNullList.of(result));
-                player.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_removed"), true);
+                player.sendOverlayMessage(Component.translatable("msg.furnish.letter.attachment_removed"));
                 MailboxBlockEntity.playSoundToClient((ServerPlayer) player, FurnishContents.REMOVE_ATTACHMENT, SoundSource.MASTER, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             }
@@ -112,7 +112,7 @@ public class Letter extends Item {
             // success, let's display a notification and exit
             if(result.isEmpty()) {
                 Component attachment = inOffhand.getHoverName();
-                player.displayClientMessage(Component.translatable("msg.furnish.letter.attachment_added", attachment), true);
+                player.sendOverlayMessage(Component.translatable("msg.furnish.letter.attachment_added", attachment));
                 MailboxBlockEntity.playSoundToClient((ServerPlayer) player, FurnishContents.ADD_ATTACHMENT, SoundSource.MASTER, 1.0f, 1.0f);
                 return InteractionResult.SUCCESS;
             }

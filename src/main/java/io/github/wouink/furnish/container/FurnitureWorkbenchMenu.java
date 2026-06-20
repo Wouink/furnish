@@ -22,6 +22,7 @@ import java.util.*;
  * Literally a copy of StonecutterMenu but using FurnitureRecipe instead of StonecutterRecipe
  * The only difference is in `setupRecipeList`, which uses my own `getRecipes` method
  */
+
 public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     public static final int INPUT_SLOT = 0;
     public static final int RESULT_SLOT = 1;
@@ -30,29 +31,33 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     private static final int USE_ROW_SLOT_START = 29;
     private static final int USE_ROW_SLOT_END = 38;
     private final ContainerLevelAccess access;
-    final DataSlot selectedRecipeIndex;
+    private final DataSlot selectedRecipeIndex;
     private final Level level;
     private SelectableRecipe.SingleInputSet<FurnitureRecipe> recipesForInput;
     private ItemStack input;
-    long lastSoundTime;
-    final Slot inputSlot;
-    final Slot resultSlot;
-    Runnable slotUpdateListener;
+    private long lastSoundTime;
+    private final Slot inputSlot;
+    private final Slot resultSlot;
+    private Runnable slotUpdateListener;
     public final Container container;
-    final ResultContainer resultContainer;
+    private final ResultContainer resultContainer;
 
-    public FurnitureWorkbenchMenu(int i, Inventory inventory) {
-        this(i, inventory, ContainerLevelAccess.NULL);
+    public FurnitureWorkbenchMenu(final int containerId, final Inventory inventory) {
+        this(containerId, inventory, ContainerLevelAccess.NULL);
     }
 
-    public FurnitureWorkbenchMenu(int i, Inventory inventory, final ContainerLevelAccess containerLevelAccess) {
-        super(FurnishContents.WORKBENCH_MENU, i);
+    public FurnitureWorkbenchMenu(final int containerId, final Inventory inventory, final ContainerLevelAccess access) {
+        super(MenuType.STONECUTTER, containerId);
         this.selectedRecipeIndex = DataSlot.standalone();
         this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         this.input = ItemStack.EMPTY;
         this.slotUpdateListener = () -> {
         };
         this.container = new SimpleContainer(1) {
+            {
+                Objects.requireNonNull(FurnitureWorkbenchMenu.this);
+            }
+
             public void setChanged() {
                 super.setChanged();
                 FurnitureWorkbenchMenu.this.slotsChanged(this);
@@ -60,31 +65,35 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
             }
         };
         this.resultContainer = new ResultContainer();
-        this.access = containerLevelAccess;
+        this.access = access;
         this.level = inventory.player.level();
         this.inputSlot = this.addSlot(new Slot(this.container, 0, 20, 33));
         this.resultSlot = this.addSlot(new Slot(this.resultContainer, 1, 143, 33) {
-            public boolean mayPlace(ItemStack itemStack) {
+            {
+                Objects.requireNonNull(FurnitureWorkbenchMenu.this);
+            }
+
+            public boolean mayPlace(final ItemStack itemStack) {
                 return false;
             }
 
-            public void onTake(Player player, ItemStack itemStack) {
-                itemStack.onCraftedBy(player, itemStack.getCount());
+            public void onTake(final Player player, final ItemStack carried) {
+                carried.onCraftedBy(player, carried.getCount());
                 FurnitureWorkbenchMenu.this.resultContainer.awardUsedRecipes(player, this.getRelevantItems());
-                ItemStack itemStack2 = FurnitureWorkbenchMenu.this.inputSlot.remove(1);
-                if (!itemStack2.isEmpty()) {
+                ItemStack remaining = FurnitureWorkbenchMenu.this.inputSlot.remove(1);
+                if (!remaining.isEmpty()) {
                     FurnitureWorkbenchMenu.this.setupResultSlot(FurnitureWorkbenchMenu.this.selectedRecipeIndex.get());
                 }
 
-                containerLevelAccess.execute((level, blockPos) -> {
-                    long l = level.getGameTime();
-                    if (FurnitureWorkbenchMenu.this.lastSoundTime != l) {
-                        level.playSound((Entity)null, blockPos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        FurnitureWorkbenchMenu.this.lastSoundTime = l;
+                access.execute((level, pos) -> {
+                    long gameTime = level.getGameTime();
+                    if (FurnitureWorkbenchMenu.this.lastSoundTime != gameTime) {
+                        level.playSound((Entity)null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        FurnitureWorkbenchMenu.this.lastSoundTime = gameTime;
                     }
 
                 });
-                super.onTake(player, itemStack);
+                super.onTake(player, carried);
             }
 
             private List<ItemStack> getRelevantItems() {
@@ -111,34 +120,33 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
         return this.inputSlot.hasItem() && !this.recipesForInput.isEmpty();
     }
 
-    public boolean stillValid(Player player) {
+    public boolean stillValid(final Player player) {
         return stillValid(this.access, player, FurnishContents.FURNITURE_WORKBENCH);
     }
 
-    public boolean clickMenuButton(Player player, int i) {
-        if (this.selectedRecipeIndex.get() == i) {
+    public boolean clickMenuButton(final Player player, final int buttonId) {
+        if (this.selectedRecipeIndex.get() == buttonId) {
             return false;
         } else {
-            if (this.isValidRecipeIndex(i)) {
-                this.selectedRecipeIndex.set(i);
-                this.setupResultSlot(i);
+            if (this.isValidRecipeIndex(buttonId)) {
+                this.selectedRecipeIndex.set(buttonId);
+                this.setupResultSlot(buttonId);
             }
 
             return true;
         }
     }
 
-    private boolean isValidRecipeIndex(int i) {
-        return i >= 0 && i < this.recipesForInput.size();
+    private boolean isValidRecipeIndex(final int buttonId) {
+        return buttonId >= 0 && buttonId < this.recipesForInput.size();
     }
 
-    public void slotsChanged(Container container) {
-        ItemStack itemStack = this.inputSlot.getItem();
-        if (!itemStack.is(this.input.getItem())) {
-            this.input = itemStack.copy();
-            this.setupRecipeList(itemStack);
+    public void slotsChanged(final Container container) {
+        ItemStack input = this.inputSlot.getItem();
+        if (!input.is(this.input.getItem())) {
+            this.input = input.copy();
+            this.setupRecipeList(input);
         }
-
     }
 
     private SelectableRecipe.SingleInputSet<FurnitureRecipe> getRecipes(RecipeAccess recipeAccess, ItemStack input) {
@@ -148,7 +156,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
         Collection<RecipeHolder<FurnitureRecipe>> recipes = recipeAccess.getSynchronizedRecipes().getAllOfType(FurnishContents.FURNITURE_RECIPE);
         for(RecipeHolder holder : recipes) {
             if(holder.value() instanceof FurnitureRecipe furnitureRecipe) {
-                if(furnitureRecipe.getIngredient().test(input))
+                if(furnitureRecipe.input().test(input))
                     furnitureRecipes.add(new SelectableRecipe.SingleInputEntry(furnitureRecipe.input(), new SelectableRecipe(furnitureRecipe.resultDisplay(), Optional.of(holder))));
             }
         }
@@ -156,29 +164,28 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
         return new SelectableRecipe.SingleInputSet<>(furnitureRecipes);
     }
 
-    private void setupRecipeList(ItemStack itemStack) {
+    private void setupRecipeList(final ItemStack item) {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
-        if (!itemStack.isEmpty()) {
-            this.recipesForInput = getRecipes(level.recipeAccess(), itemStack);
-            Furnish.LOGGER.debug("Found " + this.recipesForInput.size() + " recipes for " + itemStack.getItem().getDescriptionId());
+        if (!item.isEmpty()) {
+            this.recipesForInput = getRecipes(level.recipeAccess(), item);
         } else {
             this.recipesForInput = SelectableRecipe.SingleInputSet.empty();
         }
     }
 
-    void setupResultSlot(int i) {
-        Optional<RecipeHolder<FurnitureRecipe>> optional;
-        if (!this.recipesForInput.isEmpty() && this.isValidRecipeIndex(i)) {
-            SelectableRecipe.SingleInputEntry<FurnitureRecipe> singleInputEntry = this.recipesForInput.entries().get(i);
-            optional = singleInputEntry.recipe().recipe();
+    private void setupResultSlot(final int index) {
+        Optional<RecipeHolder<FurnitureRecipe>> usedRecipe;
+        if (!this.recipesForInput.isEmpty() && this.isValidRecipeIndex(index)) {
+            SelectableRecipe.SingleInputEntry<FurnitureRecipe> entry = this.recipesForInput.entries().get(index);
+            usedRecipe = entry.recipe().recipe();
         } else {
-            optional = Optional.empty();
+            usedRecipe = Optional.empty();
         }
 
-        optional.ifPresentOrElse((recipeHolder) -> {
-            this.resultContainer.setRecipeUsed(recipeHolder);
-            this.resultSlot.set(recipeHolder.value().assemble(new SingleRecipeInput(this.container.getItem(0)), this.level.registryAccess()));
+        usedRecipe.ifPresentOrElse((recipe) -> {
+            this.resultContainer.setRecipeUsed(recipe);
+            this.resultSlot.set(((FurnitureRecipe)recipe.value()).assemble(new SingleRecipeInput(this.container.getItem(0))));
         }, () -> {
             this.resultSlot.set(ItemStack.EMPTY);
             this.resultContainer.setRecipeUsed((RecipeHolder)null);
@@ -190,67 +197,68 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
         return FurnishContents.WORKBENCH_MENU;
     }
 
-    public void registerUpdateListener(Runnable runnable) {
-        this.slotUpdateListener = runnable;
+    public void registerUpdateListener(final Runnable slotUpdateListener) {
+        this.slotUpdateListener = slotUpdateListener;
     }
 
-    public boolean canTakeItemForPickAll(ItemStack itemStack, Slot slot) {
-        return slot.container != this.resultContainer && super.canTakeItemForPickAll(itemStack, slot);
+    public boolean canTakeItemForPickAll(final ItemStack carried, final Slot target) {
+        return target.container != this.resultContainer && super.canTakeItemForPickAll(carried, target);
     }
 
-    public ItemStack quickMoveStack(Player player, int i) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(i);
+    public ItemStack quickMoveStack(final Player player, final int slotIndex) {
+        ItemStack clicked = ItemStack.EMPTY;
+        Slot slot = (Slot)this.slots.get(slotIndex);
         if (slot != null && slot.hasItem()) {
-            ItemStack itemStack2 = slot.getItem();
-            Item item = itemStack2.getItem();
-            itemStack = itemStack2.copy();
-            if (i == 1) {
-                item.onCraftedBy(itemStack2, player);
-                if (!this.moveItemStackTo(itemStack2, 2, 38, true)) {
+            ItemStack stack = slot.getItem();
+            Item item = stack.getItem();
+            clicked = stack.copy();
+            if (slotIndex == 1) {
+                item.onCraftedBy(stack, player);
+                if (!this.moveItemStackTo(stack, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
 
-                slot.onQuickCraft(itemStack2, itemStack);
-            } else if (i == 0) {
-                if (!this.moveItemStackTo(itemStack2, 2, 38, false)) {
+                slot.onQuickCraft(stack, clicked);
+            } else if (slotIndex == 0) {
+                if (!this.moveItemStackTo(stack, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (getRecipes(level.recipeAccess(), itemStack2).size() > 0) {
-                if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
+            } else if (this.level.recipeAccess().stonecutterRecipes().acceptsInput(stack)) {
+                if (!this.moveItemStackTo(stack, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (i >= 2 && i < 29) {
-                if (!this.moveItemStackTo(itemStack2, 29, 38, false)) {
+            } else if (slotIndex >= 2 && slotIndex < 29) {
+                if (!this.moveItemStackTo(stack, 29, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (i >= 29 && i < 38 && !this.moveItemStackTo(itemStack2, 2, 29, false)) {
+            } else if (slotIndex >= 29 && slotIndex < 38 && !this.moveItemStackTo(stack, 2, 29, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (itemStack2.isEmpty()) {
+            if (stack.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
             }
 
             slot.setChanged();
-            if (itemStack2.getCount() == itemStack.getCount()) {
+            if (stack.getCount() == clicked.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot.onTake(player, itemStack2);
-            if (i == 1) {
-                player.drop(itemStack2, false);
+            slot.onTake(player, stack);
+            if (slotIndex == 1) {
+                player.drop(stack, false);
             }
 
             this.broadcastChanges();
         }
 
-        return itemStack;
+        return clicked;
     }
 
-    public void removed(Player player) {
+    public void removed(final Player player) {
         super.removed(player);
         this.resultContainer.removeItemNoUpdate(1);
-        this.access.execute((level, blockPos) -> this.clearContainer(player, this.container));
+        this.access.execute((level, pos) -> this.clearContainer(player, this.container));
     }
 }
+

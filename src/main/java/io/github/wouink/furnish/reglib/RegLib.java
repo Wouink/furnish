@@ -2,9 +2,7 @@ package io.github.wouink.furnish.reglib;
 
 import com.mojang.serialization.Codec;
 import io.github.wouink.furnish.Furnish;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
@@ -253,18 +251,15 @@ public class RegLib {
         CreativeModeTab tab = Registry.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB,
                 key,
-                FabricItemGroup.builder()
+                FabricCreativeModeTab.builder()
                         .icon(() -> new ItemStack(icon))
                         .title(Component.translatable("itemGroup." + Furnish.MOD_ID + "." + name))
+                        .displayItems((parameters, output) -> {
+                            if(itemsInCreativeTab != null) for(Item i : itemsInCreativeTab) output.accept(i);
+                        })
                         .build()
         );
-        ItemGroupEvents.modifyEntriesEvent(key).register(RegLib::addItemsToTab);
         return tab;
-    }
-
-    // this method is called every time a world is loaded, therefore we can never free itemsInCreativeTab
-    private static void addItemsToTab(FabricItemGroupEntries itemGroup) {
-        if(itemsInCreativeTab != null) for(Item i : itemsInCreativeTab) itemGroup.accept(i);
     }
 
     /**
@@ -332,9 +327,9 @@ public class RegLib {
     public static void registerNetworkMessage(MessageDirection dir, CustomPacketPayload.Type type, StreamCodec codec) {
         try {
             if(dir == MessageDirection.S2C)
-                PayloadTypeRegistry.playS2C().register(type, codec);
+                PayloadTypeRegistry.clientboundConfiguration().register(type, codec);
             else
-                PayloadTypeRegistry.playC2S().register(type, codec);
+                PayloadTypeRegistry.serverboundConfiguration().register(type, codec);
         } catch(IllegalArgumentException exception) {
             Furnish.LOGGER.error("Error registering network message " + type + ": " + exception.getMessage());
         }
