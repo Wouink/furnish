@@ -2,6 +2,7 @@ package io.github.wouink.furnish.reglib;
 
 import com.mojang.serialization.Codec;
 import io.github.wouink.furnish.Furnish;
+import io.github.wouink.furnish.FurnishContents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -320,22 +321,25 @@ public class RegLib {
 
     /**
      * Registers a network message
-     * @param dir the direction (either S2C or C2S)
+     * @param dir the direction (either S2C/clientbound or C2S/serverbound)
      * @param type the type of the message
      * @param codec the codec for the message
      */
     public static void registerNetworkMessage(MessageDirection dir, CustomPacketPayload.Type type, StreamCodec codec) {
         try {
-            if(dir == MessageDirection.S2C)
-                PayloadTypeRegistry.clientboundConfiguration().register(type, codec);
-            else
-                PayloadTypeRegistry.serverboundConfiguration().register(type, codec);
+            switch (dir) {
+                case CLIENTBOUND_PLAY -> PayloadTypeRegistry.clientboundPlay().register(type, codec);
+                case SERVERBOUND_PLAY -> PayloadTypeRegistry.serverboundPlay().register(type, codec);
+                case CLIENTBOUND_CONFIG -> PayloadTypeRegistry.clientboundConfiguration().register(type, codec);
+                case SERVERBOUND_CONFIG -> PayloadTypeRegistry.serverboundConfiguration().register(type, codec);
+            }
+            Furnish.LOGGER.debug("Registered " + dir + " network message: " + type.id());
         } catch(IllegalArgumentException exception) {
             Furnish.LOGGER.error("Error registering network message " + type + ": " + exception.getMessage());
         }
     }
 
     public enum MessageDirection {
-        S2C, C2S
+        CLIENTBOUND_PLAY, SERVERBOUND_PLAY, CLIENTBOUND_CONFIG, SERVERBOUND_CONFIG
     }
 }

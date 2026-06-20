@@ -88,7 +88,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
                 access.execute((level, pos) -> {
                     long gameTime = level.getGameTime();
                     if (FurnitureWorkbenchMenu.this.lastSoundTime != gameTime) {
-                        level.playSound((Entity)null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.playSound((Entity)null, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         FurnitureWorkbenchMenu.this.lastSoundTime = gameTime;
                     }
 
@@ -223,7 +223,7 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stack, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.level.recipeAccess().stonecutterRecipes().acceptsInput(stack)) {
+            } else if (getRecipes(level.recipeAccess(), stack).size() > 0) {
                 if (!this.moveItemStackTo(stack, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }

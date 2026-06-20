@@ -238,8 +238,8 @@ public class FurnishContents {
         UseBlockCallback.EVENT.register(OpenShutter::rightClickOnWindow);
         PlayerBlockBreakEvents.BEFORE.register(Mailbox::beforeBreakingMailbox);
 
-        RegLib.registerNetworkMessage(RegLib.MessageDirection.S2C, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
-        RegLib.registerNetworkMessage(RegLib.MessageDirection.C2S, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.CLIENTBOUND_PLAY, OpenItemGUIS2C.TYPE, OpenItemGUIS2C.CODEC);
+        RegLib.registerNetworkMessage(RegLib.MessageDirection.SERVERBOUND_PLAY, UpdateLetterC2S.TYPE, UpdateLetterC2S.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(UpdateLetterC2S.TYPE, (message, context) -> {
             context.server().execute(() -> {
