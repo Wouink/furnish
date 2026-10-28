@@ -19,3 +19,7 @@ public class Furnish implements ModInitializer {
 		FurnishContents.init();
 	}
 }
+
+// TODO add connector as dependency in neoforge.mods.toml
+// see https://github.com/sleepingdragoninn/portable-crafting
+// maybe some gradle config needed to include meta-inf in jar
